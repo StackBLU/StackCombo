@@ -1,3 +1,5 @@
+<h1 align="center">StackCombo</h1>
+
 <section id="installation">
   
 * Copy the following repository link: <br>
@@ -36,5 +38,5 @@
 <p align="center">
   <br> Brought to you by:
   <br><br>
-  <img align="center" src="/images/stack.gif" width="100" border-radius="50%" />
+  <img align="center" src="/images/stack.gif" width="150" />
 </p>
