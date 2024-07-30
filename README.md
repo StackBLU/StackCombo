@@ -1,3 +1,4 @@
+
 <section id="installation">
 * Copy the following repository link: <br>
 `https://raw.githubusercontent.com/StackBLU/MyDalamudPlugins/main/pluginmaster.json` <br>
@@ -12,7 +13,9 @@
 * Click on the settings cog (where you just clicked "Install") to open the configuration.
   <br>Alternatively, type `/sc` in the game chat window.
 </section>
+
 <br>
+
 <section id="commands">
 | **Chat command &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;** | **Function** |
 | :----------------- |:------------------ |
@@ -27,6 +30,8 @@
 | `/sc list all`| Prints a list of every feature & option in the game chat, regardless of state.|
 | `/sc debug`| Outputs a full debug file to your desktop that can be sent to developers for utilisation in bug-fixing.|
 | `/sc debug JOB`| Outputs a debug file to your desktop containing only job-relevant features/options. <br>Replace `JOB` with the appropriate job abbreviation.|
+</section>
+
 <p align="center">
   <br> Brought to you by:
   <br><br>
