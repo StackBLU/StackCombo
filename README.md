@@ -36,5 +36,5 @@
 <p align="center">
   <br> Brought to you by:
   <br><br>
-  <img align="center" src="/images/stack.png" width="100" border-radius="50%" />
+  <img align="center" src="/images/stack.gif" width="100" border-radius="50%" />
 </p>
