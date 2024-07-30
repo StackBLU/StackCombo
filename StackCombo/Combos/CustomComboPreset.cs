@@ -10,39 +10,39 @@ namespace StackCombo.Combos
 
 		#region ASTROLOGIAN - 1000
 
-		#region Single Target & AoE
+		#region Single Target DPS & AoE DPS
 
 		[ReplaceSkill(AST.Malefic, AST.Malefic2, AST.Malefic3, AST.Malefic4, AST.FallMalefic, AST.Combust, AST.Combust2, AST.Combust3, AST.Gravity, AST.Gravity2)]
-		[CustomComboInfo("Single Target", "", AST.JobID, 1)]
+		[CustomComboInfo("Single Target DPS", "", AST.JobID)]
 		AST_ST_DPS = 1000,
 
 		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("Combust Uptime", "", AST.JobID, 1)]
+		[CustomComboInfo("Combust Uptime", "", AST.JobID)]
 		AST_ST_DPS_CombustUptime = 1001,
 
 		[ReplaceSkill(AST.Gravity, AST.Gravity2)]
 		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("AoE", "", AST.JobID, 2)]
+		[CustomComboInfo("AoE DPS", "", AST.JobID)]
 		AST_AoE_DPS = 1002,
+
+		[ParentCombo(AST_ST_DPS)]
+		[CustomComboInfo("Card Draw", "", AST.JobID)]
+		AST_DPS_AutoDraw = 1006,
 
 		[ParentCombo(AST_ST_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
 		AST_DPS_Lucid = 1004,
-
-		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("Card Draw", "", AST.JobID, 3)]
-		AST_DPS_AutoDraw = 1006,
 
 		#endregion
 
 		#region Single Target Heals
 
 		[ReplaceSkill(AST.Benefic2)]
-		[CustomComboInfo("Single Target Heals", "", AST.JobID, 2)]
+		[CustomComboInfo("Single Target Heals", "", AST.JobID)]
 		AST_ST_SimpleHeals = 1020,
 
 		[ParentCombo(AST_ST_SimpleHeals)]
-		[CustomComboInfo("Aspected Benefic", "", AST.JobID, 1)]
+		[CustomComboInfo("Aspected Benefic", "", AST.JobID)]
 		AST_ST_SimpleHeals_AspectedBenefic = 1023,
 
 		#endregion
@@ -50,15 +50,15 @@ namespace StackCombo.Combos
 		#region Utility
 
 		[ReplaceSkill(AST.Benefic2)]
-		[CustomComboInfo("Benefic 2 Downgrade", "", AST.JobID, 4)]
+		[CustomComboInfo("Benefic II Sync", "", AST.JobID)]
 		AST_Benefic = 1050,
 
 		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Swift Raise", "", AST.JobID, 5)]
+		[CustomComboInfo("Swiftcast > Raise", "", AST.JobID)]
 		AST_Raise_Alternative = 1060,
 
 		[ReplaceSkill(AST.Lightspeed)]
-		[CustomComboInfo("Lightspeed Overwrite Protection", "", AST.JobID, 6)]
+		[CustomComboInfo("Lightspeed Overwrite Protection", "", AST.JobID)]
 		AST_Lightspeed_Protection = 1061,
 
 		#endregion
@@ -66,12 +66,10 @@ namespace StackCombo.Combos
 		#region Variant
 
 		[Variant]
-		[VariantParent(AST_ST_DPS_CombustUptime, AST_AoE_DPS)]
 		[CustomComboInfo("Spirit Dart", "", AST.JobID)]
 		AST_Variant_SpiritDart = 1080,
 
 		[Variant]
-		[VariantParent(AST_ST_DPS)]
 		[CustomComboInfo("Rampart", "", AST.JobID)]
 		AST_Variant_Rampart = 1081,
 
@@ -186,7 +184,6 @@ namespace StackCombo.Combos
 		BLM_Aetherial_Manipulation = 2046,
 
 		[Variant]
-		[VariantParent(BLM_ST_SimpleMode, BLM_ST_AdvancedMode, BLM_AoE_SimpleMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", BLM.JobID)]
 		BLM_Variant_Rampart = 2032,
 
@@ -195,7 +192,6 @@ namespace StackCombo.Combos
 		BLM_Variant_Raise = 2033,
 
 		[Variant]
-		[VariantParent(BLM_ST_SimpleMode, BLM_ST_AdvancedMode, BLM_AoE_SimpleMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", BLM.JobID)]
 		BLM_Variant_Cure = 2034,
 
@@ -393,12 +389,10 @@ namespace StackCombo.Combos
 		BRD_AoE_SecondWind = 3029,
 
 		[Variant]
-		[VariantParent(BRD_ST_SimpleMode, BRD_AoE_SimpleMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", BRD.JobID)]
 		BRD_Variant_Rampart = 3030,
 
 		[Variant]
-		[VariantParent(BRD_ST_SimpleMode, BRD_AoE_SimpleMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", BRD.JobID)]
 		BRD_Variant_Cure = 3031,
 
@@ -666,12 +660,10 @@ namespace StackCombo.Combos
 		DNC_AoE_Simple_PanicHeals = 4079,
 
 		[Variant]
-		[VariantParent(DNC_ST_SimpleMode, DNC_AoE_SimpleMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", DNC.JobID)]
 		DNC_Variant_Rampart = 4083,
 
 		[Variant]
-		[VariantParent(DNC_ST_SimpleMode, DNC_AoE_SimpleMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DNC.JobID)]
 		DNC_Variant_Cure = 4084,
 
@@ -783,17 +775,14 @@ namespace StackCombo.Combos
 		DRK_AoE_FloodUptime = 5111,
 
 		[Variant]
-		[VariantParent(DRK_ST_Combo, DRK_AoE_Combo)]
 		[CustomComboInfo("Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", DRK.JobID)]
 		DRK_Variant_SpiritDart = 5200,
 
 		[Variant]
-		[VariantParent(DRK_ST_Combo, DRK_AoE_Combo)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRK.JobID)]
 		DRK_Variant_Cure = 5201,
 
 		[Variant]
-		[VariantParent(DRK_ST_Combo, DRK_AoE_Combo)]
 		[CustomComboInfo("Ultimatum", "Use Variant Ultimatum on cooldown", DRK.JobID)]
 		DRK_Variant_Ultimatum = 5202,
 
@@ -824,12 +813,10 @@ namespace StackCombo.Combos
 		#region Variant
 
 		[Variant]
-		[VariantParent(DRG_ST_AdvancedMode, DRG_AOE_AdvancedMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRG.JobID)]
 		DRG_Variant_Cure = 6302,
 
 		[Variant]
-		[VariantParent(DRG_ST_AdvancedMode, DRG_AOE_AdvancedMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", DRG.JobID)]
 		DRG_Variant_Rampart = 6303,
 
@@ -1080,12 +1067,10 @@ namespace StackCombo.Combos
 		MCH_DismantleTactician = 8058,
 
 		[Variant]
-		[VariantParent(MCH_ST_AdvancedMode, MCH_AoE_AdvancedMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", MCH.JobID)]
 		MCH_Variant_Rampart = 8039,
 
 		[Variant]
-		[VariantParent(MCH_ST_AdvancedMode, MCH_AoE_AdvancedMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", MCH.JobID)]
 		MCH_Variant_Cure = 8040,
 
@@ -1212,12 +1197,10 @@ namespace StackCombo.Combos
 		MNK_TrueNorthDynamic = 9029,
 
 		[Variant]
-		[VariantParent(MNK_ST_SimpleMode, MNK_AoE_SimpleMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", MNK.JobID)]
 		MNK_Variant_Cure = 9030,
 
 		[Variant]
-		[VariantParent(MNK_ST_SimpleMode, MNK_AoE_SimpleMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", MNK.JobID)]
 		MNK_Variant_Rampart = 9031,
 
@@ -1495,12 +1478,10 @@ namespace StackCombo.Combos
 		NIN_ST_AdvancedMode_TrueNorth_ArmorCrush_Dynamic = 10068,
 
 		[Variant]
-		[VariantParent(NIN_ST_SimpleMode, NIN_ST_AdvancedMode, NIN_AoE_SimpleMode, NIN_AoE_AdvancedMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", NIN.JobID)]
 		NIN_Variant_Cure = 10069,
 
 		[Variant]
-		[VariantParent(NIN_ST_SimpleMode, NIN_ST_AdvancedMode, NIN_AoE_SimpleMode, NIN_AoE_AdvancedMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", NIN.JobID)]
 		NIN_Variant_Rampart = 10070,
 
@@ -1881,12 +1862,10 @@ namespace StackCombo.Combos
 		RPR_TrueNorthGluttony = 12310,
 
 		[Variant]
-		[VariantParent(RPR_ST_AdvancedMode, RPR_AoE_AdvancedMode)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", RPR.JobID)]
 		RPR_Variant_Cure = 12311,
 
 		[Variant]
-		[VariantParent(RPR_ST_AdvancedMode, RPR_AoE_AdvancedMode)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", RPR.JobID)]
 		RPR_Variant_Rampart = 12312,
 
@@ -2021,17 +2000,14 @@ namespace StackCombo.Combos
 		RDM_MagickProtection = 13836,
 
 		[Variant]
-		[VariantParent(RDM_ST_DPS, RDM_AoE_DPS)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown. Replaces Jolts", RDM.JobID)]
 		RDM_Variant_Rampart = 13830,
 
 		[Variant]
-		[VariantParent(RDM_Raise)]
 		[CustomComboInfo("Raise", "Turn Swiftcast into Variant Raise whenever you have the Swiftcast or Dualcast buffs", RDM.JobID)]
 		RDM_Variant_Raise = 13831,
 
 		[Variant]
-		[VariantParent(RDM_ST_DPS, RDM_AoE_DPS)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold. Replaces Jolts", RDM.JobID)]
 		RDM_Variant_Cure = 13832,
 
@@ -2043,227 +2019,117 @@ namespace StackCombo.Combos
 
 		#region SAGE - 14000
 
+		#region Single Target DPS
+
 		[ReplaceSkill(SGE.Dosis, SGE.Dosis2, SGE.Dosis3)]
-		[CustomComboInfo("Single Target", "", SGE.JobID, 1)]
+		[CustomComboInfo("Single Target DPS", "", SGE.JobID)]
 		SGE_ST_DPS = 14001,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SGE.JobID)]
-		SGE_ST_DPS_Lucid = 14002,
-
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Eukrasian Dosis", "Automatic DoT Uptime", SGE.JobID)]
+		[CustomComboInfo("Eukrasian Dosis", "", SGE.JobID)]
 		SGE_ST_DPS_EDosis = 14003,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Movement", "Use selected instant cast actions while moving", SGE.JobID)]
+		[CustomComboInfo("Movement Options", "", SGE.JobID)]
 		SGE_ST_DPS_Movement = 14004,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Phlegma", "Use Phlegma if available and within range", SGE.JobID)]
+		[CustomComboInfo("Phlegma", "", SGE.JobID)]
 		SGE_ST_DPS_Phlegma = 14005,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Kardia Reminder", "Adds Kardia when not under the effect", SGE.JobID)]
+		[CustomComboInfo("Kardia Reminder", "", SGE.JobID)]
 		SGE_ST_DPS_Kardia = 14006,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Rhizomata", "Weaves Rhizomata when Addersgall gauge falls below the specified value", SGE.JobID)]
+		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
 		SGE_ST_DPS_Rhizo = 14007,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Psych", "Weaves Psych when available", SGE.JobID)]
+		[CustomComboInfo("Psych", "", SGE.JobID)]
 		SGE_ST_DPS_Psyche = 14008,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Addersgall Overflow Protection", "Weaves Druochole when Addersgall gauge is greater than or equal to the specified value", SGE.JobID)]
+		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
 		SGE_ST_DPS_AddersgallProtect = 14009,
 
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
+		SGE_ST_DPS_Lucid = 14002,
+
+		#endregion
+
+		#region AoE DPS
+
 		[ReplaceSkill(SGE.Dyskrasia, SGE.Dyskrasia2)]
-		[CustomComboInfo("AoE DPS", "Adds variouss to Dyskrasia I & II. Requires a target", SGE.JobID, 2)]
+		[CustomComboInfo("AoE DPS", "Adds variouss to Dyskrasia I & II. Requires a target", SGE.JobID)]
 		SGE_AoE_DPS = 14020,
 
 		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Phlegma", "Uses Phlegma if available", SGE.JobID)]
+		[CustomComboInfo("Phlegma", "", SGE.JobID)]
 		SGE_AoE_DPS_Phlegma = 14021,
 
 		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Toxikon", "Use Toxikon if available", SGE.JobID)]
-		SGE_AoE_DPS_Toxikon = 14022,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Psyche", "Weaves Psyche if available", SGE.JobID)]
+		[CustomComboInfo("Psyche", "", SGE.JobID)]
 		SGE_AoE_DPS_Psyche = 14023,
 
 		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Eukrasia", "Uses Eukrasia for Eukrasia Dyskrasia", SGE.JobID)]
+		[CustomComboInfo("Eukrasia", "", SGE.JobID)]
 		SGE_AoE_DPS_EDyskrasia = 14024,
 
 		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SGE.JobID)]
-		SGE_AoE_DPS_Lucid = 14025,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Rhizomata", "Weaves Rhizomata when Addersgall gauge falls below the specified value", SGE.JobID)]
+		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
 		SGE_AoE_DPS_Rhizo = 14026,
 
 		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Addersgall Overflow Protection", "Weaves Druochole when Addersgall gauge is greater than or equal to the specified value", SGE.JobID)]
+		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
 		SGE_AoE_DPS_AddersgallProtect = 14027,
 
-		[ReplaceSkill(SGE.Diagnosis)]
-		[CustomComboInfo("Single Target Heals", "Supports soft-targeting", SGE.JobID, 3)]
-		SGE_ST_Heal = 14040,
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
+		SGE_AoE_DPS_Lucid = 14025,
 
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Esuna", "Applies Esuna to your target if there is a cleansable debuff", SGE.JobID)]
-		SGE_ST_Heal_Esuna = 14041,
+		#endregion
 
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Kardia", "Applies Kardia to your target if it's not applied to anyone else", SGE.JobID)]
-		SGE_ST_Heal_Kardia = 14042,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Eukrasian Diagnosis", "Diagnosis becomes Eukrasian Diagnosis if the shield is not applied to the target", SGE.JobID)]
-		SGE_ST_Heal_EDiagnosis = 14043,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Soteria", "Applies Soteria", SGE.JobID)]
-		SGE_ST_Heal_Soteria = 14044,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Zoe", "Applies Zoe", SGE.JobID)]
-		SGE_ST_Heal_Zoe = 14045,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Pepsis", "Triggers Pepsis if a shield is present", SGE.JobID)]
-		SGE_ST_Heal_Pepsis = 14046,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Taurochole", "Adds Taurochole", SGE.JobID)]
-		SGE_ST_Heal_Taurochole = 14047,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Haima", "Applies Haima", SGE.JobID)]
-		SGE_ST_Heal_Haima = 14048,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Rhizomata", "Adds Rhizomata when Addersgall is 0", SGE.JobID)]
-		SGE_ST_Heal_Rhizomata = 14049,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Krasis", "Applies Krasis", SGE.JobID)]
-		SGE_ST_Heal_Krasis = 14050,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Druochole", "Applies Druochole", SGE.JobID)]
-		SGE_ST_Heal_Druochole = 14051,
-
-		[ParentCombo(SGE_ST_Heal)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SGE.JobID)]
-		SGE_ST_Heal_Lucid = 14052,
-
-		[ReplaceSkill(SGE.Prognosis)]
-		[CustomComboInfo("AoE Heals", "Customize your AoE healing to your liking", SGE.JobID, 4)]
-		SGE_AoE_Heal = 14060,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Physis", "Adds Physis", SGE.JobID)]
-		SGE_AoE_Heal_Physis = 14061,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Philosophia", "Adds Philosophia", SGE.JobID)]
-		SGE_AoE_Heal_Philosophia = 14062,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Eukrasian Prognosis", "Prognosis becomes Eukrasian Prognosis if the shield is not applied", SGE.JobID)]
-		SGE_AoE_Heal_EPrognosis = 14063,
-
-		[ParentCombo(SGE_AoE_Heal_EPrognosis)]
-		[CustomComboInfo("Ignore Shield Check", "Warning, will force the use of Eukrasia Prognosis, and normal Prognosis will be unavailable", SGE.JobID)]
-		SGE_AoE_Heal_EPrognosis_IgnoreShield = 14064,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Holos", "Adds Holos", SGE.JobID)]
-		SGE_AoE_Heal_Holos = 14065,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Panhaima", "Adds Panhaima", SGE.JobID)]
-		SGE_AoE_Heal_Panhaima = 14066,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Pepsis", "Triggers Pepsis if a shield is present", SGE.JobID)]
-		SGE_AoE_Heal_Pepsis = 14067,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Ixochole", "Adds Ixochole", SGE.JobID)]
-		SGE_AoE_Heal_Ixochole = 14068,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Kerachole", "Adds Kerachole", SGE.JobID)]
-		SGE_AoE_Heal_Kerachole = 14069,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Rhizomata", "Adds Rhizomata when Addersgall is 0", SGE.JobID)]
-		SGE_AoE_Heal_Rhizomata = 14070,
-
-		[ParentCombo(SGE_AoE_Heal)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SGE.JobID)]
-		SGE_AoE_Heal_Lucid = 14071,
+		#region Utility
 
 		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Swiftcast Raise", "Changes Swiftcast to Egeiro while Swiftcast is on cooldown", SGE.JobID)]
+		[CustomComboInfo("Swiftcast > Raise", "", SGE.JobID)]
 		SGE_Raise = 14080,
 
-		[ReplaceSkill(SGE.Soteria)]
-		[CustomComboInfo("Soteria to Kardia", "Soteria turns into Kardia when not active or Soteria is on-cooldown", SGE.JobID)]
-		SGE_Kardia = 14081,
-
-		[ReplaceSkill(SGE.Eukrasia)]
-		[CustomComboInfo("Eukrasia", "Eukrasia turns into the selected Eukrasian-type action when active", SGE.JobID)]
-		SGE_Eukrasia = 14082,
-
-		[ReplaceSkill(SGE.Kerachole)]
-		[CustomComboInfo("Spell Overlap Protection", "Prevents you from wasting actions if under the effect of someone else's actions", SGE.JobID)]
+		[ReplaceSkill(SGE.Kerachole, SGE.Panhaima, SGE.Philosophia)]
+		[CustomComboInfo("Spell Overlap Protection", "", SGE.JobID)]
 		SGE_OverProtect = 14083,
 
 		[ParentCombo(SGE_OverProtect)]
-		[CustomComboInfo("Under Kerachole", "Don't use Kerachole when under the effect of someone's Kerachole", SGE.JobID)]
+		[CustomComboInfo("Kerachole", "", SGE.JobID)]
 		SGE_OverProtect_Kerachole = 14084,
 
 		[ParentCombo(SGE_OverProtect_Kerachole)]
-		[CustomComboInfo("Under Sacred Soil", "Don't use Kerachole when under the effect of someone's Sacred Soil", SGE.JobID)]
+		[CustomComboInfo("Sacred Soil", "", SGE.JobID)]
 		SGE_OverProtect_SacredSoil = 14085,
 
 		[ParentCombo(SGE_OverProtect)]
-		[CustomComboInfo("Under Panhaima", "Don't use Panhaima when under the effect of someone's Panhaima", SGE.JobID)]
+		[CustomComboInfo("Panhaima", "", SGE.JobID)]
 		SGE_OverProtect_Panhaima = 14086,
 
 		[ParentCombo(SGE_OverProtect)]
-		[CustomComboInfo("Under Philosophia", "Don't use Philosophia when under the effect of someone's Philosophia", SGE.JobID)]
+		[CustomComboInfo("Philosophia", "", SGE.JobID)]
 		SGE_OverProtect_Philosophia = 14087,
 
-		[ReplaceSkill(SGE.Taurochole, SGE.Druochole, SGE.Ixochole, SGE.Kerachole)]
-		[CustomComboInfo("Rhizomata", "Replaces Addersgall skills with Rhizomata when empty", SGE.JobID)]
-		SGE_Rhizo = 14090,
+		#endregion
 
-		[ReplaceSkill(SGE.Druochole)]
-		[CustomComboInfo("Druochole to Taurochole", "Upgrades Druochole to Taurochole when Taurochole is available", SGE.JobID)]
-		SGE_DruoTauro = 14091,
-
-		[ReplaceSkill(SGE.Pneuma)]
-		[CustomComboInfo("Zoe to Pneuma", "Places Zoe on top of Pneuma when both actions are on cooldown", SGE.JobID)]
-		SGE_ZoePneuma = 14092,
+		#region Variant
 
 		[Variant]
-		[VariantParent(SGE_ST_DPS_EDosis, SGE_AoE_DPS)]
-		[CustomComboInfo("Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", SGE.JobID)]
+		[CustomComboInfo("Spirit Dart", "", SGE.JobID)]
 		SGE_DPS_Variant_SpiritDart = 14100,
 
 		[Variant]
-		[VariantParent(SGE_ST_DPS, SGE_AoE_DPS)]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SGE.JobID)]
+		[CustomComboInfo("Rampart", "", SGE.JobID)]
 		SGE_DPS_Variant_Rampart = 14101,
+
+		#endregion
 
 		#endregion
 
@@ -2463,12 +2329,10 @@ namespace StackCombo.Combos
 		SAM_AoE_ComboHeals = 15045,
 
 		[Variant]
-		[VariantParent(SAM_ST_GekkoCombo, SAM_AoE_MangetsuCombo)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", SAM.JobID)]
 		SAM_Variant_Cure = 15047,
 
 		[Variant]
-		[VariantParent(SAM_ST_GekkoCombo, SAM_AoE_MangetsuCombo)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SAM.JobID)]
 		SAM_Variant_Rampart = 15048,
 
@@ -2476,54 +2340,46 @@ namespace StackCombo.Combos
 
 		#region SCHOLAR - 16000
 
-		#region Single Target
+		#region Single Target DPS
 
 		[ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
-		[CustomComboInfo("Single Target DPS", "Replaces Broil with below", SCH.JobID, 1)]
+		[CustomComboInfo("Single Target DPS", "", SCH.JobID)]
 		SCH_DPS = 16001,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Bio / Biolysis", "Automatic DoT uptime", SCH.JobID, 1)]
+		[CustomComboInfo("Bio", "", SCH.JobID)]
 		SCH_DPS_Bio = 16008,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Aetherflow", "Use Aetherflow when out of Aetherflow stacks", SCH.JobID, 2)]
+		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
 		SCH_DPS_Aetherflow = 16004,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Energy Drain", "Use Energy Drain to consume remaining Aetherflow stacks when Aetherflow is about to come off cooldown", SCH.JobID, 3)]
+		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
 		SCH_DPS_EnergyDrain = 16005,
 
-		[ParentCombo(SCH_DPS_EnergyDrain)]
-		[CustomComboInfo("Energy Drain Burst", "Holds Energy Drain when Chain Stratagem is ready or has less than 10 seconds cooldown remaining", SCH.JobID)]
-		SCH_DPS_EnergyDrain_BurstSaver = 16006,
-
-		[ParentCombo(SCH_DPS_EnergyDrain)]
-		[CustomComboInfo("Check Dissipation cooldown", "If enabled, Energy Drain will take both Aetherflow and Dissipation cooldowns into account. If Dissipation is available, it will dump all Aetherflow stacks", SCH.JobID)]
-		SCH_ST_DPS_ED_Dissipation = 16010,
-
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Dissipation", "Use Dissipation", SCH.JobID, 4)]
+		[CustomComboInfo("Dissipation", "", SCH.JobID)]
 		SCH_DPS_Dissipation = 16009,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Aetherpact", "Use Aetherpact at 100 gauge", SCH.JobID, 5)]
+		[CustomComboInfo("Aetherpact", "", SCH.JobID)]
 		SCH_DPS_Aetherpact = 16011,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Seraph", "Use Seraph charges when 2 sec left", SCH.JobID, 5)]
+		[CustomComboInfo("Seraph", "", SCH.JobID)]
 		SCH_DPS_Seraph = 16012,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Chain Stratagem / Baneful Impact", "Adds Chain Stratagem & Baneful Impact on cooldown with overlap protection", SCH.JobID, 6)]
+		[CustomComboInfo("Chain Stratagem / Baneful Impact", "", SCH.JobID)]
 		SCH_DPS_ChainStrat = 16003,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Ruin II Movement", "Use Ruin II when you have to move", SCH.JobID, 7)]
+		[CustomComboInfo("Ruin II Movement", "", SCH.JobID)]
 		SCH_DPS_Ruin2Movement = 16007,
 
 		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SCH.JobID)]
+		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
 		SCH_DPS_Lucid = 16002,
 
 		#endregion
@@ -2531,15 +2387,15 @@ namespace StackCombo.Combos
 		#region AoE DPS
 
 		[ReplaceSkill(SCH.ArtOfWar, SCH.ArtOfWarII)]
-		[CustomComboInfo("AoE DPS", "Replaces Art of War withs below", SCH.JobID, 2)]
+		[CustomComboInfo("AoE DPS", "", SCH.JobID)]
 		SCH_AoE = 16020,
 
 		[ParentCombo(SCH_AoE)]
-		[CustomComboInfo("Aetherflow", "Use Aetherflow when out of Aetherflow stacks", SCH.JobID, 1)]
+		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
 		SCH_AoE_Aetherflow = 16022,
 
 		[ParentCombo(SCH_AoE)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SCH.JobID)]
+		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
 		SCH_AoE_Lucid = 16021,
 
 		#endregion
@@ -2547,15 +2403,15 @@ namespace StackCombo.Combos
 		#region Utility
 
 		[ReplaceSkill(SCH.WhisperingDawn, SCH.FeyBlessing, SCH.Aetherpact, SCH.Dissipation)]
-		[CustomComboInfo("Ensure Fairy", "Change all fairy actions into Summon Eos when the Fairy is not summoned", SCH.JobID, 3)]
+		[CustomComboInfo("Ensure Fairy", "", SCH.JobID)]
 		SCH_FairyReminder = 16060,
 
 		[ReplaceSkill(SCH.Lustrate)]
-		[CustomComboInfo("Lustrate to Excogitation", "Change Lustrate into Excogitation when Excogitation is ready", SCH.JobID, 5)]
+		[CustomComboInfo("Lustrate > Excogitation", "", SCH.JobID)]
 		SCH_Lustrate = 16051,
 
 		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Swift Raise", "", SCH.JobID, 6)]
+		[CustomComboInfo("Swiftcast > Raise", "", SCH.JobID)]
 		SCH_Raise = 16059,
 
 		#endregion
@@ -2563,13 +2419,11 @@ namespace StackCombo.Combos
 		#region Variant
 
 		[Variant]
-		[VariantParent(SCH_DPS_Bio, SCH_AoE)]
-		[CustomComboInfo("Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", SCH.JobID)]
+		[CustomComboInfo("Spirit Dart", "", SCH.JobID)]
 		SCH_DPS_Variant_SpiritDart = 16070,
 
 		[Variant]
-		[VariantParent(SCH_DPS, SCH_AoE)]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SCH.JobID)]
+		[CustomComboInfo("Rampart", "", SCH.JobID)]
 		SCH_DPS_Variant_Rampart = 16071,
 
 		#endregion
@@ -2702,23 +2556,20 @@ namespace StackCombo.Combos
 		SMN_Advanced_Burst_Any_Option = 17044,
 
 		[Variant]
-		[VariantParent(SMN_Simple_Combo, SMN_Advanced_Combo)]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SMN.JobID)]
 		SMN_Variant_Rampart = 17045,
 
 		[Variant]
-		[VariantParent(SMN_Raise)]
 		[CustomComboInfo("Raise", "Turn Swiftcast into Variant Raise whenever you have the Swiftcast buff", SMN.JobID)]
 		SMN_Variant_Raise = 17046,
 
 		[Variant]
-		[VariantParent(SMN_Simple_Combo, SMN_Advanced_Combo)]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", SMN.JobID)]
 		SMN_Variant_Cure = 17047,
 
 		#endregion
 
-		#region VIPER
+		#region VIPER - 30000
 
 		[ReplaceSkill(VPR.SteelFangs)]
 		[CustomComboInfo("Advanced Mode - Single Target", "Replaces Steel Fangs with a full one-button single target rotation.\nTheses are ideal if you want to customize the rotation", VPR.JobID)]
@@ -2835,17 +2686,14 @@ namespace StackCombo.Combos
 		#region Variant
 
 		[Variant]
-		[VariantParent(WAR_ST_StormsPath, WAR_AoE_Overpower)]
 		[CustomComboInfo("Spirit Dart", "", WAR.JobID)]
 		WAR_Variant_SpiritDart = 18026,
 
 		[Variant]
-		[VariantParent(WAR_ST_StormsPath, WAR_AoE_Overpower)]
 		[CustomComboInfo("Cure", "", WAR.JobID)]
 		WAR_Variant_Cure = 18027,
 
 		[Variant]
-		[VariantParent(WAR_ST_StormsPath, WAR_AoE_Overpower)]
 		[CustomComboInfo("Ultimatum", "", WAR.JobID)]
 		WAR_Variant_Ultimatum = 18028,
 
@@ -2855,70 +2703,70 @@ namespace StackCombo.Combos
 
 		#region WHITE MAGE - 19000
 
-		#region Single Target
+		#region Single Target DPS
 
 		[ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
-		[CustomComboInfo("Single Target", "", WHM.JobID, 1)]
+		[CustomComboInfo("Single Target DPS", "", WHM.JobID)]
 		WHM_ST_MainCombo = 19001,
 
 		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Aero/Dia Uptime", "", WHM.JobID, 1)]
+		[CustomComboInfo("Dia", "", WHM.JobID)]
 		WHM_ST_MainCombo_DoT = 19003,
 
 		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID, 2)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
 		WHM_ST_MainCombo_Misery = 19006,
 
 		[ParentCombo(WHM_ST_MainCombo_Misery)]
-		[CustomComboInfo("Save Misery", "", WHM.JobID, 3)]
+		[CustomComboInfo("Save Misery", "", WHM.JobID)]
 		WHM_ST_MainCombo_Misery_Save = 19007,
 
 		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID, 4)]
+		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
 		WHM_ST_MainCombo_LilyOvercap = 19008,
 
 		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Presence of Mind", "", WHM.JobID, 5)]
+		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
 		WHM_ST_MainCombo_PresenceOfMind = 19009,
 
 		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Glare IV", "", WHM.JobID, 6)]
+		[CustomComboInfo("Glare IV", "", WHM.JobID)]
 		WHM_ST_MainCombo_GlareIV = 19005,
 
 		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID, 7)]
+		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
 		WHM_ST_MainCombo_Lucid = 19010,
 
 		#endregion
 
-		#region AoE
+		#region AoE DPS
 
 		[ReplaceSkill(WHM.Holy, WHM.Holy3)]
-		[CustomComboInfo("AoE", "", WHM.JobID, 2)]
+		[CustomComboInfo("AoE", "", WHM.JobID)]
 		WHM_AoE_DPS = 19020,
 
 		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID, 1)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
 		WHM_AoE_DPS_Misery = 19023,
 
 		[ParentCombo(WHM_AoE_DPS_Misery)]
-		[CustomComboInfo("Save Misery", "", WHM.JobID, 2)]
+		[CustomComboInfo("Save Misery", "", WHM.JobID)]
 		WHM_AoE_DPS_Misery_Save = 19024,
 
 		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID, 3)]
+		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
 		WHM_AoE_DPS_LilyOvercap = 19025,
 
 		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Presence of Mind", "", WHM.JobID, 4)]
+		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
 		WHM_AoE_DPS_PresenceOfMind = 19026,
 
 		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Glare IV", "", WHM.JobID, 5)]
+		[CustomComboInfo("Glare IV", "", WHM.JobID)]
 		WHM_AoE_DPS_GlareIV = 19022,
 
 		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID, 6)]
+		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
 		WHM_AoE_DPS_Lucid = 19027,
 
 		#endregion
@@ -2926,27 +2774,27 @@ namespace StackCombo.Combos
 		#region Single Target Heals
 
 		[ReplaceSkill(WHM.Cure)]
-		[CustomComboInfo("Single Target Heals", "", WHM.JobID, 3)]
+		[CustomComboInfo("Single Target Heals", "", WHM.JobID)]
 		WHM_STHeals = 19030,
 
 		[ParentCombo(WHM_STHeals)]
-		[CustomComboInfo("Tetragrammaton", "", WHM.JobID, 1)]
+		[CustomComboInfo("Tetragrammaton", "", WHM.JobID)]
 		WHM_STHeals_Tetragrammaton = 19036,
 
 		[ParentCombo(WHM_STHeals)]
-		[CustomComboInfo("Afflatus Solace", "", WHM.JobID, 2)]
+		[CustomComboInfo("Afflatus Solace", "", WHM.JobID)]
 		WHM_STHeals_Solace = 19033,
 
 		[ParentCombo(WHM_STHeals)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID, 3)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
 		WHM_STHeals_Misery = 19034,
 
 		[ParentCombo(WHM_STHeals)]
-		[CustomComboInfo("Regen", "", WHM.JobID, 4)]
+		[CustomComboInfo("Regen", "", WHM.JobID)]
 		WHM_STHeals_Regen = 19031,
 
 		[ParentCombo(WHM_STHeals)]
-		[CustomComboInfo("Thin Air", "", WHM.JobID, 5)]
+		[CustomComboInfo("Thin Air", "", WHM.JobID)]
 		WHM_STHeals_ThinAir = 19035,
 
 		#endregion
@@ -2954,35 +2802,35 @@ namespace StackCombo.Combos
 		#region AoE Heals
 
 		[ReplaceSkill(WHM.Medica1)]
-		[CustomComboInfo("AoE Heals", "", WHM.JobID, 4)]
+		[CustomComboInfo("AoE Heals", "", WHM.JobID)]
 		WHM_AoEHeals = 19050,
 
 		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Plenary Indulgence", "", WHM.JobID, 1)]
+		[CustomComboInfo("Plenary Indulgence", "", WHM.JobID)]
 		WHM_AoEHeals_Plenary = 19056,
 
 		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Afflatus Rapture", "", WHM.JobID, 2)]
+		[CustomComboInfo("Afflatus Rapture", "", WHM.JobID)]
 		WHM_AoEHeals_Rapture = 19051,
 
 		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID, 3)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
 		WHM_AoEHeals_Misery = 19052,
 
 		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Thin Air", "", WHM.JobID, 4)]
+		[CustomComboInfo("Thin Air", "", WHM.JobID)]
 		WHM_AoEHeals_ThinAir = 19053,
 
 		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Cure III", "", WHM.JobID, 5)]
-		WHM_AoEHeals_Cure3 = 19054,
-
-		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Medica II/III", "", WHM.JobID, 6)]
+		[CustomComboInfo("Medica II/III", "", WHM.JobID)]
 		WHM_AoEHeals_Medica2 = 19058,
 
 		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID, 7)]
+		[CustomComboInfo("Cure III", "", WHM.JobID)]
+		WHM_AoEHeals_Cure3 = 19054,
+
+		[ParentCombo(WHM_AoEHeals)]
+		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
 		WHM_AoEHeals_Lucid = 19057,
 
 		#endregion
@@ -2994,7 +2842,7 @@ namespace StackCombo.Combos
 		WHM_CureSync = 19072,
 
 		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Swift Raise", "", WHM.JobID)]
+		[CustomComboInfo("Swiftcast > Raise", "", WHM.JobID)]
 		WHM_Raise = 19073,
 
 		[ReplaceSkill(WHM.Raise)]
@@ -3006,12 +2854,10 @@ namespace StackCombo.Combos
 		#region Variant
 
 		[Variant]
-		[VariantParent(WHM_ST_MainCombo_DoT, WHM_AoE_DPS)]
 		[CustomComboInfo("Spirit Dart", "", WHM.JobID)]
 		WHM_DPS_Variant_SpiritDart = 19080,
 
 		[Variant]
-		[VariantParent(WHM_ST_MainCombo, WHM_AoE_DPS)]
 		[CustomComboInfo("Rampart", "", WHM.JobID)]
 		WHM_DPS_Variant_Rampart = 19081,
 
@@ -3023,26 +2869,8 @@ namespace StackCombo.Combos
 
 		#region PvP Combos
 
-		#region PvP GLOBALS
-		[PvPCustomCombo]
-		[CustomComboInfo("Emergency Heals", "Uses Recuperate when your HP is under the set threshold and you have sufficient MP", ADV.JobID, 1)]
-		PvP_EmergencyHeals = 1100000,
+		#region ASTROLOGIAN - 111000
 
-		[PvPCustomCombo]
-		[CustomComboInfo("Emergency Guard", "Uses Guard when your HP is under the set threshold", ADV.JobID, 2)]
-		PvP_EmergencyGuard = 1100010,
-
-		[PvPCustomCombo]
-		[CustomComboInfo("Quick Purify", "Uses Purify when afflicted with any selected debuff", ADV.JobID, 4)]
-		PvP_QuickPurify = 1100020,
-
-		[PvPCustomCombo]
-		[CustomComboInfo("Prevent Mash Cancelling", "Stops you cancelling your guard if you're pressing buttons quickly", ADV.JobID, 3)]
-		PvP_MashCancel = 1100030,
-
-		#endregion
-
-		#region ASTROLOGIAN
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Fall Malefic into an all-in-one damage button", AST.JobID)]
 		ASTPvP_Burst = 111000,
@@ -3061,7 +2889,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region BLACK MAGE
+		#region BLACK MAGE - 112000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Fire and Blizzard into all-in-one damage buttons", BLM.JobID)]
 		BLMPvP_BurstMode = 112000,
@@ -3078,7 +2907,7 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region BARD
+		#region BARD - 113000
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Powerful Shot into an all-in-one damage button", BRDPvP.JobID)]
 		BRDPvP_BurstMode = 113000,
@@ -3090,7 +2919,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region DANCER
+		#region DANCER - 114000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Fountain Combo into an all-in-one damage button", DNC.JobID)]
 		DNCPvP_BurstMode = 114000,
@@ -3107,7 +2937,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region DARK KNIGHT
+		#region DARK KNIGHT - 115000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Souleater Combo into an all-in-one damage button", DRK.JobID)]
 		DRKPvP_Burst = 115000,
@@ -3129,7 +2960,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region DRAGOON
+		#region DRAGOON - 116000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Using Elusive Jump turns Wheeling Thrust Combo into all-in-one burst damage button", DRG.JobID)]
 		DRGPvP_Burst = 116000,
@@ -3164,7 +2996,7 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region GUNBREAKER
+		#region GUNBREAKER - 117000
 
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Solid Barrel Combo into an all-in-one damage button", GNB.JobID)]
@@ -3208,7 +3040,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region MACHINIST
+		#region MACHINIST - 118000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Blast Charge into an all-in-one damage button", MCHPvP.JobID)]
 		MCHPvP_BurstMode = 118000,
@@ -3225,7 +3058,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region MONK
+		#region MONK - 119000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Phantom Rush Combo into an all-in-one damage button", MNK.JobID)]
 		MNKPvP_Burst = 119000,
@@ -3247,7 +3081,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region NINJA
+		#region NINJA - 120000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Aeolian Edge Combo into an all-in-one damage button", NINPvP.JobID)]
 		NINPvP_ST_BurstMode = 120000,
@@ -3268,7 +3103,14 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region PALADIN
+		#region PICTOMANCER - 130000
+
+
+
+		#endregion
+
+		#region PALADIN - 121000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Royal Authority Combo into an all-in-one damage button", PLD.JobID)]
 		PLDPvP_Burst = 121000,
@@ -3283,7 +3125,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region REAPER
+		#region REAPER - 122000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Slice Combo into an all-in-one damage button.\nAdds Soul Slice to the main combo", RPR.JobID)]
 		RPRPvP_Burst = 122000,
@@ -3309,6 +3152,7 @@ namespace StackCombo.Combos
 		RPRPvP_Burst_Enshrouded = 122004,
 
 		#region RPR Enshrouded
+
 		[PvPCustomCombo]
 		[ParentCombo(RPRPvP_Burst_Enshrouded)]
 		[CustomComboInfo("Enshrouded Death Warrant", "Adds Death Warrant onto the main combo during the Enshroud burst when available", RPR.JobID)]
@@ -3318,6 +3162,7 @@ namespace StackCombo.Combos
 		[ParentCombo(RPRPvP_Burst_Enshrouded)]
 		[CustomComboInfo("Communio Finisher", "Adds Communio onto the main combo when you have 1 stack of Enshroud remaining.\nWill not trigger if you are moving", RPR.JobID)]
 		RPRPvP_Burst_Enshrouded_Communio = 122006,
+
 		#endregion
 
 		[PvPCustomCombo]
@@ -3332,7 +3177,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region RED MAGE
+		#region RED MAGE - 123000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Verstone/Verfire into an all-in-one damage button", RDMPvP.JobID)]
 		RDMPvP_BurstMode = 123000,
@@ -3344,7 +3190,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region SAGE
+		#region SAGE - 124000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Dosis III into an all-in-one damage button", SGE.JobID)]
 		SGEPvP_BurstMode = 124000,
@@ -3355,9 +3202,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region SAMURAI
+		#region SAMURAI - 125000
 
-		#region Burst Mode
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Adds Meikyo Shisui, Midare: Setsugekka, Ogi Namikiri, Kaeshi: Namikiri and Soten to Meikyo Shisui.\nWill only cast Midare: Setsugekka and Ogi Namikiri when you're not moving.\nWill not use if target is guarding", SAM.JobID)]
 		SAMPvP_BurstMode = 125000,
@@ -3376,9 +3222,7 @@ namespace StackCombo.Combos
 		[ParentCombo(SAMPvP_BurstMode)]
 		[CustomComboInfo("Burst Mode on Kasha Combo", "Adds Burst Mode to Kasha Combo instead", SAM.JobID, 1)]
 		SAMPvP_BurstMode_MainCombo = 125003,
-		#endregion
 
-		#region Kashas
 		[PvPCustomCombo]
 		[CustomComboInfo("Kasha Combos", "Collection ofs for Kasha Combo", SAM.JobID)]
 		SAMPvP_KashaFeatures = 125004,
@@ -3392,11 +3236,11 @@ namespace StackCombo.Combos
 		[ParentCombo(SAMPvP_KashaFeatures)]
 		[CustomComboInfo("AoE Melee Protection", "Makes the AoE combos unusable if not in melee range of target", SAM.JobID)]
 		SAMPvP_KashaFeatures_AoEMeleeProtection = 125006,
-		#endregion
 
 		#endregion
 
-		#region SCHOLAR
+		#region SCHOLAR - 126000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Broil IV into all-in-one damage button", SCH.JobID)]
 		SCHPvP_Burst = 126000,
@@ -3415,7 +3259,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region SUMMONER
+		#region SUMMONER - 127000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Ruin III into an all-in-one damage button.\nOnly uses Crimson Cyclone when in melee range", SMNPvP.JobID)]
 		SMNPvP_BurstMode = 127000,
@@ -3427,7 +3272,14 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region WARRIOR
+		#region VIPER - 131000
+
+
+
+		#endregion
+
+		#region WARRIOR - 128000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Heavy Swing into an all-in-one damage button", WARPvP.JobID)]
 		WARPvP_BurstMode = 128000,
@@ -3449,7 +3301,8 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region WHITE MAGE
+		#region WHITE MAGE - 129000
+
 		[PvPCustomCombo]
 		[CustomComboInfo("Burst Mode", "Turns Glare into an all-in-one damage button", WHM.JobID)]
 		WHMPvP_Burst = 129000,
@@ -3678,6 +3531,25 @@ namespace StackCombo.Combos
 		[ParentCombo(ALL_Ranged_Menu)]
 		[CustomComboInfo("Physical Ranged DPS: Ranged Interrupt", "Replaces Foot Graze with Head Graze when target can be interrupted", ADV.JobID)]
 		ALL_Ranged_Interrupt = 100052,
+
+		#endregion
+
+		#region PvP GLOBALS - 1100000
+		[PvPCustomCombo]
+		[CustomComboInfo("Emergency Heals", "Uses Recuperate when your HP is under the set threshold and you have sufficient MP", ADV.JobID, 1)]
+		PvP_EmergencyHeals = 1100000,
+
+		[PvPCustomCombo]
+		[CustomComboInfo("Emergency Guard", "Uses Guard when your HP is under the set threshold", ADV.JobID, 2)]
+		PvP_EmergencyGuard = 1100010,
+
+		[PvPCustomCombo]
+		[CustomComboInfo("Quick Purify", "Uses Purify when afflicted with any selected debuff", ADV.JobID, 4)]
+		PvP_QuickPurify = 1100020,
+
+		[PvPCustomCombo]
+		[CustomComboInfo("Prevent Mash Cancelling", "Stops you cancelling your guard if you're pressing buttons quickly", ADV.JobID, 3)]
+		PvP_MashCancel = 1100030,
 
 		#endregion
 

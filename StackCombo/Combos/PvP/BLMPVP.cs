@@ -4,6 +4,8 @@ namespace StackCombo.Combos.PvP
 {
 	internal static class BLMPvP
 	{
+		public const byte JobID = 25;
+
 		public const uint
 			Fire = 29649,
 			Blizzard = 29653,

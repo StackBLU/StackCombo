@@ -4,6 +4,7 @@ namespace StackCombo.Combos.PvP
 {
 	internal static class GNBPvP
 	{
+		public const byte JobID = 37;
 
 		public const uint
 			KeenEdge = 29098,

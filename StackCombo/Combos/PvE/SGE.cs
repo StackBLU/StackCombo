@@ -1,11 +1,9 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
-using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.ClientState.Statuses;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace StackCombo.Combos.PvE
 {
@@ -379,189 +377,9 @@ namespace StackCombo.Combos.PvE
 								return PhlegmaID;
 							}
 						}
-
-						if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Toxikon))
-						{
-							uint ToxikonID = OriginalHook(Toxikon);
-							if (ActionReady(ToxikonID) &&
-								HasBattleTarget() &&
-								InActionRange(ToxikonID) &&
-								Gauge.HasAddersting())
-							{
-								return ToxikonID;
-							}
-						}
 					}
 				}
 				return actionID;
-			}
-		}
-
-		internal class SGE_ST_Heal : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_ST_Heal;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				if (actionID is Diagnosis)
-				{
-					if (IsEnabled(CustomComboPreset.SGE_ST_Heal_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
-					{
-						return All.LucidDreaming;
-					}
-
-					if (HasEffect(Buffs.Eukrasia))
-					{
-						return EukrasianDiagnosis;
-					}
-
-					IGameObject? healTarget = GetHealTarget(Config.SGE_ST_Heal_Adv && Config.SGE_ST_Heal_UIMouseOver);
-
-					if (IsEnabled(CustomComboPreset.SGE_ST_Heal_Esuna) && ActionReady(All.Esuna) &&
-						GetTargetHPPercent(healTarget) >= Config.SGE_ST_Heal_Esuna &&
-						HasCleansableDebuff(healTarget))
-					{
-						return All.Esuna;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_ST_Heal_Rhizomata) && ActionReady(Rhizomata) &&
-						!Gauge.HasAddersgall())
-					{
-						return Rhizomata;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_ST_Heal_Lucid) &&
-						ActionReady(All.LucidDreaming) &&
-						LocalPlayer.CurrentMp <= Config.SGE_ST_Heal_Lucid &&
-						CanSpellWeave(actionID))
-					{
-						return All.LucidDreaming;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_ST_Heal_Kardia) && LevelChecked(Kardia) &&
-						FindEffect(Buffs.Kardia) is null &&
-						FindEffect(Buffs.Kardion, healTarget, LocalPlayer?.GameObjectId) is null)
-					{
-						return Kardia;
-					}
-
-					foreach (int prio in Config.SGE_ST_Heals_Priority.Items.OrderBy(x => x))
-					{
-						int index = Config.SGE_ST_Heals_Priority.IndexOf(prio);
-						int config = JobHelpers.SGE.GetMatchingConfigST(index, out uint spell, out bool enabled);
-
-						if (enabled)
-						{
-							if (GetTargetHPPercent(healTarget) <= config &&
-								ActionReady(spell))
-							{
-								return spell;
-							}
-						}
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_ST_Heal_EDiagnosis) && LevelChecked(Eukrasia) &&
-						GetTargetHPPercent(healTarget) <= Config.SGE_ST_Heal_EDiagnosisHP &&
-						(Config.SGE_ST_Heal_EDiagnosisOpts[0] || FindEffectOnMember(Buffs.EukrasianDiagnosis, healTarget) is null) &&
-						(!Config.SGE_ST_Heal_EDiagnosisOpts[1] || FindEffectOnMember(SCH.Buffs.Galvanize, healTarget) is null))
-					{
-						return Eukrasia;
-					}
-				}
-
-				return actionID;
-			}
-		}
-
-		internal class SGE_AoE_Heal : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_AoE_Heal;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				if (actionID is Prognosis)
-				{
-					if (IsEnabled(CustomComboPreset.SGE_AoE_Heal_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
-					{
-						return All.LucidDreaming;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_AoE_Heal_EPrognosis) && HasEffect(Buffs.Eukrasia))
-					{
-						return OriginalHook(Prognosis);
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_AoE_Heal_Rhizomata) && ActionReady(Rhizomata) &&
-						!Gauge.HasAddersgall())
-					{
-						return Rhizomata;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_AoE_Heal_Lucid) &&
-					   ActionReady(All.LucidDreaming) &&
-					   LocalPlayer.CurrentMp <= Config.SGE_AoE_Heal_Lucid &&
-					   CanSpellWeave(actionID))
-					{
-						return All.LucidDreaming;
-					}
-
-					foreach (int prio in Config.SGE_AoE_Heals_Priority.Items.OrderBy(x => x))
-					{
-						int index = Config.SGE_AoE_Heals_Priority.IndexOf(prio);
-						int config = JobHelpers.SGE.GetMatchingConfigAoE(index, out uint spell, out bool enabled);
-
-						if (enabled)
-						{
-							if (ActionReady(spell))
-							{
-								return spell;
-							}
-						}
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_AoE_Heal_EPrognosis) && LevelChecked(Eukrasia) &&
-						(IsEnabled(CustomComboPreset.SGE_AoE_Heal_EPrognosis_IgnoreShield) ||
-						 FindEffect(Buffs.EukrasianPrognosis) is null))
-					{
-						return Eukrasia;
-					}
-				}
-
-				return actionID;
-			}
-		}
-
-		internal class SGE_Kardia : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_Kardia;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is Soteria && (!HasEffect(Buffs.Kardia) || IsOnCooldown(Soteria)) ? Kardia : actionID;
-			}
-		}
-
-		internal class SGE_Rhizo : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_Rhizo;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return AddersgallList.Contains(actionID) && ActionReady(Rhizomata) && !Gauge.HasAddersgall() && IsOffCooldown(actionID) ? Rhizomata : actionID;
-			}
-		}
-
-		internal class SGE_DruoTauro : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_DruoTauro;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is Druochole && ActionReady(Taurochole) ? Taurochole : actionID;
-			}
-		}
-
-		internal class SGE_ZoePneuma : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_ZoePneuma;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is Pneuma && ActionReady(Pneuma) && IsOffCooldown(Zoe) ? Zoe : actionID;
 			}
 		}
 
@@ -571,27 +389,6 @@ namespace StackCombo.Combos.PvE
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				return actionID is Egeiro && IsOnCooldown(All.Swiftcast) ? Egeiro : actionID;
-			}
-		}
-
-		internal class SGE_Eukrasia : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_Eukrasia;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				if (actionID is Eukrasia && HasEffect(Buffs.Eukrasia))
-				{
-					switch ((int)Config.SGE_Eukrasia_Mode)
-					{
-						case 0: return OriginalHook(Dosis);
-						case 1: return OriginalHook(Diagnosis);
-						case 2: return OriginalHook(Prognosis);
-						case 3: return OriginalHook(Dyskrasia);
-						default: break;
-					}
-				}
-
-				return actionID;
 			}
 		}
 

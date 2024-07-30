@@ -4,6 +4,8 @@ namespace StackCombo.Combos.PvP
 {
 	internal static class SGEPvP
 	{
+		internal const byte JobID = 40;
+
 		internal const uint
 			Dosis = 29256,
 			Phlegma = 29259,

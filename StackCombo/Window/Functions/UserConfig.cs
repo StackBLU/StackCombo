@@ -1164,12 +1164,6 @@ namespace StackCombo.Window.Functions
 				return;
 			}
 
-			#region Misc
-
-			#endregion
-			#region ADV
-
-			#endregion
 			#region ASTROLOGIAN
 
 			if (preset is CustomComboPreset.AST_DPS_Lucid)
@@ -1183,6 +1177,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region BLACK MAGE
 
 			if (preset is CustomComboPreset.BLM_ST_AdvancedMode)
@@ -1282,6 +1277,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region BLUE MAGE
 
 			if (preset is CustomComboPreset.BLU_Lucid)
@@ -1295,6 +1291,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region BARD
 
 			if (preset == CustomComboPreset.BRD_Simple_RagingJaws)
@@ -1328,6 +1325,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region DANCER
 
 			if (preset == CustomComboPreset.DNC_DanceComboReplacer)
@@ -1439,6 +1437,7 @@ namespace StackCombo.Window.Functions
 			#endregion
 
 			#endregion
+
 			#region DARK KNIGHT
 
 			if (preset == CustomComboPreset.DRK_ST_ManaSpenderPooling && enabled)
@@ -1467,6 +1466,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region DRAGOON
 
 			if (preset == CustomComboPreset.DRG_Variant_Cure)
@@ -1499,6 +1499,7 @@ namespace StackCombo.Window.Functions
 			#endregion
 
 			#endregion
+
 			#region GUNBREAKER
 
 			if (preset == CustomComboPreset.GNB_Variant_Cure)
@@ -1507,6 +1508,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region MACHINIST
 
 			if (preset == CustomComboPreset.MCH_ST_Adv_Reassemble)
@@ -1577,6 +1579,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region MONK
 
 			if (preset == CustomComboPreset.MNK_ST_SimpleMode)
@@ -1607,6 +1610,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region NINJA
 
 			if (preset == CustomComboPreset.NIN_Simple_Mudras)
@@ -1713,6 +1717,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region PICTOMANCER
 
 			if (preset is CustomComboPreset.PCT_ST_Lucid)
@@ -1739,6 +1744,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region PALADIN
 
 			if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
@@ -1762,6 +1768,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region REAPER
 
 			if (preset == CustomComboPreset.RPRPvP_Burst_ImmortalPooling && enabled)
@@ -1829,6 +1836,7 @@ namespace StackCombo.Window.Functions
 
 
 			#endregion
+
 			#region RED MAGE
 
 			if (preset is CustomComboPreset.RDM_ST_oGCD)
@@ -1960,6 +1968,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region SAGE
 
 			if (preset is CustomComboPreset.SGE_ST_DPS)
@@ -2018,135 +2027,8 @@ namespace StackCombo.Window.Functions
 				UserConfig.DrawSliderInt(1, 3, SGE.Config.SGE_AoE_DPS_AddersgallProtect, "Addersgall Threshold", 150, SliderIncrements.Ones);
 			}
 
-			if (preset is CustomComboPreset.SGE_ST_Heal)
-			{
-				UserConfig.DrawAdditionalBoolChoice(SGE.Config.SGE_ST_Heal_Adv, "Advanced Options", "", isConditionalChoice: true);
-				if (SGE.Config.SGE_ST_Heal_Adv)
-				{
-					ImGui.Indent();
-					UserConfig.DrawAdditionalBoolChoice(SGE.Config.SGE_ST_Heal_UIMouseOver,
-						"Party UI Mouseover Checking",
-						"Check party member's HP & Debuffs by using mouseover on the party list.\n" +
-						"To be used in conjunction with Redirect/Reaction/etc");
-					ImGui.Unindent();
-				}
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Esuna)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Esuna, "Stop using when below HP %. Set to Zero to disable this check");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Soteria)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Soteria, $"Use {SGE.Soteria.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 0, $"{SGE.Soteria.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Zoe)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Zoe, $"Use {SGE.Zoe.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 1, $"{SGE.Zoe.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Pepsis)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Pepsis, $"Use {SGE.Pepsis.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 2, $"{SGE.Pepsis.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Taurochole)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Taurochole, $"Use {SGE.Taurochole.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 3, $"{SGE.Taurochole.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Haima)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Haima, $"Use {SGE.Haima.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 4, $"{SGE.Haima.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Krasis)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Krasis, $"Use {SGE.Krasis.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 5, $"{SGE.Krasis.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_Druochole)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_Druochole, $"Use {SGE.Druochole.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_ST_Heals_Priority, 7, 6, $"{SGE.Druochole.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_Heal_EDiagnosis)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_Heal_EDiagnosisHP, $"Use {SGE.EukrasianDiagnosis.ActionName()} when Target HP is at or below set percentage");
-				UserConfig.DrawHorizontalMultiChoice(SGE.Config.SGE_ST_Heal_EDiagnosisOpts, "Ignore Shield Check", $"Warning, will force the use of {SGE.EukrasianDiagnosis.ActionName()}, and normal {SGE.Diagnosis.ActionName()} will be unavailable.", 2, 0);
-				UserConfig.DrawHorizontalMultiChoice(SGE.Config.SGE_ST_Heal_EDiagnosisOpts, "Check for Scholar Galvenize", "Enable to not override an existing Scholar's shield.", 2, 1);
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Kerachole)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 0, $"{SGE.Kerachole.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Ixochole)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 1, $"{SGE.Ixochole.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Physis)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 2, $"{SGE.Physis.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Holos)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 3, $"{SGE.Holos.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Panhaima)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 4, $"{SGE.Panhaima.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Pepsis)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 5, $"{SGE.Pepsis.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Philosophia)
-			{
-				UserConfig.DrawPriorityInput(SGE.Config.SGE_AoE_Heals_Priority, 7, 6, $"{SGE.Philosophia.ActionName()} Priority: ");
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_Heal_Kerachole)
-			{
-				UserConfig.DrawAdditionalBoolChoice(SGE.Config.SGE_AoE_Heal_KeracholeTrait,
-					"Check for Enhanced Kerachole Trait (Heal over Time)",
-					$"Enabling this will prevent {SGE.Kerachole.ActionName()} from being used when the Heal over Time trait is unavailable.");
-			}
-
-			if (preset is CustomComboPreset.SGE_Eukrasia)
-			{
-				UserConfig.DrawRadioButton(SGE.Config.SGE_Eukrasia_Mode, $"{SGE.EukrasianDosis.ActionName()}", "", 0);
-				UserConfig.DrawRadioButton(SGE.Config.SGE_Eukrasia_Mode, $"{SGE.EukrasianDiagnosis.ActionName()}", "", 1);
-				UserConfig.DrawRadioButton(SGE.Config.SGE_Eukrasia_Mode, $"{SGE.EukrasianPrognosis.ActionName()}", "", 2);
-				UserConfig.DrawRadioButton(SGE.Config.SGE_Eukrasia_Mode, $"{SGE.EukrasianDyskrasia.ActionName()}", "", 3);
-			}
-
-			if (preset == CustomComboPreset.SGE_ST_Heal_Lucid)
-			{
-				UserConfig.DrawSliderInt(4000, 9500, SGE.Config.SGE_ST_Heal_Lucid, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
-			}
-
-			if (preset == CustomComboPreset.SGE_AoE_Heal_Lucid)
-			{
-				UserConfig.DrawSliderInt(4000, 9500, SGE.Config.SGE_AoE_Heal_Lucid, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
-			}
-
 			#endregion
+
 			#region SAMURAI
 
 			if (preset == CustomComboPreset.SAM_ST_Overcap && enabled)
@@ -2209,6 +2091,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region SCHOLAR
 
 			if (preset is CustomComboPreset.SCH_DPS_Lucid)
@@ -2222,6 +2105,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region SUMMONER
 
 			#region PvE
@@ -2273,8 +2157,6 @@ namespace StackCombo.Window.Functions
 				}
 			}
 
-
-
 			#endregion
 
 			#region PvP
@@ -2292,6 +2174,7 @@ namespace StackCombo.Window.Functions
 			#endregion
 
 			#endregion
+
 			#region VIPER
 
 			if ((preset == CustomComboPreset.VPR_ST_AdvancedMode && enabled) || (preset == CustomComboPreset.VPR_DreadwinderCoils && enabled))
@@ -2311,6 +2194,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region WARRIOR
 
 			if (preset == CustomComboPreset.WAR_ST_StormsPath_StormsEye && enabled)
@@ -2345,6 +2229,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
+
 			#region WHITE MAGE
 
 			if (preset == CustomComboPreset.WHM_ST_MainCombo_Lucid)
@@ -2368,12 +2253,7 @@ namespace StackCombo.Window.Functions
 			}
 
 			#endregion
-			#region DOH
 
-			#endregion
-			#region DOL
-
-			#endregion
 			#region PvP VALUES
 
 			IPlayerCharacter? pc = Service.ClientState.LocalPlayer;
@@ -2451,8 +2331,6 @@ namespace StackCombo.Window.Functions
 
 				UserConfig.DrawSliderInt(1, 100, NINPvP.Config.NINPvP_Meisui_AoE, description);
 			}
-
-
 			#endregion
 		}
 	}
