@@ -5,6 +5,7 @@
   "AssemblyVersion": "1.0.0.0",
   "Description": "A cleaner, more refined, combo plugin for FFXIV!",
   "ApplicableVersion": "any",
+  "RepoUrl": "https://github.com/StackBLU/StackCombo",
   "Tags": [
     "stack",
     "combo",
@@ -15,9 +16,7 @@
   "LoadSync": false,
   "CanUnloadAsync": false,
   "LoadPriority": 0,
-  "Punchline": "Trust me, you want this",
-  "AcceptsFeedback": true,
-  "RepoUrl": "https://github.com/StackBLU/StackCombo",
   "IconUrl": "https://github.com/StackBLU/StackCombo/blob/main/images/stack.png?raw=true",
-  "DownloadLinkInstall": "https://github.com/StackBLU/StackCombo/blob/main/releaseUploads/latest.zip"
+  "Punchline": "Trust me, you want this",
+  "AcceptsFeedback": true
 }

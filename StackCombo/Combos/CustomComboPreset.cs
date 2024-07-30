@@ -2779,7 +2779,7 @@ namespace StackCombo.Combos
 		#region Single Target
 
 		[ReplaceSkill(WAR.StormsPath)]
-		[CustomComboInfo("Single Target DPS", "", WAR.JobID)]
+		[CustomComboInfo("Single Target DPS", "asfasf", WAR.JobID)]
 		WAR_ST_StormsPath = 18000,
 
 		[ParentCombo(WAR_ST_StormsPath)]
