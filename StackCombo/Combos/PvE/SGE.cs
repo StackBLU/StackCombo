@@ -171,7 +171,7 @@ namespace StackCombo.Combos.PvE
 						{
 							return Eukrasia;
 						}
-						return OriginalHook(EukrasianDosis3);
+						return OriginalHook(Dosis3);
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Phlegma) && InActionRange(OriginalHook(Phlegma3)) && ActionReady(OriginalHook(Phlegma3))
@@ -191,11 +191,6 @@ namespace StackCombo.Combos.PvE
 						if (ActionReady(Toxikon) && Gauge.Addersting > 0)
 						{
 							return OriginalHook(Toxikon);
-						}
-
-						if (ActionReady(Dyskrasia) && InActionRange(Dyskrasia))
-						{
-							return OriginalHook(Dyskrasia);
 						}
 					}
 				}

@@ -43,6 +43,7 @@ namespace StackCombo.Combos.PvE
 			FeyIllumination = 16538,
 			Dissipation = 3587,
 			Aetherpact = 7437,
+			DissolveUnion = 7869,
 			FeyBlessing = 16543,
 
 			Aetherflow = 166,
@@ -121,23 +122,23 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_DPS_Seraph) && ActionReady(OriginalHook(SummonSeraph))
-						&& Gauge.SeraphTimer < 0 && Gauge.SeraphTimer < 5000 && CanSpellWeave(actionID))
+						&& Gauge.SeraphTimer > 0 && Gauge.SeraphTimer < 5000 && CanSpellWeave(actionID))
 					{
 						return OriginalHook(SummonSeraph);
 					}
 
-					if (IsEnabled(CustomComboPreset.SCH_DPS_Dissipation) &&
-						ActionReady(Dissipation) && HasPetPresent() && Gauge.Aetherflow == 0
-						&& CanSpellWeave(actionID) && ActionWatching.NumberOfGcdsUsed >= 4)
-					{
-						return Dissipation;
-					}
-
 					if (IsEnabled(CustomComboPreset.SCH_DPS_Aetherflow) &&
 						ActionReady(Aetherflow) && Gauge.Aetherflow == 0 &&
-						CanSpellWeave(actionID) && ActionWatching.NumberOfGcdsUsed >= 5)
+						CanSpellWeave(actionID) && ActionWatching.NumberOfGcdsUsed >= 2)
 					{
 						return Aetherflow;
+					}
+
+					if (IsEnabled(CustomComboPreset.SCH_DPS_Dissipation) &&
+						ActionReady(Dissipation) && HasPetPresent() && Gauge.Aetherflow == 0
+						&& CanSpellWeave(actionID) && ActionWatching.NumberOfGcdsUsed >= 7 && Gauge.SeraphTimer == 0)
+					{
+						return Dissipation;
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_DPS_Lucid) &&
@@ -154,7 +155,7 @@ namespace StackCombo.Combos.PvE
 						{
 							if (ActionReady(ChainStratagem) && !TargetHasEffectAny(Debuffs.ChainStratagem)
 								&& CanSpellWeave(actionID)
-								&& ActionWatching.NumberOfGcdsUsed >= 2)
+								&& ActionWatching.NumberOfGcdsUsed >= 3)
 							{
 								return ChainStratagem;
 							}
@@ -167,11 +168,10 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.SCH_ST_DPS_EnergyDrain))
+						if (IsEnabled(CustomComboPreset.SCH_ST_DPS_EnergyDrain) && ActionReady(EnergyDrain) && Gauge.Aetherflow > 0 && CanSpellWeave(actionID))
 						{
-							if (ActionReady(EnergyDrain) && Gauge.Aetherflow > 0
-								&& (GetCooldownRemainingTime(Aetherflow) <= 10f || GetCooldownRemainingTime(Dissipation) <= 10f || TargetHasEffect(Debuffs.ChainStratagem))
-								&& CanSpellWeave(actionID))
+							if (((GetCooldownRemainingTime(Aetherflow) <= 10f || GetCooldownRemainingTime(Dissipation) <= 10f)
+							&& !HasEffect(Buffs.Dissipation)) || TargetHasEffect(Debuffs.ChainStratagem))
 							{
 								return EnergyDrain;
 							}
@@ -183,9 +183,8 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(Biolysis);
 						}
 
-						if (IsEnabled(CustomComboPreset.SCH_DPS_Aetherpact) &&
-							ActionReady(Aetherpact) && Gauge.FairyGauge == 100 &&
-							CanSpellWeave(actionID))
+						if (IsEnabled(CustomComboPreset.SCH_DPS_Aetherpact) && ActionReady(Aetherpact) && HasPetPresent()
+							&& Gauge.FairyGauge == 100 && CanSpellWeave(actionID) && !WasLastAbility(Aetherpact))
 						{
 							return Aetherpact;
 						}
@@ -235,11 +234,10 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_EnergyDrain))
+					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_EnergyDrain) && ActionReady(EnergyDrain) && Gauge.Aetherflow > 0 && CanSpellWeave(actionID))
 					{
-						if (ActionReady(EnergyDrain) && Gauge.Aetherflow > 0
-							&& (GetCooldownRemainingTime(Aetherflow) <= 10f || GetCooldownRemainingTime(Dissipation) <= 10f || TargetHasEffect(Debuffs.ChainStratagem))
-							&& CanSpellWeave(actionID))
+						if (((GetCooldownRemainingTime(Aetherflow) <= 10f || GetCooldownRemainingTime(Dissipation) <= 10f)
+						&& !HasEffect(Buffs.Dissipation)) || TargetHasEffect(Debuffs.ChainStratagem))
 						{
 							return EnergyDrain;
 						}
