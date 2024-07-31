@@ -105,7 +105,7 @@ namespace StackCombo.Combos.PvE
 					bool hasDivineMight = HasEffect(Buffs.DivineMight);
 					bool inAtonementStarter = HasEffect(Buffs.AtonementReady);
 					bool inAtonementFinisher = HasEffect(Buffs.SepulchreReady);
-					bool inBurstPhase = LevelChecked(BladeOfFaith) && RoyalAuthorityCount > 0;
+					bool inBurstPhase = ActionReady(BladeOfFaith) && RoyalAuthorityCount > 0;
 					bool inAtonementPhase = HasEffect(Buffs.AtonementReady) || HasEffect(Buffs.SupplicationReady) || HasEffect(Buffs.SepulchreReady);
 					bool isAtonementExpiring = (HasEffect(Buffs.AtonementReady) && GetBuffRemainingTime(Buffs.AtonementReady) < 10) ||
 												(HasEffect(Buffs.SupplicationReady) && GetBuffRemainingTime(Buffs.SupplicationReady) < 10) ||
@@ -157,7 +157,7 @@ namespace StackCombo.Combos.PvE
 								}
 
 								if (IsEnabled(CustomComboPreset.PLD_ST_AdvancedMode_Intervene) &&
-									LevelChecked(Intervene) && GetRemainingCharges(Intervene) > Config.PLD_Intervene_HoldCharges && !IsMoving && !WasLastAction(Intervene) &&
+									ActionReady(Intervene) && GetRemainingCharges(Intervene) > Config.PLD_Intervene_HoldCharges && !IsMoving && !WasLastAction(Intervene) &&
 									GetTargetDistance() == 0 && Config.PLD_Intervene_MeleeOnly == 2)
 								{
 									return Intervene;
@@ -177,9 +177,9 @@ namespace StackCombo.Combos.PvE
 						{
 							if (IsEnabled(CustomComboPreset.PLD_ST_AdvancedMode_FoF) && ActionReady(FightOrFlight) && GetTargetHPPercent() >= Config.PLD_ST_FoF_Option)
 							{
-								if (!LevelChecked(Requiescat))
+								if (!ActionReady(Requiescat))
 								{
-									if (!LevelChecked(RageOfHalone))
+									if (!ActionReady(RageOfHalone))
 									{
 										if (lastComboActionID is FastBlade)
 										{
@@ -214,7 +214,7 @@ namespace StackCombo.Combos.PvE
 						}
 
 						if (IsEnabled(CustomComboPreset.PLD_ST_AdvancedMode_Sheltron) && InCombat() && CanWeave(actionID) &&
-							LevelChecked(Sheltron) && !HasEffect(Buffs.Sheltron) && !HasEffect(Buffs.HolySheltron) &&
+							ActionReady(Sheltron) && !HasEffect(Buffs.Sheltron) && !HasEffect(Buffs.HolySheltron) &&
 							Gauge.OathGauge >= Config.PLD_ST_SheltronOption)
 						{
 							return OriginalHook(Sheltron);
@@ -248,12 +248,12 @@ namespace StackCombo.Combos.PvE
 
 						if (comboTime > 0)
 						{
-							if (lastComboActionID is FastBlade && LevelChecked(RiotBlade))
+							if (lastComboActionID is FastBlade && ActionReady(RiotBlade))
 							{
 								return RiotBlade;
 							}
 
-							if (lastComboActionID is RiotBlade && LevelChecked(RageOfHalone))
+							if (lastComboActionID is RiotBlade && ActionReady(RageOfHalone))
 							{
 								return OriginalHook(RageOfHalone);
 							}
@@ -319,7 +319,7 @@ namespace StackCombo.Combos.PvE
 						if (CanWeave(actionID) && InMeleeRange())
 						{
 							if (ActionReady(FightOrFlight) && IsEnabled(CustomComboPreset.PLD_AoE_AdvancedMode_FoF) && GetTargetHPPercent() >= Config.PLD_AoE_FoF_Option &&
-								((GetCooldownRemainingTime(Requiescat) < 0.5f && CanWeave(actionID, 1.5f)) || !LevelChecked(Requiescat)))
+								((GetCooldownRemainingTime(Requiescat) < 0.5f && CanWeave(actionID, 1.5f)) || !ActionReady(Requiescat)))
 							{
 								return FightOrFlight;
 							}
@@ -339,20 +339,20 @@ namespace StackCombo.Combos.PvE
 						}
 
 						if (IsEnabled(CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron) && InCombat() && CanWeave(actionID) &&
-							LevelChecked(Sheltron) && !HasEffect(Buffs.Sheltron) && !HasEffect(Buffs.HolySheltron) &&
+							ActionReady(Sheltron) && !HasEffect(Buffs.Sheltron) && !HasEffect(Buffs.HolySheltron) &&
 							Gauge.OathGauge >= Config.PLD_AoE_SheltronOption)
 						{
 							return OriginalHook(Sheltron);
 						}
 					}
 
-					if (IsEnabled(CustomComboPreset.PLD_AoE_AdvancedMode_HolyCircle) && LevelChecked(HolyCircle) && GetResourceCost(HolyCircle) <= LocalPlayer.CurrentMp &&
+					if (IsEnabled(CustomComboPreset.PLD_AoE_AdvancedMode_HolyCircle) && ActionReady(HolyCircle) && GetResourceCost(HolyCircle) <= LocalPlayer.CurrentMp &&
 						(HasEffect(Buffs.DivineMight) || HasEffect(Buffs.Requiescat)))
 					{
 						return HolyCircle;
 					}
 
-					if (comboTime > 0 && lastComboActionID is TotalEclipse && LevelChecked(Prominence))
+					if (comboTime > 0 && lastComboActionID is TotalEclipse && ActionReady(Prominence))
 					{
 						return Prominence;
 					}
@@ -369,14 +369,14 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Requiescat)
 				{
-					if (HasEffect(Buffs.ConfiteorReady) && Confiteor.LevelChecked() && GetResourceCost(Confiteor) <= LocalPlayer.CurrentMp)
+					if (HasEffect(Buffs.ConfiteorReady) && Confiteor.ActionReady() && GetResourceCost(Confiteor) <= LocalPlayer.CurrentMp)
 					{
 						return OriginalHook(Confiteor);
 					}
 
 					if (HasEffect(Buffs.Requiescat))
 					{
-						if (OriginalHook(Confiteor) != Confiteor && BladeOfFaith.LevelChecked() && GetResourceCost(Confiteor) <= LocalPlayer.CurrentMp)
+						if (OriginalHook(Confiteor) != Confiteor && BladeOfFaith.ActionReady() && GetResourceCost(Confiteor) <= LocalPlayer.CurrentMp)
 						{
 							return OriginalHook(Confiteor);
 						}

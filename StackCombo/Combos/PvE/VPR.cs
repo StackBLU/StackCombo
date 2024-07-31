@@ -120,7 +120,7 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.VPR_ST_ReawakenCombo) &&
 						HasEffect(Buffs.Reawakened))
 					{
-						if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+						if (!TraitActionReady(Traits.EnhancedSerpentsLineage))
 						{
 							if (gauge.AnguineTribute is 4)
 							{
@@ -143,9 +143,9 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+						if (TraitActionReady(Traits.EnhancedSerpentsLineage))
 						{
-							if (TraitLevelChecked(Traits.SerpentsLegacy) && CanWeave(actionID) &&
+							if (TraitActionReady(Traits.SerpentsLegacy) && CanWeave(actionID) &&
 								(WasLastAction(OriginalHook(SteelFangs)) || WasLastAction(OriginalHook(DreadFangs)) ||
 								WasLastAction(OriginalHook(HuntersCoil)) || WasLastAction(OriginalHook(SwiftskinsCoil))))
 							{
@@ -183,13 +183,13 @@ namespace StackCombo.Combos.PvE
 					{
 						if (lastComboMove is DreadFangs or SteelFangs)
 						{
-							if ((HasEffect(Buffs.FlankstungVenom) || HasEffect(Buffs.FlanksbaneVenom)) && LevelChecked(HuntersSting))
+							if ((HasEffect(Buffs.FlankstungVenom) || HasEffect(Buffs.FlanksbaneVenom)) && ActionReady(HuntersSting))
 							{
 								return OriginalHook(SteelFangs);
 							}
 
 							if ((HasEffect(Buffs.HindstungVenom) || HasEffect(Buffs.HindsbaneVenom) ||
-								(!HasEffect(Buffs.Swiftscaled) && !HasEffect(Buffs.HuntersInstinct))) && LevelChecked(SwiftskinsSting))
+								(!HasEffect(Buffs.Swiftscaled) && !HasEffect(Buffs.HuntersInstinct))) && ActionReady(SwiftskinsSting))
 							{
 								return OriginalHook(DreadFangs);
 							}
@@ -197,12 +197,12 @@ namespace StackCombo.Combos.PvE
 
 						if (lastComboMove is HuntersSting or SwiftskinsSting)
 						{
-							if ((HasEffect(Buffs.FlankstungVenom) || HasEffect(Buffs.HindstungVenom)) && LevelChecked(FlanksbaneFang))
+							if ((HasEffect(Buffs.FlankstungVenom) || HasEffect(Buffs.HindstungVenom)) && ActionReady(FlanksbaneFang))
 							{
 								return OriginalHook(SteelFangs);
 							}
 
-							if ((HasEffect(Buffs.FlanksbaneVenom) || HasEffect(Buffs.HindsbaneVenom)) && LevelChecked(HindstingStrike))
+							if ((HasEffect(Buffs.FlanksbaneVenom) || HasEffect(Buffs.HindsbaneVenom)) && ActionReady(HindstingStrike))
 							{
 								return OriginalHook(DreadFangs);
 							}
@@ -211,7 +211,7 @@ namespace StackCombo.Combos.PvE
 						if (lastComboMove is HindstingStrike or HindsbaneFang or FlankstingStrike or FlanksbaneFang)
 						{
 							if (IsEnabled(CustomComboPreset.VPR_ST_SerpentsTail) &&
-								CanWeave(actionID) && LevelChecked(SerpentsTail) && HasCharges(DeathRattle) &&
+								CanWeave(actionID) && ActionReady(SerpentsTail) && HasCharges(DeathRattle) &&
 								(WasLastWeaponskill(HindstingStrike) || WasLastWeaponskill(HindsbaneFang) ||
 								WasLastWeaponskill(FlankstingStrike) || WasLastWeaponskill(FlanksbaneFang)))
 							{
@@ -223,7 +223,7 @@ namespace StackCombo.Combos.PvE
 							? OriginalHook(DreadFangs)
 							: OriginalHook(SteelFangs);
 					}
-					return IsEnabled(CustomComboPreset.VPR_ST_NoxiousGnash) && LevelChecked(DreadFangs)
+					return IsEnabled(CustomComboPreset.VPR_ST_NoxiousGnash) && ActionReady(DreadFangs)
 							? OriginalHook(DreadFangs)
 							: OriginalHook(SteelFangs);
 				}
@@ -249,7 +249,7 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.VPR_AoE_ReawakenCombo) &&
 						HasEffect(Buffs.Reawakened))
 					{
-						if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+						if (!TraitActionReady(Traits.EnhancedSerpentsLineage))
 						{
 							if (gauge.AnguineTribute is 4)
 							{
@@ -272,9 +272,9 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+						if (TraitActionReady(Traits.EnhancedSerpentsLineage))
 						{
-							if (TraitLevelChecked(Traits.SerpentsLegacy) && CanWeave(actionID) &&
+							if (TraitActionReady(Traits.SerpentsLegacy) && CanWeave(actionID) &&
 								(WasLastAction(OriginalHook(SteelMaw)) || WasLastAction(OriginalHook(DreadMaw)) ||
 								WasLastAction(OriginalHook(HuntersDen)) || WasLastAction(OriginalHook(SwiftskinsDen))))
 							{
@@ -312,13 +312,13 @@ namespace StackCombo.Combos.PvE
 					{
 						if (lastComboMove is DreadMaw or SteelMaw)
 						{
-							if (HasEffect(Buffs.GrimhuntersVenom) && LevelChecked(HuntersBite))
+							if (HasEffect(Buffs.GrimhuntersVenom) && ActionReady(HuntersBite))
 							{
 								return OriginalHook(SteelMaw);
 							}
 
 							if ((HasEffect(Buffs.GrimskinsVenom) ||
-								(!HasEffect(Buffs.Swiftscaled) && !HasEffect(Buffs.HuntersInstinct))) && LevelChecked(SwiftskinsBite))
+								(!HasEffect(Buffs.Swiftscaled) && !HasEffect(Buffs.HuntersInstinct))) && ActionReady(SwiftskinsBite))
 							{
 								return OriginalHook(DreadMaw);
 							}
@@ -326,12 +326,12 @@ namespace StackCombo.Combos.PvE
 
 						if (lastComboMove is HuntersBite or SwiftskinsBite)
 						{
-							if (HasEffect(Buffs.GrimhuntersVenom) && LevelChecked(JaggedMaw))
+							if (HasEffect(Buffs.GrimhuntersVenom) && ActionReady(JaggedMaw))
 							{
 								return OriginalHook(SteelMaw);
 							}
 
-							if (HasEffect(Buffs.GrimskinsVenom) && LevelChecked(BloodiedMaw))
+							if (HasEffect(Buffs.GrimskinsVenom) && ActionReady(BloodiedMaw))
 							{
 								return OriginalHook(DreadMaw);
 							}
@@ -340,7 +340,7 @@ namespace StackCombo.Combos.PvE
 						if (lastComboMove is BloodiedMaw or JaggedMaw)
 						{
 							if (IsEnabled(CustomComboPreset.VPR_AoE_SerpentsTail) &&
-								CanWeave(actionID) && LevelChecked(SerpentsTail) && HasCharges(LastLash) &&
+								CanWeave(actionID) && ActionReady(SerpentsTail) && HasCharges(LastLash) &&
 								(WasLastWeaponskill(BloodiedMaw) || WasLastWeaponskill(JaggedMaw)))
 							{
 								return OriginalHook(SerpentsTail);
@@ -352,7 +352,7 @@ namespace StackCombo.Combos.PvE
 							: OriginalHook(SteelMaw);
 					}
 					return IsEnabled(CustomComboPreset.VPR_AoE_NoxiousGnash) &&
-						LevelChecked(DreadMaw)
+						ActionReady(DreadMaw)
 							? OriginalHook(DreadMaw)
 							: OriginalHook(SteelMaw);
 				}

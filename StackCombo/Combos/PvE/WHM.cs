@@ -122,16 +122,15 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantSpiritDart;
 					}
 
-					if ((IsEnabled(CustomComboPreset.WHM_ST_DPS_DoT) && ActionReady(OriginalHook(Dia))
-						&& !TargetHasEffect(DiaList[OriginalHook(Dia)]) && ActionWatching.NumberOfGcdsUsed >= 3)
-						|| (GetDebuffRemainingTime(DiaList[OriginalHook(Dia)]) <= 3))
+					if (IsEnabled(CustomComboPreset.AST_ST_DPS_CombustUptime) && ActionReady(OriginalHook(Dia)) && ActionWatching.NumberOfGcdsUsed >= 3
+						&& (!TargetHasEffect(DiaList[OriginalHook(Dia)]) || GetDebuffRemainingTime(DiaList[OriginalHook(Dia)]) <= 3))
 					{
 						return OriginalHook(Dia);
 					}
 
 					if (CanSpellWeave(actionID) || IsMoving)
 					{
-						if (IsEnabled(CustomComboPreset.WHM_ST_DPS_PresenceOfMind) && ActionReady(PresenceOfMind))
+						if (IsEnabled(CustomComboPreset.WHM_ST_DPS_PresenceOfMind) && ActionReady(PresenceOfMind) && ActionWatching.NumberOfGcdsUsed >= 3)
 						{
 							return PresenceOfMind;
 						}
@@ -310,7 +309,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Medica2)
 						&& !HasEffect(Buffs.Medica2) && !HasEffect(Buffs.Medica3)
-						&& (LevelChecked(Medica2) || LevelChecked(Medica3)))
+						&& (ActionReady(Medica2) || ActionReady(Medica3)))
 					{
 						return OriginalHook(Medica3);
 					}
@@ -330,7 +329,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Cure2 && !LevelChecked(Cure2)
+				return actionID is Cure2 && !ActionReady(Cure2)
 					? Cure
 					: actionID;
 			}
@@ -349,7 +348,7 @@ namespace StackCombo.Combos.PvE
 						return All.Swiftcast;
 					}
 
-					if (Config.WHM_Raise_ThinAir && !HasEffect(Buffs.ThinAir))
+					if (ActionReady(ThinAir) && Config.WHM_Raise_ThinAir && !HasEffect(Buffs.ThinAir))
 					{
 						return ThinAir;
 					}

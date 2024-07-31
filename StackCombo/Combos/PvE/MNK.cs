@@ -123,7 +123,7 @@ namespace StackCombo.Combos.PvE
 							return FormShift;
 						}
 
-						if (IsEnabled(CustomComboPreset.MNK_AoE_Simple_Thunderclap) && !InMeleeRange() && gauge.Chakra == 5 && (!LevelChecked(FormShift) || HasEffect(Buffs.FormlessFist)))
+						if (IsEnabled(CustomComboPreset.MNK_AoE_Simple_Thunderclap) && !InMeleeRange() && gauge.Chakra == 5 && (!ActionReady(FormShift) || HasEffect(Buffs.FormlessFist)))
 						{
 							return Thunderclap;
 						}
@@ -181,12 +181,12 @@ namespace StackCombo.Combos.PvE
 
 						if (IsEnabled(CustomComboPreset.MNK_ST_ComboHeals))
 						{
-							if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_AoESecondWindThreshold) && LevelChecked(All.SecondWind) && IsOffCooldown(All.SecondWind))
+							if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_AoESecondWindThreshold) && ActionReady(All.SecondWind) && IsOffCooldown(All.SecondWind))
 							{
 								return All.SecondWind;
 							}
 
-							if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_AoEBloodbathThreshold) && LevelChecked(All.Bloodbath) && IsOffCooldown(All.Bloodbath))
+							if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_AoEBloodbathThreshold) && ActionReady(All.Bloodbath) && IsOffCooldown(All.Bloodbath))
 							{
 								return All.Bloodbath;
 							}
@@ -229,12 +229,12 @@ namespace StackCombo.Combos.PvE
 
 					if (HasEffect(Buffs.RaptorForm))
 					{
-						if (FourPointFury.LevelChecked())
+						if (FourPointFury.ActionReady())
 						{
 							return FourPointFury;
 						}
 
-						if (TwinSnakes.LevelChecked())
+						if (TwinSnakes.ActionReady())
 						{
 							return TwinSnakes;
 						}
@@ -434,12 +434,12 @@ namespace StackCombo.Combos.PvE
 
 									if (IsEnabled(CustomComboPreset.MNK_ST_ComboHeals))
 									{
-										if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STSecondWindThreshold) && LevelChecked(All.SecondWind) && IsOffCooldown(All.SecondWind))
+										if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STSecondWindThreshold) && ActionReady(All.SecondWind) && IsOffCooldown(All.SecondWind))
 										{
 											return All.SecondWind;
 										}
 
-										if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STBloodbathThreshold) && LevelChecked(All.Bloodbath) && IsOffCooldown(All.Bloodbath))
+										if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STBloodbathThreshold) && ActionReady(All.Bloodbath) && IsOffCooldown(All.Bloodbath))
 										{
 											return All.Bloodbath;
 										}
@@ -467,7 +467,7 @@ namespace StackCombo.Combos.PvE
 							return FormShift;
 						}
 
-						if (IsEnabled(CustomComboPreset.MNK_ST_Simple_Thunderclap) && !InMeleeRange() && gauge.Chakra == 5 && (!LevelChecked(FormShift) || HasEffect(Buffs.FormlessFist)))
+						if (IsEnabled(CustomComboPreset.MNK_ST_Simple_Thunderclap) && !InMeleeRange() && gauge.Chakra == 5 && (!ActionReady(FormShift) || HasEffect(Buffs.FormlessFist)))
 						{
 							return Thunderclap;
 						}
@@ -512,7 +512,7 @@ namespace StackCombo.Combos.PvE
 									return RiddleOfFire;
 								}
 
-								if (TargetNeedsPositionals() && IsEnabled(CustomComboPreset.MNK_TrueNorthDynamic) && LevelChecked(All.TrueNorth) && GetRemainingCharges(All.TrueNorth) > 0 && !HasEffect(All.Buffs.TrueNorth) && LevelChecked(Demolish) && HasEffect(Buffs.CoerlForm))
+								if (TargetNeedsPositionals() && IsEnabled(CustomComboPreset.MNK_TrueNorthDynamic) && ActionReady(All.TrueNorth) && GetRemainingCharges(All.TrueNorth) > 0 && !HasEffect(All.Buffs.TrueNorth) && ActionReady(Demolish) && HasEffect(Buffs.CoerlForm))
 								{
 									if (!TargetHasEffect(Debuffs.Demolish) || demolishDuration <= PluginConfiguration.GetCustomFloatValue(Config.MNK_Demolish_Apply))
 									{
@@ -544,12 +544,12 @@ namespace StackCombo.Combos.PvE
 
 								if (IsEnabled(CustomComboPreset.MNK_ST_ComboHeals))
 								{
-									if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STSecondWindThreshold) && LevelChecked(All.SecondWind) && IsOffCooldown(All.SecondWind))
+									if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STSecondWindThreshold) && ActionReady(All.SecondWind) && IsOffCooldown(All.SecondWind))
 									{
 										return All.SecondWind;
 									}
 
-									if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STBloodbathThreshold) && LevelChecked(All.Bloodbath) && IsOffCooldown(All.Bloodbath))
+									if (PlayerHealthPercentageHp() <= PluginConfiguration.GetCustomIntValue(Config.MNK_STBloodbathThreshold) && ActionReady(All.Bloodbath) && IsOffCooldown(All.Bloodbath))
 									{
 										return All.Bloodbath;
 									}
@@ -614,7 +614,7 @@ namespace StackCombo.Combos.PvE
 						return HasEffect(Buffs.LeadenFist) ? Bootshine : DragonKick;
 					}
 
-					if (IsEnabled(CustomComboPreset.MNK_ST_Meditation_Uptime) && !InMeleeRange() && gauge.Chakra < 5 && LevelChecked(Meditation))
+					if (IsEnabled(CustomComboPreset.MNK_ST_Meditation_Uptime) && !InMeleeRange() && gauge.Chakra < 5 && ActionReady(Meditation))
 					{
 						return Meditation;
 					}
@@ -623,7 +623,7 @@ namespace StackCombo.Combos.PvE
 					{
 						if (HasEffect(Buffs.FormlessFist) || HasEffect(Buffs.OpoOpoForm))
 						{
-							return !LevelChecked(DragonKick) || HasEffect(Buffs.LeadenFist)
+							return !ActionReady(DragonKick) || HasEffect(Buffs.LeadenFist)
 								? Bootshine
 								: DragonKick;
 						}
@@ -631,17 +631,17 @@ namespace StackCombo.Combos.PvE
 
 					if (!HasEffect(Buffs.FormlessFist) && HasEffect(Buffs.RaptorForm))
 					{
-						return !LevelChecked(TrueStrike)
+						return !ActionReady(TrueStrike)
 							? Bootshine
-							: !LevelChecked(TwinSnakes) || twinsnakeDuration >= PluginConfiguration.GetCustomFloatValue(Config.MNK_DisciplinedFist_Apply)
+							: !ActionReady(TwinSnakes) || twinsnakeDuration >= PluginConfiguration.GetCustomFloatValue(Config.MNK_DisciplinedFist_Apply)
 							? TrueStrike
 							: TwinSnakes;
 					}
 					if (!HasEffect(Buffs.FormlessFist) && HasEffect(Buffs.CoerlForm))
 					{
-						return !LevelChecked(SnapPunch)
+						return !ActionReady(SnapPunch)
 							? Bootshine
-							: !LevelChecked(Demolish) || demolishDuration >= PluginConfiguration.GetCustomFloatValue(Config.MNK_Demolish_Apply)
+							: !ActionReady(Demolish) || demolishDuration >= PluginConfiguration.GetCustomFloatValue(Config.MNK_Demolish_Apply)
 								? SnapPunch
 								: Demolish;
 					}

@@ -1,7 +1,6 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using Dalamud.Game.ClientState.Statuses;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.JobHelpers;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using StackCombo.Extensions;
@@ -185,7 +184,6 @@ namespace StackCombo.Combos.PvE
 		internal class BLM_ST_SimpleMode : CustomComboClass
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.BLM_ST_SimpleMode;
-			internal static BLMOpenerLogic BLMOpener = new();
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
@@ -196,21 +194,17 @@ namespace StackCombo.Combos.PvE
 
 				if (actionID is Fire)
 				{
-					if (BLMOpener.DoFullOpener(ref actionID, true))
-					{
-						return actionID;
-					}
 
 					if (gauge.ElementTimeRemaining > 0)
 					{
 						if (CurrentTarget is null)
 						{
-							if (gauge.InAstralFire && LevelChecked(Transpose))
+							if (gauge.InAstralFire && ActionReady(Transpose))
 							{
 								return Transpose;
 							}
 
-							if (gauge.InUmbralIce && LevelChecked(UmbralSoul))
+							if (gauge.InUmbralIce && ActionReady(UmbralSoul))
 							{
 								return UmbralSoul;
 							}
@@ -243,17 +237,17 @@ namespace StackCombo.Combos.PvE
 								return OriginalHook(Thunder);
 							}
 
-							if (HasEffect(Buffs.Firestarter) && gauge.InAstralFire && LevelChecked(Fire3))
+							if (HasEffect(Buffs.Firestarter) && gauge.InAstralFire && ActionReady(Fire3))
 							{
 								return Fire3;
 							}
 
-							if (LevelChecked(Paradox) && gauge.IsParadoxActive && gauge.InUmbralIce)
+							if (ActionReady(Paradox) && gauge.IsParadoxActive && gauge.InUmbralIce)
 							{
 								return Paradox;
 							}
 
-							if (LevelChecked(Xenoglossy) && gauge.PolyglotStacks > 1)
+							if (ActionReady(Xenoglossy) && gauge.PolyglotStacks > 1)
 							{
 								return Xenoglossy;
 							}
@@ -268,7 +262,7 @@ namespace StackCombo.Combos.PvE
 								return Triplecast;
 							}
 
-							if ((GetBuffStacks(Buffs.Triplecast) is 0) && LevelChecked(Scathe))
+							if ((GetBuffStacks(Buffs.Triplecast) is 0) && ActionReady(Scathe))
 							{
 								return Scathe;
 							}
@@ -277,13 +271,13 @@ namespace StackCombo.Combos.PvE
 						if (!ThunderList.ContainsKey(lastComboMove) &&
 							(currentMP >= MP.ThunderST || (HasEffect(Buffs.Sharpcast) && HasEffect(Buffs.Thundercloud))))
 						{
-							if (LevelChecked(Thunder3) &&
+							if (ActionReady(Thunder3) &&
 								GetDebuffRemainingTime(Debuffs.Thunder3) <= 4)
 							{
 								return Thunder3;
 							}
 
-							if (LevelChecked(Thunder) && !LevelChecked(Thunder3) &&
+							if (ActionReady(Thunder) && !ActionReady(Thunder3) &&
 								GetDebuffRemainingTime(Debuffs.Thunder) <= 4)
 							{
 								return Thunder;
@@ -291,7 +285,7 @@ namespace StackCombo.Combos.PvE
 						}
 
 						if (GetRemainingCharges(Triplecast) is 2 &&
-							LevelChecked(Triplecast) && !HasEffect(Buffs.Triplecast) && !HasEffect(All.Buffs.Swiftcast) &&
+							ActionReady(Triplecast) && !HasEffect(Buffs.Triplecast) && !HasEffect(All.Buffs.Swiftcast) &&
 							(gauge.InAstralFire || gauge.UmbralHearts is 3) &&
 							currentMP >= MP.FireI * 2)
 						{
@@ -314,7 +308,7 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.ElementTimeRemaining <= 0)
 					{
-						return LevelChecked(Fire3)
+						return ActionReady(Fire3)
 							? (currentMP >= MP.FireIII)
 								? Fire3
 								: Blizzard3
@@ -323,7 +317,7 @@ namespace StackCombo.Combos.PvE
 							: Blizzard;
 					}
 
-					if (!LevelChecked(Blizzard3))
+					if (!ActionReady(Blizzard3))
 					{
 						if (gauge.InAstralFire)
 						{
@@ -340,7 +334,7 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (!LevelChecked(Fire4))
+					if (!ActionReady(Fire4))
 					{
 						if (gauge.InAstralFire)
 						{
@@ -353,7 +347,7 @@ namespace StackCombo.Combos.PvE
 
 						if (gauge.InUmbralIce)
 						{
-							return LevelChecked(Blizzard4) && gauge.UmbralHearts < 3
+							return ActionReady(Blizzard4) && gauge.UmbralHearts < 3
 								? Blizzard4
 								: (currentMP == MP.MaxMP || gauge.UmbralHearts is 3)
 								? Fire3
@@ -363,9 +357,9 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.InAstralFire)
 					{
-						return (gauge.PolyglotStacks is 2 && (gauge.EnochianTimer <= 3000) && TraitLevelChecked(Traits.EnhancedPolyGlot)) ||
-							(gauge.PolyglotStacks is 1 && (gauge.EnochianTimer <= 6000) && !TraitLevelChecked(Traits.EnhancedPolyGlot))
-							? LevelChecked(Xenoglossy)
+						return (gauge.PolyglotStacks is 2 && (gauge.EnochianTimer <= 3000) && TraitActionReady(Traits.EnhancedPolyGlot)) ||
+							(gauge.PolyglotStacks is 1 && (gauge.EnochianTimer <= 6000) && !TraitActionReady(Traits.EnhancedPolyGlot))
+							? ActionReady(Xenoglossy)
 								? Xenoglossy
 								: Foul
 							: gauge.AstralFireStacks < 3 || (gauge.ElementTimeRemaining <= 3000 && HasEffect(Buffs.Firestarter))
@@ -374,35 +368,13 @@ namespace StackCombo.Combos.PvE
 							? OriginalHook(Fire)
 							: ActionReady(Manafont) && WasLastAction(Despair)
 							? Manafont
-							: IsOnCooldown(Manafont) && WasLastAction(Manafont) && Fire4.LevelChecked()
+							: IsOnCooldown(Manafont) && WasLastAction(Manafont) && Fire4.ActionReady()
 							? Fire4
 							: currentMP < MP.FireI || gauge.ElementTimeRemaining <= 5000
 							? currentMP >= MP.FireI
 								? OriginalHook(Fire)
-								: currentMP < MP.FireI && currentMP >= MP.AllMPSpells && LevelChecked(Despair) ? Despair : Blizzard3
+								: currentMP < MP.FireI && currentMP >= MP.AllMPSpells && ActionReady(Despair) ? Despair : Blizzard3
 							: Fire4;
-					}
-
-					if (gauge.InUmbralIce)
-					{
-						return gauge.EnochianTimer <= 20000 &&
-							((gauge.PolyglotStacks is 2 && TraitLevelChecked(Traits.EnhancedPolyGlot)) ||
-							(gauge.PolyglotStacks is 1 && !TraitLevelChecked(Traits.EnhancedPolyGlot)))
-							? LevelChecked(Xenoglossy)
-								? Xenoglossy
-								: Foul
-							: ActionReady(Sharpcast) && !HasEffect(Buffs.Sharpcast) &&
-							!WasLastAction(Thunder3) && CanSpellWeave(actionID)
-							? Sharpcast
-							: LevelChecked(Paradox) && gauge.IsParadoxActive
-							? Paradox
-							: gauge.HasPolyglotStacks()
-							? LevelChecked(Xenoglossy)
-									? Xenoglossy
-									: Foul
-							: (gauge.UmbralHearts is 3 && currentMP >= MP.MaxMP - MP.ThunderST)
-							? Fire3
-							: Blizzard4;
 					}
 				}
 
@@ -413,7 +385,6 @@ namespace StackCombo.Combos.PvE
 		internal class BLM_ST_AdvancedMode : CustomComboClass
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.BLM_ST_AdvancedMode;
-			internal static BLMOpenerLogic BLMOpener = new();
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
@@ -429,10 +400,6 @@ namespace StackCombo.Combos.PvE
 				{
 					if (IsEnabled(CustomComboPreset.BLM_Adv_Opener))
 					{
-						if (BLMOpener.DoFullOpener(ref actionID, false))
-						{
-							return actionID;
-						}
 					}
 
 					if (IsEnabled(CustomComboPreset.BLM_ST_Adv_Thunder_ThunderCloud) &&
@@ -446,12 +413,12 @@ namespace StackCombo.Combos.PvE
 					{
 						if (IsEnabled(CustomComboPreset.BLM_Adv_UmbralSoul) && CurrentTarget is null)
 						{
-							if (gauge.InAstralFire && LevelChecked(Transpose))
+							if (gauge.InAstralFire && ActionReady(Transpose))
 							{
 								return Transpose;
 							}
 
-							if (gauge.InUmbralIce && LevelChecked(UmbralSoul))
+							if (gauge.InUmbralIce && ActionReady(UmbralSoul))
 							{
 								return UmbralSoul;
 							}
@@ -487,19 +454,19 @@ namespace StackCombo.Combos.PvE
 							}
 
 							if (Config.BLM_Adv_Movement_Choice[2] &&
-								HasEffect(Buffs.Firestarter) && gauge.InAstralFire && LevelChecked(Fire3))
+								HasEffect(Buffs.Firestarter) && gauge.InAstralFire && ActionReady(Fire3))
 							{
 								return Fire3;
 							}
 
 							if (Config.BLM_Adv_Movement_Choice[3] &&
-								LevelChecked(Paradox) && gauge.IsParadoxActive && gauge.InUmbralIce)
+								ActionReady(Paradox) && gauge.IsParadoxActive && gauge.InUmbralIce)
 							{
 								return Paradox;
 							}
 
 							if (Config.BLM_Adv_Movement_Choice[4] &&
-								LevelChecked(Xenoglossy) && gauge.PolyglotStacks > 1)
+								ActionReady(Xenoglossy) && gauge.PolyglotStacks > 1)
 							{
 								return Xenoglossy;
 							}
@@ -517,14 +484,14 @@ namespace StackCombo.Combos.PvE
 								return Triplecast;
 							}
 
-							if (Config.BLM_Adv_Movement_Choice[7] && (GetBuffStacks(Buffs.Triplecast) is 0) && LevelChecked(Scathe))
+							if (Config.BLM_Adv_Movement_Choice[7] && (GetBuffStacks(Buffs.Triplecast) is 0) && ActionReady(Scathe))
 							{
 								return Scathe;
 							}
 						}
 
 						if (rotationSelection is 1 &&
-							gauge.InUmbralIce && gauge.HasPolyglotStacks() && ActionReady(All.Swiftcast) && level >= 90)
+							gauge.InUmbralIce && ActionReady(All.Swiftcast) && level >= 90)
 						{
 							if (gauge.UmbralIceStacks < 3 &&
 								ActionReady(All.LucidDreaming) && ActionReady(All.Swiftcast))
@@ -547,7 +514,7 @@ namespace StackCombo.Combos.PvE
 
 						if (IsEnabled(CustomComboPreset.BLM_Adv_Casts) &&
 							((IsNotEnabled(CustomComboPreset.BLM_Adv_Triplecast_Pooling) && GetRemainingCharges(Triplecast) > 0) || GetRemainingCharges(Triplecast) is 2) &&
-							LevelChecked(Triplecast) && !HasEffect(Buffs.Triplecast) && !HasEffect(All.Buffs.Swiftcast) &&
+							ActionReady(Triplecast) && !HasEffect(Buffs.Triplecast) && !HasEffect(All.Buffs.Swiftcast) &&
 							gauge.InAstralFire &&
 							currentMP >= MP.FireI * 2)
 						{
@@ -572,7 +539,7 @@ namespace StackCombo.Combos.PvE
 							!ThunderList.ContainsKey(lastComboMove) &&
 							(currentMP >= MP.ThunderST || (HasEffect(Buffs.Sharpcast) && HasEffect(Buffs.Thundercloud))))
 						{
-							if (LevelChecked(Thunder) &&
+							if (ActionReady(Thunder) &&
 								(dotDebuff is null || dotDebuff.RemainingTime <= thunderRefreshTime) && GetTargetHPPercent() > ThunderHP)
 							{
 								return OriginalHook(Thunder);
@@ -582,16 +549,16 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.ElementTimeRemaining <= 0)
 					{
-						return (LevelChecked(Blizzard3) && Config.BLM_Adv_InitialCast == 1) || (LevelChecked(Fire3) && Config.BLM_Adv_InitialCast == 0 && currentMP < MP.FireIII)
+						return (ActionReady(Blizzard3) && Config.BLM_Adv_InitialCast == 1) || (ActionReady(Fire3) && Config.BLM_Adv_InitialCast == 0 && currentMP < MP.FireIII)
 							? Blizzard3
-							: LevelChecked(Fire3) && Config.BLM_Adv_InitialCast == 0
+							: ActionReady(Fire3) && Config.BLM_Adv_InitialCast == 0
 							? Fire3
 							: (currentMP >= MP.FireI)
 							? Fire
 							: Blizzard;
 					}
 
-					if (!LevelChecked(Blizzard3))
+					if (!ActionReady(Blizzard3))
 					{
 						if (gauge.InAstralFire)
 						{
@@ -608,7 +575,7 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (!LevelChecked(Fire4))
+					if (!ActionReady(Fire4))
 					{
 						if (gauge.InAstralFire)
 						{
@@ -621,7 +588,7 @@ namespace StackCombo.Combos.PvE
 
 						if (gauge.InUmbralIce)
 						{
-							return LevelChecked(Blizzard4) && gauge.UmbralHearts < 3
+							return ActionReady(Blizzard4) && gauge.UmbralHearts < 3
 								? Blizzard4
 								: (currentMP == MP.MaxMP || gauge.UmbralHearts is 3)
 								? Fire3
@@ -631,10 +598,10 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.InAstralFire)
 					{
-						if (level >= 70 && ((gauge.PolyglotStacks is 2 && (gauge.EnochianTimer <= 3000) && TraitLevelChecked(Traits.EnhancedPolyGlot)) ||
-							(gauge.PolyglotStacks is 1 && (gauge.EnochianTimer <= 6000) && !TraitLevelChecked(Traits.EnhancedPolyGlot))))
+						if (level >= 70 && ((gauge.PolyglotStacks is 2 && (gauge.EnochianTimer <= 3000) && TraitActionReady(Traits.EnhancedPolyGlot)) ||
+							(gauge.PolyglotStacks is 1 && (gauge.EnochianTimer <= 6000) && !TraitActionReady(Traits.EnhancedPolyGlot))))
 						{
-							return LevelChecked(Xenoglossy)
+							return ActionReady(Xenoglossy)
 								? Xenoglossy
 								: Foul;
 						}
@@ -684,44 +651,44 @@ namespace StackCombo.Combos.PvE
 						return currentMP < MP.FireI || gauge.ElementTimeRemaining <= 5000
 							? currentMP >= MP.FireI
 								? OriginalHook(Fire)
-								: currentMP < MP.FireI && currentMP >= MP.AllMPSpells && LevelChecked(Despair) ? Despair : Blizzard3
+								: currentMP < MP.FireI && currentMP >= MP.AllMPSpells && ActionReady(Despair) ? Despair : Blizzard3
 							: Fire4;
 					}
 
 					if (gauge.InUmbralIce)
 					{
 						if (level >= 70 && gauge.EnochianTimer <= 20000 &&
-							((gauge.PolyglotStacks is 2 && TraitLevelChecked(Traits.EnhancedPolyGlot)) ||
-							(gauge.PolyglotStacks is 1 && !TraitLevelChecked(Traits.EnhancedPolyGlot))))
+							((gauge.PolyglotStacks is 2 && TraitActionReady(Traits.EnhancedPolyGlot)) ||
+							(gauge.PolyglotStacks is 1 && !TraitActionReady(Traits.EnhancedPolyGlot))))
 						{
-							return LevelChecked(Xenoglossy)
+							return ActionReady(Xenoglossy)
 								? Xenoglossy
 								: Foul;
 						}
 
 						if (rotationSelection is 1 && level >= 90 && HasEffect(All.Buffs.LucidDreaming))
 						{
-							if (gauge.HasPolyglotStacks() && LevelChecked(Xenoglossy))
+							if (ActionReady(Xenoglossy))
 							{
 								return Xenoglossy;
 							}
 
-							if (!gauge.HasPolyglotStacks() && WasLastAction(Xenoglossy))
+							if (WasLastAction(Xenoglossy))
 							{
 								return Transpose;
 							}
 						}
 
-						return rotationSelection is 0 && level >= 70 && gauge.HasPolyglotStacks()
-							? LevelChecked(Xenoglossy)
+						return rotationSelection is 0 && level >= 70
+							? ActionReady(Xenoglossy)
 									? Xenoglossy
 									: Foul
 							: Config.BLM_Adv_Xeno_Burst &&
 							(rotationSelection is 0 && level >= 70) && gauge.PolyglotStacks is 2
-							? LevelChecked(Xenoglossy)
+							? ActionReady(Xenoglossy)
 									? Xenoglossy
 									: Foul
-							: LevelChecked(Paradox) && gauge.IsParadoxActive && gauge.UmbralHearts is 3 && currentMP == MP.MaxMP
+							: ActionReady(Paradox) && gauge.IsParadoxActive && gauge.UmbralHearts is 3 && currentMP == MP.MaxMP
 							? Paradox
 							: (gauge.UmbralHearts is 3 && currentMP == MP.MaxMP)
 							? Fire3
@@ -753,12 +720,12 @@ namespace StackCombo.Combos.PvE
 					{
 						if (CurrentTarget is null)
 						{
-							if (gauge.InAstralFire && LevelChecked(Transpose))
+							if (gauge.InAstralFire && ActionReady(Transpose))
 							{
 								return Transpose;
 							}
 
-							if (gauge.InUmbralIce && LevelChecked(UmbralSoul))
+							if (gauge.InUmbralIce && ActionReady(UmbralSoul))
 							{
 								return UmbralSoul;
 							}
@@ -782,7 +749,7 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.InAstralFire)
 					{
-						if (LevelChecked(Flare))
+						if (ActionReady(Flare))
 						{
 							if (ActionReady(Manafont) && currentMP is 0)
 							{
@@ -795,13 +762,13 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (LevelChecked(Foul) && gauge.HasPolyglotStacks() && WasLastAction(OriginalHook(Flare)))
+						if (ActionReady(Foul) && WasLastAction(OriginalHook(Flare)))
 						{
 							return Foul;
 						}
 
 						if ((currentMP is 0 && WasLastAction(Flare)) ||
-							(currentMP < MP.FireAoE && !LevelChecked(Flare)))
+							(currentMP < MP.FireAoE && !ActionReady(Flare)))
 						{
 							return OriginalHook(Blizzard2);
 						}
@@ -810,27 +777,27 @@ namespace StackCombo.Combos.PvE
 						{
 							if (!ThunderList.ContainsKey(lastComboMove) && currentMP >= MP.ThunderAoE)
 							{
-								if (LevelChecked(Thunder4) &&
+								if (ActionReady(Thunder4) &&
 									GetDebuffRemainingTime(Debuffs.Thunder4) <= 4)
 								{
 									return Thunder4;
 								}
 
-								if (LevelChecked(Thunder2) && !LevelChecked(Thunder4) &&
+								if (ActionReady(Thunder2) && !ActionReady(Thunder4) &&
 									GetDebuffRemainingTime(Debuffs.Thunder2) <= 4)
 								{
 									return Thunder2;
 								}
 							}
 
-							if (LevelChecked(Flare) && HasEffect(Buffs.EnhancedFlare) &&
+							if (ActionReady(Flare) && HasEffect(Buffs.EnhancedFlare) &&
 								(gauge.UmbralHearts is 1 || currentMP < MP.FireAoE) &&
 								ActionReady(Triplecast) && !HasEffect(Buffs.Triplecast))
 							{
 								return Triplecast;
 							}
 
-							if (LevelChecked(Flare) && HasEffect(Buffs.EnhancedFlare) &&
+							if (ActionReady(Flare) && HasEffect(Buffs.EnhancedFlare) &&
 								(gauge.UmbralHearts is 1 || currentMP < MP.FireAoE))
 							{
 								return Flare;
@@ -845,38 +812,38 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.InUmbralIce)
 					{
-						if (gauge.UmbralHearts < 3 && LevelChecked(Freeze) && TraitLevelChecked(Traits.EnhancedFreeze) && currentMP >= MP.Freeze)
+						if (gauge.UmbralHearts < 3 && ActionReady(Freeze) && TraitActionReady(Traits.EnhancedFreeze) && currentMP >= MP.Freeze)
 						{
 							return Freeze;
 						}
 
 						if (!ThunderList.ContainsKey(lastComboMove) && currentMP >= MP.ThunderAoE)
 						{
-							if (LevelChecked(Thunder4) &&
+							if (ActionReady(Thunder4) &&
 								GetDebuffRemainingTime(Debuffs.Thunder4) <= 4)
 							{
 								return Thunder4;
 							}
 
-							if (LevelChecked(Thunder2) && !LevelChecked(Thunder4) &&
+							if (ActionReady(Thunder2) && !ActionReady(Thunder4) &&
 								GetDebuffRemainingTime(Debuffs.Thunder2) <= 4)
 							{
 								return Thunder2;
 							}
 						}
 
-						if (currentMP < 9400 && !TraitLevelChecked(Traits.EnhancedFreeze) && Freeze.LevelChecked() && currentMP >= MP.Freeze)
+						if (currentMP < 9400 && !TraitActionReady(Traits.EnhancedFreeze) && Freeze.ActionReady() && currentMP >= MP.Freeze)
 						{
 							return Freeze;
 						}
 
-						if (currentMP >= 9400 && !TraitLevelChecked(Traits.AspectMasteryIII))
+						if (currentMP >= 9400 && !TraitActionReady(Traits.AspectMasteryIII))
 						{
 							return Transpose;
 						}
 
 						if ((gauge.UmbralHearts is 3 || currentMP == MP.MaxMP) &&
-							TraitLevelChecked(Traits.AspectMasteryIII))
+							TraitActionReady(Traits.AspectMasteryIII))
 						{
 							return OriginalHook(Fire2);
 						}
@@ -909,12 +876,12 @@ namespace StackCombo.Combos.PvE
 					{
 						if (IsEnabled(CustomComboPreset.BLM_AoE_Adv_UmbralSoul) && CurrentTarget is null)
 						{
-							if (gauge.InAstralFire && LevelChecked(Transpose))
+							if (gauge.InAstralFire && ActionReady(Transpose))
 							{
 								return Transpose;
 							}
 
-							if (gauge.InUmbralIce && LevelChecked(UmbralSoul))
+							if (gauge.InUmbralIce && ActionReady(UmbralSoul))
 							{
 								return UmbralSoul;
 							}
@@ -959,14 +926,14 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.InAstralFire)
 					{
-						if ((LevelChecked(Foul) &&
-							gauge.PolyglotStacks is 2 && (gauge.EnochianTimer <= 3000) && TraitLevelChecked(Traits.EnhancedPolyGlot)) ||
-							(gauge.PolyglotStacks is 1 && (gauge.EnochianTimer <= 6000) && !TraitLevelChecked(Traits.EnhancedPolyGlot)))
+						if ((ActionReady(Foul) &&
+							gauge.PolyglotStacks is 2 && (gauge.EnochianTimer <= 3000) && TraitActionReady(Traits.EnhancedPolyGlot)) ||
+							(gauge.PolyglotStacks is 1 && (gauge.EnochianTimer <= 6000) && !TraitActionReady(Traits.EnhancedPolyGlot)))
 						{
 							return Foul;
 						}
 
-						if (LevelChecked(Flare))
+						if (ActionReady(Flare))
 						{
 							if (Config.BLM_AoE_Adv_Cooldowns_Choice[0] && ActionReady(Manafont) &&
 								currentMP is 0)
@@ -980,14 +947,14 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.BLM_AoE_Adv_Foul) && LevelChecked(Foul) &&
-							gauge.HasPolyglotStacks() && WasLastAction(OriginalHook(Flare)))
+						if (IsEnabled(CustomComboPreset.BLM_AoE_Adv_Foul) && ActionReady(Foul)
+							&& WasLastAction(OriginalHook(Flare)))
 						{
 							return Foul;
 						}
 
 						if ((currentMP is 0 && WasLastAction(Flare)) ||
-							(currentMP < MP.FireAoE && !LevelChecked(Flare)))
+							(currentMP < MP.FireAoE && !ActionReady(Flare)))
 						{
 							return OriginalHook(Blizzard2);
 						}
@@ -997,27 +964,27 @@ namespace StackCombo.Combos.PvE
 							if (IsEnabled(CustomComboPreset.BLM_AoE_Adv_ThunderUptime_AstralFire) &&
 								!ThunderList.ContainsKey(lastComboMove) && currentMP >= MP.ThunderAoE)
 							{
-								if (LevelChecked(Thunder4) &&
+								if (ActionReady(Thunder4) &&
 									 (GetDebuffRemainingTime(Debuffs.Thunder4) <= thunderRefreshTime))
 								{
 									return Thunder4;
 								}
 
-								if (LevelChecked(Thunder2) && !LevelChecked(Thunder4) &&
+								if (ActionReady(Thunder2) && !ActionReady(Thunder4) &&
 									(GetDebuffRemainingTime(Debuffs.Thunder2) <= thunderRefreshTime))
 								{
 									return Thunder2;
 								}
 							}
 
-							if (LevelChecked(Flare) && HasEffect(Buffs.EnhancedFlare) && TraitLevelChecked(Traits.Enochian) &&
+							if (ActionReady(Flare) && HasEffect(Buffs.EnhancedFlare) && TraitActionReady(Traits.Enochian) &&
 								(gauge.UmbralHearts is 1 || currentMP < MP.FireAoE) && Config.BLM_AoE_Adv_Cooldowns_Choice[4] && IsEnabled(CustomComboPreset.BLM_AoE_Adv_Cooldowns) &&
 								ActionReady(Triplecast) && !HasEffect(Buffs.Triplecast))
 							{
 								return Triplecast;
 							}
 
-							if (LevelChecked(Flare) && HasEffect(Buffs.EnhancedFlare) && TraitLevelChecked(Traits.Enochian) &&
+							if (ActionReady(Flare) && HasEffect(Buffs.EnhancedFlare) && TraitActionReady(Traits.Enochian) &&
 							(gauge.UmbralHearts is 1 || currentMP < MP.FireAoE))
 							{
 								return Flare;
@@ -1028,7 +995,7 @@ namespace StackCombo.Combos.PvE
 								return OriginalHook(Fire2);
 							}
 
-							if (LevelChecked(Flare))
+							if (ActionReady(Flare))
 							{
 								return Flare;
 							}
@@ -1037,14 +1004,14 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.InUmbralIce)
 					{
-						if (LevelChecked(Foul) && gauge.EnochianTimer <= 20000 &&
-							((gauge.PolyglotStacks is 2 && TraitLevelChecked(Traits.EnhancedPolyGlot)) ||
-							(gauge.PolyglotStacks is 1 && !TraitLevelChecked(Traits.EnhancedPolyGlot))))
+						if (ActionReady(Foul) && gauge.EnochianTimer <= 20000 &&
+							((gauge.PolyglotStacks is 2 && TraitActionReady(Traits.EnhancedPolyGlot)) ||
+							(gauge.PolyglotStacks is 1 && !TraitActionReady(Traits.EnhancedPolyGlot))))
 						{
 							return Foul;
 						}
 
-						if (gauge.UmbralHearts < 3 && LevelChecked(Freeze) && TraitLevelChecked(Traits.EnhancedFreeze) && currentMP >= MP.Freeze)
+						if (gauge.UmbralHearts < 3 && ActionReady(Freeze) && TraitActionReady(Traits.EnhancedFreeze) && currentMP >= MP.Freeze)
 						{
 							return Freeze;
 						}
@@ -1052,31 +1019,31 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.BLM_AoE_Adv_ThunderUptime) &&
 						   !ThunderList.ContainsKey(lastComboMove) && currentMP >= MP.ThunderAoE)
 						{
-							if (LevelChecked(Thunder4) &&
+							if (ActionReady(Thunder4) &&
 								(GetDebuffRemainingTime(Debuffs.Thunder4) <= thunderRefreshTime) && GetTargetHPPercent() > ThunderHP)
 							{
 								return Thunder4;
 							}
 
-							if (LevelChecked(Thunder2) && !LevelChecked(Thunder4) &&
+							if (ActionReady(Thunder2) && !ActionReady(Thunder4) &&
 								(GetDebuffRemainingTime(Debuffs.Thunder2) <= thunderRefreshTime) && GetTargetHPPercent() > ThunderHP)
 							{
 								return Thunder2;
 							}
 						}
 
-						if (currentMP < 9400 && !TraitLevelChecked(Traits.EnhancedFreeze) && LevelChecked(Freeze) && currentMP >= MP.Freeze)
+						if (currentMP < 9400 && !TraitActionReady(Traits.EnhancedFreeze) && ActionReady(Freeze) && currentMP >= MP.Freeze)
 						{
 							return Freeze;
 						}
 
-						if (currentMP >= 9400 && !TraitLevelChecked(Traits.AspectMasteryIII))
+						if (currentMP >= 9400 && !TraitActionReady(Traits.AspectMasteryIII))
 						{
 							return Transpose;
 						}
 
 						if ((gauge.UmbralHearts is 3 || currentMP == MP.MaxMP) &&
-							TraitLevelChecked(Traits.AspectMasteryIII))
+							TraitActionReady(Traits.AspectMasteryIII))
 						{
 							return OriginalHook(Fire2);
 						}
@@ -1105,7 +1072,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return (actionID is Scathe && LevelChecked(Xenoglossy) && GetJobGauge<BLMGauge>().HasPolyglotStacks())
+				return (actionID is Scathe && ActionReady(Xenoglossy))
 				? Xenoglossy
 				: actionID;
 			}
@@ -1117,9 +1084,9 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Blizzard && LevelChecked(Freeze) && !GetJobGauge<BLMGauge>().InUmbralIce
+				return actionID is Blizzard && ActionReady(Freeze) && !GetJobGauge<BLMGauge>().InUmbralIce
 					? Blizzard3
-					: actionID is Freeze && !LevelChecked(Freeze) ? Blizzard2 : actionID;
+					: actionID is Freeze && !ActionReady(Freeze) ? Blizzard2 : actionID;
 			}
 		}
 
@@ -1129,7 +1096,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return (actionID is Fire && ((LevelChecked(Fire3) && !GetJobGauge<BLMGauge>().InAstralFire) || HasEffect(Buffs.Firestarter)))
+				return (actionID is Fire && ((ActionReady(Fire3) && !GetJobGauge<BLMGauge>().InAstralFire) || HasEffect(Buffs.Firestarter)))
 				? Fire3
 				: actionID;
 			}
@@ -1141,7 +1108,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is LeyLines && HasEffect(Buffs.LeyLines) && LevelChecked(BetweenTheLines)
+				return actionID is LeyLines && HasEffect(Buffs.LeyLines) && ActionReady(BetweenTheLines)
 				? BetweenTheLines
 				: actionID;
 			}
@@ -1169,7 +1136,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Transpose && GetJobGauge<BLMGauge>().InUmbralIce && LevelChecked(UmbralSoul)
+				return actionID is Transpose && GetJobGauge<BLMGauge>().InUmbralIce && ActionReady(UmbralSoul)
 				? UmbralSoul
 				: actionID;
 			}

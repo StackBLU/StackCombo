@@ -162,9 +162,8 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(AstralDraw);
 					}
 
-					if ((IsEnabled(CustomComboPreset.AST_ST_DPS_CombustUptime) && ActionReady(OriginalHook(Combust3))
-						&& !TargetHasEffect(CombustList[OriginalHook(Combust3)]) && ActionWatching.NumberOfGcdsUsed >= 3)
-						|| (GetDebuffRemainingTime(CombustList[OriginalHook(Combust3)]) <= 3))
+					if (IsEnabled(CustomComboPreset.AST_ST_DPS_CombustUptime) && ActionReady(OriginalHook(Combust3)) && ActionWatching.NumberOfGcdsUsed >= 3
+						&& (!TargetHasEffect(CombustList[OriginalHook(Combust3)]) || GetDebuffRemainingTime(CombustList[OriginalHook(Combust3)]) <= 3))
 					{
 						return OriginalHook(Combust3);
 					}

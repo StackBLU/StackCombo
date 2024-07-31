@@ -105,13 +105,13 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (LevelChecked(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)
-						|| (HasEffect(Buffs.ReadyToBlast) && LevelChecked(Hypervelocity))))
+					if (ActionReady(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)
+						|| (HasEffect(Buffs.ReadyToBlast) && ActionReady(Hypervelocity))))
 					{
 						return OriginalHook(Continuation);
 					}
 
-					/*if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && LevelChecked(ReignOfBeasts))
+					/*if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && ActionReady(ReignOfBeasts))
 					{
 						if (GetBuffRemainingTime(Buffs.ReadyToReign) > 0 && IsOnCooldown(GnashingFang) && IsOnCooldown(DoubleDown) && gauge.AmmoComboStep == 0 && GetCooldownRemainingTime(Bloodfest) > GCD * 12)
 						{
@@ -139,12 +139,12 @@ namespace StackCombo.Combos.PvE
 
 					if (comboTime > 0)
 					{
-						if (lastComboMove == KeenEdge && LevelChecked(BrutalShell))
+						if (lastComboMove == KeenEdge && ActionReady(BrutalShell))
 						{
 							return BrutalShell;
 						}
 
-						if (lastComboMove == BrutalShell && LevelChecked(SolidBarrel))
+						if (lastComboMove == BrutalShell && ActionReady(SolidBarrel))
 						{
 							return SolidBarrel;
 						}
@@ -190,8 +190,8 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					return comboTime > 0 && lastComboMove == DemonSlice && LevelChecked(DemonSlaughter)
-						? IsEnabled(CustomComboPreset.GNB_AOE_Overcap) && LevelChecked(FatedCircle) && gauge.Ammo == MaxCartridges(level) ? FatedCircle : DemonSlaughter
+					return comboTime > 0 && lastComboMove == DemonSlice && ActionReady(DemonSlaughter)
+						? IsEnabled(CustomComboPreset.GNB_AOE_Overcap) && ActionReady(FatedCircle) && gauge.Ammo == MaxCartridges(level) ? FatedCircle : DemonSlaughter
 						: DemonSlice;
 				}
 

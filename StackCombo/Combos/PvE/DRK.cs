@@ -93,7 +93,7 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if (IsEnabled(CustomComboPreset.DRK_ST_RangedUptime)
-					&& LevelChecked(Unmend)
+					&& ActionReady(Unmend)
 					&& !InMeleeRange()
 					&& HasBattleTarget())
 				{
@@ -105,8 +105,8 @@ namespace StackCombo.Combos.PvE
 					return HardSlash;
 				}
 
-				if (LevelChecked(LivingShadow)
-					&& LevelChecked(Disesteem)
+				if (ActionReady(LivingShadow)
+					&& ActionReady(Disesteem)
 					&& IsEnabled(CustomComboPreset.DRK_ST_CDs_Disesteem)
 					&& HasEffect(Buffs.Scorn)
 					&& ((gauge.DarksideTimeRemaining > 0 && GetBuffRemainingTime(Buffs.Scorn) < 26)
@@ -140,7 +140,7 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.DRK_ST_ManaSpenderPooling)
 							&& GetCooldownRemainingTime(LivingShadow) >= 45
 							&& LocalPlayer.CurrentMp > (mpRemaining + 3000)
-							&& LevelChecked(EdgeOfDarkness)
+							&& ActionReady(EdgeOfDarkness)
 							&& CanDelayedWeave(actionID))
 						{
 							return OriginalHook(EdgeOfDarkness);
@@ -149,13 +149,13 @@ namespace StackCombo.Combos.PvE
 						if (LocalPlayer.CurrentMp > 8500
 							|| (gauge.DarksideTimeRemaining < 10000 && LocalPlayer.CurrentMp > (mpRemaining + 3000)))
 						{
-							if (LevelChecked(EdgeOfDarkness))
+							if (ActionReady(EdgeOfDarkness))
 							{
 								return OriginalHook(EdgeOfDarkness);
 							}
 
-							if (LevelChecked(FloodOfDarkness)
-								&& !LevelChecked(EdgeOfDarkness))
+							if (ActionReady(FloodOfDarkness)
+								&& !ActionReady(EdgeOfDarkness))
 							{
 								return FloodOfDarkness;
 							}
@@ -167,7 +167,7 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.DRK_ST_CDs)
 							&& IsEnabled(CustomComboPreset.DRK_ST_CDs_LivingShadow)
 							&& IsOffCooldown(LivingShadow)
-							&& LevelChecked(LivingShadow)
+							&& ActionReady(LivingShadow)
 							&& GetTargetHPPercent() > hpRemaining)
 						{
 							return LivingShadow;
@@ -175,7 +175,7 @@ namespace StackCombo.Combos.PvE
 
 						if (IsEnabled(CustomComboPreset.DRK_ST_Delirium)
 							&& IsOffCooldown(BloodWeapon)
-							&& LevelChecked(BloodWeapon))
+							&& ActionReady(BloodWeapon))
 						{
 							return OriginalHook(Delirium);
 						}
@@ -198,7 +198,7 @@ namespace StackCombo.Combos.PvE
 								}
 							}
 
-							if (LevelChecked(Shadowbringer)
+							if (ActionReady(Shadowbringer)
 								&& IsEnabled(CustomComboPreset.DRK_ST_CDs_Shadowbringer))
 							{
 								if ((GetRemainingCharges(Shadowbringer) > 0 && IsNotEnabled(CustomComboPreset.DRK_ST_CDs_ShadowbringerBurst)) ||
@@ -210,7 +210,7 @@ namespace StackCombo.Combos.PvE
 
 							if (IsEnabled(CustomComboPreset.DRK_ST_CDs_CarveAndSpit)
 								&& IsOffCooldown(CarveAndSpit)
-								&& LevelChecked(CarveAndSpit))
+								&& ActionReady(CarveAndSpit))
 							{
 								return CarveAndSpit;
 							}
@@ -218,8 +218,8 @@ namespace StackCombo.Combos.PvE
 					}
 				}
 
-				if (LevelChecked(Delirium)
-					&& LevelChecked(ScarletDelirium)
+				if (ActionReady(Delirium)
+					&& ActionReady(ScarletDelirium)
 					&& IsEnabled(CustomComboPreset.DRK_ST_Delirium_Chain)
 					&& HasEffect(Buffs.Delirium)
 					&& gauge.DarksideTimeRemaining > 0)
@@ -227,7 +227,7 @@ namespace StackCombo.Combos.PvE
 					return OriginalHook(Bloodspiller);
 				}
 
-				if (LevelChecked(Delirium))
+				if (ActionReady(Delirium))
 				{
 					if (GetBuffStacks(Buffs.Delirium) > 0)
 					{
@@ -247,16 +247,16 @@ namespace StackCombo.Combos.PvE
 				return IsEnabled(CustomComboPreset.DRK_ST_ManaOvercap)
 					&& (CanWeave(actionID) || CanDelayedWeave(actionID))
 					&& gauge.HasDarkArts
-					&& LevelChecked(EdgeOfDarkness)
+					&& ActionReady(EdgeOfDarkness)
 					&& CombatEngageDuration().TotalSeconds >= 25
 					? OriginalHook(EdgeOfDarkness)
 					: !(comboTime > 0)
 					? HardSlash
-					: lastComboMove == HardSlash && LevelChecked(SyphonStrike)
+					: lastComboMove == HardSlash && ActionReady(SyphonStrike)
 					? SyphonStrike
-					: lastComboMove == SyphonStrike && LevelChecked(Souleater)
+					: lastComboMove == SyphonStrike && ActionReady(Souleater)
 					? IsEnabled(CustomComboPreset.DRK_ST_BloodOvercap)
-						&& LevelChecked(Bloodspiller) && gauge.Blood >= 90
+						&& ActionReady(Bloodspiller) && gauge.Blood >= 90
 						? Bloodspiller
 						: Souleater
 					: HardSlash;
@@ -284,8 +284,8 @@ namespace StackCombo.Combos.PvE
 					return Variant.VariantCure;
 				}
 
-				if (LevelChecked(LivingShadow)
-					&& LevelChecked(Disesteem)
+				if (ActionReady(LivingShadow)
+					&& ActionReady(Disesteem)
 					&& IsEnabled(CustomComboPreset.DRK_AoE_CDs_Disesteem)
 					&& HasEffect(Buffs.Scorn)
 					&& (gauge.DarksideTimeRemaining > 0
@@ -312,7 +312,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.DRK_AoE_ManaOvercap)
-						&& LevelChecked(FloodOfDarkness)
+						&& ActionReady(FloodOfDarkness)
 						&& (LocalPlayer.CurrentMp > 8500 || (gauge.DarksideTimeRemaining < 10 && LocalPlayer.CurrentMp >= 3000)))
 					{
 						return OriginalHook(FloodOfDarkness);
@@ -320,7 +320,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.DRK_AoE_CDs_LivingShadow)
 						&& IsOffCooldown(LivingShadow)
-						&& LevelChecked(LivingShadow)
+						&& ActionReady(LivingShadow)
 						&& GetTargetHPPercent() > hpRemaining)
 					{
 						return LivingShadow;
@@ -328,7 +328,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.DRK_AoE_Delirium)
 						&& IsOffCooldown(BloodWeapon)
-						&& LevelChecked(BloodWeapon))
+						&& ActionReady(BloodWeapon))
 					{
 						return OriginalHook(Delirium);
 					}
@@ -352,14 +352,14 @@ namespace StackCombo.Combos.PvE
 						}
 
 						if (IsEnabled(CustomComboPreset.DRK_AoE_CDs_Shadowbringer)
-							&& LevelChecked(Shadowbringer)
+							&& ActionReady(Shadowbringer)
 							&& GetRemainingCharges(Shadowbringer) > 0)
 						{
 							return Shadowbringer;
 						}
 
 						if (IsEnabled(CustomComboPreset.DRK_AoE_CDs_AbyssalDrain)
-							&& LevelChecked(AbyssalDrain)
+							&& ActionReady(AbyssalDrain)
 							&& IsOffCooldown(AbyssalDrain)
 							&& PlayerHealthPercentageHp() <= 60)
 						{
@@ -368,8 +368,8 @@ namespace StackCombo.Combos.PvE
 					}
 				}
 
-				return LevelChecked(Delirium)
-					&& LevelChecked(Impalement)
+				return ActionReady(Delirium)
+					&& ActionReady(Impalement)
 					&& IsEnabled(CustomComboPreset.DRK_AoE_Delirium_Chain)
 					&& HasEffect(Buffs.Delirium)
 					&& gauge.DarksideTimeRemaining > 1
@@ -377,14 +377,14 @@ namespace StackCombo.Combos.PvE
 					: IsEnabled(CustomComboPreset.DRK_AoE_ManaOvercap)
 					&& (CanWeave(actionID) || CanDelayedWeave(actionID))
 					&& gauge.HasDarkArts
-					&& LevelChecked(FloodOfDarkness)
+					&& ActionReady(FloodOfDarkness)
 					? OriginalHook(FloodOfDarkness)
 					: !(comboTime > 0)
 					? Unleash
-					: lastComboMove == Unleash && LevelChecked(StalwartSoul)
+					: lastComboMove == Unleash && ActionReady(StalwartSoul)
 					? IsEnabled(CustomComboPreset.DRK_AoE_BloodOvercap)
 						&& gauge.Blood >= 90
-						&& LevelChecked(Quietus)
+						&& ActionReady(Quietus)
 						? Quietus
 						: StalwartSoul
 					: Unleash;

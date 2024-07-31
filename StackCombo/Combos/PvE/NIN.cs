@@ -5,7 +5,6 @@ using StackCombo.Core;
 using StackCombo.CustomCombo;
 using StackCombo.Data;
 using StackCombo.Extensions;
-using static StackCombo.Combos.JobHelpers.NIN;
 
 namespace StackCombo.Combos.PvE
 {
@@ -130,10 +129,6 @@ namespace StackCombo.Combos.PvE
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.NIN_ST_AdvancedMode;
 
-			protected internal MudraCasting mudraState = new();
-
-			protected internal static NINOpenerLogic NINOpener = new();
-
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				if (actionID == SpinningEdge)
@@ -144,15 +139,15 @@ namespace StackCombo.Combos.PvE
 					bool inTrickBurstSaveWindow = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrickAttack_Cooldowns) && IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrickAttack) && GetCooldownRemainingTime(TrickAttack) <= GetOptionValue(Config.Advanced_Trick_Cooldown);
 					bool useBhakaBeforeTrickWindow = GetCooldownRemainingTime(TrickAttack) >= 3;
 					bool inMudraState = HasEffect(Buffs.Mudra);
-					bool setupSuitonWindow = GetCooldownRemainingTime(TrickAttack) <= GetOptionValue(Config.Trick_CooldownRemaining) && !HasEffect(Buffs.Suiton);
+					_ = GetCooldownRemainingTime(TrickAttack) <= GetOptionValue(Config.Trick_CooldownRemaining) && !HasEffect(Buffs.Suiton);
 					bool setupKassatsuWindow = GetCooldownRemainingTime(TrickAttack) <= 10 && HasEffect(Buffs.Suiton);
-					bool chargeCheck = IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_ChargeHold) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_ChargeHold) && (GetRemainingCharges(Ten) == 2 || (GetRemainingCharges(Ten) == 1 && GetCooldownChargeRemainingTime(Ten) < 3)));
+					_ = IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_ChargeHold) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_ChargeHold) && (GetRemainingCharges(Ten) == 2 || (GetRemainingCharges(Ten) == 1 && GetCooldownChargeRemainingTime(Ten) < 3)));
 					bool doubleArmorCrush = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_ArmorCrush) && PluginConfiguration.GetCustomBoolValue(Config.Advanced_DoubleArmorCrush) && GetOptionValue(Config.Huton_RemainingArmorCrush) <= 12;
-					bool poolCharges = !GetOptionBool(Config.Advanced_ChargePool) || (GetRemainingCharges(Ten) == 1 && GetCooldownChargeRemainingTime(Ten) < 2) || TargetHasEffect(Debuffs.TrickAttack);
-					bool raitonUptime = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Raiton_Uptime);
-					bool suitonUptime = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Suiton_Uptime);
+					_ = !GetOptionBool(Config.Advanced_ChargePool) || (GetRemainingCharges(Ten) == 1 && GetCooldownChargeRemainingTime(Ten) < 2) || TargetHasEffect(Debuffs.TrickAttack);
+					_ = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Raiton_Uptime);
+					_ = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Suiton_Uptime);
 					int timesLastEnderWasArmorCrush = ActionWatching.HowManyTimesUsedAfterAnotherAction(ArmorCrush, AeolianEdge);
-					bool inTNWithDoubleArmorCrush = doubleArmorCrush && HasEffect(All.Buffs.TrueNorth) && timesLastEnderWasArmorCrush == 1;
+					_ = doubleArmorCrush && HasEffect(All.Buffs.TrueNorth) && timesLastEnderWasArmorCrush == 1;
 					_ = GetOptionValue(Config.Huton_RemainingHuraijinST) * 1000;
 					int bhavaPool = GetOptionValue(Config.Ninki_BhavaPooling);
 					_ = GetOptionValue(Config.Huton_RemainingArmorCrush) * 1000;
@@ -161,109 +156,7 @@ namespace StackCombo.Combos.PvE
 					int ShadeShiftThreshold = PluginConfiguration.GetCustomIntValue(Config.ShadeShiftThresholdST);
 					int BloodbathThreshold = PluginConfiguration.GetCustomIntValue(Config.BloodbathThresholdST);
 					double playerHP = PlayerHealthPercentageHp();
-					bool phantomUptime = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Phantom_Uptime);
-
-					if (IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus) || (ActionWatching.TimeSinceLastAction.TotalSeconds >= 5 && !InCombat()))
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.None;
-					}
-
-					if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Suiton) && IsOnCooldown(TrickAttack) && mudraState.CurrentMudra == MudraCasting.MudraState.CastingSuiton && !setupSuitonWindow)
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.None;
-					}
-
-					if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Suiton) && IsOnCooldown(TrickAttack) && mudraState.CurrentMudra != MudraCasting.MudraState.CastingSuiton && setupSuitonWindow)
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.CastingSuiton;
-					}
-
-					if (OriginalHook(Ninjutsu) is Rabbit)
-					{
-						return OriginalHook(Ninjutsu);
-					}
-
-					if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_BalanceOpener) && NINOpenerLogic.LevelChecked && NINOpener.DoFullOpener(ref actionID, mudraState))
-					{
-						return actionID;
-					}
-
-					if (HasEffect(Buffs.TenChiJin))
-					{
-						if (OriginalHook(Ten) == TCJFumaShurikenTen)
-						{
-							return OriginalHook(Ten);
-						}
-
-						if (OriginalHook(Chi) == TCJRaiton)
-						{
-							return OriginalHook(Chi);
-						}
-
-						if (OriginalHook(Jin) == TCJSuiton)
-						{
-							return OriginalHook(Jin);
-						}
-					}
-
-					if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Kassatsu_HyoshoRaynryu) &&
-						HasEffect(Buffs.Kassatsu) &&
-						TargetHasEffect(Debuffs.TrickAttack) &&
-						(IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) && IsOnCooldown(Mug))))
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.CastingHyoshoRanryu;
-					}
-
-					if (mudraState.CurrentMudra != MudraCasting.MudraState.None)
-					{
-						if (mudraState.ContinueCurrentMudra(ref actionID))
-						{
-							return actionID;
-						}
-					}
-
-					if (IsEnabled(CustomComboPreset.NIN_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.NIN_VariantCure))
-					{
-						return Variant.VariantCure;
-					}
-
-					if (InCombat() && !InMeleeRange())
-					{
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bunshin_Phantom) &&
-							HasEffect(Buffs.PhantomReady) &&
-							((GetCooldownRemainingTime(TrickAttack) > GetBuffRemainingTime(Buffs.PhantomReady) && GetBuffRemainingTime(Buffs.PhantomReady) < 5) || TargetHasEffect(Debuffs.TrickAttack) || (HasEffect(Buffs.Bunshin) && TargetHasEffect(Debuffs.Mug))) &&
-							PhantomKamaitachi.LevelChecked()
-							&& phantomUptime)
-						{
-							return OriginalHook(PhantomKamaitachi);
-						}
-
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Suiton) &&
-							setupSuitonWindow &&
-							TrickAttack.LevelChecked() &&
-							!HasEffect(Buffs.Suiton) &&
-							chargeCheck &&
-							suitonUptime &&
-							mudraState.CastSuiton(ref actionID))
-						{
-							return actionID;
-						}
-
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Raiton) &&
-							!inTrickBurstSaveWindow &&
-							chargeCheck &&
-							poolCharges &&
-							raitonUptime &&
-							mudraState.CastRaiton(ref actionID))
-						{
-							return actionID;
-						}
-
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_RangedUptime) && ThrowingDaggers.LevelChecked() && HasTarget() && !HasEffect(Buffs.RaijuReady))
-						{
-							return OriginalHook(ThrowingDaggers);
-						}
-					}
+					_ = IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Phantom_Uptime);
 
 					if (canWeave && !inMudraState)
 					{
@@ -280,7 +173,7 @@ namespace StackCombo.Combos.PvE
 							((IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrickAttack_Delayed) && InCombat() && combatDuration.TotalSeconds > 6) ||
 							IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrickAttack_Delayed)) &&
 							IsOffCooldown(Mug) &&
-							Mug.LevelChecked())
+							Mug.ActionReady())
 						{
 							return OriginalHook(Mug);
 						}
@@ -294,27 +187,27 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(TrickAttack);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bunshin) && Bunshin.LevelChecked() && IsOffCooldown(Bunshin) && gauge.Ninki >= bunshinPool)
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bunshin) && Bunshin.ActionReady() && IsOffCooldown(Bunshin) && gauge.Ninki >= bunshinPool)
 						{
 							return OriginalHook(Bunshin);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Kassatsu) && (TargetHasEffect(Debuffs.TrickAttack) || setupKassatsuWindow) && IsOffCooldown(Kassatsu) && Kassatsu.LevelChecked())
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Kassatsu) && (TargetHasEffect(Debuffs.TrickAttack) || setupKassatsuWindow) && IsOffCooldown(Kassatsu) && Kassatsu.ActionReady())
 						{
 							return OriginalHook(Kassatsu);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_SecondWind) && All.SecondWind.LevelChecked() && playerHP <= SecondWindThreshold && IsOffCooldown(All.SecondWind))
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_SecondWind) && All.SecondWind.ActionReady() && playerHP <= SecondWindThreshold && IsOffCooldown(All.SecondWind))
 						{
 							return All.SecondWind;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_ShadeShift) && ShadeShift.LevelChecked() && playerHP <= ShadeShiftThreshold && IsOffCooldown(ShadeShift))
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_ShadeShift) && ShadeShift.ActionReady() && playerHP <= ShadeShiftThreshold && IsOffCooldown(ShadeShift))
 						{
 							return ShadeShift;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bloodbath) && All.Bloodbath.LevelChecked() && playerHP <= BloodbathThreshold && IsOffCooldown(All.Bloodbath))
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bloodbath) && All.Bloodbath.ActionReady() && playerHP <= BloodbathThreshold && IsOffCooldown(All.Bloodbath))
 						{
 							return All.Bloodbath;
 						}
@@ -322,7 +215,7 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bhavacakra) &&
 							((TargetHasEffect(Debuffs.TrickAttack) && gauge.Ninki >= 50) || (useBhakaBeforeTrickWindow && gauge.Ninki == 100)) &&
 							(IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) && IsOnCooldown(Mug))) &&
-							Bhavacakra.LevelChecked())
+							Bhavacakra.ActionReady())
 						{
 							return OriginalHook(Bhavacakra);
 						}
@@ -330,14 +223,14 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bhavacakra) &&
 							((TargetHasEffect(Debuffs.TrickAttack) && gauge.Ninki >= 50) || (useBhakaBeforeTrickWindow && gauge.Ninki >= 60)) &&
 							(IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) && IsOnCooldown(Mug))) &&
-							!Bhavacakra.LevelChecked() && Hellfrog.LevelChecked())
+							!Bhavacakra.ActionReady() && Hellfrog.ActionReady())
 						{
 							return OriginalHook(Hellfrog);
 						}
 
 						if (!inTrickBurstSaveWindow)
 						{
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) && IsOffCooldown(Mug) && Mug.LevelChecked())
+							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) && IsOffCooldown(Mug) && Mug.ActionReady())
 							{
 								if (IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug_AlignAfter) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug_AlignAfter) && TargetHasEffect(Debuffs.TrickAttack)))
 								{
@@ -345,43 +238,43 @@ namespace StackCombo.Combos.PvE
 								}
 							}
 
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Meisui) && HasEffect(Buffs.Suiton) && gauge.Ninki <= 50 && IsOffCooldown(Meisui) && Meisui.LevelChecked())
+							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Meisui) && HasEffect(Buffs.Suiton) && gauge.Ninki <= 50 && IsOffCooldown(Meisui) && Meisui.ActionReady())
 							{
 								return OriginalHook(Meisui);
 							}
 
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bhavacakra) && gauge.Ninki >= bhavaPool && Bhavacakra.LevelChecked())
+							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bhavacakra) && gauge.Ninki >= bhavaPool && Bhavacakra.ActionReady())
 							{
 								return OriginalHook(Bhavacakra);
 							}
 
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bhavacakra) && gauge.Ninki >= bhavaPool && !Bhavacakra.LevelChecked() && Hellfrog.LevelChecked())
+							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bhavacakra) && gauge.Ninki >= bhavaPool && !Bhavacakra.ActionReady() && Hellfrog.ActionReady())
 							{
 								return OriginalHook(Hellfrog);
 							}
 
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_AssassinateDWAD) && IsOffCooldown(OriginalHook(Assassinate)) && Assassinate.LevelChecked())
+							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_AssassinateDWAD) && IsOffCooldown(OriginalHook(Assassinate)) && Assassinate.ActionReady())
 							{
 								return OriginalHook(Assassinate);
 							}
 
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TCJ) && IsOffCooldown(TenChiJin) && !IsMoving && TenChiJin.LevelChecked())
+							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TCJ) && IsOffCooldown(TenChiJin) && !IsMoving && TenChiJin.ActionReady())
 							{
 								return OriginalHook(TenChiJin);
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_SecondWind) && All.SecondWind.LevelChecked() && playerHP <= SecondWindThreshold && IsOffCooldown(All.SecondWind))
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_SecondWind) && All.SecondWind.ActionReady() && playerHP <= SecondWindThreshold && IsOffCooldown(All.SecondWind))
 						{
 							return All.SecondWind;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_ShadeShift) && ShadeShift.LevelChecked() && playerHP <= ShadeShiftThreshold && IsOffCooldown(ShadeShift))
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_ShadeShift) && ShadeShift.ActionReady() && playerHP <= ShadeShiftThreshold && IsOffCooldown(ShadeShift))
 						{
 							return ShadeShift;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bloodbath) && All.Bloodbath.LevelChecked() && playerHP <= BloodbathThreshold && IsOffCooldown(All.Bloodbath))
+						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bloodbath) && All.Bloodbath.ActionReady() && playerHP <= BloodbathThreshold && IsOffCooldown(All.Bloodbath))
 						{
 							return All.Bloodbath;
 						}
@@ -398,50 +291,9 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Bunshin_Phantom) &&
 						HasEffect(Buffs.PhantomReady) &&
 						((GetCooldownRemainingTime(TrickAttack) > GetBuffRemainingTime(Buffs.PhantomReady) && GetBuffRemainingTime(Buffs.PhantomReady) < 5) || TargetHasEffect(Debuffs.TrickAttack) || (HasEffect(Buffs.Bunshin) && TargetHasEffect(Debuffs.Mug))) &&
-						PhantomKamaitachi.LevelChecked())
+						PhantomKamaitachi.ActionReady())
 					{
 						return OriginalHook(PhantomKamaitachi);
-					}
-
-					if (!inTNWithDoubleArmorCrush)
-					{
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Kassatsu_HyoshoRaynryu) &&
-							!inTrickBurstSaveWindow &&
-							(IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) || (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Mug) && IsOnCooldown(Mug))) &&
-							mudraState.CastHyoshoRanryu(ref actionID))
-						{
-							return actionID;
-						}
-
-						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus))
-						{
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Suiton) &&
-								setupSuitonWindow &&
-								TrickAttack.LevelChecked() &&
-								!HasEffect(Buffs.Suiton) &&
-								chargeCheck &&
-								mudraState.CastSuiton(ref actionID))
-							{
-								return actionID;
-							}
-
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_Raiton) &&
-								!inTrickBurstSaveWindow &&
-								chargeCheck &&
-								poolCharges &&
-								mudraState.CastRaiton(ref actionID))
-							{
-								return actionID;
-							}
-
-							if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_Ninjitsus_FumaShuriken) &&
-								!Raiton.LevelChecked() &&
-								chargeCheck &&
-								mudraState.CastFumaShuriken(ref actionID))
-							{
-								return actionID;
-							}
-						}
 					}
 
 
@@ -451,12 +303,12 @@ namespace StackCombo.Combos.PvE
 						((IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrickAttack) && IsOnCooldown(TrickAttack)) ||
 						IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrickAttack)) &&
 						doubleArmorCrush && timesLastEnderWasArmorCrush == 1 &&
-						ArmorCrush.LevelChecked() &&
+						ArmorCrush.ActionReady() &&
 						comboTime > 1f)
 					{
 						return IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrueNorth) &&
 							GetRemainingCharges(All.TrueNorth) > 0 &&
-							All.TrueNorth.LevelChecked() && !HasEffect(All.Buffs.TrueNorth) &&
+							All.TrueNorth.ActionReady() && !HasEffect(All.Buffs.TrueNorth) &&
 							!(IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrueNorth_ArmorCrush_Dynamic) && TargetNeedsPositionals() && OnTargetsFlank()) &&
 							canDelayedWeave
 							? OriginalHook(All.TrueNorth)
@@ -465,7 +317,7 @@ namespace StackCombo.Combos.PvE
 
 					if (comboTime > 1f)
 					{
-						if (lastComboMove == SpinningEdge && GustSlash.LevelChecked())
+						if (lastComboMove == SpinningEdge && GustSlash.ActionReady())
 						{
 							return OriginalHook(GustSlash);
 						}
@@ -473,13 +325,13 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrueNorth) && TargetNeedsPositionals() &&
 							IsNotEnabled(CustomComboPreset.NIN_ST_AdvancedMode_TrueNorth_ArmorCrush) &&
 							lastComboMove == GustSlash && GetRemainingCharges(All.TrueNorth) > 0 &&
-							All.TrueNorth.LevelChecked() && !HasEffect(All.Buffs.TrueNorth) &&
+							All.TrueNorth.ActionReady() && !HasEffect(All.Buffs.TrueNorth) &&
 							canWeave)
 						{
 							return OriginalHook(All.TrueNorth);
 						}
 
-						if (lastComboMove == GustSlash && AeolianEdge.LevelChecked())
+						if (lastComboMove == GustSlash && AeolianEdge.ActionReady())
 						{
 							return OriginalHook(AeolianEdge);
 						}
@@ -494,8 +346,6 @@ namespace StackCombo.Combos.PvE
 		internal class NIN_AoE_AdvancedMode : CustomComboClass
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.NIN_AoE_AdvancedMode;
-
-			protected internal MudraCasting mudraState = new();
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
@@ -516,11 +366,6 @@ namespace StackCombo.Combos.PvE
 					int ShadeShiftThreshold = PluginConfiguration.GetCustomIntValue(Config.ShadeShiftThresholdAoE);
 					int BloodbathThreshold = PluginConfiguration.GetCustomIntValue(Config.BloodbathThresholdAoE);
 					double playerHP = PlayerHealthPercentageHp();
-
-					if (IsNotEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus) || (ActionWatching.TimeSinceLastAction.TotalSeconds >= 5 && !InCombat()))
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.None;
-					}
 
 					if (OriginalHook(Ninjutsu) is Rabbit)
 					{
@@ -566,19 +411,6 @@ namespace StackCombo.Combos.PvE
 
 					}
 
-					if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_GokaMekkyaku) && HasEffect(Buffs.Kassatsu))
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.CastingGokaMekkyaku;
-					}
-
-					if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus) && mudraState.CurrentMudra != MudraCasting.MudraState.None)
-					{
-						if (mudraState.ContinueCurrentMudra(ref actionID))
-						{
-							return actionID;
-						}
-					}
-
 					if (IsEnabled(CustomComboPreset.NIN_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.NIN_VariantCure))
 					{
 						return Variant.VariantCure;
@@ -593,51 +425,51 @@ namespace StackCombo.Combos.PvE
 							return Variant.VariantRampart;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Bunshin) && Bunshin.LevelChecked() && IsOffCooldown(Bunshin) && gauge.Ninki >= bunshingPool)
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Bunshin) && Bunshin.ActionReady() && IsOffCooldown(Bunshin) && gauge.Ninki >= bunshingPool)
 						{
 							return OriginalHook(Bunshin);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_HellfrogMedium) && gauge.Ninki >= hellfrogPool && Hellfrog.LevelChecked())
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_HellfrogMedium) && gauge.Ninki >= hellfrogPool && Hellfrog.ActionReady())
 						{
 							return HasEffect(Buffs.Meisui) && level >= 88 ? OriginalHook(Bhavacakra) : OriginalHook(Hellfrog);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_HellfrogMedium) && gauge.Ninki >= hellfrogPool && !Hellfrog.LevelChecked() && Bhavacakra.LevelChecked())
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_HellfrogMedium) && gauge.Ninki >= hellfrogPool && !Hellfrog.ActionReady() && Bhavacakra.ActionReady())
 						{
 							return OriginalHook(Bhavacakra);
 						}
 
 						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Kassatsu) &&
 							IsOffCooldown(Kassatsu) &&
-							Kassatsu.LevelChecked() &&
+							Kassatsu.ActionReady() &&
 							((IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Doton) && (dotonBuff != null || GetTargetHPPercent() < dotonThreshold)) ||
 							IsNotEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Doton)))
 						{
 							return OriginalHook(Kassatsu);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Meisui) && HasEffect(Buffs.Suiton) && gauge.Ninki <= 50 && IsOffCooldown(Meisui) && Meisui.LevelChecked())
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Meisui) && HasEffect(Buffs.Suiton) && gauge.Ninki <= 50 && IsOffCooldown(Meisui) && Meisui.ActionReady())
 						{
 							return OriginalHook(Meisui);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_AssassinateDWAD) && IsOffCooldown(OriginalHook(Assassinate)) && Assassinate.LevelChecked())
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_AssassinateDWAD) && IsOffCooldown(OriginalHook(Assassinate)) && Assassinate.ActionReady())
 						{
 							return OriginalHook(Assassinate);
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_SecondWind) && All.SecondWind.LevelChecked() && playerHP <= SecondWindThreshold && IsOffCooldown(All.SecondWind))
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_SecondWind) && All.SecondWind.ActionReady() && playerHP <= SecondWindThreshold && IsOffCooldown(All.SecondWind))
 						{
 							return All.SecondWind;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_ShadeShift) && ShadeShift.LevelChecked() && playerHP <= ShadeShiftThreshold && IsOffCooldown(ShadeShift))
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_ShadeShift) && ShadeShift.ActionReady() && playerHP <= ShadeShiftThreshold && IsOffCooldown(ShadeShift))
 						{
 							return ShadeShift;
 						}
 
-						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Bloodbath) && All.Bloodbath.LevelChecked() && playerHP <= BloodbathThreshold && IsOffCooldown(All.Bloodbath))
+						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Bloodbath) && All.Bloodbath.ActionReady() && playerHP <= BloodbathThreshold && IsOffCooldown(All.Bloodbath))
 						{
 							return All.Bloodbath;
 						}
@@ -645,7 +477,7 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_TCJ) &&
 							IsOffCooldown(TenChiJin) &&
 							!IsMoving &&
-							TenChiJin.LevelChecked())
+							TenChiJin.ActionReady())
 						{
 							if ((IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Doton) && tcjPath == 1 &&
 							   (dotonBuff?.RemainingTime <= dotonTimer || dotonBuff is null) &&
@@ -659,8 +491,7 @@ namespace StackCombo.Combos.PvE
 
 					}
 
-					if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_GokaMekkyaku) &&
-						mudraState.CastGokaMekkyaku(ref actionID))
+					if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_GokaMekkyaku))
 					{
 						return actionID;
 					}
@@ -671,8 +502,7 @@ namespace StackCombo.Combos.PvE
 							(dotonBuff?.RemainingTime <= dotonTimer || dotonBuff is null) &&
 							GetTargetHPPercent() >= dotonThreshold &&
 							chargeCheck &&
-							!(WasLastAction(Doton) || WasLastAction(TCJDoton) || dotonBuff is not null) &&
-							mudraState.CastDoton(ref actionID))
+							!(WasLastAction(Doton) || WasLastAction(TCJDoton) || dotonBuff is not null))
 						{
 							return actionID;
 						}
@@ -680,21 +510,20 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Katon) &&
 							chargeCheck &&
 							((IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Doton) && (dotonBuff != null || GetTargetHPPercent() < dotonThreshold)) ||
-							IsNotEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Doton)) &&
-							mudraState.CastKaton(ref actionID))
+							IsNotEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Ninjitsus_Doton)))
 						{
 							return actionID;
 						}
 					}
 
-					if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Bunshin_Phantom) && HasEffect(Buffs.PhantomReady) && PhantomKamaitachi.LevelChecked())
+					if (IsEnabled(CustomComboPreset.NIN_AoE_AdvancedMode_Bunshin_Phantom) && HasEffect(Buffs.PhantomReady) && PhantomKamaitachi.ActionReady())
 					{
 						return OriginalHook(PhantomKamaitachi);
 					}
 
 					if (comboTime > 1f)
 					{
-						if (lastComboMove is DeathBlossom && HakkeMujinsatsu.LevelChecked())
+						if (lastComboMove is DeathBlossom && HakkeMujinsatsu.ActionReady())
 						{
 							return OriginalHook(HakkeMujinsatsu);
 						}
@@ -711,17 +540,13 @@ namespace StackCombo.Combos.PvE
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.NIN_ST_SimpleMode;
 
-			protected internal MudraCasting mudraState = new();
-
-			protected internal static NINOpenerLogic NINOpener = new();
-
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				if (actionID == SpinningEdge)
 				{
 					NINGauge gauge = GetJobGauge<NINGauge>();
 					bool canWeave = CanWeave(SpinningEdge);
-					bool inTrickBurstSaveWindow = GetCooldownRemainingTime(TrickAttack) <= 15 && Suiton.LevelChecked();
+					bool inTrickBurstSaveWindow = GetCooldownRemainingTime(TrickAttack) <= 15 && Suiton.ActionReady();
 					bool useBhakaBeforeTrickWindow = GetCooldownRemainingTime(TrickAttack) >= 3;
 					bool inMudraState = HasEffect(Buffs.Mudra);
 
@@ -730,7 +555,7 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(Ninjutsu);
 					}
 
-					if (IsEnabled(CustomComboPreset.NIN_ST_SimpleMode_BalanceOpener) && NINOpenerLogic.LevelChecked && NINOpener.DoFullOpener(ref actionID, mudraState))
+					if (IsEnabled(CustomComboPreset.NIN_ST_SimpleMode_BalanceOpener))
 					{
 						return actionID;
 					}
@@ -740,38 +565,9 @@ namespace StackCombo.Combos.PvE
 						return WasLastAction(TCJFumaShurikenTen) ? OriginalHook(Chi) : WasLastAction(TCJRaiton) ? OriginalHook(Jin) : OriginalHook(Ten);
 					}
 
-					if (mudraState.CurrentMudra != MudraCasting.MudraState.None)
-					{
-						if (mudraState.ContinueCurrentMudra(ref actionID))
-						{
-							return actionID;
-						}
-					}
-
 					if (IsEnabled(CustomComboPreset.NIN_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.NIN_VariantCure))
 					{
 						return Variant.VariantCure;
-					}
-
-					if (mudraState.CastHyoshoRanryu(ref actionID))
-					{
-						return actionID;
-					}
-
-					if (GetCooldownRemainingTime(TrickAttack) < 15 && TrickAttack.LevelChecked() && !HasEffect(Buffs.Suiton))
-					{
-						if (mudraState.CastSuiton(ref actionID))
-						{
-							return actionID;
-						}
-					}
-
-					if (!inTrickBurstSaveWindow)
-					{
-						if (mudraState.CastRaiton(ref actionID))
-						{
-							return actionID;
-						}
 					}
 
 					if (canWeave && !inMudraState)
@@ -783,7 +579,7 @@ namespace StackCombo.Combos.PvE
 							return Variant.VariantRampart;
 						}
 
-						if (Bunshin.LevelChecked() && IsOffCooldown(Bunshin) && gauge.Ninki >= 50)
+						if (Bunshin.ActionReady() && IsOffCooldown(Bunshin) && gauge.Ninki >= 50)
 						{
 							return OriginalHook(Bunshin);
 						}
@@ -793,44 +589,44 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(TrickAttack);
 						}
 
-						if (Bhavacakra.LevelChecked() && ((TargetHasEffect(Debuffs.TrickAttack) && gauge.Ninki >= 50) || (useBhakaBeforeTrickWindow && gauge.Ninki == 100)))
+						if (Bhavacakra.ActionReady() && ((TargetHasEffect(Debuffs.TrickAttack) && gauge.Ninki >= 50) || (useBhakaBeforeTrickWindow && gauge.Ninki == 100)))
 						{
 							return OriginalHook(Bhavacakra);
 						}
 
-						if ((TargetHasEffect(Debuffs.TrickAttack) && gauge.Ninki >= 50) || (useBhakaBeforeTrickWindow && gauge.Ninki == 100 && !Bhavacakra.LevelChecked() && Hellfrog.LevelChecked()))
+						if ((TargetHasEffect(Debuffs.TrickAttack) && gauge.Ninki >= 50) || (useBhakaBeforeTrickWindow && gauge.Ninki == 100 && !Bhavacakra.ActionReady() && Hellfrog.ActionReady()))
 						{
 							return OriginalHook(Hellfrog);
 						}
 
 						if (!inTrickBurstSaveWindow)
 						{
-							if (HasEffect(Buffs.Suiton) && gauge.Ninki <= 50 && IsOffCooldown(Meisui) && Meisui.LevelChecked())
+							if (HasEffect(Buffs.Suiton) && gauge.Ninki <= 50 && IsOffCooldown(Meisui) && Meisui.ActionReady())
 							{
 								return OriginalHook(Meisui);
 							}
 
-							if (IsOffCooldown(Mug) && Mug.LevelChecked())
+							if (IsOffCooldown(Mug) && Mug.ActionReady())
 							{
 								return OriginalHook(Mug);
 							}
 
-							if (gauge.Ninki >= 85 && Bhavacakra.LevelChecked())
+							if (gauge.Ninki >= 85 && Bhavacakra.ActionReady())
 							{
 								return OriginalHook(Bhavacakra);
 							}
 
-							if (IsOffCooldown(OriginalHook(Assassinate)) && Assassinate.LevelChecked())
+							if (IsOffCooldown(OriginalHook(Assassinate)) && Assassinate.ActionReady())
 							{
 								return OriginalHook(Assassinate);
 							}
 
-							if (IsOffCooldown(TenChiJin) && TenChiJin.LevelChecked())
+							if (IsOffCooldown(TenChiJin) && TenChiJin.ActionReady())
 							{
 								return OriginalHook(TenChiJin);
 							}
 
-							if (IsOffCooldown(Kassatsu) && Kassatsu.LevelChecked())
+							if (IsOffCooldown(Kassatsu) && Kassatsu.ActionReady())
 							{
 								return OriginalHook(Kassatsu);
 							}
@@ -843,7 +639,7 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(FleetingRaiju);
 						}
 
-						if (HasEffect(Buffs.PhantomReady) && PhantomKamaitachi.LevelChecked())
+						if (HasEffect(Buffs.PhantomReady) && PhantomKamaitachi.ActionReady())
 						{
 							return OriginalHook(PhantomKamaitachi);
 						}
@@ -851,22 +647,22 @@ namespace StackCombo.Combos.PvE
 
 					if (comboTime > 1f)
 					{
-						if (lastComboMove == SpinningEdge && GustSlash.LevelChecked())
+						if (lastComboMove == SpinningEdge && GustSlash.ActionReady())
 						{
 							return OriginalHook(GustSlash);
 						}
 
-						if (lastComboMove == GustSlash && ArmorCrush.LevelChecked())
+						if (lastComboMove == GustSlash && ArmorCrush.ActionReady())
 						{
 							return OriginalHook(ArmorCrush);
 						}
 
-						if (lastComboMove == GustSlash && TargetNeedsPositionals() && GetRemainingCharges(All.TrueNorth) > 0 && All.TrueNorth.LevelChecked() && !HasEffect(All.Buffs.TrueNorth) && canWeave)
+						if (lastComboMove == GustSlash && TargetNeedsPositionals() && GetRemainingCharges(All.TrueNorth) > 0 && All.TrueNorth.ActionReady() && !HasEffect(All.Buffs.TrueNorth) && canWeave)
 						{
 							return OriginalHook(All.TrueNorth);
 						}
 
-						if (lastComboMove == GustSlash && AeolianEdge.LevelChecked())
+						if (lastComboMove == GustSlash && AeolianEdge.ActionReady())
 						{
 							return OriginalHook(AeolianEdge);
 						}
@@ -882,20 +678,13 @@ namespace StackCombo.Combos.PvE
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.NIN_AoE_SimpleMode;
 
-			protected internal MudraCasting mudraState = new();
-
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				if (actionID == DeathBlossom)
 				{
-					Status? dotonBuff = FindEffect(Buffs.Doton);
+					_ = FindEffect(Buffs.Doton);
 					NINGauge gauge = GetJobGauge<NINGauge>();
 					bool canWeave = CanWeave(GustSlash);
-
-					if (ActionWatching.TimeSinceLastAction.TotalSeconds >= 5 && !InCombat())
-					{
-						mudraState.CurrentMudra = MudraCasting.MudraState.None;
-					}
 
 					if (OriginalHook(Ninjutsu) is Rabbit)
 					{
@@ -909,53 +698,9 @@ namespace StackCombo.Combos.PvE
 							: WasLastAction(TCJKaton) || WasLastAction(HollowNozuchi) ? OriginalHook(Jin) : OriginalHook(Chi);
 					}
 
-					if (mudraState.CurrentMudra != MudraCasting.MudraState.None)
-					{
-						if (mudraState.ContinueCurrentMudra(ref actionID))
-						{
-							return actionID;
-						}
-					}
-
 					if (IsEnabled(CustomComboPreset.NIN_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.NIN_VariantCure))
 					{
 						return Variant.VariantCure;
-					}
-
-					if (HasEffect(Buffs.Kassatsu))
-					{
-						if (GokaMekkyaku.LevelChecked())
-						{
-							if (mudraState.CastGokaMekkyaku(ref actionID))
-							{
-								return actionID;
-							}
-						}
-						else
-						{
-							if (mudraState.CastKaton(ref actionID))
-							{
-								return actionID;
-							}
-						}
-					}
-
-					if (GetTargetHPPercent() > 20 && (dotonBuff is null || dotonBuff?.RemainingTime <= 3) && !WasLastAction(Doton))
-					{
-						if (!WasLastAction(Chi) && !WasLastAction(TenCombo) && OriginalHook(Ninjutsu) != Katon)
-						{
-							mudraState.CurrentMudra = MudraCasting.MudraState.CastingDoton;
-						}
-
-						if (mudraState.CastDoton(ref actionID))
-						{
-							return actionID;
-						}
-					}
-
-					if (mudraState.CastKaton(ref actionID))
-					{
-						return actionID;
 					}
 
 					if (canWeave)
@@ -967,12 +712,12 @@ namespace StackCombo.Combos.PvE
 							return Variant.VariantRampart;
 						}
 
-						if (IsOffCooldown(Bunshin) && gauge.Ninki >= 50 && Bunshin.LevelChecked())
+						if (IsOffCooldown(Bunshin) && gauge.Ninki >= 50 && Bunshin.ActionReady())
 						{
 							return OriginalHook(Bunshin);
 						}
 
-						if (HasEffect(Buffs.Suiton) && gauge.Ninki < 50 && IsOffCooldown(Meisui) && Meisui.LevelChecked())
+						if (HasEffect(Buffs.Suiton) && gauge.Ninki < 50 && IsOffCooldown(Meisui) && Meisui.ActionReady())
 						{
 							return OriginalHook(Meisui);
 						}
@@ -982,22 +727,22 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(Bhavacakra);
 						}
 
-						if (gauge.Ninki >= 50 && Hellfrog.LevelChecked())
+						if (gauge.Ninki >= 50 && Hellfrog.ActionReady())
 						{
 							return OriginalHook(Hellfrog);
 						}
 
-						if (gauge.Ninki >= 50 && !Hellfrog.LevelChecked() && Bhavacakra.LevelChecked())
+						if (gauge.Ninki >= 50 && !Hellfrog.ActionReady() && Bhavacakra.ActionReady())
 						{
 							return OriginalHook(Bhavacakra);
 						}
 
-						if (IsOffCooldown(Kassatsu) && Kassatsu.LevelChecked())
+						if (IsOffCooldown(Kassatsu) && Kassatsu.ActionReady())
 						{
 							return OriginalHook(Kassatsu);
 						}
 
-						if (IsOffCooldown(TenChiJin) && TenChiJin.LevelChecked())
+						if (IsOffCooldown(TenChiJin) && TenChiJin.ActionReady())
 						{
 							return OriginalHook(TenChiJin);
 						}
@@ -1012,7 +757,7 @@ namespace StackCombo.Combos.PvE
 
 					if (comboTime > 1f)
 					{
-						if (lastComboMove is DeathBlossom && HakkeMujinsatsu.LevelChecked())
+						if (lastComboMove is DeathBlossom && HakkeMujinsatsu.ActionReady())
 						{
 							return OriginalHook(HakkeMujinsatsu);
 						}
@@ -1156,51 +901,51 @@ namespace StackCombo.Combos.PvE
 
 						if (mudrapath == 1)
 						{
-							if (Ten.LevelChecked() && actionID == Ten)
+							if (Ten.ActionReady() && actionID == Ten)
 							{
-								if (Jin.LevelChecked() && (OriginalHook(Ninjutsu) is Raiton))
+								if (Jin.ActionReady() && (OriginalHook(Ninjutsu) is Raiton))
 								{
 									return OriginalHook(JinCombo);
 								}
 
-								if (Chi.LevelChecked() && (OriginalHook(Ninjutsu) is HyoshoRanryu))
+								if (Chi.ActionReady() && (OriginalHook(Ninjutsu) is HyoshoRanryu))
 								{
 									return OriginalHook(ChiCombo);
 								}
 
 								if (OriginalHook(Ninjutsu) == FumaShuriken)
 								{
-									if (HasEffect(Buffs.Kassatsu) && Traits.EnhancedKasatsu.TraitLevelChecked())
+									if (HasEffect(Buffs.Kassatsu) && Traits.EnhancedKasatsu.TraitActionReady())
 									{
 										return JinCombo;
 									}
 
-									if (Chi.LevelChecked())
+									if (Chi.ActionReady())
 									{
 										return OriginalHook(ChiCombo);
 									}
 
-									if (Jin.LevelChecked())
+									if (Jin.ActionReady())
 									{
 										return OriginalHook(JinCombo);
 									}
 								}
 							}
 
-							if (Chi.LevelChecked() && actionID == Chi)
+							if (Chi.ActionReady() && actionID == Chi)
 							{
 								if (OriginalHook(Ninjutsu) is Hyoton)
 								{
 									return OriginalHook(TenCombo);
 								}
 
-								if (Jin.LevelChecked() && OriginalHook(Ninjutsu) == FumaShuriken)
+								if (Jin.ActionReady() && OriginalHook(Ninjutsu) == FumaShuriken)
 								{
 									return OriginalHook(JinCombo);
 								}
 							}
 
-							if (Jin.LevelChecked() && actionID == Jin)
+							if (Jin.ActionReady() && actionID == Jin)
 							{
 								if (OriginalHook(Ninjutsu) is GokaMekkyaku or Katon)
 								{
@@ -1218,29 +963,29 @@ namespace StackCombo.Combos.PvE
 
 						if (mudrapath == 2)
 						{
-							if (Ten.LevelChecked() && actionID == Ten)
+							if (Ten.ActionReady() && actionID == Ten)
 							{
-								if (Chi.LevelChecked() && (OriginalHook(Ninjutsu) is Hyoton or HyoshoRanryu))
+								if (Chi.ActionReady() && (OriginalHook(Ninjutsu) is Hyoton or HyoshoRanryu))
 								{
 									return OriginalHook(Chi);
 								}
 
 								if (OriginalHook(Ninjutsu) == FumaShuriken)
 								{
-									if (Jin.LevelChecked())
+									if (Jin.ActionReady())
 									{
 										return OriginalHook(JinCombo);
 									}
-									else if (Chi.LevelChecked())
+									else if (Chi.ActionReady())
 									{
 										return OriginalHook(ChiCombo);
 									}
 								}
 							}
 
-							if (Chi.LevelChecked() && actionID == Chi)
+							if (Chi.ActionReady() && actionID == Chi)
 							{
-								if (Jin.LevelChecked() && (OriginalHook(Ninjutsu) is Katon or GokaMekkyaku))
+								if (Jin.ActionReady() && (OriginalHook(Ninjutsu) is Katon or GokaMekkyaku))
 								{
 									return OriginalHook(Jin);
 								}
@@ -1251,7 +996,7 @@ namespace StackCombo.Combos.PvE
 								}
 							}
 
-							if (Jin.LevelChecked() && actionID == Jin)
+							if (Jin.ActionReady() && actionID == Jin)
 							{
 								if (OriginalHook(Ninjutsu) is Raiton)
 								{
@@ -1265,7 +1010,7 @@ namespace StackCombo.Combos.PvE
 
 								if (OriginalHook(Ninjutsu) == FumaShuriken)
 								{
-									return HasEffect(Buffs.Kassatsu) && Traits.EnhancedKasatsu.TraitLevelChecked() ? OriginalHook(Ten) : OriginalHook(Chi);
+									return HasEffect(Buffs.Kassatsu) && Traits.EnhancedKasatsu.TraitActionReady() ? OriginalHook(Ten) : OriginalHook(Chi);
 								}
 							}
 

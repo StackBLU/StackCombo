@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.Statuses;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.JobHelpers;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
@@ -82,14 +81,12 @@ namespace StackCombo.Combos.PvE
 		internal class DRG_ST_AdvancedMode : CustomComboClass
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DRG_ST_AdvancedMode;
-			internal static DRGOpenerLogic DRGOpener = new();
-			private readonly float GCD = GetCooldown(TrueThrust).CooldownTotal;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				Status? ChaosDoTDebuff;
 
-				ChaosDoTDebuff = LevelChecked(ChaoticSpring) ? FindTargetEffect(Debuffs.ChaoticSpring) : FindTargetEffect(Debuffs.ChaosThrust);
+				ChaosDoTDebuff = ActionReady(ChaoticSpring) ? FindTargetEffect(Debuffs.ChaoticSpring) : FindTargetEffect(Debuffs.ChaosThrust);
 
 				if (actionID is TrueThrust)
 				{
@@ -102,8 +99,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.DRG_Variant_Rampart) &&
 						IsEnabled(Variant.VariantRampart) &&
-						IsOffCooldown(Variant.VariantRampart) &&
-						AnimationLock.CanDRGWeave(Variant.VariantRampart))
+						IsOffCooldown(Variant.VariantRampart))
 					{
 						return Variant.VariantRampart;
 					}
@@ -115,26 +111,26 @@ namespace StackCombo.Combos.PvE
 							return ChaosDoTDebuff is null || ChaosDoTDebuff.RemainingTime < 5 ? OriginalHook(Disembowel) : OriginalHook(VorpalThrust);
 						}
 
-						if (lastComboMove is Disembowel or SpiralBlow && LevelChecked(OriginalHook(ChaosThrust)))
+						if (lastComboMove is Disembowel or SpiralBlow && ActionReady(OriginalHook(ChaosThrust)))
 						{
 							return OriginalHook(ChaosThrust);
 						}
-						if (lastComboMove is ChaosThrust or ChaoticSpring && LevelChecked(WheelingThrust))
+						if (lastComboMove is ChaosThrust or ChaoticSpring && ActionReady(WheelingThrust))
 						{
 							return WheelingThrust;
 						}
 
-						if (lastComboMove is VorpalThrust or LanceBarrage && LevelChecked(OriginalHook(FullThrust)))
+						if (lastComboMove is VorpalThrust or LanceBarrage && ActionReady(OriginalHook(FullThrust)))
 						{
 							return OriginalHook(FullThrust);
 						}
 
-						if (lastComboMove is FullThrust or HeavensThrust && LevelChecked(FangAndClaw))
+						if (lastComboMove is FullThrust or HeavensThrust && ActionReady(FangAndClaw))
 						{
 							return FangAndClaw;
 						}
 
-						if (lastComboMove is WheelingThrust or FangAndClaw && LevelChecked(Drakesbane))
+						if (lastComboMove is WheelingThrust or FangAndClaw && ActionReady(Drakesbane))
 						{
 							return Drakesbane;
 						}
@@ -162,20 +158,19 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.DRG_Variant_Rampart) &&
 						IsEnabled(Variant.VariantRampart) &&
-						IsOffCooldown(Variant.VariantRampart) &&
-						AnimationLock.CanDRGWeave(Variant.VariantRampart))
+						IsOffCooldown(Variant.VariantRampart))
 					{
 						return Variant.VariantRampart;
 					}
 
 					if (comboTime > 0)
 					{
-						if (lastComboMove is DoomSpike or DraconianFury && LevelChecked(SonicThrust))
+						if (lastComboMove is DoomSpike or DraconianFury && ActionReady(SonicThrust))
 						{
 							return SonicThrust;
 						}
 
-						if (lastComboMove is SonicThrust && LevelChecked(CoerthanTorment))
+						if (lastComboMove is SonicThrust && ActionReady(CoerthanTorment))
 						{
 							return CoerthanTorment;
 						}

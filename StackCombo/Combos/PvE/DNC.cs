@@ -270,7 +270,7 @@ namespace StackCombo.Combos.PvE
 					!HasEffect(Buffs.StandardStep) &&
 					IsOnCooldown(StandardStep) &&
 					GetTargetHPPercent() > targetHpThresholdTechnical &&
-					LevelChecked(TechnicalStep);
+					ActionReady(TechnicalStep);
 
 				bool needToStandardOrFinish =
 					IsEnabled(CustomComboPreset.DNC_ST_Simple_SS) &&
@@ -278,7 +278,7 @@ namespace StackCombo.Combos.PvE
 					GetTargetHPPercent() > targetHpThresholdStandard &&
 					(IsOffCooldown(TechnicalStep) ||
 					 GetCooldownRemainingTime(TechnicalStep) > 5) &&
-					LevelChecked(StandardStep);
+					ActionReady(StandardStep);
 
 				bool needToFinish =
 					HasEffect(Buffs.FinishingMoveReady) &&
@@ -347,11 +347,11 @@ namespace StackCombo.Combos.PvE
 				#region Weaves
 				if (IsEnabled(CustomComboPreset.DNC_ST_Simple_Devilment) &&
 					CanWeave(actionID) &&
-					LevelChecked(Devilment) &&
+					ActionReady(Devilment) &&
 					GetCooldownRemainingTime(Devilment) < 0.05 &&
 					(HasEffect(Buffs.TechnicalFinish) ||
 					 WasLastAction(TechnicalFinish4) ||
-					 !LevelChecked(TechnicalStep)))
+					 !ActionReady(TechnicalStep)))
 				{
 					return Devilment;
 				}
@@ -412,14 +412,14 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.DNC_ST_Simple_Feathers) &&
-						LevelChecked(FanDance1))
+						ActionReady(FanDance1))
 					{
 						if (GetTargetHPPercent() <= targetHpThresholdFeather && gauge.Feathers > 0)
 						{
 							return FanDance1;
 						}
 
-						if (LevelChecked(TechnicalStep))
+						if (ActionReady(TechnicalStep))
 						{
 							if (HasEffect(Buffs.TechnicalFinish) && gauge.Feathers > 0)
 							{
@@ -434,7 +434,7 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (!LevelChecked(TechnicalStep) && gauge.Feathers > 0)
+						if (!ActionReady(TechnicalStep) && gauge.Feathers > 0)
 						{
 							return FanDance1;
 						}
@@ -499,7 +499,7 @@ namespace StackCombo.Combos.PvE
 
 				if (IsEnabled(CustomComboPreset.DNC_ST_Simple_DawnDance) &&
 					HasEffect(Buffs.DanceOfTheDawnReady) &&
-					LevelChecked(DanceOfTheDawn) &&
+					ActionReady(DanceOfTheDawn) &&
 					(GetCooldownRemainingTime(TechnicalStep) > 5 ||
 					 IsOffCooldown(TechnicalStep)) &&
 					(gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCSimpleSaberThreshold) ||
@@ -509,7 +509,7 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if (IsEnabled(CustomComboPreset.DNC_ST_Simple_SaberDance) &&
-					LevelChecked(SaberDance) &&
+					ActionReady(SaberDance) &&
 					gauge.Esprit >= 80 &&
 					ActionReady(SaberDance))
 				{
@@ -528,7 +528,7 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if ((IsEnabled(CustomComboPreset.DNC_ST_Simple_SaberDance) &&
-					LevelChecked(SaberDance) &&
+					ActionReady(SaberDance) &&
 					gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCSimpleSaberThreshold)) ||
 					(HasEffect(Buffs.TechnicalFinish) && gauge.Esprit >= 50 &&
 					(GetCooldownRemainingTime(TechnicalStep) > 5 ||
@@ -537,24 +537,24 @@ namespace StackCombo.Combos.PvE
 					return SaberDance;
 				}
 
-				if (LevelChecked(Fountain) &&
+				if (ActionReady(Fountain) &&
 					lastComboMove is Cascade &&
 					comboTime is < 2 and > 0)
 				{
 					return Fountain;
 				}
 
-				if (LevelChecked(Fountainfall) && flow)
+				if (ActionReady(Fountainfall) && flow)
 				{
 					return Fountainfall;
 				}
 
-				if (LevelChecked(ReverseCascade) && symmetry)
+				if (ActionReady(ReverseCascade) && symmetry)
 				{
 					return ReverseCascade;
 				}
 
-				if (LevelChecked(Fountain) && lastComboMove is Cascade && comboTime > 0)
+				if (ActionReady(Fountain) && lastComboMove is Cascade && comboTime > 0)
 				{
 					return Fountain;
 				}
@@ -579,7 +579,7 @@ namespace StackCombo.Combos.PvE
 					#endregion
 
 					if (IsEnabled(CustomComboPreset.DNC_ST_EspritOvercap) &&
-						LevelChecked(DanceOfTheDawn) &&
+						ActionReady(DanceOfTheDawn) &&
 						HasEffect(Buffs.DanceOfTheDawnReady) &&
 						gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCEspritThreshold_ST))
 					{
@@ -587,7 +587,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.DNC_ST_EspritOvercap) &&
-						LevelChecked(SaberDance) &&
+						ActionReady(SaberDance) &&
 						gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCEspritThreshold_ST))
 					{
 						return SaberDance;
@@ -596,7 +596,7 @@ namespace StackCombo.Combos.PvE
 					if (CanWeave(actionID))
 					{
 						if (IsEnabled(CustomComboPreset.DNC_ST_FanDanceOvercap) &&
-							LevelChecked(FanDance1) && gauge.Feathers is 4)
+							ActionReady(FanDance1) && gauge.Feathers is 4)
 						{
 							return FanDance1;
 						}
@@ -615,17 +615,17 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (LevelChecked(Fountainfall) && flow)
+					if (ActionReady(Fountainfall) && flow)
 					{
 						return Fountainfall;
 					}
 
-					if (LevelChecked(ReverseCascade) && symmetry)
+					if (ActionReady(ReverseCascade) && symmetry)
 					{
 						return ReverseCascade;
 					}
 
-					if (LevelChecked(Fountain) && lastComboMove is Cascade)
+					if (ActionReady(Fountain) && lastComboMove is Cascade)
 					{
 						return Fountain;
 					}
@@ -660,7 +660,7 @@ namespace StackCombo.Combos.PvE
 					!HasEffect(Buffs.StandardStep) &&
 					IsOnCooldown(StandardStep) &&
 					GetTargetHPPercent() > targetHpThresholdTechnical &&
-					LevelChecked(TechnicalStep);
+					ActionReady(TechnicalStep);
 
 				bool needToStandardOrFinish =
 					IsEnabled(CustomComboPreset.DNC_AoE_Simple_SS) &&
@@ -668,7 +668,7 @@ namespace StackCombo.Combos.PvE
 					GetTargetHPPercent() > targetHpThresholdStandard &&
 					(IsOffCooldown(TechnicalStep) ||
 					 GetCooldownRemainingTime(TechnicalStep) > 5) &&
-					LevelChecked(StandardStep);
+					ActionReady(StandardStep);
 
 				bool needToFinish =
 					HasEffect(Buffs.FinishingMoveReady) &&
@@ -704,11 +704,11 @@ namespace StackCombo.Combos.PvE
 				#region Weaves
 				if (IsEnabled(CustomComboPreset.DNC_AoE_Simple_Devilment) &&
 					CanWeave(actionID) &&
-					LevelChecked(Devilment) &&
+					ActionReady(Devilment) &&
 					GetCooldownRemainingTime(Devilment) < 0.05 &&
 					(HasEffect(Buffs.TechnicalFinish) ||
 					 WasLastAction(TechnicalFinish4) ||
-					 !LevelChecked(TechnicalStep)))
+					 !ActionReady(TechnicalStep)))
 				{
 					return Devilment;
 				}
@@ -755,16 +755,16 @@ namespace StackCombo.Combos.PvE
 				if (CanWeave(actionID) && !WasLastWeaponskill(TechnicalFinish4))
 				{
 					if (IsEnabled(CustomComboPreset.DNC_AoE_Simple_Feathers) &&
-						LevelChecked(FanDance1))
+						ActionReady(FanDance1))
 					{
 						if (HasEffect(Buffs.ThreeFoldFanDance))
 						{
 							return FanDance3;
 						}
 
-						if (LevelChecked(FanDance2))
+						if (ActionReady(FanDance2))
 						{
-							if (LevelChecked(TechnicalStep))
+							if (ActionReady(TechnicalStep))
 							{
 								if (HasEffect(Buffs.TechnicalFinish) &&
 									gauge.Feathers > 0)
@@ -780,14 +780,14 @@ namespace StackCombo.Combos.PvE
 								}
 							}
 
-							if (!LevelChecked(TechnicalStep) &&
+							if (!ActionReady(TechnicalStep) &&
 								gauge.Feathers > 0)
 							{
 								return FanDance2;
 							}
 						}
 
-						if (!LevelChecked(FanDance2) &&
+						if (!ActionReady(FanDance2) &&
 							gauge.Feathers > 0)
 						{
 							return FanDance1;
@@ -858,7 +858,7 @@ namespace StackCombo.Combos.PvE
 
 				if (IsEnabled(CustomComboPreset.DNC_ST_Simple_DawnDance) &&
 					HasEffect(Buffs.DanceOfTheDawnReady) &&
-					LevelChecked(DanceOfTheDawn) &&
+					ActionReady(DanceOfTheDawn) &&
 					(GetCooldownRemainingTime(TechnicalStep) > 5 ||
 					 IsOffCooldown(TechnicalStep)) &&
 					(gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCSimpleSaberThreshold) ||
@@ -868,7 +868,7 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if (IsEnabled(CustomComboPreset.DNC_AoE_Simple_SaberDance) &&
-					LevelChecked(SaberDance) &&
+					ActionReady(SaberDance) &&
 					gauge.Esprit >= 80 &&
 					ActionReady(SaberDance))
 				{
@@ -887,7 +887,7 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if ((IsEnabled(CustomComboPreset.DNC_AoE_Simple_SaberDance) &&
-					LevelChecked(SaberDance) &&
+					ActionReady(SaberDance) &&
 					gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCSimpleSaberThreshold)) ||
 					(HasEffect(Buffs.TechnicalFinish) && gauge.Esprit >= 50 &&
 					(GetCooldownRemainingTime(TechnicalStep) > 5 ||
@@ -896,24 +896,24 @@ namespace StackCombo.Combos.PvE
 					return SaberDance;
 				}
 
-				if (LevelChecked(Bladeshower) &&
+				if (ActionReady(Bladeshower) &&
 					lastComboMove is Windmill &&
 					comboTime is < 2 and > 0)
 				{
 					return Bladeshower;
 				}
 
-				if (LevelChecked(Bloodshower) && flow)
+				if (ActionReady(Bloodshower) && flow)
 				{
 					return Bloodshower;
 				}
 
-				if (LevelChecked(RisingWindmill) && symmetry)
+				if (ActionReady(RisingWindmill) && symmetry)
 				{
 					return RisingWindmill;
 				}
 
-				if (LevelChecked(Bladeshower) && lastComboMove is Windmill && comboTime > 0)
+				if (ActionReady(Bladeshower) && lastComboMove is Windmill && comboTime > 0)
 				{
 					return Bladeshower;
 				}
@@ -938,7 +938,7 @@ namespace StackCombo.Combos.PvE
 					#endregion
 
 					if (IsEnabled(CustomComboPreset.DNC_AoE_EspritOvercap) &&
-						LevelChecked(DanceOfTheDawn) &&
+						ActionReady(DanceOfTheDawn) &&
 						HasEffect(Buffs.DanceOfTheDawnReady) &&
 						gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCEspritThreshold_ST))
 					{
@@ -946,7 +946,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.DNC_AoE_EspritOvercap) &&
-						LevelChecked(SaberDance) &&
+						ActionReady(SaberDance) &&
 						gauge.Esprit >= PluginConfiguration.GetCustomIntValue(Config.DNCEspritThreshold_AoE))
 					{
 						return SaberDance;
@@ -955,7 +955,7 @@ namespace StackCombo.Combos.PvE
 					if (CanWeave(actionID))
 					{
 						if (IsEnabled(CustomComboPreset.DNC_AoE_FanDanceOvercap) &&
-							LevelChecked(FanDance2) && gauge.Feathers is 4)
+							ActionReady(FanDance2) && gauge.Feathers is 4)
 						{
 							return FanDance2;
 						}
@@ -974,17 +974,17 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (LevelChecked(Bloodshower) && flow)
+					if (ActionReady(Bloodshower) && flow)
 					{
 						return Bloodshower;
 					}
 
-					if (LevelChecked(RisingWindmill) && symmetry)
+					if (ActionReady(RisingWindmill) && symmetry)
 					{
 						return RisingWindmill;
 					}
 
-					if (LevelChecked(Bladeshower) && lastComboMove is Windmill)
+					if (ActionReady(Bladeshower) && lastComboMove is Windmill)
 					{
 						return Bladeshower;
 					}

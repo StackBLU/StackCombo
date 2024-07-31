@@ -3,7 +3,7 @@ using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
 {
-	internal static class DOL
+	internal static class FSH
 	{
 		public const byte JobID = 51;
 
@@ -54,41 +54,6 @@ namespace StackCombo.Combos.PvE
 		{
 			internal const ushort
 				Placeholder = 0;
-		}
-
-		internal class DOL_Eureka : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DOL_Eureka;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is SolidReason && HasEffect(Buffs.EurekaMoment)
-					? MinWiseToTheWorld
-					: actionID is AgelessWords && HasEffect(Buffs.EurekaMoment) ? BtnWiseToTheWorld : actionID;
-			}
-		}
-
-		internal class DOL_NodeSearchingBuffs : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DOL_NodeSearchingBuffs;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is DOL.LayOfTheLand && !HasEffect(Buffs.Prospect)
-					? Prospect
-					: actionID is DOL.LayOfTheLand2 && LevelChecked(TruthOfMountains) && !HasEffect(Buffs.TruthOfMountains)
-					? TruthOfMountains
-					: actionID is DOL.ArborCall && !HasEffect(Buffs.Triangulate)
-					? Triangulate
-					: actionID is DOL.ArborCall2 && LevelChecked(TruthOfForests) && !HasEffect(Buffs.TruthOfForests) ? TruthOfForests : actionID;
-			}
-		}
-
-		internal class FSH_CastHook : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.FSH_CastHook;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is Cast && HasCondition(ConditionFlag.Fishing) ? Hook : actionID;
-			}
 		}
 
 		internal class FSH_Swim : CustomComboClass
@@ -145,7 +110,6 @@ namespace StackCombo.Combos.PvE
 						return BaitedBreath;
 					}
 				}
-
 				return actionID;
 			}
 		}

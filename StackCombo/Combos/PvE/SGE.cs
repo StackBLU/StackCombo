@@ -2,6 +2,7 @@ using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
+using StackCombo.Data;
 using System.Collections.Generic;
 
 namespace StackCombo.Combos.PvE
@@ -152,13 +153,18 @@ namespace StackCombo.Combos.PvE
 						return Rhizomata;
 					}
 
+					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Soteria) && CanSpellWeave(actionID) && ActionReady(Soteria))
+					{
+						return Soteria;
+					}
+
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_AddersgallProtect) && CanSpellWeave(actionID) &&
 						ActionReady(Druochole) && Gauge.Addersgall >= Config.SGE_ST_DPS_AddersgallProtect)
 					{
 						return Druochole;
 					}
 
-					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_EDosis) && ActionReady(OriginalHook(EukrasianDosis3))
+					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_EDosis) && ActionReady(OriginalHook(EukrasianDosis3)) && ActionWatching.NumberOfGcdsUsed >= 3
 						&& (!TargetHasEffect(DosisList[OriginalHook(Dosis3)]) || (GetDebuffRemainingTime(DosisList[OriginalHook(Dosis3)]) <= 3)))
 					{
 						if (!HasEffect(Buffs.Eukrasia))
@@ -168,23 +174,20 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(EukrasianDosis3);
 					}
 
-					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Phlegma) && InActionRange(OriginalHook(Phlegma3)) && ActionReady(OriginalHook(Phlegma3)))
+					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Phlegma) && InActionRange(OriginalHook(Phlegma3)) && ActionReady(OriginalHook(Phlegma3))
+						&& ActionWatching.NumberOfGcdsUsed >= 4)
 					{
 						return OriginalHook(Phlegma3);
 					}
 
-					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Psyche) && ActionReady(Psyche) && CanSpellWeave(actionID))
+					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Psyche) && ActionReady(Psyche) && CanSpellWeave(actionID)
+						&& ActionWatching.NumberOfGcdsUsed >= 3)
 					{
 						return Psyche;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Movement) && IsMoving)
 					{
-						if (ActionReady(Psyche))
-						{
-							return Psyche;
-						}
-
 						if (ActionReady(Toxikon) && Gauge.Addersting > 0)
 						{
 							return OriginalHook(Toxikon);
@@ -227,6 +230,11 @@ namespace StackCombo.Combos.PvE
 						ActionReady(Rhizomata) && Gauge.Addersgall <= Config.SGE_AoE_DPS_Rhizo)
 					{
 						return Rhizomata;
+					}
+
+					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Soteria) && CanSpellWeave(actionID) && ActionReady(Soteria))
+					{
+						return Soteria;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)

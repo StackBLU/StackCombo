@@ -5,14 +5,14 @@ namespace StackCombo.Extensions
 {
 	internal static class UIntExtensions
 	{
-		internal static bool LevelChecked(this uint value)
+		internal static bool ActionReady(this uint value)
 		{
-			return CustomComboFunctions.LevelChecked(value);
+			return CustomComboFunctions.ActionReady(value);
 		}
 
-		internal static bool TraitLevelChecked(this uint value)
+		internal static bool TraitActionReady(this uint value)
 		{
-			return CustomComboFunctions.TraitLevelChecked(value);
+			return CustomComboFunctions.TraitActionReady(value);
 		}
 
 		internal static string ActionName(this uint value)

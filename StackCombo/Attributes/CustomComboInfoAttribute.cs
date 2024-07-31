@@ -102,20 +102,14 @@ namespace StackCombo.Attributes
 
 		public static string JobIDToName(byte key)
 		{
-			if (key == 0)
+			if (key is 0)
 			{
-				return "General/Multiple Jobs";
+				return "General";
 			}
 
-			//Override DOH/DOL
-			if (key is DOH.JobID)
+			if (key is FSH.JobID)
 			{
-				key = 08; //Set to Carpenter
-			}
-
-			if (key is DOL.JobID)
-			{
-				key = 16; //Set to Miner
+				return "Fisher";
 			}
 
 			if (ClassJobs.TryGetValue(key, out ClassJob? job))
@@ -197,8 +191,7 @@ namespace StackCombo.Attributes
 				39 => "Reaper",
 				40 => "Sage",
 				99 => "Global",
-				DOH.JobID => "Disciples of the Hand",
-				DOL.JobID => "Disciples of the Land",
+				FSH.JobID => "Fisher",
 				_ => "Unknown",
 			};
 		}

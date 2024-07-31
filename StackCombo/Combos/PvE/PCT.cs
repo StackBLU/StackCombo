@@ -59,6 +59,14 @@ namespace StackCombo.Combos.PvE
 
 		}
 
+		private static PCTGauge Gauge
+		{
+			get
+			{
+				return CustomComboFunctions.GetJobGauge<PCTGauge>();
+			}
+		}
+
 		public static class Config
 		{
 			public static UserInt
@@ -69,7 +77,6 @@ namespace StackCombo.Combos.PvE
 				CombinedMotifsMog = new("CombinedMotifsMog"),
 				CombinedMotifsMadeen = new("CombinedMotifsMadeen"),
 				CombinedMotifsWeapon = new("CombinedMotifsWeapon"),
-				PCT_LandscapeRainbowBright = new("PCT_LandscapeRainbowBright"),
 				PCT_LandscapeStarstruck = new("PCT_LandscapeStarstruck");
 		}
 
@@ -79,8 +86,6 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				PCTGauge gauge = GetJobGauge<PCTGauge>();
-
 				if (actionID is FireInRed)
 				{
 					if (IsEnabled(CustomComboPreset.PCT_ST_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
@@ -88,7 +93,7 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.PCT_ST_Subtractive_OP) && gauge.PalleteGauge == 100 && ActionReady(SubtractivePalette))
+					if (IsEnabled(CustomComboPreset.PCT_ST_Subtractive_OP) && Gauge.PalleteGauge == 100 && ActionReady(SubtractivePalette))
 					{
 						if (HasEffect(Buffs.MonochromeTones))
 						{
@@ -100,7 +105,7 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (IsEnabled(CustomComboPreset.PCT_ST_Comet_OP) && gauge.Paint == 5 && (LevelChecked(HolyInWhite) || LevelChecked(CometinBlack)))
+					if (IsEnabled(CustomComboPreset.PCT_ST_Comet_OP) && Gauge.Paint == 5 && (ActionReady(HolyInWhite) || ActionReady(CometinBlack)))
 					{
 						return HasEffect(Buffs.MonochromeTones) ? OriginalHook(CometinBlack) : OriginalHook(HolyInWhite);
 					}
@@ -131,8 +136,6 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				PCTGauge gauge = GetJobGauge<PCTGauge>();
-
 				if (actionID is FireIIinRed)
 				{
 					if (IsEnabled(CustomComboPreset.PCT_AoE_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
@@ -140,12 +143,12 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.PCT_AoE_Subtractive_OP) && gauge.PalleteGauge == 100 && CanSpellWeave(actionID) && ActionReady(SubtractivePalette))
+					if (IsEnabled(CustomComboPreset.PCT_AoE_Subtractive_OP) && Gauge.PalleteGauge == 100 && CanSpellWeave(actionID) && ActionReady(SubtractivePalette))
 					{
 						return HasEffect(Buffs.MonochromeTones) ? OriginalHook(CometinBlack) : SubtractivePalette;
 					}
 
-					if (IsEnabled(CustomComboPreset.PCT_AoE_Comet_OP) && gauge.Paint == 5 && (LevelChecked(HolyInWhite) || LevelChecked(CometinBlack)))
+					if (IsEnabled(CustomComboPreset.PCT_AoE_Comet_OP) && Gauge.Paint == 5 && (ActionReady(HolyInWhite) || ActionReady(CometinBlack)))
 					{
 						return HasEffect(Buffs.MonochromeTones) ? OriginalHook(CometinBlack) : OriginalHook(HolyInWhite);
 					}
@@ -165,7 +168,6 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(BlizzardIIinCyan);
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -176,34 +178,32 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				PCTGauge gauge = GetJobGauge<PCTGauge>();
-
-				if (actionID == CreatureMotif)
+				if (actionID is CreatureMotif)
 				{
-					if ((Config.CombinedMotifsMog && gauge.MooglePortraitReady) || (Config.CombinedMotifsMadeen && gauge.MadeenPortraitReady && IsOffCooldown(OriginalHook(MogoftheAges))))
+					if ((Config.CombinedMotifsMog && Gauge.MooglePortraitReady) || (Config.CombinedMotifsMadeen
+						&& Gauge.MadeenPortraitReady && IsOffCooldown(OriginalHook(MogoftheAges))))
 					{
 						return OriginalHook(MogoftheAges);
 					}
 
-					if (gauge.CreatureMotifDrawn)
+					if (Gauge.CreatureMotifDrawn)
 					{
 						return OriginalHook(LivingMuse);
 					}
 				}
 
-				if (actionID == WeaponMotif)
+				if (actionID is WeaponMotif)
 				{
 					if (Config.CombinedMotifsWeapon && HasEffect(Buffs.HammerTime))
 					{
 						return OriginalHook(HammerStamp);
 					}
 
-					if (gauge.WeaponMotifDrawn)
+					if (Gauge.WeaponMotifDrawn)
 					{
 						return OriginalHook(SteelMuse);
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -214,15 +214,13 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				PCTGauge gauge = GetJobGauge<PCTGauge>();
-
 				if (actionID is LandscapeMotif)
 				{
 					if (HasEffect(Buffs.Starstruck))
 					{
 						return StarPrism;
 					}
-					if (gauge.LandscapeMotifDrawn)
+					if (Gauge.LandscapeMotifDrawn)
 					{
 						return OriginalHook(ScenicMuse);
 					}
@@ -237,14 +235,13 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				if (actionID == HolyInWhite)
+				if (actionID is HolyInWhite)
 				{
 					if (HasEffect(Buffs.MonochromeTones))
 					{
 						return CometinBlack;
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -262,7 +259,6 @@ namespace StackCombo.Combos.PvE
 						return CometinBlack;
 					}
 				}
-
 				return actionID;
 			}
 		}

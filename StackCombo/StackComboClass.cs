@@ -34,30 +34,36 @@ namespace StackCombo
 
 		public static readonly List<uint> DisabledJobsPVE =
 		[
+			//All.JobID,
+			//FSH.JobID,
+
+			PLD.JobID,
+			WAR.JobID,
+			DRK.JobID,
+			GNB.JobID,
+
+			//WHM.JobID
+			//SCH.JobID,
 			//AST.JobID,
-			BLM.JobID,
-            //BLU.JobID,
-            BRD.JobID,
-			DNC.JobID,
-			DOL.JobID,
-            //DRG.JobID,
-            DRK.JobID,
-            //GNB.JobID,
-            MCH.JobID,
+			//SGE.JobID,
+
 			MNK.JobID,
+			DRG.JobID,
 			NIN.JobID,
-            //PCT.JobID,
-            //PLD.JobID,
-            RDM.JobID,
-			RPR.JobID,
 			SAM.JobID,
-            //SCH.JobID,
-            //SGE.JobID,
-            SMN.JobID,
-            //VPR.JobID,
-            //WAR.JobID,
-            //WHM.JobID
-        ];
+			RPR.JobID,
+			VPR.JobID,
+
+			BRD.JobID,
+			MCH.JobID,
+			DNC.JobID,
+			BLM.JobID,
+			SMN.JobID,
+			RDM.JobID,
+			//PCT.JobID,
+
+			//BLU.JobID,
+		];
 
 		public static readonly List<uint> DisabledJobsPVP =
 		[

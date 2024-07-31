@@ -26,14 +26,10 @@ namespace StackCombo.CustomCombo
 			}
 
 			uint classJobID = LocalPlayer!.ClassJob.Id;
-			if (classJobID is >= 8 and <= 15)
-			{
-				classJobID = DOH.JobID;
-			}
 
 			if (classJobID is >= 16 and <= 18)
 			{
-				classJobID = DOL.JobID;
+				classJobID = FSH.JobID;
 			}
 
 			if (JobID != ADV.JobID && JobID != classJobID && ClassID != classJobID)

@@ -159,7 +159,7 @@ namespace StackCombo.Combos.PvE
 								return ChainStratagem;
 							}
 
-							if (LevelChecked(BanefulImpaction) &&
+							if (ActionReady(BanefulImpaction) &&
 								HasEffect(Buffs.ImpactImminent) &&
 								CanSpellWeave(actionID))
 							{
@@ -167,9 +167,9 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.SCH_DPS_EnergyDrain))
+						if (IsEnabled(CustomComboPreset.SCH_ST_DPS_EnergyDrain))
 						{
-							if (LevelChecked(EnergyDrain) && Gauge.Aetherflow > 0
+							if (ActionReady(EnergyDrain) && Gauge.Aetherflow > 0
 								&& (GetCooldownRemainingTime(Aetherflow) <= 10f || GetCooldownRemainingTime(Dissipation) <= 10f || TargetHasEffect(Debuffs.ChainStratagem))
 								&& CanSpellWeave(actionID))
 							{
@@ -177,11 +177,10 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if ((IsEnabled(CustomComboPreset.SCH_DPS_Bio) && ActionReady(OriginalHook(Biolysis))
-							&& !TargetHasEffect(BioList[OriginalHook(Biolysis)]) && ActionWatching.NumberOfGcdsUsed >= 3)
-							|| (GetDebuffRemainingTime(BioList[OriginalHook(Biolysis)]) <= 3))
+						if (IsEnabled(CustomComboPreset.SCH_DPS_Bio) && ActionReady(OriginalHook(Biolysis)) && ActionWatching.NumberOfGcdsUsed >= 3
+						&& (!TargetHasEffect(BioList[OriginalHook(Biolysis)]) || GetDebuffRemainingTime(BioList[OriginalHook(Biolysis)]) <= 3))
 						{
-							return OriginalHook(Bio);
+							return OriginalHook(Biolysis);
 						}
 
 						if (IsEnabled(CustomComboPreset.SCH_DPS_Aetherpact) &&
@@ -192,7 +191,7 @@ namespace StackCombo.Combos.PvE
 						}
 
 						if (IsEnabled(CustomComboPreset.SCH_DPS_Ruin2Movement) &&
-							LevelChecked(Ruin2) && IsMoving)
+							ActionReady(Ruin2) && IsMoving)
 						{
 							return OriginalHook(Ruin2);
 						}
@@ -235,6 +234,16 @@ namespace StackCombo.Combos.PvE
 					{
 						return All.LucidDreaming;
 					}
+
+					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_EnergyDrain))
+					{
+						if (ActionReady(EnergyDrain) && Gauge.Aetherflow > 0
+							&& (GetCooldownRemainingTime(Aetherflow) <= 10f || GetCooldownRemainingTime(Dissipation) <= 10f || TargetHasEffect(Debuffs.ChainStratagem))
+							&& CanSpellWeave(actionID))
+						{
+							return EnergyDrain;
+						}
+					}
 				}
 				return actionID;
 			}
@@ -245,7 +254,7 @@ namespace StackCombo.Combos.PvE
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_Lustrate;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Lustrate && LevelChecked(Excogitation) && IsOffCooldown(Excogitation) ? Excogitation : actionID;
+				return actionID is Lustrate && ActionReady(Excogitation) && IsOffCooldown(Excogitation) ? Excogitation : actionID;
 			}
 		}
 

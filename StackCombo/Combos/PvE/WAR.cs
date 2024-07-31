@@ -86,7 +86,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantCure;
 					}
 
-					if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk) && !LevelChecked(StormsEye) && InCombat())
+					if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && ActionReady(Berserk) && !ActionReady(StormsEye) && InCombat())
 					{
 						return OriginalHook(Berserk);
 					}
@@ -108,25 +108,25 @@ namespace StackCombo.Combos.PvE
 								return Variant.VariantUltimatum;
 							}
 
-							if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk))
+							if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && ActionReady(Berserk))
 							{
 								return OriginalHook(Berserk);
 							}
 
-							if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_Upheaval) && IsOffCooldown(Upheaval) && LevelChecked(Upheaval))
+							if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_Upheaval) && IsOffCooldown(Upheaval) && ActionReady(Upheaval))
 							{
 								return Upheaval;
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_FellCleave) && LevelChecked(InnerBeast))
+						if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_FellCleave) && ActionReady(InnerBeast))
 						{
-							if (HasEffect(Buffs.InnerReleaseStacks) || (HasEffect(Buffs.NascentChaos) && !LevelChecked(InnerChaos)))
+							if (HasEffect(Buffs.InnerReleaseStacks) || (HasEffect(Buffs.NascentChaos) && !ActionReady(InnerChaos)))
 							{
 								return OriginalHook(InnerBeast);
 							}
 
-							if (HasEffect(Buffs.NascentChaos) && gauge >= 50 && !LevelChecked(InnerChaos))
+							if (HasEffect(Buffs.NascentChaos) && gauge >= 50 && !ActionReady(InnerChaos))
 							{
 								return OriginalHook(Decimate);
 							}
@@ -136,21 +136,21 @@ namespace StackCombo.Combos.PvE
 
 					if (comboTime > 0)
 					{
-						if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_FellCleave) && LevelChecked(InnerBeast) && (!LevelChecked(StormsEye) || HasEffectAny(Buffs.SurgingTempest)) && gauge >= fellCleaveGaugeSpend)
+						if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_FellCleave) && ActionReady(InnerBeast) && (!ActionReady(StormsEye) || HasEffectAny(Buffs.SurgingTempest)) && gauge >= fellCleaveGaugeSpend)
 						{
 							return OriginalHook(InnerBeast);
 						}
 
-						if (lastComboMove == HeavySwing && LevelChecked(Maim))
+						if (lastComboMove == HeavySwing && ActionReady(Maim))
 						{
 							return Maim;
 						}
 
-						if (lastComboMove == Maim && LevelChecked(StormsPath) && IsEnabled(CustomComboPreset.WAR_ST_StormsPath_StormsEye))
+						if (lastComboMove == Maim && ActionReady(StormsPath) && IsEnabled(CustomComboPreset.WAR_ST_StormsPath_StormsEye))
 						{
-							return GetBuffRemainingTime(Buffs.SurgingTempest) <= surgingThreshold && LevelChecked(StormsEye) ? StormsEye : StormsPath;
+							return GetBuffRemainingTime(Buffs.SurgingTempest) <= surgingThreshold && ActionReady(StormsEye) ? StormsEye : StormsPath;
 						}
-						if (lastComboMove == Maim && LevelChecked(StormsPath) && IsNotEnabled(CustomComboPreset.WAR_ST_StormsPath_StormsEye))
+						if (lastComboMove == Maim && ActionReady(StormsPath) && IsNotEnabled(CustomComboPreset.WAR_ST_StormsPath_StormsEye))
 						{
 							return StormsPath;
 						}
@@ -177,7 +177,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantCure;
 					}
 
-					if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk) && !LevelChecked(MythrilTempest) && InCombat())
+					if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && ActionReady(Berserk) && !ActionReady(MythrilTempest) && InCombat())
 					{
 						return OriginalHook(Berserk);
 					}
@@ -199,25 +199,25 @@ namespace StackCombo.Combos.PvE
 								return Variant.VariantUltimatum;
 							}
 
-							if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk))
+							if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_InnerRelease) && CanWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && ActionReady(Berserk))
 							{
 								return OriginalHook(Berserk);
 							}
 
-							if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_Orogeny) && IsOffCooldown(Orogeny) && LevelChecked(Orogeny) && HasEffect(Buffs.SurgingTempest))
+							if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_Orogeny) && IsOffCooldown(Orogeny) && ActionReady(Orogeny) && HasEffect(Buffs.SurgingTempest))
 							{
 								return Orogeny;
 							}
 						}
 					}
-					if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_Decimate) && LevelChecked(SteelCyclone) && (gauge >= decimateGaugeSpend || HasEffect(Buffs.InnerReleaseStacks) || HasEffect(Buffs.NascentChaos)))
+					if (IsEnabled(CustomComboPreset.WAR_AoE_Overpower_Decimate) && ActionReady(SteelCyclone) && (gauge >= decimateGaugeSpend || HasEffect(Buffs.InnerReleaseStacks) || HasEffect(Buffs.NascentChaos)))
 					{
 						return OriginalHook(SteelCyclone);
 					}
 
 					if (comboTime > 0)
 					{
-						return lastComboMove == Overpower && LevelChecked(MythrilTempest) ? MythrilTempest : Overpower;
+						return lastComboMove == Overpower && ActionReady(MythrilTempest) ? MythrilTempest : Overpower;
 					}
 				}
 				return actionID;

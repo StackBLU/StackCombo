@@ -52,6 +52,7 @@ namespace StackCombo.Window.Tabs
 				ImGui.TextUnformatted($"Target Object Kind: {Service.ClientState.LocalPlayer.TargetObject?.ObjectKind}");
 				ImGui.TextUnformatted($"Target is Battle Char: {Service.ClientState.LocalPlayer.TargetObject is IBattleChara}");
 				ImGui.TextUnformatted($"In Combat: {CustomComboFunctions.InCombat()}");
+				ImGui.TextUnformatted($"# of GCDs used: {ActionWatching.NumberOfGcdsUsed}");
 				ImGui.TextUnformatted($"In Melee Range: {CustomComboFunctions.InMeleeRange()}");
 				ImGui.TextUnformatted($"Distance from Target: {CustomComboFunctions.GetTargetDistance()}");
 				ImGui.TextUnformatted($"Target HP Value: {CustomComboFunctions.EnemyHealthCurrentHp()}");

@@ -22,7 +22,7 @@ namespace StackCombo.ComboHelper.Functions
 			return LocalPlayer.Level >= GetLevel(actionid) && NoBlockingStatuses(actionid) && IsActionUnlocked(actionid);
 		}
 
-		public static bool TraitLevelChecked(uint traitid)
+		public static bool TraitActionReady(uint traitid)
 		{
 			return LocalPlayer.Level >= GetTraitLevel(traitid);
 		}

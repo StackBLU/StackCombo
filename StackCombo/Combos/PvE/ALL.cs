@@ -1,6 +1,4 @@
-﻿using StackCombo.ComboHelper.Functions;
-using StackCombo.CustomCombo;
-using StackCombo.Services;
+﻿using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
 {
@@ -38,8 +36,6 @@ namespace StackCombo.Combos.PvE
 			LegSweep = 7863,
 			Repose = 16560,
 			Sprint = 3;
-		private const uint
-			IsleSprint = 31314;
 
 		public static class Buffs
 		{
@@ -66,51 +62,6 @@ namespace StackCombo.Combos.PvE
 				Feint = 1195;
 		}
 
-		public static bool CanUseLucid(uint actionID, int MPThreshold, bool weave = true)
-		{
-			return CustomComboFunctions.ActionReady(LucidDreaming)
-			&& CustomComboFunctions.LocalPlayer.CurrentMp <= MPThreshold
-			&& weave && CustomComboFunctions.CanSpellWeave(actionID);
-		}
-
-		internal class ALL_IslandSanctuary_Sprint : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_IslandSanctuary_Sprint;
-
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return actionID is Sprint && Service.ClientState.TerritoryType is 1055 ? IsleSprint : actionID;
-			}
-		}
-
-		internal class ALL_Tank_Interrupt : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Tank_Interrupt;
-
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				if (actionID is LowBlow or PLD.ShieldBash)
-				{
-					if (CanInterruptEnemy() && ActionReady(Interject))
-					{
-						return Interject;
-					}
-
-					if (ActionReady(LowBlow))
-					{
-						return LowBlow;
-					}
-
-					if (actionID == PLD.ShieldBash && IsOnCooldown(LowBlow))
-					{
-						return actionID;
-					}
-				}
-
-				return actionID;
-			}
-		}
-
 		internal class ALL_Tank_Reprisal : CustomComboClass
 		{
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Tank_Reprisal;
@@ -124,7 +75,6 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(11);
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -142,31 +92,6 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(11);
 					}
 				}
-
-				return actionID;
-			}
-		}
-
-		internal class ALL_Caster_Raise : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Caster_Raise;
-
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				if ((actionID is BLU.AngelWhisper or RDM.Verraise)
-					|| (actionID is SMN.Resurrection && LocalPlayer.ClassJob.Id is SMN.JobID))
-				{
-					if (HasEffect(Buffs.Swiftcast) || HasEffect(RDM.Buffs.Dualcast))
-					{
-						return actionID;
-					}
-
-					if (IsOffCooldown(Swiftcast))
-					{
-						return Swiftcast;
-					}
-				}
-
 				return actionID;
 			}
 		}
@@ -184,7 +109,6 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(11);
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -202,7 +126,6 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(11);
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -220,20 +143,8 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(11);
 					}
 				}
-
 				return actionID;
-			}
-		}
-
-		internal class ALL_Ranged_Interrupt : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Ranged_Interrupt;
-
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return (actionID is FootGraze && CanInterruptEnemy() && ActionReady(HeadGraze)) ? HeadGraze : actionID;
 			}
 		}
 	}
 }
-

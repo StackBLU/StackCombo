@@ -191,7 +191,7 @@ namespace StackCombo.Combos.PvE
 						return Ruin4;
 					}
 
-					if (LevelChecked(EnergyDrain) && !gauge.HasAetherflowStacks)
+					if (ActionReady(EnergyDrain) && !gauge.HasAetherflowStacks)
 					{
 						return EnergyDrain;
 					}
@@ -209,19 +209,19 @@ namespace StackCombo.Combos.PvE
 			{
 				SMNGauge gauge = GetJobGauge<SMNGauge>();
 
-				if (actionID == Painflare && LevelChecked(Painflare) && !gauge.HasAetherflowStacks)
+				if (actionID == Painflare && ActionReady(Painflare) && !gauge.HasAetherflowStacks)
 				{
 					if (HasEffect(Buffs.FurtherRuin) && IsOnCooldown(EnergySiphon) && IsEnabled(CustomComboPreset.SMN_ESPainflare_Ruin4))
 					{
 						return Ruin4;
 					}
 
-					if (LevelChecked(EnergySiphon))
+					if (ActionReady(EnergySiphon))
 					{
 						return EnergySiphon;
 					}
 
-					if (LevelChecked(EnergyDrain))
+					if (ActionReady(EnergyDrain))
 					{
 						return EnergyDrain;
 					}
@@ -264,37 +264,37 @@ namespace StackCombo.Combos.PvE
 
 					if (CanSpellWeave(actionID))
 					{
-						if (IsOffCooldown(SearingLight) && LevelChecked(SearingLight) && ((!LevelChecked(SummonSolarBahamut) && OriginalHook(Ruin) is AstralImpulse) || OriginalHook(Ruin) is UmbralImpulse))
+						if (IsOffCooldown(SearingLight) && ActionReady(SearingLight) && ((!ActionReady(SummonSolarBahamut) && OriginalHook(Ruin) is AstralImpulse) || OriginalHook(Ruin) is UmbralImpulse))
 						{
 							return SearingLight;
 						}
 
 						if (!gauge.HasAetherflowStacks && IsOffCooldown(EnergyDrain))
 						{
-							if ((STCombo || (AoECombo && !LevelChecked(EnergySiphon))) && LevelChecked(EnergyDrain))
+							if ((STCombo || (AoECombo && !ActionReady(EnergySiphon))) && ActionReady(EnergyDrain))
 							{
 								return EnergyDrain;
 							}
 
-							if (AoECombo && LevelChecked(EnergySiphon))
+							if (AoECombo && ActionReady(EnergySiphon))
 							{
 								return EnergySiphon;
 							}
 						}
 
-						if (HasEffect(Buffs.RubysGlimmer) && LevelChecked(SearingFlash))
+						if (HasEffect(Buffs.RubysGlimmer) && ActionReady(SearingFlash))
 						{
 							return SearingFlash;
 						}
 
 						if (OriginalHook(Ruin) is AstralImpulse or UmbralImpulse or FountainOfFire)
 						{
-							if (IsOffCooldown(OriginalHook(EnkindleBahamut)) && LevelChecked(SummonBahamut))
+							if (IsOffCooldown(OriginalHook(EnkindleBahamut)) && ActionReady(SummonBahamut))
 							{
 								return OriginalHook(EnkindleBahamut);
 							}
 
-							if (IsOffCooldown(Deathflare) && LevelChecked(Deathflare) && OriginalHook(Ruin) is AstralImpulse or UmbralImpulse)
+							if (IsOffCooldown(Deathflare) && ActionReady(Deathflare) && OriginalHook(Ruin) is AstralImpulse or UmbralImpulse)
 							{
 								return OriginalHook(AstralFlow);
 							}
@@ -312,14 +312,14 @@ namespace StackCombo.Combos.PvE
 
 						if (gauge.HasAetherflowStacks && CanSpellWeave(actionID))
 						{
-							if (!LevelChecked(SearingLight))
+							if (!ActionReady(SearingLight))
 							{
 								if (STCombo)
 								{
 									return OriginalHook(Fester);
 								}
 
-								if (AoECombo && LevelChecked(Painflare))
+								if (AoECombo && ActionReady(Painflare))
 								{
 									return Painflare;
 								}
@@ -332,7 +332,7 @@ namespace StackCombo.Combos.PvE
 									return OriginalHook(Fester);
 								}
 
-								if (AoECombo && LevelChecked(Painflare))
+								if (AoECombo && ActionReady(Painflare))
 								{
 									return Painflare;
 								}
@@ -346,16 +346,16 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (InCombat() && gauge.SummonTimerRemaining == 0 && IsOffCooldown(OriginalHook(Aethercharge)) &&
-						((LevelChecked(Aethercharge) && !LevelChecked(SummonBahamut)) ||
-						 (gauge.IsBahamutReady && LevelChecked(SummonBahamut)) ||
-						 (gauge.IsPhoenixReady && LevelChecked(SummonPhoenix))))
+						((ActionReady(Aethercharge) && !ActionReady(SummonBahamut)) ||
+						 (gauge.IsBahamutReady && ActionReady(SummonBahamut)) ||
+						 (gauge.IsPhoenixReady && ActionReady(SummonPhoenix))))
 					{
 						return OriginalHook(Aethercharge);
 					}
 
-					if (LevelChecked(All.Swiftcast))
+					if (ActionReady(All.Swiftcast))
 					{
-						if (LevelChecked(Slipstream) && HasEffect(Buffs.GarudasFavor))
+						if (ActionReady(Slipstream) && HasEffect(Buffs.GarudasFavor))
 						{
 							if (CanSpellWeave(actionID) && IsGarudaAttuned && IsOffCooldown(All.Swiftcast))
 							{
@@ -381,7 +381,7 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(Gemshine);
 						}
 
-						if (AoECombo && LevelChecked(PreciousBrilliance))
+						if (AoECombo && ActionReady(PreciousBrilliance))
 						{
 							return OriginalHook(PreciousBrilliance);
 						}
@@ -406,7 +406,7 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(Gemshine);
 						}
 
-						if (AoECombo && LevelChecked(PreciousBrilliance))
+						if (AoECombo && ActionReady(PreciousBrilliance))
 						{
 							return OriginalHook(PreciousBrilliance);
 						}
@@ -414,23 +414,23 @@ namespace StackCombo.Combos.PvE
 
 					if (gauge.SummonTimerRemaining == 0 && IsOnCooldown(SummonPhoenix) && IsOnCooldown(SummonBahamut))
 					{
-						if (gauge.IsIfritReady && !gauge.IsTitanReady && !gauge.IsGarudaReady && LevelChecked(SummonRuby))
+						if (gauge.IsIfritReady && !gauge.IsTitanReady && !gauge.IsGarudaReady && ActionReady(SummonRuby))
 						{
 							return OriginalHook(SummonRuby);
 						}
 
-						if (gauge.IsTitanReady && LevelChecked(SummonTopaz))
+						if (gauge.IsTitanReady && ActionReady(SummonTopaz))
 						{
 							return OriginalHook(SummonTopaz);
 						}
 
-						if (gauge.IsGarudaReady && LevelChecked(SummonEmerald))
+						if (gauge.IsGarudaReady && ActionReady(SummonEmerald))
 						{
 							return OriginalHook(SummonEmerald);
 						}
 					}
 
-					if (LevelChecked(Ruin4) && gauge.SummonTimerRemaining == 0 && gauge.AttunmentTimerRemaining == 0 && HasEffect(Buffs.FurtherRuin))
+					if (ActionReady(Ruin4) && gauge.SummonTimerRemaining == 0 && gauge.AttunmentTimerRemaining == 0 && HasEffect(Buffs.FurtherRuin))
 					{
 						return Ruin4;
 					}
@@ -511,11 +511,11 @@ namespace StackCombo.Combos.PvE
 
 					if (CanSpellWeave(actionID))
 					{
-						if (IsEnabled(CustomComboPreset.SMN_SearingLight) && IsOffCooldown(SearingLight) && LevelChecked(SearingLight))
+						if (IsEnabled(CustomComboPreset.SMN_SearingLight) && IsOffCooldown(SearingLight) && ActionReady(SearingLight))
 						{
 							if (IsEnabled(CustomComboPreset.SMN_SearingLight_Burst))
 							{
-								if ((SummonerBurstPhase is 0 or 1 && ((!LevelChecked(SummonSolarBahamut) && OriginalHook(Ruin) is AstralImpulse) || OriginalHook(Ruin) is UmbralImpulse)) ||
+								if ((SummonerBurstPhase is 0 or 1 && ((!ActionReady(SummonSolarBahamut) && OriginalHook(Ruin) is AstralImpulse) || OriginalHook(Ruin) is UmbralImpulse)) ||
 									(SummonerBurstPhase == 2 && OriginalHook(Ruin) == FountainOfFire) ||
 									(SummonerBurstPhase == 3 && OriginalHook(Ruin) is AstralImpulse or UmbralImpulse or FountainOfFire) ||
 									(SummonerBurstPhase == 4))
@@ -537,17 +537,17 @@ namespace StackCombo.Combos.PvE
 						{
 							if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_DemiSummons_Attacks))
 							{
-								if (IsOffCooldown(OriginalHook(EnkindleBahamut)) && LevelChecked(SummonBahamut))
+								if (IsOffCooldown(OriginalHook(EnkindleBahamut)) && ActionReady(SummonBahamut))
 								{
 									return OriginalHook(EnkindleBahamut);
 								}
 
-								if (IsOffCooldown(Deathflare) && LevelChecked(Deathflare) && OriginalHook(Ruin) is AstralImpulse)
+								if (IsOffCooldown(Deathflare) && ActionReady(Deathflare) && OriginalHook(Ruin) is AstralImpulse)
 								{
 									return OriginalHook(AstralFlow);
 								}
 
-								if (IsOffCooldown(OriginalHook(EnkindlePhoenix)) && LevelChecked(SummonPhoenix))
+								if (IsOffCooldown(OriginalHook(EnkindlePhoenix)) && ActionReady(SummonPhoenix))
 								{
 									return OriginalHook(EnkindlePhoenix);
 								}
@@ -560,26 +560,26 @@ namespace StackCombo.Combos.PvE
 									}
 								}
 
-								if (IsOffCooldown(OriginalHook(EnkindleSolarBahamut)) && LevelChecked(SummonSolarBahamut))
+								if (IsOffCooldown(OriginalHook(EnkindleSolarBahamut)) && ActionReady(SummonSolarBahamut))
 								{
 									return OriginalHook(EnkindleSolarBahamut);
 								}
 
-								if (IsOffCooldown(Sunflare) && LevelChecked(Sunflare) && OriginalHook(Ruin) is UmbralImpulse)
+								if (IsOffCooldown(Sunflare) && ActionReady(Sunflare) && OriginalHook(Ruin) is UmbralImpulse)
 								{
 									return OriginalHook(AstralFlow);
 								}
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_EDFester) && !gauge.HasAetherflowStacks && IsOffCooldown(EnergyDrain) && (!LevelChecked(DreadwyrmTrance) || !inOpener || DemiAttackCount >= burstDelay))
+						if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_EDFester) && !gauge.HasAetherflowStacks && IsOffCooldown(EnergyDrain) && (!ActionReady(DreadwyrmTrance) || !inOpener || DemiAttackCount >= burstDelay))
 						{
-							if ((STCombo || (AoECombo && !LevelChecked(EnergySiphon))) && LevelChecked(EnergyDrain))
+							if ((STCombo || (AoECombo && !ActionReady(EnergySiphon))) && ActionReady(EnergyDrain))
 							{
 								return EnergyDrain;
 							}
 
-							if (AoECombo && LevelChecked(EnergySiphon))
+							if (AoECombo && ActionReady(EnergySiphon))
 							{
 								return EnergySiphon;
 							}
@@ -598,7 +598,7 @@ namespace StackCombo.Combos.PvE
 										return OriginalHook(Fester);
 									}
 
-									if (AoECombo && LevelChecked(Painflare) && IsNotEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling_Only))
+									if (AoECombo && ActionReady(Painflare) && IsNotEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling_Only))
 									{
 										return Painflare;
 									}
@@ -606,21 +606,21 @@ namespace StackCombo.Combos.PvE
 							}
 						}
 
-						if (IsEnabled(CustomComboPreset.SMN_SearingFlash) && HasEffect(Buffs.RubysGlimmer) && LevelChecked(SearingFlash))
+						if (IsEnabled(CustomComboPreset.SMN_SearingFlash) && HasEffect(Buffs.RubysGlimmer) && ActionReady(SearingFlash))
 						{
 							return SearingFlash;
 						}
 
 						if (OriginalHook(Ruin) is AstralImpulse or UmbralImpulse or FountainOfFire)
 						{
-							if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_DemiSummons_Attacks) && IsBahamutReady && (LevelChecked(SummonSolarBahamut) || DemiAttackCount >= burstDelay))
+							if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_DemiSummons_Attacks) && IsBahamutReady && (ActionReady(SummonSolarBahamut) || DemiAttackCount >= burstDelay))
 							{
-								if (IsOffCooldown(OriginalHook(EnkindleBahamut)) && LevelChecked(SummonBahamut))
+								if (IsOffCooldown(OriginalHook(EnkindleBahamut)) && ActionReady(SummonBahamut))
 								{
 									return OriginalHook(EnkindleBahamut);
 								}
 
-								if (IsOffCooldown(Deathflare) && LevelChecked(Deathflare) && OriginalHook(Ruin) is AstralImpulse)
+								if (IsOffCooldown(Deathflare) && ActionReady(Deathflare) && OriginalHook(Ruin) is AstralImpulse)
 								{
 									return OriginalHook(AstralFlow);
 								}
@@ -628,7 +628,7 @@ namespace StackCombo.Combos.PvE
 
 							if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_DemiSummons_Attacks) && IsPhoenixReady)
 							{
-								if (IsOffCooldown(OriginalHook(EnkindlePhoenix)) && LevelChecked(SummonPhoenix) && OriginalHook(Ruin) is FountainOfFire)
+								if (IsOffCooldown(OriginalHook(EnkindlePhoenix)) && ActionReady(SummonPhoenix) && OriginalHook(Ruin) is FountainOfFire)
 								{
 									return OriginalHook(EnkindlePhoenix);
 								}
@@ -641,12 +641,12 @@ namespace StackCombo.Combos.PvE
 
 							if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_DemiSummons_Attacks) && IsSolarBahamutReady && DemiAttackCount >= burstDelay)
 							{
-								if (IsOffCooldown(OriginalHook(EnkindleSolarBahamut)) && LevelChecked(SummonSolarBahamut))
+								if (IsOffCooldown(OriginalHook(EnkindleSolarBahamut)) && ActionReady(SummonSolarBahamut))
 								{
 									return OriginalHook(EnkindleSolarBahamut);
 								}
 
-								if (IsOffCooldown(Sunflare) && LevelChecked(Sunflare) && OriginalHook(Ruin) is UmbralImpulse)
+								if (IsOffCooldown(Sunflare) && ActionReady(Sunflare) && OriginalHook(Ruin) is UmbralImpulse)
 								{
 									return OriginalHook(AstralFlow);
 								}
@@ -669,7 +669,7 @@ namespace StackCombo.Combos.PvE
 										return OriginalHook(Fester);
 									}
 
-									if (AoECombo && LevelChecked(Painflare))
+									if (AoECombo && ActionReady(Painflare))
 									{
 										return Painflare;
 									}
@@ -677,14 +677,14 @@ namespace StackCombo.Combos.PvE
 
 								if (IsEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling))
 								{
-									if (!LevelChecked(SearingLight))
+									if (!ActionReady(SearingLight))
 									{
 										if (STCombo)
 										{
 											return OriginalHook(Fester);
 										}
 
-										if (AoECombo && LevelChecked(Painflare) && IsNotEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling_Only))
+										if (AoECombo && ActionReady(Painflare) && IsNotEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling_Only))
 										{
 											return Painflare;
 										}
@@ -699,7 +699,7 @@ namespace StackCombo.Combos.PvE
 											return OriginalHook(Fester);
 										}
 
-										if (AoECombo && LevelChecked(Painflare) && IsNotEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling_Only))
+										if (AoECombo && ActionReady(Painflare) && IsNotEnabled(CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling_Only))
 										{
 											return Painflare;
 										}
@@ -717,10 +717,10 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_DemiSummons))
 					{
 						if (gauge.SummonTimerRemaining == 0 && IsOffCooldown(OriginalHook(Aethercharge)) &&
-							((LevelChecked(Aethercharge) && !LevelChecked(SummonBahamut) && InCombat()) ||
-							 (IsBahamutReady && LevelChecked(SummonBahamut)) ||
-							 (IsPhoenixReady && LevelChecked(SummonPhoenix)) ||
-							 (IsSolarBahamutReady && LevelChecked(SummonSolarBahamut))))
+							((ActionReady(Aethercharge) && !ActionReady(SummonBahamut) && InCombat()) ||
+							 (IsBahamutReady && ActionReady(SummonBahamut)) ||
+							 (IsPhoenixReady && ActionReady(SummonPhoenix)) ||
+							 (IsSolarBahamutReady && ActionReady(SummonSolarBahamut))))
 						{
 							return OriginalHook(Aethercharge);
 						}
@@ -733,9 +733,9 @@ namespace StackCombo.Combos.PvE
 						return Ruin4;
 					}
 
-					if (IsEnabled(CustomComboPreset.SMN_DemiEgiMenu_SwiftcastEgi) && LevelChecked(All.Swiftcast))
+					if (IsEnabled(CustomComboPreset.SMN_DemiEgiMenu_SwiftcastEgi) && ActionReady(All.Swiftcast))
 					{
-						if (swiftcastPhase is 0 or 1 && LevelChecked(Slipstream) && HasEffect(Buffs.GarudasFavor))
+						if (swiftcastPhase is 0 or 1 && ActionReady(Slipstream) && HasEffect(Buffs.GarudasFavor))
 						{
 							if (CanSpellWeave(actionID) && IsGarudaAttuned && IsOffCooldown(All.Swiftcast))
 							{
@@ -768,7 +768,7 @@ namespace StackCombo.Combos.PvE
 
 						if (swiftcastPhase == 3)
 						{
-							if (LevelChecked(Slipstream) && HasEffect(Buffs.GarudasFavor))
+							if (ActionReady(Slipstream) && HasEffect(Buffs.GarudasFavor))
 							{
 								if (CanSpellWeave(actionID) && IsGarudaAttuned && IsOffCooldown(All.Swiftcast))
 								{
@@ -807,7 +807,7 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(Gemshine);
 						}
 
-						if (AoECombo && LevelChecked(PreciousBrilliance))
+						if (AoECombo && ActionReady(PreciousBrilliance))
 						{
 							return OriginalHook(PreciousBrilliance);
 						}
@@ -828,7 +828,7 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(Gemshine);
 						}
 
-						if (AoECombo && LevelChecked(PreciousBrilliance))
+						if (AoECombo && ActionReady(PreciousBrilliance))
 						{
 							return OriginalHook(PreciousBrilliance);
 						}
@@ -836,19 +836,19 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.SMN_DemiEgiMenu_EgiOrder) && gauge.SummonTimerRemaining == 0)
 					{
-						if (gauge.IsIfritReady && !gauge.IsTitanReady && !gauge.IsGarudaReady && LevelChecked(SummonRuby))
+						if (gauge.IsIfritReady && !gauge.IsTitanReady && !gauge.IsGarudaReady && ActionReady(SummonRuby))
 						{
 							return OriginalHook(SummonRuby);
 						}
 
 						if (summonerPrimalChoice is 0 or 1)
 						{
-							if (gauge.IsTitanReady && LevelChecked(SummonTopaz))
+							if (gauge.IsTitanReady && ActionReady(SummonTopaz))
 							{
 								return OriginalHook(SummonTopaz);
 							}
 
-							if (gauge.IsGarudaReady && LevelChecked(SummonEmerald))
+							if (gauge.IsGarudaReady && ActionReady(SummonEmerald))
 							{
 								return OriginalHook(SummonEmerald);
 							}
@@ -856,19 +856,19 @@ namespace StackCombo.Combos.PvE
 
 						if (summonerPrimalChoice == 2)
 						{
-							if (gauge.IsGarudaReady && LevelChecked(SummonEmerald))
+							if (gauge.IsGarudaReady && ActionReady(SummonEmerald))
 							{
 								return OriginalHook(SummonEmerald);
 							}
 
-							if (gauge.IsTitanReady && LevelChecked(SummonTopaz))
+							if (gauge.IsTitanReady && ActionReady(SummonTopaz))
 							{
 								return OriginalHook(SummonTopaz);
 							}
 						}
 					}
 
-					if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_Ruin4) && LevelChecked(Ruin4) && gauge.SummonTimerRemaining == 0 && gauge.AttunmentTimerRemaining == 0 && HasEffect(Buffs.FurtherRuin))
+					if (IsEnabled(CustomComboPreset.SMN_Advanced_Combo_Ruin4) && ActionReady(Ruin4) && gauge.SummonTimerRemaining == 0 && gauge.AttunmentTimerRemaining == 0 && HasEffect(Buffs.FurtherRuin))
 					{
 						return Ruin4;
 					}

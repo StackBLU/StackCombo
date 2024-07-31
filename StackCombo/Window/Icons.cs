@@ -12,12 +12,28 @@ namespace StackCombo.Window
 		public static Dictionary<uint, IDalamudTextureWrap> CachedModdedIcons = [];
 		public static IDalamudTextureWrap? GetJobIcon(uint jobId)
 		{
-			if (jobId is 0 or > 42)
+			if ((jobId > 42 & jobId <= 50) || jobId >= 52)
 			{
 				return null;
 			}
 
-			IDalamudTextureWrap? icon = GetTextureFromIconId(62100 + jobId);
+			uint iconNum = 62100;
+
+			if (jobId is 51)
+			{
+				iconNum = 62118;
+			}
+			else
+			{
+				iconNum += jobId;
+			}
+
+			if (iconNum == 62100)
+			{
+				iconNum = 62145;
+			}
+
+			IDalamudTextureWrap? icon = GetTextureFromIconId(iconNum);
 
 			return icon;
 		}
@@ -55,7 +71,6 @@ namespace StackCombo.Window
 				}
 			}
 			catch { }
-
 
 			return Svc.Texture.GetFromGame(path).GetWrapOrDefault();
 		}
