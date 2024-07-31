@@ -20,6 +20,7 @@
     "AcceptsFeedback": true,
     "RepoUrl": "https://github.com/StackBLU/StackCombo",
     "IconUrl": "https://github.com/StackBLU/StackCombo/blob/main/images/stack.png?raw=true",
-    "DownloadLinkInstall": "https://raw.githubusercontent.com/StackBLU/StackCombo/main/releaseUploads/latest.zip"
+    "DownloadLinkInstall": "https://raw.githubusercontent.com/StackBLU/StackCombo/main/releaseUploads/latest.zip",
+    "DownloadLinkUpdate": "https://raw.githubusercontent.com/StackBLU/StackCombo/main/releaseUploads/latest.zip"
   }
 ]
