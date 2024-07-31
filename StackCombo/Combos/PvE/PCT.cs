@@ -105,6 +105,11 @@ namespace StackCombo.Combos.PvE
 						return HasEffect(Buffs.MonochromeTones) ? OriginalHook(CometinBlack) : OriginalHook(HolyInWhite);
 					}
 
+					if (IsEnabled(CustomComboPreset.PCT_ST_RainbowDrip) && HasEffect(Buffs.RainbowBright))
+					{
+						return RainbowDrip;
+					}
+
 					if (IsEnabled(CustomComboPreset.PCT_ST_Lucid) && ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.PCT_ST_Lucid)
 					{
 						return All.LucidDreaming;
@@ -143,6 +148,11 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.PCT_AoE_Comet_OP) && gauge.Paint == 5 && (LevelChecked(HolyInWhite) || LevelChecked(CometinBlack)))
 					{
 						return HasEffect(Buffs.MonochromeTones) ? OriginalHook(CometinBlack) : OriginalHook(HolyInWhite);
+					}
+
+					if (IsEnabled(CustomComboPreset.PCT_AoE_RainbowDrip) && HasEffect(Buffs.RainbowBright))
+					{
+						return RainbowDrip;
 					}
 
 					if (IsEnabled(CustomComboPreset.PCT_AoE_Lucid) && ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.PCT_AoE_Lucid)
@@ -206,12 +216,8 @@ namespace StackCombo.Combos.PvE
 			{
 				PCTGauge gauge = GetJobGauge<PCTGauge>();
 
-				if (actionID == LandscapeMotif)
+				if (actionID is LandscapeMotif)
 				{
-					if (HasEffect(Buffs.RainbowBright))
-					{
-						return RainbowDrip;
-					}
 					if (HasEffect(Buffs.Starstruck))
 					{
 						return StarPrism;

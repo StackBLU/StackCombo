@@ -1514,6 +1514,10 @@ namespace StackCombo.Combos
 		PCT_ST_Lucid = 20011,
 
 		[ParentCombo(PCT_ST_Adv)]
+		[CustomComboInfo("Rainbow Drip", "", PCT.JobID)]
+		PCT_ST_RainbowDrip = 20014,
+
+		[ParentCombo(PCT_ST_Adv)]
 		[ReplaceSkill(PCT.SubtractivePalette)]
 		[CustomComboInfo("Subtractive Palette Overcap Protection", "Uses Subtractive Palette when at 100 gauge", PCT.JobID)]
 		PCT_ST_Subtractive_OP = 20012,
@@ -1528,17 +1532,18 @@ namespace StackCombo.Combos
 		PCT_AoE_Adv = 20030,
 
 		[ParentCombo(PCT_AoE_Adv)]
-		[ReplaceSkill(All.LucidDreaming)]
+		[CustomComboInfo("Rainbow Drip", "", PCT.JobID)]
+		PCT_AoE_RainbowDrip = 20034,
+
+		[ParentCombo(PCT_AoE_Adv)]
 		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", PCT.JobID)]
 		PCT_AoE_Lucid = 20031,
 
 		[ParentCombo(PCT_AoE_Adv)]
-		[ReplaceSkill(PCT.SubtractivePalette)]
 		[CustomComboInfo("Subtractive Palette Overcap Protection", "Uses Subtractive Palette when at 100 gauge", PCT.JobID)]
 		PCT_AoE_Subtractive_OP = 20032,
 
 		[ParentCombo(PCT_AoE_Adv)]
-		[ReplaceSkill(PCT.HolyInWhite, PCT.CometinBlack)]
 		[CustomComboInfo("Comet Overcap Protection", "Uses White/Black Paint when at 5 stacks and Aetherhues II", PCT.JobID)]
 		PCT_AoE_Comet_OP = 20033,
 
