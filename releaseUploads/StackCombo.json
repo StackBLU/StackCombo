@@ -16,6 +16,7 @@
   "LoadSync": false,
   "CanUnloadAsync": false,
   "LoadPriority": 0,
+  "IconUrl": "https://github.com/StackBLU/StackCombo/blob/main/images/stack.png?raw=true",
   "Punchline": "Trust me, you want this",
   "AcceptsFeedback": true
 }

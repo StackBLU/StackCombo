@@ -1166,14 +1166,24 @@ namespace StackCombo.Window.Functions
 
 			#region ASTROLOGIAN
 
-			if (preset is CustomComboPreset.AST_DPS_Lucid)
+			if (preset is CustomComboPreset.AST_ST_DPS_Lucid)
 			{
-				UserConfig.DrawSliderInt(4000, 9500, AST.Config.AST_LucidDreaming, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawSliderInt(1000, 10000, AST.Config.AST_ST_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
-			if (preset is CustomComboPreset.AST_DPS_AutoDraw)
+			if (preset is CustomComboPreset.AST_AoE_DPS_Lucid)
 			{
-				UserConfig.DrawAdditionalBoolChoice(AST.Config.AST_ST_DPS_OverwriteCards, "Overwrite Non-DPS Cards", "Will draw even if you have healing cards remaining.");
+				UserConfig.DrawSliderInt(1000, 10000, AST.Config.AST_AoE_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
+			}
+
+			if (preset is CustomComboPreset.AST_ST_DPS_AutoDraw)
+			{
+				UserConfig.DrawAdditionalBoolChoice(AST.Config.AST_ST_DPS_OverwriteCards, "Overwrite Non-DPS Cards", "");
+			}
+
+			if (preset is CustomComboPreset.AST_AoE_DPS_AutoDraw)
+			{
+				UserConfig.DrawAdditionalBoolChoice(AST.Config.AST_AoE_DPS_OverwriteCards, "Overwrite Non-DPS Cards", "");
 			}
 
 			#endregion
@@ -1971,27 +1981,14 @@ namespace StackCombo.Window.Functions
 
 			#region SAGE
 
-			if (preset is CustomComboPreset.SGE_ST_DPS)
-			{
-				UserConfig.DrawAdditionalBoolChoice(SGE.Config.SGE_ST_DPS_Adv, $"Apply all selected options to {SGE.Dosis2.ActionName()}", $"{SGE.Dosis.ActionName()} & {SGE.Dosis3.ActionName()} will behave normally.");
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_DPS_EDosis)
-			{
-				UserConfig.DrawSliderInt(0, 100, SGE.Config.SGE_ST_DPS_EDosisHPPer, "Stop using at Enemy HP %. Set to Zero to disable this check");
-
-				UserConfig.DrawAdditionalBoolChoice(SGE.Config.SGE_ST_DPS_EDosis_Adv, "Advanced Options", "", isConditionalChoice: true);
-				if (SGE.Config.SGE_ST_DPS_EDosis_Adv)
-				{
-					ImGui.Indent();
-					UserConfig.DrawRoundedSliderFloat(0, 4, SGE.Config.SGE_ST_DPS_EDosisThreshold, "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.", digits: 1);
-					ImGui.Unindent();
-				}
-			}
-
 			if (preset is CustomComboPreset.SGE_ST_DPS_Lucid)
 			{
-				UserConfig.DrawSliderInt(4000, 9500, SGE.Config.SGE_ST_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawSliderInt(1000, 10000, SGE.Config.SGE_ST_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
+			}
+
+			if (preset is CustomComboPreset.SGE_AoE_DPS_Lucid)
+			{
+				UserConfig.DrawSliderInt(1000, 10000, SGE.Config.SGE_AoE_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
 			if (preset is CustomComboPreset.SGE_ST_DPS_Rhizo)
@@ -2002,19 +1999,6 @@ namespace StackCombo.Window.Functions
 			if (preset is CustomComboPreset.SGE_ST_DPS_AddersgallProtect)
 			{
 				UserConfig.DrawSliderInt(1, 3, SGE.Config.SGE_ST_DPS_AddersgallProtect, "Addersgall Threshold", 150, SliderIncrements.Ones);
-			}
-
-			if (preset is CustomComboPreset.SGE_ST_DPS_Movement)
-			{
-				UserConfig.DrawHorizontalMultiChoice(SGE.Config.SGE_ST_DPS_Movement, SGE.Toxikon.ActionName(), $"Use {SGE.Toxikon.ActionName()} when Addersting is available.", 4, 0);
-				UserConfig.DrawHorizontalMultiChoice(SGE.Config.SGE_ST_DPS_Movement, SGE.Dyskrasia.ActionName(), $"Use {SGE.Dyskrasia.ActionName()} when in range of a selected enemy target.", 4, 1);
-				UserConfig.DrawHorizontalMultiChoice(SGE.Config.SGE_ST_DPS_Movement, SGE.Eukrasia.ActionName(), $"Use {SGE.Eukrasia.ActionName()}.", 4, 2);
-				UserConfig.DrawHorizontalMultiChoice(SGE.Config.SGE_ST_DPS_Movement, SGE.Psyche.ActionName(), $"Use {SGE.Psyche.ActionName()}.", 4, 3);
-			}
-
-			if (preset is CustomComboPreset.SGE_AoE_DPS_Lucid)
-			{
-				UserConfig.DrawSliderInt(4000, 9500, SGE.Config.SGE_AoE_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
 			if (preset is CustomComboPreset.SGE_AoE_DPS_Rhizo)
@@ -2232,24 +2216,24 @@ namespace StackCombo.Window.Functions
 
 			#region WHITE MAGE
 
-			if (preset == CustomComboPreset.WHM_ST_MainCombo_Lucid)
+			if (preset == CustomComboPreset.WHM_ST_DPS_Lucid)
 			{
-				UserConfig.DrawSliderInt(1000, 10000, WHM.Config.WHM_STDPS_Lucid, "Set value for your MP to be at or under for this feature to work.", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawSliderInt(1000, 10000, WHM.Config.WHM_ST_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
 			if (preset == CustomComboPreset.WHM_AoE_DPS_Lucid)
 			{
-				UserConfig.DrawSliderInt(1000, 10000, WHM.Config.WHM_AoEDPS_Lucid, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawSliderInt(1000, 10000, WHM.Config.WHM_AoE_DPS_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
-			if (preset == CustomComboPreset.WHM_AoEHeals_Lucid)
+			if (preset == CustomComboPreset.WHM_ST_Heals_Tetragrammaton)
 			{
-				UserConfig.DrawSliderInt(1000, 10000, WHM.Config.WHM_AoEHeals_Lucid, "Set value for your MP to be at or under for this feature to work", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawAdditionalBoolChoice(WHM.Config.WHM_ST_Heals_TetraWeave, "Only Weave", "");
 			}
 
-			if (preset == CustomComboPreset.WHM_STHeals_Tetragrammaton)
+			if (preset == CustomComboPreset.WHM_Raise)
 			{
-				UserConfig.DrawAdditionalBoolChoice(WHM.Config.WHM_STHeals_TetraWeave, "Only Weave", "");
+				UserConfig.DrawAdditionalBoolChoice(WHM.Config.WHM_Raise_ThinAir, "Use Thin Air", "");
 			}
 
 			#endregion

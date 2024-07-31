@@ -14,8 +14,6 @@ namespace StackCombo.Window.Tabs
 {
 	internal class PvEFeatures : ConfigWindow
 	{
-		//internal static Dictionary<string, bool> showHeader = new Dictionary<string, bool>();
-
 		internal static bool HasToOpenJob = true;
 		internal static string OpenJob = string.Empty;
 

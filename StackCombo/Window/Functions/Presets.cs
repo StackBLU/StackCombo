@@ -26,7 +26,7 @@ namespace StackCombo.Window.Functions
 
 			ImGui.Spacing();
 
-			if (ImGui.Checkbox($"{info.FancyName}", ref enabled))
+			if (ImGui.Checkbox($"{info.FancyName}###{info.FancyName}{i}", ref enabled))
 			{
 				if (enabled)
 				{

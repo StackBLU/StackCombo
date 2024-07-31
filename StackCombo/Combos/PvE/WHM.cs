@@ -4,8 +4,6 @@ using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using StackCombo.Data;
 using System.Collections.Generic;
-using System.Linq;
-using Status = Dalamud.Game.ClientState.Statuses.Status;
 
 namespace StackCombo.Combos.PvE
 {
@@ -73,126 +71,100 @@ namespace StackCombo.Combos.PvE
 		}
 
 		internal static readonly Dictionary<uint, ushort>
-			AeroList = new() {
+			DiaList = new() {
 				{ Aero, Debuffs.Aero },
 				{ Aero2, Debuffs.Aero2 },
 				{ Dia, Debuffs.Dia }
 			};
 
+		private static WHMGauge Gauge
+		{
+			get
+			{
+				return CustomComboFunctions.GetJobGauge<WHMGauge>();
+			}
+		}
+
 		public static class Config
 		{
 			internal static UserInt
-				WHM_STDPS_Lucid = new("WHMLucidDreamingFeature"),
-				WHM_STDPS_MainCombo_DoT = new("WHM_ST_MainCombo_DoT"),
-				WHM_AoEDPS_Lucid = new("WHM_AoE_Lucid"),
-				WHM_STHeals_Lucid = new("WHM_STHeals_Lucid"),
-				WHM_AoEHeals_Lucid = new("WHM_AoEHeals_Lucid");
+				WHM_ST_DPS_DoT = new("WHM_ST_DPS_DoT"),
+				WHM_ST_DPS_Lucid = new("WHM_ST_DPS_Lucid"),
+				WHM_AoE_DPS_Lucid = new("WHM_AoE_DPS_Lucid");
 			internal static UserBool
-				WHM_ST_MainCombo_Adv = new("WHM_ST_MainCombo_Adv"),
-				WHM_STHeals_TetraWeave = new("WHM_STHeals_TetraWeave"),
-				WHM_AoEHeals_MedicaMO = new("WHM_AoEHeals_MedicaMO"),
-				WHM_AoEHeals_Misery_Instant = new("WHM_AoEHeals_Misery_Instant");
+				WHM_ST_Heals_TetraWeave = new("WHM_ST_Heals_TetraWeave"),
+				WHM_AoE_Heals_Medica = new("WHM_AoE_Heals_Medica"),
+				WHM_AoE_Heals_Misery_Save = new("WHM_AoE_Heals_Misery_Save"),
+				WHM_Raise_ThinAir = new("WHM_Raise_ThinAir");
 		}
 
-		internal class WHM_ST_MainCombo : CustomComboClass
+		internal class WHM_ST_DPS : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHM_ST_MainCombo;
-			internal static int Glare3Count
-			{
-				get
-				{
-					return ActionWatching.CombatActions.Count(x => x == OriginalHook(Glare3));
-				}
-			}
-
-			internal static int DiaCount
-			{
-				get
-				{
-					return ActionWatching.CombatActions.Count(x => x == OriginalHook(Dia));
-				}
-			}
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHM_ST_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Glare3 || actionID is Glare1)
+				if (actionID is Stone1 or Stone2 or Stone3 or Stone4 or Glare1 or Glare3)
 				{
-					WHMGauge? gauge = GetJobGauge<WHMGauge>();
-					bool liliesFull = gauge.Lily == 3;
-					bool liliesNearlyFull = gauge.Lily == 2 && gauge.LilyTimer >= 17500;
-					bool liliesNearlyFull2 = gauge.Lily == 2 && gauge.LilyTimer >= 12500;
-
-					if (IsEnabled(CustomComboPreset.WHM_ST_MainCombo_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
 						return All.LucidDreaming;
 					}
 
-					if (CanSpellWeave(actionID))
+					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
 					{
-						bool lucidReady = ActionReady(All.LucidDreaming) && LevelChecked(All.LucidDreaming) && LocalPlayer.CurrentMp <= Config.WHM_STDPS_Lucid;
-						bool pomReady = LevelChecked(PresenceOfMind) && IsOffCooldown(PresenceOfMind);
-						_ = LevelChecked(Assize) && IsOffCooldown(Assize);
-						bool pomEnabled = IsEnabled(CustomComboPreset.WHM_ST_MainCombo_PresenceOfMind);
-						bool lucidEnabled = IsEnabled(CustomComboPreset.WHM_ST_MainCombo_Lucid);
+						return Variant.VariantRampart;
+					}
 
-						if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) &&
-							IsEnabled(Variant.VariantRampart) &&
-							IsOffCooldown(Variant.VariantRampart) &&
-							CanSpellWeave(actionID))
-						{
-							return Variant.VariantRampart;
-						}
+					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
+						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
+					{
+						return Variant.VariantSpiritDart;
+					}
 
-						if (pomEnabled && pomReady)
+					if ((IsEnabled(CustomComboPreset.WHM_ST_DPS_DoT) && ActionReady(OriginalHook(Dia))
+						&& !TargetHasEffect(DiaList[OriginalHook(Dia)]) && ActionWatching.NumberOfGcdsUsed >= 3)
+						|| (GetDebuffRemainingTime(DiaList[OriginalHook(Dia)]) <= 3))
+					{
+						return OriginalHook(Dia);
+					}
+
+					if (CanSpellWeave(actionID) || IsMoving)
+					{
+						if (IsEnabled(CustomComboPreset.WHM_ST_DPS_PresenceOfMind) && ActionReady(PresenceOfMind))
 						{
 							return PresenceOfMind;
 						}
 
-						if (lucidEnabled && lucidReady)
+						if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) &&
+							LocalPlayer.CurrentMp <= Config.WHM_ST_DPS_Lucid)
 						{
 							return All.LucidDreaming;
 						}
 					}
 
-					if (InCombat())
+					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Misery) && ActionReady(AfflatusMisery) && Gauge.BloodLily == 3)
 					{
-						if (IsEnabled(CustomComboPreset.WHM_ST_MainCombo_DoT) && LevelChecked(Aero) && HasBattleTarget())
+						if ((IsEnabled(CustomComboPreset.WHM_ST_DPS_Misery_Save)
+							&& Gauge.Lily == 2 && Gauge.LilyTimer >= 14500) || Gauge.Lily == 3)
 						{
-							Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
-							if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) &&
-								IsEnabled(Variant.VariantSpiritDart) &&
-								(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3) &&
-								CanSpellWeave(actionID))
-							{
-								return Variant.VariantSpiritDart;
-							}
-
-							uint dot = OriginalHook(Aero);
-							Status? dotDebuff = FindTargetEffect(AeroList[dot]);
-
-							if (dotDebuff is null || dotDebuff.RemainingTime <= 3)
-							{
-								return OriginalHook(Aero);
-							}
+							return AfflatusMisery;
 						}
+						if (!IsEnabled(CustomComboPreset.WHM_ST_DPS_Misery_Save))
+						{
+							return AfflatusMisery;
+						}
+					}
 
-						return IsEnabled(CustomComboPreset.WHM_ST_MainCombo_Misery) && LevelChecked(AfflatusMisery) &&
-							gauge.BloodLily >= 3
-							? IsEnabled(CustomComboPreset.WHM_ST_MainCombo_Misery_Save) && !liliesNearlyFull2
-								? IsEnabled(CustomComboPreset.WHM_ST_MainCombo_GlareIV)
-								&& HasEffect(Buffs.SacredSight)
-								&& GetBuffStacks(Buffs.SacredSight) > 0
-									? OriginalHook(Glare4)
-									: OriginalHook(Glare3)
-								: AfflatusMisery
-							: IsEnabled(CustomComboPreset.WHM_ST_MainCombo_LilyOvercap) && LevelChecked(AfflatusRapture) &&
-							(liliesFull || liliesNearlyFull)
-							? AfflatusRapture
-							: IsEnabled(CustomComboPreset.WHM_ST_MainCombo_GlareIV)
-							&& HasEffect(Buffs.SacredSight)
-							&& GetBuffStacks(Buffs.SacredSight) > 0
-							? OriginalHook(Glare4)
-							: OriginalHook(Stone1);
+					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_LilyOvercap) && ActionReady(AfflatusRapture)
+						&& ((Gauge.Lily == 2 && Gauge.LilyTimer >= 17000) || Gauge.Lily == 3))
+					{
+						return AfflatusRapture;
+					}
+
+					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_GlareIV) && GetBuffStacks(Buffs.SacredSight) > 0)
+					{
+						return OriginalHook(Glare4);
 					}
 				}
 				return actionID;
@@ -207,29 +179,18 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Holy or Holy3)
 				{
-					WHMGauge? gauge = GetJobGauge<WHMGauge>();
-
-					bool liliesFullNoBlood = gauge.Lily == 3 && gauge.BloodLily < 3;
-					bool liliesNearlyFull = gauge.Lily == 2 && gauge.LilyTimer >= 17500;
-					bool liliesNearlyFull2 = gauge.Lily == 2 && gauge.LilyTimer >= 12500;
-
 					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) &&
-						IsEnabled(Variant.VariantRampart) &&
-						IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
 					{
 						return Variant.VariantRampart;
 					}
 
-					Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) &&
-						IsEnabled(Variant.VariantSpiritDart) &&
-						(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3) &&
-						HasBattleTarget())
+					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
+						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
 					{
 						return Variant.VariantSpiritDart;
 					}
@@ -242,75 +203,69 @@ namespace StackCombo.Combos.PvE
 						}
 
 						if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) &&
-							LocalPlayer.CurrentMp <= Config.WHM_AoEDPS_Lucid)
+							LocalPlayer.CurrentMp <= Config.WHM_AoE_DPS_Lucid)
 						{
 							return All.LucidDreaming;
 						}
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Misery) && LevelChecked(AfflatusMisery) &&
-						gauge.BloodLily >= 3)
+					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Misery) && ActionReady(AfflatusMisery) && Gauge.BloodLily == 3)
 					{
-						return IsEnabled(CustomComboPreset.WHM_AoE_DPS_Misery_Save) && !liliesNearlyFull2
-							? IsEnabled(CustomComboPreset.WHM_AoE_DPS_GlareIV)
-							&& HasEffect(Buffs.SacredSight)
-							&& GetBuffStacks(Buffs.SacredSight) > 0
-								? OriginalHook(Glare4)
-								: OriginalHook(Holy)
-							: AfflatusMisery;
+						if ((IsEnabled(CustomComboPreset.WHM_AoE_DPS_Misery_Save)
+							&& Gauge.Lily == 2 && Gauge.LilyTimer >= 14500) || Gauge.Lily == 3)
+						{
+							return AfflatusMisery;
+						}
+						if (!IsEnabled(CustomComboPreset.WHM_AoE_DPS_Misery_Save))
+						{
+							return AfflatusMisery;
+						}
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_LilyOvercap) && LevelChecked(AfflatusRapture) &&
-						(liliesFullNoBlood || liliesNearlyFull))
+					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_LilyOvercap) && ActionReady(AfflatusRapture)
+						&& ((Gauge.Lily == 2 && Gauge.LilyTimer >= 17000) || Gauge.Lily == 3))
 					{
 						return AfflatusRapture;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_GlareIV)
-						&& HasEffect(Buffs.SacredSight)
-						&& GetBuffStacks(Buffs.SacredSight) > 0)
+					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_GlareIV) && GetBuffStacks(Buffs.SacredSight) > 0)
 					{
 						return OriginalHook(Glare4);
 					}
 				}
-
 				return actionID;
 			}
 		}
 
 		internal class WHM_ST_Heals : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHM_STHeals;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHM_ST_Heals;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				if (actionID is Cure)
 				{
-					WHMGauge? gauge = GetJobGauge<WHMGauge>();
-					bool thinAirReady = ActionReady(ThinAir) && !HasEffect(Buffs.ThinAir);
-
-					if (IsEnabled(CustomComboPreset.WHM_STHeals_Tetragrammaton) && ActionReady(Tetragrammaton) && CanSpellWeave(Tetragrammaton))
+					if (IsEnabled(CustomComboPreset.WHM_ST_Heals_Tetragrammaton) && ActionReady(Tetragrammaton) && CanSpellWeave(actionID))
 					{
 						return Tetragrammaton;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_STHeals_Misery) && gauge.BloodLily == 3)
+					if (IsEnabled(CustomComboPreset.WHM_ST_Heals_Misery) && ActionReady(AfflatusMisery) && Gauge.BloodLily == 3)
 					{
 						return AfflatusMisery;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_STHeals_Solace) && gauge.Lily > 0 && ActionReady(AfflatusSolace))
+					if (IsEnabled(CustomComboPreset.WHM_ST_Heals_Solace) && ActionReady(AfflatusSolace) && Gauge.Lily > 0)
 					{
 						return AfflatusSolace;
 					}
 
-					Status? regenBuff = FindTargetEffectAny(Buffs.Regen);
-					if (regenBuff is null)
+					if (!TargetHasEffect(Buffs.Regen))
 					{
 						return Regen;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_STHeals_ThinAir) && thinAirReady && CanSpellWeave(ThinAir))
+					if (IsEnabled(CustomComboPreset.WHM_ST_Heals_ThinAir) && ActionReady(ThinAir) && !HasEffect(Buffs.ThinAir) && CanSpellWeave(actionID))
 					{
 						return ThinAir;
 					}
@@ -325,47 +280,30 @@ namespace StackCombo.Combos.PvE
 			}
 		}
 
-		internal class WHM_AoEHeals : CustomComboClass
+		internal class WHM_AoE_Heals : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHM_AoEHeals;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHM_AoE_Heals;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Medica1)
+				if (actionID is Medica1 or Medica2 or Medica3)
 				{
-					WHMGauge? gauge = GetJobGauge<WHMGauge>();
-					bool thinAirReady = ActionReady(ThinAir) && !HasEffect(Buffs.ThinAir);
-					bool canWeave = CanSpellWeave(actionID, 0.3);
-					bool lucidReady = ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= Config.WHM_AoEHeals_Lucid;
-					_ = ActionReady(DivineCaress) && HasEffect(Buffs.DivineGrace);
-					_ = GetHealTarget(Config.WHM_AoEHeals_MedicaMO);
-
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
-					{
-						return All.LucidDreaming;
-					}
-
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Plenary) & ActionReady(PlenaryIndulgence))
+					if (IsEnabled(CustomComboPreset.WHM_AoE_Heals_Plenary) & ActionReady(PlenaryIndulgence))
 					{
 						return PlenaryIndulgence;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Lucid) && canWeave && lucidReady)
-					{
-						return All.LucidDreaming;
-					}
-
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Misery) && gauge.BloodLily == 3)
+					if (IsEnabled(CustomComboPreset.WHM_AoE_Heals_Misery) && ActionReady(AfflatusMisery) && Gauge.BloodLily == 3)
 					{
 						return AfflatusMisery;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Rapture) && LevelChecked(AfflatusRapture) && gauge.Lily > 0)
+					if (IsEnabled(CustomComboPreset.WHM_AoE_Heals_Rapture) && ActionReady(AfflatusRapture) && Gauge.Lily > 0)
 					{
 						return AfflatusRapture;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_ThinAir) && thinAirReady)
+					if (IsEnabled(CustomComboPreset.WHM_AoE_Heals_ThinAir) && ActionReady(ThinAir) && !HasEffect(Buffs.ThinAir))
 					{
 						return ThinAir;
 					}
@@ -377,12 +315,11 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(Medica3);
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Cure3) && LevelChecked(Cure3))
+					if (IsEnabled(CustomComboPreset.WHM_AoE_Heals_Cure3) && ActionReady(Cure3))
 					{
 						return Cure3;
 					}
 				}
-
 				return actionID;
 			}
 		}
@@ -407,22 +344,16 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Raise)
 				{
-					bool thinAirReady = !HasEffect(Buffs.ThinAir) && LevelChecked(ThinAir) && HasCharges(ThinAir);
-
 					if (IsOffCooldown(All.Swiftcast))
 					{
 						return All.Swiftcast;
 					}
 
-					if (IsOnCooldown(All.Swiftcast) && thinAirReady)
+					if (Config.WHM_Raise_ThinAir && !HasEffect(Buffs.ThinAir))
 					{
 						return ThinAir;
 					}
-
-					if (IsOnCooldown(All.Swiftcast) && !thinAirReady)
-					{
-						return Raise;
-					}
+					return Raise;
 				}
 				return actionID;
 			}

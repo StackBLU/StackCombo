@@ -1,9 +1,9 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Enums;
 using Dalamud.Game.ClientState.JobGauge.Types;
-using Dalamud.Game.ClientState.Statuses;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
+using StackCombo.Data;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,10 +55,6 @@ namespace StackCombo.Combos.PvE
 			Exaltation = 25873,
 			Macrocosmos = 25874,
 			Synastry = 3612;
-
-		internal static readonly List<uint>
-			MaleficList = [Malefic, Malefic2, Malefic3, Malefic4, FallMalefic],
-			GravityList = [Gravity, Gravity2];
 
 		internal static class Buffs
 		{
@@ -116,14 +112,14 @@ namespace StackCombo.Combos.PvE
 			}
 		}
 
-		public static CardType DrawnCard { get; set; }
-
 		public static class Config
 		{
 			public static UserInt
-				AST_LucidDreaming = new("ASTLucidDreamingFeature", 7500);
+				AST_ST_DPS_Lucid = new("AST_ST_DPS_Lucid", 7500),
+				AST_AoE_DPS_Lucid = new("AST_AoE_DPS_Lucid", 7500);
 			public static UserBool
-				AST_ST_DPS_OverwriteCards = new("AST_ST_DPS_OverwriteCards");
+				AST_ST_DPS_OverwriteCards = new("AST_ST_DPS_OverwriteCards"),
+				AST_AoE_DPS_OverwriteCards = new("AST_AoE_DPS_OverwriteCards");
 		}
 
 		internal class AST_ST_DPS : CustomComboClass
@@ -132,72 +128,90 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Malefic || actionID is Malefic2 || actionID is Malefic3 || actionID is Malefic4)
+				if (actionID is Malefic || actionID is Malefic2 || actionID is Malefic3 || actionID is Malefic4 || actionID is FallMalefic)
 				{
-					if (IsEnabled(CustomComboPreset.AST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.AST_AoE_DPS) && GravityList.Contains(actionID) && InCombat())
+					if (IsEnabled(CustomComboPreset.AST_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
 					{
-						if (IsEnabled(CustomComboPreset.AST_Variant_Rampart) &&
-							IsEnabled(Variant.VariantRampart) &&
-							IsOffCooldown(Variant.VariantRampart) &&
-							CanSpellWeave(actionID))
-						{
-							return Variant.VariantRampart;
-						}
+						return Variant.VariantRampart;
+					}
 
-						Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
-						if (IsEnabled(CustomComboPreset.AST_Variant_SpiritDart) &&
-							IsEnabled(Variant.VariantSpiritDart) &&
-							(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3) &&
-							CanSpellWeave(actionID) &&
-							IsEnabled(CustomComboPreset.AST_AoE_DPS) && GravityList.Contains(actionID))
-						{
-							return Variant.VariantSpiritDart;
-						}
+					if (IsEnabled(CustomComboPreset.AST_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
+						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
+					{
+						return Variant.VariantSpiritDart;
+					}
 
-						if (IsEnabled(CustomComboPreset.AST_DPS_Lucid) &&
-							ActionReady(All.LucidDreaming) &&
-							LocalPlayer.CurrentMp <= Config.AST_LucidDreaming &&
-							CanSpellWeave(actionID))
-						{
-							return All.LucidDreaming;
-						}
+					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) &&
+						ActionReady(All.LucidDreaming) &&
+						LocalPlayer.CurrentMp <= Config.AST_ST_DPS_Lucid &&
+						CanSpellWeave(actionID))
+					{
+						return All.LucidDreaming;
+					}
 
-						if (IsEnabled(CustomComboPreset.AST_DPS_AutoDraw) &&
-							ActionReady(OriginalHook(AstralDraw)) &&
-							(Gauge.DrawnCards.All(x => x is CardType.NONE) || (DrawnCard == CardType.NONE && Config.AST_ST_DPS_OverwriteCards)) &&
-							CanDelayedWeave(actionID))
-						{
-							return OriginalHook(AstralDraw);
-						}
+					if (IsEnabled(CustomComboPreset.AST_ST_DPS_AutoDraw) && ActionReady(OriginalHook(AstralDraw))
+						&& (Gauge.DrawnCards.All(x => x is CardType.NONE)
+						|| (!Gauge.DrawnCards.Any(x => x is CardType.BALANCE) && !Gauge.DrawnCards.Any(x => x is CardType.SPEAR) && Config.AST_ST_DPS_OverwriteCards))
+						&& CanSpellWeave(actionID))
+					{
+						return OriginalHook(AstralDraw);
+					}
 
-						if (HasBattleTarget())
-						{
-							if (IsEnabled(CustomComboPreset.AST_ST_DPS_CombustUptime) &&
-								!GravityList.Contains(actionID) &&
-								LevelChecked(Combust))
-							{
-								uint dot = OriginalHook(Combust);
-								Status? dotDebuff = FindTargetEffect(CombustList[dot]);
+					if ((IsEnabled(CustomComboPreset.AST_ST_DPS_CombustUptime) && ActionReady(OriginalHook(Combust3))
+						&& !TargetHasEffect(CombustList[OriginalHook(Combust3)]) && ActionWatching.NumberOfGcdsUsed >= 3)
+						|| (GetDebuffRemainingTime(CombustList[OriginalHook(Combust3)]) <= 3))
+					{
+						return OriginalHook(Combust3);
+					}
 
-								if (IsEnabled(CustomComboPreset.AST_Variant_SpiritDart) &&
-									IsEnabled(Variant.VariantSpiritDart) &&
-									(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3) &&
-									CanSpellWeave(actionID))
-								{
-									return Variant.VariantSpiritDart;
-								}
+				}
+				return actionID;
+			}
+		}
 
-								if (dotDebuff is null || dotDebuff.RemainingTime <= 3)
-								{
-									return dot;
-								}
-							}
-						}
+		internal class AST_AoE_DPS : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AST_AoE_DPS;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Gravity or Gravity2)
+				{
+					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					{
+						return All.LucidDreaming;
+					}
+
+					if (IsEnabled(CustomComboPreset.AST_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					{
+						return Variant.VariantRampart;
+					}
+
+					if (IsEnabled(CustomComboPreset.AST_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
+						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
+					{
+						return Variant.VariantSpiritDart;
+					}
+
+					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_Lucid) &&
+						ActionReady(All.LucidDreaming) &&
+						LocalPlayer.CurrentMp <= Config.AST_AoE_DPS_Lucid &&
+						CanSpellWeave(actionID))
+					{
+						return All.LucidDreaming;
+					}
+
+					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_AutoDraw) && ActionReady(OriginalHook(AstralDraw))
+						&& (Gauge.DrawnCards.All(x => x is CardType.NONE)
+						|| (!Gauge.DrawnCards.Any(x => x is CardType.BALANCE) && !Gauge.DrawnCards.Any(x => x is CardType.SPEAR) && Config.AST_AoE_DPS_OverwriteCards))
+						&& CanSpellWeave(actionID))
+					{
+						return OriginalHook(AstralDraw);
 					}
 				}
 				return actionID;
@@ -211,10 +225,9 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Benefic2)
 				{
-					if (IsEnabled(CustomComboPreset.AST_ST_SimpleHeals_AspectedBenefic) && ActionReady(AspectedBenefic))
+					if (IsEnabled(CustomComboPreset.AST_ST_SimpleHeals_AspectedBenefic))
 					{
-						Status? aspectedBeneficHoT = FindTargetEffect(Buffs.AspectedBenefic);
-						if ((aspectedBeneficHoT is null) || (aspectedBeneficHoT.RemainingTime <= 3))
+						if (!TargetHasEffect(Buffs.AspectedBenefic))
 						{
 							return AspectedBenefic;
 						}
@@ -240,7 +253,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Ascend && IsOnCooldown(All.Swiftcast) ? Ascend : actionID;
+				return actionID is Ascend && IsOffCooldown(All.Swiftcast) ? All.Swiftcast : actionID;
 			}
 		}
 
@@ -251,6 +264,42 @@ namespace StackCombo.Combos.PvE
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				return actionID is Lightspeed && HasEffect(Buffs.Lightspeed) ? OriginalHook(11) : actionID;
+			}
+		}
+
+		internal class AST_DrawCooldown : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AST_DrawCooldown;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Play1)
+				{
+					if (!Gauge.DrawnCards.Any(x => x is CardType.BALANCE) && !Gauge.DrawnCards.Any(x => x is CardType.SPEAR))
+					{
+						return OriginalHook(AstralDraw);
+					}
+					return actionID;
+				}
+
+				if (actionID is Play2)
+				{
+					if (!Gauge.DrawnCards.Any(x => x is CardType.ARROW) && !Gauge.DrawnCards.Any(x => x is CardType.BOLE))
+					{
+						return OriginalHook(AstralDraw);
+					}
+					return actionID;
+				}
+
+				if (actionID is Play3)
+				{
+					if (!Gauge.DrawnCards.Any(x => x is CardType.SPIRE) && !Gauge.DrawnCards.Any(x => x is CardType.EWER))
+					{
+						return OriginalHook(AstralDraw);
+					}
+					return actionID;
+				}
+				return actionID;
 			}
 		}
 	}

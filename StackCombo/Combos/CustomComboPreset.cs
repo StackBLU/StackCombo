@@ -10,28 +10,39 @@ namespace StackCombo.Combos
 
 		#region ASTROLOGIAN - 1000
 
-		#region Single Target DPS & AoE DPS
+		#region Single Target DPS
 
 		[ReplaceSkill(AST.Malefic, AST.Malefic2, AST.Malefic3, AST.Malefic4, AST.FallMalefic, AST.Combust, AST.Combust2, AST.Combust3, AST.Gravity, AST.Gravity2)]
 		[CustomComboInfo("Single Target DPS", "", AST.JobID)]
 		AST_ST_DPS = 1000,
 
 		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("Combust Uptime", "", AST.JobID)]
+		[CustomComboInfo("Combust", "", AST.JobID)]
 		AST_ST_DPS_CombustUptime = 1001,
-
-		[ReplaceSkill(AST.Gravity, AST.Gravity2)]
-		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("AoE DPS", "", AST.JobID)]
-		AST_AoE_DPS = 1002,
 
 		[ParentCombo(AST_ST_DPS)]
 		[CustomComboInfo("Card Draw", "", AST.JobID)]
-		AST_DPS_AutoDraw = 1006,
+		AST_ST_DPS_AutoDraw = 1006,
 
 		[ParentCombo(AST_ST_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
-		AST_DPS_Lucid = 1004,
+		AST_ST_DPS_Lucid = 1004,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(AST.Gravity, AST.Gravity2)]
+		[CustomComboInfo("AoE DPS", "", AST.JobID)]
+		AST_AoE_DPS = 1010,
+
+		[ParentCombo(AST_AoE_DPS)]
+		[CustomComboInfo("Card Draw", "", AST.JobID)]
+		AST_AoE_DPS_AutoDraw = 1011,
+
+		[ParentCombo(AST_AoE_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
+		AST_AoE_DPS_Lucid = 1012,
 
 		#endregion
 
@@ -60,6 +71,10 @@ namespace StackCombo.Combos
 		[ReplaceSkill(AST.Lightspeed)]
 		[CustomComboInfo("Lightspeed Overwrite Protection", "", AST.JobID)]
 		AST_Lightspeed_Protection = 1061,
+
+		[ReplaceSkill(AST.Play1, AST.Play2, AST.Play3)]
+		[CustomComboInfo("Astral/Umbral Draw Cooldown on Play I/II/III", "", AST.JobID)]
+		AST_DrawCooldown = 1062,
 
 		#endregion
 
@@ -2030,16 +2045,8 @@ namespace StackCombo.Combos
 		SGE_ST_DPS_EDosis = 14003,
 
 		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Movement Options", "", SGE.JobID)]
-		SGE_ST_DPS_Movement = 14004,
-
-		[ParentCombo(SGE_ST_DPS)]
 		[CustomComboInfo("Phlegma", "", SGE.JobID)]
 		SGE_ST_DPS_Phlegma = 14005,
-
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Kardia Reminder", "", SGE.JobID)]
-		SGE_ST_DPS_Kardia = 14006,
 
 		[ParentCombo(SGE_ST_DPS)]
 		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
@@ -2050,8 +2057,16 @@ namespace StackCombo.Combos
 		SGE_ST_DPS_Psyche = 14008,
 
 		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Kardia Reminder", "", SGE.JobID)]
+		SGE_ST_DPS_Kardia = 14006,
+
+		[ParentCombo(SGE_ST_DPS)]
 		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
 		SGE_ST_DPS_AddersgallProtect = 14009,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Movement Options", "", SGE.JobID)]
+		SGE_ST_DPS_Movement = 14004,
 
 		[ParentCombo(SGE_ST_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
@@ -2062,24 +2077,24 @@ namespace StackCombo.Combos
 		#region AoE DPS
 
 		[ReplaceSkill(SGE.Dyskrasia, SGE.Dyskrasia2)]
-		[CustomComboInfo("AoE DPS", "Adds variouss to Dyskrasia I & II. Requires a target", SGE.JobID)]
+		[CustomComboInfo("AoE DPS", "", SGE.JobID)]
 		SGE_AoE_DPS = 14020,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Eukrasian Dyskrasia", "", SGE.JobID)]
+		SGE_AoE_DPS_EDyskrasia = 14024,
 
 		[ParentCombo(SGE_AoE_DPS)]
 		[CustomComboInfo("Phlegma", "", SGE.JobID)]
 		SGE_AoE_DPS_Phlegma = 14021,
 
 		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Psyche", "", SGE.JobID)]
-		SGE_AoE_DPS_Psyche = 14023,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Eukrasia", "", SGE.JobID)]
-		SGE_AoE_DPS_EDyskrasia = 14024,
-
-		[ParentCombo(SGE_AoE_DPS)]
 		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
 		SGE_AoE_DPS_Rhizo = 14026,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Psyche", "", SGE.JobID)]
+		SGE_AoE_DPS_Psyche = 14023,
 
 		[ParentCombo(SGE_AoE_DPS)]
 		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
@@ -2093,29 +2108,13 @@ namespace StackCombo.Combos
 
 		#region Utility
 
-		[ReplaceSkill(All.Swiftcast)]
+		[ReplaceSkill(SGE.Egeiro)]
 		[CustomComboInfo("Swiftcast > Raise", "", SGE.JobID)]
 		SGE_Raise = 14080,
 
 		[ReplaceSkill(SGE.Kerachole, SGE.Panhaima, SGE.Philosophia)]
 		[CustomComboInfo("Spell Overlap Protection", "", SGE.JobID)]
 		SGE_OverProtect = 14083,
-
-		[ParentCombo(SGE_OverProtect)]
-		[CustomComboInfo("Kerachole", "", SGE.JobID)]
-		SGE_OverProtect_Kerachole = 14084,
-
-		[ParentCombo(SGE_OverProtect_Kerachole)]
-		[CustomComboInfo("Sacred Soil", "", SGE.JobID)]
-		SGE_OverProtect_SacredSoil = 14085,
-
-		[ParentCombo(SGE_OverProtect)]
-		[CustomComboInfo("Panhaima", "", SGE.JobID)]
-		SGE_OverProtect_Panhaima = 14086,
-
-		[ParentCombo(SGE_OverProtect)]
-		[CustomComboInfo("Philosophia", "", SGE.JobID)]
-		SGE_OverProtect_Philosophia = 14087,
 
 		#endregion
 
@@ -2402,17 +2401,17 @@ namespace StackCombo.Combos
 
 		#region Utility
 
-		[ReplaceSkill(SCH.WhisperingDawn, SCH.FeyBlessing, SCH.Aetherpact, SCH.Dissipation)]
-		[CustomComboInfo("Ensure Fairy", "", SCH.JobID)]
-		SCH_FairyReminder = 16060,
+		[ReplaceSkill(SCH.Resurrection)]
+		[CustomComboInfo("Swiftcast > Raise", "", SCH.JobID)]
+		SCH_Raise = 16059,
 
 		[ReplaceSkill(SCH.Lustrate)]
 		[CustomComboInfo("Lustrate > Excogitation", "", SCH.JobID)]
 		SCH_Lustrate = 16051,
 
-		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Swiftcast > Raise", "", SCH.JobID)]
-		SCH_Raise = 16059,
+		[ReplaceSkill(SCH.WhisperingDawn, SCH.FeyBlessing, SCH.Aetherpact, SCH.Dissipation)]
+		[CustomComboInfo("Ensure Fairy", "", SCH.JobID)]
+		SCH_FairyReminder = 16060,
 
 		#endregion
 
@@ -2707,43 +2706,47 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
 		[CustomComboInfo("Single Target DPS", "", WHM.JobID)]
-		WHM_ST_MainCombo = 19001,
+		WHM_ST_DPS = 19001,
 
-		[ParentCombo(WHM_ST_MainCombo)]
+		[ParentCombo(WHM_ST_DPS)]
 		[CustomComboInfo("Dia", "", WHM.JobID)]
-		WHM_ST_MainCombo_DoT = 19003,
+		WHM_ST_DPS_DoT = 19003,
 
-		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_ST_MainCombo_Misery = 19006,
-
-		[ParentCombo(WHM_ST_MainCombo_Misery)]
-		[CustomComboInfo("Save Misery", "", WHM.JobID)]
-		WHM_ST_MainCombo_Misery_Save = 19007,
-
-		[ParentCombo(WHM_ST_MainCombo)]
-		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
-		WHM_ST_MainCombo_LilyOvercap = 19008,
-
-		[ParentCombo(WHM_ST_MainCombo)]
+		[ParentCombo(WHM_ST_DPS)]
 		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
-		WHM_ST_MainCombo_PresenceOfMind = 19009,
+		WHM_ST_DPS_PresenceOfMind = 19009,
 
-		[ParentCombo(WHM_ST_MainCombo)]
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
+		WHM_ST_DPS_Misery = 19006,
+
+		[ParentCombo(WHM_ST_DPS_Misery)]
+		[CustomComboInfo("Save Misery", "", WHM.JobID)]
+		WHM_ST_DPS_Misery_Save = 19007,
+
+		[ParentCombo(WHM_ST_DPS)]
 		[CustomComboInfo("Glare IV", "", WHM.JobID)]
-		WHM_ST_MainCombo_GlareIV = 19005,
+		WHM_ST_DPS_GlareIV = 19005,
 
-		[ParentCombo(WHM_ST_MainCombo)]
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
+		WHM_ST_DPS_LilyOvercap = 19008,
+
+		[ParentCombo(WHM_ST_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
-		WHM_ST_MainCombo_Lucid = 19010,
+		WHM_ST_DPS_Lucid = 19010,
 
 		#endregion
 
 		#region AoE DPS
 
 		[ReplaceSkill(WHM.Holy, WHM.Holy3)]
-		[CustomComboInfo("AoE", "", WHM.JobID)]
+		[CustomComboInfo("AoE DPS", "", WHM.JobID)]
 		WHM_AoE_DPS = 19020,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
+		WHM_AoE_DPS_PresenceOfMind = 19026,
 
 		[ParentCombo(WHM_AoE_DPS)]
 		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
@@ -2754,16 +2757,12 @@ namespace StackCombo.Combos
 		WHM_AoE_DPS_Misery_Save = 19024,
 
 		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
-		WHM_AoE_DPS_LilyOvercap = 19025,
-
-		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
-		WHM_AoE_DPS_PresenceOfMind = 19026,
-
-		[ParentCombo(WHM_AoE_DPS)]
 		[CustomComboInfo("Glare IV", "", WHM.JobID)]
 		WHM_AoE_DPS_GlareIV = 19022,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
+		WHM_AoE_DPS_LilyOvercap = 19025,
 
 		[ParentCombo(WHM_AoE_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
@@ -2775,63 +2774,59 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(WHM.Cure)]
 		[CustomComboInfo("Single Target Heals", "", WHM.JobID)]
-		WHM_STHeals = 19030,
+		WHM_ST_Heals = 19030,
 
-		[ParentCombo(WHM_STHeals)]
+		[ParentCombo(WHM_ST_Heals)]
 		[CustomComboInfo("Tetragrammaton", "", WHM.JobID)]
-		WHM_STHeals_Tetragrammaton = 19036,
+		WHM_ST_Heals_Tetragrammaton = 19036,
 
-		[ParentCombo(WHM_STHeals)]
+		[ParentCombo(WHM_ST_Heals)]
 		[CustomComboInfo("Afflatus Solace", "", WHM.JobID)]
-		WHM_STHeals_Solace = 19033,
+		WHM_ST_Heals_Solace = 19033,
 
-		[ParentCombo(WHM_STHeals)]
+		[ParentCombo(WHM_ST_Heals)]
 		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_STHeals_Misery = 19034,
+		WHM_ST_Heals_Misery = 19034,
 
-		[ParentCombo(WHM_STHeals)]
+		[ParentCombo(WHM_ST_Heals)]
 		[CustomComboInfo("Regen", "", WHM.JobID)]
-		WHM_STHeals_Regen = 19031,
+		WHM_ST_Heals_Regen = 19031,
 
-		[ParentCombo(WHM_STHeals)]
+		[ParentCombo(WHM_ST_Heals)]
 		[CustomComboInfo("Thin Air", "", WHM.JobID)]
-		WHM_STHeals_ThinAir = 19035,
+		WHM_ST_Heals_ThinAir = 19035,
 
 		#endregion
 
 		#region AoE Heals
 
-		[ReplaceSkill(WHM.Medica1)]
+		[ReplaceSkill(WHM.Medica1, WHM.Medica2, WHM.Medica3)]
 		[CustomComboInfo("AoE Heals", "", WHM.JobID)]
-		WHM_AoEHeals = 19050,
+		WHM_AoE_Heals = 19050,
 
-		[ParentCombo(WHM_AoEHeals)]
+		[ParentCombo(WHM_AoE_Heals)]
 		[CustomComboInfo("Plenary Indulgence", "", WHM.JobID)]
-		WHM_AoEHeals_Plenary = 19056,
+		WHM_AoE_Heals_Plenary = 19056,
 
-		[ParentCombo(WHM_AoEHeals)]
+		[ParentCombo(WHM_AoE_Heals)]
 		[CustomComboInfo("Afflatus Rapture", "", WHM.JobID)]
-		WHM_AoEHeals_Rapture = 19051,
+		WHM_AoE_Heals_Rapture = 19051,
 
-		[ParentCombo(WHM_AoEHeals)]
+		[ParentCombo(WHM_AoE_Heals)]
 		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_AoEHeals_Misery = 19052,
+		WHM_AoE_Heals_Misery = 19052,
 
-		[ParentCombo(WHM_AoEHeals)]
+		[ParentCombo(WHM_AoE_Heals)]
 		[CustomComboInfo("Thin Air", "", WHM.JobID)]
-		WHM_AoEHeals_ThinAir = 19053,
+		WHM_AoE_Heals_ThinAir = 19053,
 
-		[ParentCombo(WHM_AoEHeals)]
+		[ParentCombo(WHM_AoE_Heals)]
 		[CustomComboInfo("Medica II/III", "", WHM.JobID)]
 		WHM_AoEHeals_Medica2 = 19058,
 
-		[ParentCombo(WHM_AoEHeals)]
+		[ParentCombo(WHM_AoE_Heals)]
 		[CustomComboInfo("Cure III", "", WHM.JobID)]
-		WHM_AoEHeals_Cure3 = 19054,
-
-		[ParentCombo(WHM_AoEHeals)]
-		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
-		WHM_AoEHeals_Lucid = 19057,
+		WHM_AoE_Heals_Cure3 = 19054,
 
 		#endregion
 
@@ -2841,13 +2836,9 @@ namespace StackCombo.Combos
 		[CustomComboInfo("Cure II Sync", "", WHM.JobID)]
 		WHM_CureSync = 19072,
 
-		[ReplaceSkill(All.Swiftcast)]
+		[ReplaceSkill(WHM.Raise)]
 		[CustomComboInfo("Swiftcast > Raise", "", WHM.JobID)]
 		WHM_Raise = 19073,
-
-		[ReplaceSkill(WHM.Raise)]
-		[CustomComboInfo("Thin Air Raise", "", WHM.JobID)]
-		WHM_ThinAirRaise = 19074,
 
 		#endregion
 
