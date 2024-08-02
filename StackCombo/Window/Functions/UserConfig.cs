@@ -1299,6 +1299,11 @@ namespace StackCombo.Window.Functions
 				UserConfig.DrawSliderInt(1000, 10000, BLU.Config.BLU_ManaGain, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
+			if (preset is CustomComboPreset.BLU_TreasureMappin)
+			{
+				UserConfig.DrawSliderInt(1, 100, BLU.Config.BLU_TreasureMappinHP, "HP Threshold", 150, SliderIncrements.Ones);
+			}
+
 			#endregion
 
 			#region BARD

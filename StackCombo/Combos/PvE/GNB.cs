@@ -1,5 +1,6 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using Dalamud.Game.ClientState.Statuses;
+using StackCombo.ComboHelper.Functions;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
@@ -66,6 +67,14 @@ namespace StackCombo.Combos.PvE
 				SonicBreak = 1837;
 		}
 
+		private static GNBGauge Gauge
+		{
+			get
+			{
+				return CustomComboFunctions.GetJobGauge<GNBGauge>();
+			}
+		}
+
 		public static class Config
 		{
 			public const string
@@ -80,10 +89,6 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is KeenEdge)
 				{
-					GNBGauge gauge = GetJobGauge<GNBGauge>();
-					_ = GetCooldownRemainingTime(actionID) is < 1 and > (float)0.6;
-					float GCD = GetCooldown(KeenEdge).CooldownTotal;
-
 					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_VariantCure))
 					{
 						return Variant.VariantCure;
@@ -105,8 +110,8 @@ namespace StackCombo.Combos.PvE
 						}
 					}
 
-					if (ActionReady(Continuation) && (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge)
-						|| (HasEffect(Buffs.ReadyToBlast) && ActionReady(Hypervelocity))))
+					if (ActionReady(Continuation)
+						&& (HasEffect(Buffs.ReadyToRip) || HasEffect(Buffs.ReadyToTear) || HasEffect(Buffs.ReadyToGouge) || HasEffect(Buffs.ReadyToBlast)))
 					{
 						return OriginalHook(Continuation);
 					}
@@ -127,12 +132,18 @@ namespace StackCombo.Combos.PvE
 						}
 					}*/
 
-					if (gauge.Ammo == MaxCartridges(level) && GetCooldownRemainingTime(GnashingFang) > GCD * 3 && lastComboMove == BrutalShell)
+					if ((ActionReady(BurstStrike)
+						&& Gauge.Ammo == MaxCartridges(level) && lastComboMove == BrutalShell)
+						|| (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0
+						&& (GetCooldownRemainingTime(OriginalHook(GnashingFang)) > 5 || !ActionReady(GnashingFang))
+						&& (GetCooldownRemainingTime(DoubleDown) > 10 || !ActionReady(DoubleDown))))
 					{
 						return BurstStrike;
 					}
 
-					if ((gauge.Ammo >= 1 && GetCooldownRemainingTime(GnashingFang) < 1.5) || gauge.AmmoComboStep == 1 || gauge.AmmoComboStep == 2)
+					if ((Gauge.Ammo > 0 && ActionReady(OriginalHook(GnashingFang)) && GetCooldownRemainingTime(GnashingFang) < 1.5)
+						|| Gauge.AmmoComboStep == 1
+						|| Gauge.AmmoComboStep == 2)
 					{
 						return OriginalHook(GnashingFang);
 					}
@@ -162,39 +173,39 @@ namespace StackCombo.Combos.PvE
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 
-				if (actionID == DemonSlice)
+				if (actionID is DemonSlice)
 				{
-					GNBGauge gauge = GetJobGauge<GNBGauge>();
-
 					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_VariantCure))
 					{
 						return Variant.VariantCure;
 					}
-
-					if (InCombat())
+					if (CanWeave(actionID))
 					{
-						if (CanWeave(actionID))
+						Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
+						if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) &&
+							IsEnabled(Variant.VariantSpiritDart) &&
+							(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3))
 						{
-							Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
-							if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) &&
-								IsEnabled(Variant.VariantSpiritDart) &&
-								(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3))
-							{
-								return Variant.VariantSpiritDart;
-							}
+							return Variant.VariantSpiritDart;
+						}
 
-							if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-							{
-								return Variant.VariantUltimatum;
-							}
+						if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
+						{
+							return Variant.VariantUltimatum;
 						}
 					}
 
-					return comboTime > 0 && lastComboMove == DemonSlice && ActionReady(DemonSlaughter)
-						? IsEnabled(CustomComboPreset.GNB_AOE_Overcap) && ActionReady(FatedCircle) && gauge.Ammo == MaxCartridges(level) ? FatedCircle : DemonSlaughter
-						: DemonSlice;
-				}
+					if (IsEnabled(CustomComboPreset.GNB_AOE_Overcap) && ActionReady(FatedCircle)
+						&& ((Gauge.Ammo == MaxCartridges(level) && lastComboMove is DemonSlice) || (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0)))
+					{
+						return FatedCircle;
+					}
 
+					if (comboTime > 0 && lastComboMove is DemonSlice && ActionReady(DemonSlaughter))
+					{
+						return DemonSlaughter;
+					}
+				}
 				return actionID;
 			}
 		}

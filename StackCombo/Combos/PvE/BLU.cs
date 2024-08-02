@@ -1,4 +1,5 @@
-﻿using StackCombo.ComboHelper.Functions;
+﻿using ECommons.DalamudServices;
+using StackCombo.ComboHelper.Functions;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -32,6 +33,8 @@ namespace StackCombo.Combos.PvE
 			RamsVoice = 11419,
 			Ultravibration = 23277,
 			Devour = 18320,
+			Pomcure = 18303,
+			Gobskin = 18304,
 			Offguard = 11411,
 			BadBreath = 11388,
 			MagicHammer = 18305,
@@ -71,6 +74,7 @@ namespace StackCombo.Combos.PvE
 				MightyGuard = 1719,
 				Devour = 2120,
 				DeepClean = 3637,
+				Gobskin = 2114,
 				WingedReprobation = 3640;
 		}
 
@@ -80,9 +84,9 @@ namespace StackCombo.Combos.PvE
 				Slow = 9,
 				Bind = 13,
 				Stun = 142,
-				SongOfTorment = 273,
 				DeepFreeze = 1731,
 				Offguard = 1717,
+				Bleeding = 1714,
 				Malodorous = 1715,
 				Conked = 2115,
 				Lightheaded = 2501,
@@ -95,6 +99,7 @@ namespace StackCombo.Combos.PvE
 		{
 			public static UserInt
 				BLU_Lucid = new("BLU_Lucid", 7500),
+				BLU_TreasureMappinHP = new("BLU_TreasureMappinHP", 50),
 				BLU_ManaGain = new("BLU_ManaGain", 7500);
 		}
 
@@ -369,20 +374,25 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is BreathOfMagic || actionID is MortalFlame) && IsSpellActive(BreathOfMagic) && IsSpellActive(MortalFlame) && !IsSpellActive(MoonFlute))
+				if ((actionID is BreathOfMagic or MortalFlame or SongOfTorment) && !IsSpellActive(MoonFlute))
 				{
 					if (!HasEffect(Buffs.Bristle))
 					{
 						return Bristle;
 					}
-					if (!TargetHasEffectAny(Debuffs.BreathOfMagic) || GetDebuffRemainingTime(Debuffs.BreathOfMagic) < 3)
+					if (IsSpellActive(BreathOfMagic) && (!TargetHasEffectAny(Debuffs.BreathOfMagic) || GetDebuffRemainingTime(Debuffs.BreathOfMagic) < 3))
 					{
 						return BreathOfMagic;
 					}
-					if (!TargetHasEffectAny(Debuffs.MortalFlame))
+					if (IsSpellActive(MortalFlame) && !TargetHasEffectAny(Debuffs.MortalFlame))
 					{
 						return MortalFlame;
 					}
+					if (IsSpellActive(SongOfTorment) && (!TargetHasEffectAny(Debuffs.Bleeding) || GetDebuffRemainingTime(Debuffs.Bleeding) < 3))
+					{
+						return SongOfTorment;
+					}
+					return Bristle;
 				}
 				return actionID;
 			}
@@ -502,6 +512,31 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.BLU_Lucid) && ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.BLU_Lucid)
 					{
 						return All.LucidDreaming;
+					}
+				}
+				return actionID;
+			}
+		}
+
+		internal class BLU_TreasureMappin : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.BLU_TreasureMappin;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is GoblinPunch)
+				{
+					if (Svc.DutyState.IsDutyStarted)
+					{
+						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin)
+							&& LocalPlayer.CurrentHp / (float)LocalPlayer.MaxHp <= (float)Config.BLU_TreasureMappinHP * 0.01f)
+						{
+							return Pomcure;
+						}
+						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin) && (!HasEffect(Buffs.Gobskin) || GetBuffRemainingTime(Buffs.Gobskin) < 3))
+						{
+							return Gobskin;
+						}
 					}
 				}
 				return actionID;

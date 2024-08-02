@@ -1,5 +1,4 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
-using ECommons.DalamudServices;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
@@ -243,14 +242,12 @@ namespace StackCombo.Combos.PvE
 
 			private static bool ReassembledTools(ref uint actionID, MCHGauge gauge)
 			{
-				bool battery = Svc.Gauges.Get<MCHGauge>().Battery >= 90;
-
 				if (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) &&
 					!gauge.IsOverheated && !WasLastWeaponskill(OriginalHook(Heatblast)) &&
 					!HasEffect(Buffs.Reassembled) && ActionReady(Reassemble) && (CanWeave(actionID) || !InCombat()) &
-					((ActionReady(Excavator) && HasEffect(Buffs.ExcavatorReady) && !battery) ||
-					(ActionReady(Chainsaw) && !ActionReady(Excavator) && ((GetCooldownRemainingTime(Chainsaw) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Chainsaw)) && !battery) ||
-					(ActionReady(AirAnchor) && (!ActionReady(Excavator) || GetCooldownRemainingTime(Chainsaw) > 10) && ((GetCooldownRemainingTime(AirAnchor) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(AirAnchor)) && !battery) ||
+					((ActionReady(Excavator) && HasEffect(Buffs.ExcavatorReady)) ||
+					(ActionReady(Chainsaw) && !ActionReady(Excavator) && ((GetCooldownRemainingTime(Chainsaw) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Chainsaw))) ||
+					(ActionReady(AirAnchor) && (!ActionReady(Excavator) || GetCooldownRemainingTime(Chainsaw) > 10) && ((GetCooldownRemainingTime(AirAnchor) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(AirAnchor))) ||
 					(ActionReady(Drill) && !ActionReady(AirAnchor) && ((GetCooldownRemainingTime(Drill) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Drill)))))
 				{
 					actionID = Reassemble;
@@ -258,7 +255,6 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if (ActionReady(OriginalHook(Chainsaw)) &&
-					!battery &&
 					HasEffect(Buffs.ExcavatorReady))
 				{
 					actionID = OriginalHook(Chainsaw);
@@ -266,7 +262,6 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if (ActionReady(Chainsaw) &&
-					!battery &&
 					((GetCooldownRemainingTime(Chainsaw) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Chainsaw)))
 				{
 					actionID = Chainsaw;
@@ -274,7 +269,6 @@ namespace StackCombo.Combos.PvE
 				}
 
 				if (ActionReady(OriginalHook(AirAnchor)) &&
-					 !battery &&
 					 ((GetCooldownRemainingTime(OriginalHook(AirAnchor)) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(OriginalHook(AirAnchor))))
 				{
 					actionID = OriginalHook(AirAnchor);
@@ -485,7 +479,6 @@ namespace StackCombo.Combos.PvE
 
 			private static bool ReassembledTools(ref uint actionID, MCHGauge gauge)
 			{
-				bool battery = Svc.Gauges.Get<MCHGauge>().Battery >= 90;
 				bool reassembledExcavator = (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) && Config.MCH_ST_Reassembled[0] && (HasEffect(Buffs.Reassembled) || !HasEffect(Buffs.Reassembled))) || (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) && !Config.MCH_ST_Reassembled[0] && !HasEffect(Buffs.Reassembled)) || (!HasEffect(Buffs.Reassembled) && GetRemainingCharges(Reassemble) <= Config.MCH_ST_ReassemblePool) || (!IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble));
 				bool reassembledChainsaw = (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) && Config.MCH_ST_Reassembled[1] && (HasEffect(Buffs.Reassembled) || !HasEffect(Buffs.Reassembled))) || (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) && !Config.MCH_ST_Reassembled[1] && !HasEffect(Buffs.Reassembled)) || (!HasEffect(Buffs.Reassembled) && GetRemainingCharges(Reassemble) <= Config.MCH_ST_ReassemblePool) || (!IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble));
 				bool reassembledAnchor = (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) && Config.MCH_ST_Reassembled[2] && (HasEffect(Buffs.Reassembled) || !HasEffect(Buffs.Reassembled))) || (IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble) && !Config.MCH_ST_Reassembled[2] && !HasEffect(Buffs.Reassembled)) || (!HasEffect(Buffs.Reassembled) && GetRemainingCharges(Reassemble) <= Config.MCH_ST_ReassemblePool) || (!IsEnabled(CustomComboPreset.MCH_ST_Adv_Reassemble));
@@ -495,9 +488,9 @@ namespace StackCombo.Combos.PvE
 					!gauge.IsOverheated && !WasLastWeaponskill(OriginalHook(Heatblast)) &&
 					!HasEffect(Buffs.Reassembled) && ActionReady(Reassemble) && (CanWeave(actionID) || !InCombat()) &&
 					GetRemainingCharges(Reassemble) > Config.MCH_ST_ReassemblePool &&
-					((Config.MCH_ST_Reassembled[0] && ActionReady(Excavator) && HasEffect(Buffs.ExcavatorReady) && !battery) ||
-					(Config.MCH_ST_Reassembled[1] && ActionReady(Chainsaw) && !ActionReady(Excavator) && ((GetCooldownRemainingTime(Chainsaw) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Chainsaw)) && !battery) ||
-					(Config.MCH_ST_Reassembled[2] && ActionReady(AirAnchor) && (!ActionReady(Excavator) || GetCooldownRemainingTime(Chainsaw) > 10) && ((GetCooldownRemainingTime(AirAnchor) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(AirAnchor)) && !battery) ||
+					((Config.MCH_ST_Reassembled[0] && ActionReady(Excavator) && HasEffect(Buffs.ExcavatorReady)) ||
+					(Config.MCH_ST_Reassembled[1] && ActionReady(Chainsaw) && !ActionReady(Excavator) && ((GetCooldownRemainingTime(Chainsaw) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Chainsaw))) ||
+					(Config.MCH_ST_Reassembled[2] && ActionReady(AirAnchor) && (!ActionReady(Excavator) || GetCooldownRemainingTime(Chainsaw) > 10) && ((GetCooldownRemainingTime(AirAnchor) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(AirAnchor))) ||
 					(Config.MCH_ST_Reassembled[3] && ActionReady(Drill) && !ActionReady(AirAnchor) && ((GetCooldownRemainingTime(Drill) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Drill)))))
 				{
 					actionID = Reassemble;
@@ -507,7 +500,6 @@ namespace StackCombo.Combos.PvE
 				if (IsEnabled(CustomComboPreset.MCH_ST_Adv_Excavator) &&
 					reassembledExcavator &&
 					ActionReady(OriginalHook(Chainsaw)) &&
-					!battery &&
 					HasEffect(Buffs.ExcavatorReady))
 				{
 					actionID = OriginalHook(Chainsaw);
@@ -517,7 +509,6 @@ namespace StackCombo.Combos.PvE
 				if (IsEnabled(CustomComboPreset.MCH_ST_Adv_Chainsaw) &&
 					reassembledChainsaw &&
 					ActionReady(Chainsaw) &&
-					!battery &&
 					((GetCooldownRemainingTime(Chainsaw) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(Chainsaw)))
 				{
 					actionID = Chainsaw;
@@ -527,7 +518,6 @@ namespace StackCombo.Combos.PvE
 				if (IsEnabled(CustomComboPreset.MCH_ST_Adv_AirAnchor) &&
 					 reassembledAnchor &&
 					 ActionReady(OriginalHook(AirAnchor)) &&
-					 !battery &&
 					 ((GetCooldownRemainingTime(OriginalHook(AirAnchor)) <= GetCooldownRemainingTime(OriginalHook(SplitShot)) + 0.25) || ActionReady(OriginalHook(AirAnchor))))
 				{
 					actionID = OriginalHook(AirAnchor);

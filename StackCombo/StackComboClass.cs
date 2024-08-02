@@ -37,10 +37,10 @@ namespace StackCombo
 			//All.JobID,
 			//FSH.JobID,
 
-			PLD.JobID,
-			WAR.JobID,
-			DRK.JobID,
-			GNB.JobID,
+			//PLD.JobID,
+			//WAR.JobID,
+			//DRK.JobID,
+			//GNB.JobID,
 
 			//WHM.JobID
 			//SCH.JobID,

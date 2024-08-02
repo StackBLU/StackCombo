@@ -8,43 +8,809 @@ namespace StackCombo.Combos
 	{
 		#region PvE
 
-		#region Melee DPS
+		#region Tanks
 
-		#region DRAGOON - 6000
+		#region PALADIN - 11000
 
 		#region Single Target
 
-		[ReplaceSkill(DRG.TrueThrust)]
-		[CustomComboInfo("Single Target", "", DRG.JobID)]
-		DRG_ST_AdvancedMode = 6100,
+		[ReplaceSkill(PLD.FastBlade)]
+		[CustomComboInfo("Single Target", "", PLD.JobID, 1)]
+		PLD_ST_AdvancedMode = 11002,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Fight or Flight", "", PLD.JobID, 0)]
+		PLD_ST_AdvancedMode_FoF = 11003,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Circle of Scorn", "", PLD.JobID, 1)]
+		PLD_ST_AdvancedMode_CircleOfScorn = 11005,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Spirits Within", "", PLD.JobID, 1)]
+		PLD_ST_AdvancedMode_SpiritsWithin = 11006,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Sheltron", "", PLD.JobID, 3)]
+		PLD_ST_AdvancedMode_Sheltron = 11007,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Holy Spirit", "", PLD.JobID, 8)]
+		PLD_ST_AdvancedMode_HolySpirit = 11009,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Intervene", "", PLD.JobID, 5)]
+		PLD_ST_AdvancedMode_Intervene = 11011,
+
+		[ParentCombo(PLD_ST_AdvancedMode)]
+		[CustomComboInfo("Atonement", "", PLD.JobID, 9)]
+		PLD_ST_AdvancedMode_Atonement = 11012,
 
 		#endregion
 
-		#region AoE DPS
+		#region AoE
 
-		[ReplaceSkill(DRG.DoomSpike)]
-		[CustomComboInfo("AoE", "", DRG.JobID)]
-		DRG_AOE_AdvancedMode = 6201,
+		[ReplaceSkill(PLD.TotalEclipse)]
+		[CustomComboInfo("AoE", "", PLD.JobID, 2)]
+		PLD_AoE_AdvancedMode = 11015,
+
+		[ParentCombo(PLD_AoE_AdvancedMode)]
+		[CustomComboInfo("Fight or Flight", "", PLD.JobID, 0)]
+		PLD_AoE_AdvancedMode_FoF = 11016,
+
+		[ParentCombo(PLD_AoE_AdvancedMode)]
+		[CustomComboInfo("Spirits Within", "", PLD.JobID, 1)]
+		PLD_AoE_AdvancedMode_SpiritsWithin = 11017,
+
+		[ParentCombo(PLD_AoE_AdvancedMode)]
+		[CustomComboInfo("Circle of Scorn", "", PLD.JobID, 2)]
+		PLD_AoE_AdvancedMode_CircleOfScorn = 11018,
+
+		[ParentCombo(PLD_AoE_AdvancedMode)]
+		[CustomComboInfo("Holy Circle", "", PLD.JobID, 5)]
+		PLD_AoE_AdvancedMode_HolyCircle = 11020,
+
+		[ParentCombo(PLD_AoE_AdvancedMode)]
+		[CustomComboInfo("Sheltron", "", PLD.JobID, 3)]
+		PLD_AoE_AdvancedMode_Sheltron = 11023,
 
 		#endregion
 
 		#region Utility
+
+		[ReplaceSkill(PLD.SpiritsWithin, PLD.Expiacion)]
+		[CustomComboInfo("Spirits Within / Circle of Scorn", "", PLD.JobID, 3)]
+		PLD_SpiritsWithin = 11025,
+
+		[ReplaceSkill(PLD.Requiescat)]
+		[CustomComboInfo("Requiescat Spender", "", PLD.JobID, 4)]
+		PLD_Requiescat_Options = 11024,
 
 		#endregion
 
 		#region Variant
 
 		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRG.JobID)]
-		DRG_Variant_Cure = 6302,
+		[CustomComboInfo("Spirit Dart", "", PLD.JobID)]
+		PLD_Variant_SpiritDart = 11030,
 
 		[Variant]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", DRG.JobID)]
-		DRG_Variant_Rampart = 6303,
+		[CustomComboInfo("Cure", "", PLD.JobID)]
+		PLD_Variant_Cure = 11031,
+
+		[Variant]
+		[CustomComboInfo("Ultimatum", "", PLD.JobID)]
+		PLD_Variant_Ultimatum = 11032,
 
 		#endregion
 
 		#endregion
+
+		#region WARRIOR - 18000
+
+		#region Single Target
+
+		[ReplaceSkill(WAR.StormsPath)]
+		[CustomComboInfo("Single Target DPS", "asfasf", WAR.JobID)]
+		WAR_ST_StormsPath = 18000,
+
+		[ParentCombo(WAR_ST_StormsPath)]
+		[CustomComboInfo("Storm's Eye", "", WAR.JobID)]
+		WAR_ST_StormsPath_StormsEye = 18023,
+
+		[ParentCombo(WAR_ST_StormsPath)]
+		[CustomComboInfo("Upheaval", "", WAR.JobID)]
+		WAR_ST_StormsPath_Upheaval = 18007,
+
+		[ParentCombo(WAR_ST_StormsPath)]
+		[CustomComboInfo("Fell Cleave", "", WAR.JobID)]
+		WAR_ST_StormsPath_FellCleave = 18012,
+
+		[ParentCombo(WAR_ST_StormsPath)]
+		[CustomComboInfo("Inner Release", "", WAR.JobID)]
+		WAR_ST_StormsPath_InnerRelease = 18020,
+
+		#endregion
+
+		#region AoE
+
+		[ReplaceSkill(WAR.Overpower)]
+		[CustomComboInfo("AoE DPS", "", WAR.JobID)]
+		WAR_AoE_Overpower = 18002,
+
+		[ParentCombo(WAR_AoE_Overpower)]
+		[CustomComboInfo("Orogeny", "", WAR.JobID)]
+		WAR_AoE_Overpower_Orogeny = 18010,
+
+		[ParentCombo(WAR_AoE_Overpower)]
+		[CustomComboInfo("Decimate", "", WAR.JobID)]
+		WAR_AoE_Overpower_Decimate = 18029,
+
+		[ParentCombo(WAR_AoE_Overpower)]
+		[CustomComboInfo("Inner Release", "", WAR.JobID)]
+		WAR_AoE_Overpower_InnerRelease = 18015,
+
+		#endregion
+
+		#region Utility
+
+		[ReplaceSkill(WAR.FellCleave, WAR.Decimate)]
+		[CustomComboInfo("Infuriate on Fell Cleave / Decimate", "", WAR.JobID)]
+		WAR_InfuriateFellCleave = 18031,
+
+		[ParentCombo(WAR_InfuriateFellCleave)]
+		[CustomComboInfo("Inner Release Priority", "Prevents the use of Infuriate while you have Inner Release stacks available", WAR.JobID)]
+		WAR_InfuriateFellCleave_IRFirst = 18022,
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "", WAR.JobID)]
+		WAR_Variant_SpiritDart = 18026,
+
+		[Variant]
+		[CustomComboInfo("Cure", "", WAR.JobID)]
+		WAR_Variant_Cure = 18027,
+
+		[Variant]
+		[CustomComboInfo("Ultimatum", "", WAR.JobID)]
+		WAR_Variant_Ultimatum = 18028,
+
+		#endregion
+
+		#endregion
+
+		#region DARK KNIGHT - 5000
+
+		[ReplaceSkill(DRK.Souleater)]
+		[CustomComboInfo("Souleater Combo", "Replace Souleater with its combo chain", DRK.JobID)]
+		DRK_ST_Combo = 5001,
+
+		[ParentCombo(DRK_ST_Combo)]
+		[CustomComboInfo("Delirium/Blood Weapon", "Adds Delirium/Blood Weapon to main combo on cooldown and when Darkside is active", DRK.JobID)]
+		DRK_ST_Delirium = 5002,
+
+		[ParentCombo(DRK_ST_Delirium)]
+		[CustomComboInfo("Torcleaver", "Adds the Torcleaver chain when Delirium is activated", DRK.JobID)]
+		DRK_ST_Delirium_Chain = 5003,
+
+		[ParentCombo(DRK_ST_Combo)]
+		[CustomComboInfo("oGCDs", "Collection of abilities to add to the main combo. All of these require Darkside to be active", DRK.JobID)]
+		DRK_ST_CDs = 5004,
+
+		[ParentCombo(DRK_ST_CDs)]
+		[CustomComboInfo("Carve and Spit", "", DRK.JobID)]
+		DRK_ST_CDs_CarveAndSpit = 5005,
+		[ParentCombo(DRK_ST_CDs)]
+		[CustomComboInfo("Salted Earth", "Will also use Salt and Darkness", DRK.JobID)]
+		DRK_ST_CDs_SaltedEarth = 5006,
+
+		[ParentCombo(DRK_ST_CDs)]
+		[CustomComboInfo("Living Shadow", "", DRK.JobID)]
+		DRK_ST_CDs_LivingShadow = 5007,
+
+		[ParentCombo(DRK_ST_CDs_LivingShadow)]
+		[CustomComboInfo("Disesteem", "", DRK.JobID)]
+		DRK_ST_CDs_Disesteem = 5008,
+
+		[ParentCombo(DRK_ST_CDs)]
+		[CustomComboInfo("Shadowbringer", "Uses on cooldown", DRK.JobID)]
+		DRK_ST_CDs_Shadowbringer = 5009,
+
+		[ParentCombo(DRK_ST_CDs_Shadowbringer)]
+		[CustomComboInfo("Shadowbringer Burst", "Pools Shadowbringer to use during burst windows", DRK.JobID)]
+		DRK_ST_CDs_ShadowbringerBurst = 5010,
+
+		[ParentCombo(DRK_ST_Combo)]
+		[CustomComboInfo("Blood Gauge Overcap Protection", "Adds Bloodspiller when at or above chosen amount", DRK.JobID)]
+		DRK_ST_BloodOvercap = 5011,
+
+		[ParentCombo(DRK_ST_Combo)]
+		[CustomComboInfo("Edge of Shadow Overcap Protection", "Uses Edge of Shadow if you are above chosen amount of MP, Darkside has chosen amount of time remaining, or if you have Dark Arts", DRK.JobID)]
+		DRK_ST_ManaOvercap = 5012,
+
+		[ParentCombo(DRK_ST_ManaOvercap)]
+		[CustomComboInfo("Edge of Shadow Burst", "Pools Edge of Shadow for burst windows. Otherwise, uses it until chosen MP limit is reached", DRK.JobID)]
+		DRK_ST_ManaSpenderPooling = 5013,
+
+		[ParentCombo(DRK_ST_Combo)]
+		[CustomComboInfo("Unmend Uptime", "Use Unmend when out of melee range", DRK.JobID)]
+		DRK_ST_RangedUptime = 5014,
+
+		[ReplaceSkill(DRK.StalwartSoul)]
+		[CustomComboInfo("Stalwart Soul Combo", "Replace Stalwart Soul with its combo chain", DRK.JobID)]
+		DRK_AoE_Combo = 5100,
+
+		[ParentCombo(DRK_AoE_Combo)]
+		[CustomComboInfo("Delirium/Blood Weapon", "Adds Delirium/Blood Weapon to AoE combo on cooldown and when Darkside is active", DRK.JobID)]
+		DRK_AoE_Delirium = 5101,
+
+		[ParentCombo(DRK_AoE_Delirium)]
+		[CustomComboInfo("Impalement", "Adds all Impalement uses when Delirium is activated", DRK.JobID)]
+		DRK_AoE_Delirium_Chain = 5102,
+
+		[ParentCombo(DRK_AoE_Combo)]
+		[CustomComboInfo("oGCDs", "Collection of abilities to add to the AoE combo. All of these require Darkside to be active", DRK.JobID)]
+		DRK_AoE_CDs = 5103,
+
+		[ParentCombo(DRK_AoE_CDs)]
+		[CustomComboInfo("Abyssal Drain", "Use Abyssal Drain when you fall below the chosen HP%", DRK.JobID)]
+		DRK_AoE_CDs_AbyssalDrain = 5104,
+
+		[ParentCombo(DRK_AoE_CDs)]
+		[CustomComboInfo("Salted Earth", "Will also use Salt and Darkness", DRK.JobID)]
+		DRK_AoE_CDs_SaltedEarth = 5105,
+
+		[ParentCombo(DRK_AoE_CDs)]
+		[CustomComboInfo("Living Shadow", "", DRK.JobID)]
+		DRK_AoE_CDs_LivingShadow = 5106,
+
+		[ParentCombo(DRK_AoE_CDs_LivingShadow)]
+		[CustomComboInfo("Disesteem", "", DRK.JobID)]
+		DRK_AoE_CDs_Disesteem = 5107,
+
+		[ParentCombo(DRK_AoE_CDs)]
+		[CustomComboInfo("Shadowbringer", "", DRK.JobID)]
+		DRK_AoE_CDs_Shadowbringer = 5108,
+
+		[ParentCombo(DRK_AoE_Combo)]
+		[CustomComboInfo("Blood Gauge Overcap Protection", "Adds Quietus when at or above chosen amount", DRK.JobID)]
+		DRK_AoE_BloodOvercap = 5109,
+
+		[ParentCombo(DRK_AoE_Combo)]
+		[CustomComboInfo("Flood of Shadow Overcap Protection", "Uses Flood of Shadow if you are above chosen amount of MP, Darkside has chosen amount of time remaining, or if you have Dark Arts", DRK.JobID)]
+		DRK_AoE_ManaOvercap = 5110,
+
+		[ParentCombo(DRK_AoE_Combo)]
+		[CustomComboInfo("Flood of Shadow Uptime", "Use Flood of Shadow when out of melee range", DRK.JobID)]
+		DRK_AoE_FloodUptime = 5111,
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", DRK.JobID)]
+		DRK_Variant_SpiritDart = 5200,
+
+		[Variant]
+		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRK.JobID)]
+		DRK_Variant_Cure = 5201,
+
+		[Variant]
+		[CustomComboInfo("Ultimatum", "Use Variant Ultimatum on cooldown", DRK.JobID)]
+		DRK_Variant_Ultimatum = 5202,
+
+		#endregion
+
+		#region GUNBREAKER - 7000
+
+		#region Single Target DPS
+
+		[ReplaceSkill(GNB.KeenEdge)]
+		[CustomComboInfo("Single Target DPS", "", GNB.JobID)]
+		GNB_ST_MainCombo = 7001,
+
+		[ParentCombo(GNB_ST_MainCombo)]
+		[CustomComboInfo("Burst Strike", "", GNB.JobID)]
+		GNB_ST_Burst = 7002,
+
+		[ParentCombo(GNB_ST_MainCombo)]
+		[CustomComboInfo("Gnashing Fang", "", GNB.JobID)]
+		GNB_ST_Gnashing = 7003,
+
+		[ParentCombo(GNB_ST_MainCombo)]
+		[CustomComboInfo("Reign Combo", "", GNB.JobID)]
+		GNB_ST_Reign = 7004,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(GNB.DemonSlice)]
+		[CustomComboInfo("AoE DPS", "", GNB.JobID)]
+		GNB_AoE_MainCombo = 7300,
+
+		[ParentCombo(GNB_AoE_MainCombo)]
+		[CustomComboInfo("Fated Circle", "", GNB.JobID)]
+		GNB_AOE_Overcap = 7307,
+
+		#endregion
+
+		#region Utility
+
+		[CustomComboInfo("Aurora Protection", "", GNB.JobID)]
+		GNB_AuroraProtection = 7700,
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "", GNB.JobID)]
+		GNB_Variant_SpiritDart = 7033,
+
+		[Variant]
+		[CustomComboInfo("Cure", "", GNB.JobID)]
+		GNB_Variant_Cure = 7034,
+
+		[Variant]
+		[CustomComboInfo("Ultimatum", "", GNB.JobID)]
+		GNB_Variant_Ultimatum = 7035,
+
+		#endregion
+
+		#endregion
+
+		#endregion
+
+		#region Healers
+
+		#region WHITE MAGE - 19000
+
+		#region Single Target DPS
+
+		[ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
+		[CustomComboInfo("Single Target DPS", "", WHM.JobID)]
+		WHM_ST_DPS = 19001,
+
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Dia", "", WHM.JobID)]
+		WHM_ST_DPS_DoT = 19003,
+
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
+		WHM_ST_DPS_PresenceOfMind = 19009,
+
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
+		WHM_ST_DPS_Misery = 19006,
+
+		[ParentCombo(WHM_ST_DPS_Misery)]
+		[CustomComboInfo("Save Misery", "", WHM.JobID)]
+		WHM_ST_DPS_Misery_Save = 19007,
+
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Glare IV", "", WHM.JobID)]
+		WHM_ST_DPS_GlareIV = 19005,
+
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
+		WHM_ST_DPS_LilyOvercap = 19008,
+
+		[ParentCombo(WHM_ST_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
+		WHM_ST_DPS_Lucid = 19010,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(WHM.Holy, WHM.Holy3)]
+		[CustomComboInfo("AoE DPS", "", WHM.JobID)]
+		WHM_AoE_DPS = 19020,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
+		WHM_AoE_DPS_PresenceOfMind = 19026,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
+		WHM_AoE_DPS_Misery = 19023,
+
+		[ParentCombo(WHM_AoE_DPS_Misery)]
+		[CustomComboInfo("Save Misery", "", WHM.JobID)]
+		WHM_AoE_DPS_Misery_Save = 19024,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Glare IV", "", WHM.JobID)]
+		WHM_AoE_DPS_GlareIV = 19022,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
+		WHM_AoE_DPS_LilyOvercap = 19025,
+
+		[ParentCombo(WHM_AoE_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
+		WHM_AoE_DPS_Lucid = 19027,
+
+		#endregion
+
+		#region Single Target Heals
+
+		[ReplaceSkill(WHM.Cure)]
+		[CustomComboInfo("Single Target Heals", "", WHM.JobID)]
+		WHM_ST_Heals = 19030,
+
+		[ParentCombo(WHM_ST_Heals)]
+		[CustomComboInfo("Tetragrammaton", "", WHM.JobID)]
+		WHM_ST_Heals_Tetragrammaton = 19036,
+
+		[ParentCombo(WHM_ST_Heals)]
+		[CustomComboInfo("Afflatus Solace", "", WHM.JobID)]
+		WHM_ST_Heals_Solace = 19033,
+
+		[ParentCombo(WHM_ST_Heals)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
+		WHM_ST_Heals_Misery = 19034,
+
+		[ParentCombo(WHM_ST_Heals)]
+		[CustomComboInfo("Regen", "", WHM.JobID)]
+		WHM_ST_Heals_Regen = 19031,
+
+		[ParentCombo(WHM_ST_Heals)]
+		[CustomComboInfo("Thin Air", "", WHM.JobID)]
+		WHM_ST_Heals_ThinAir = 19035,
+
+		#endregion
+
+		#region AoE Heals
+
+		[ReplaceSkill(WHM.Medica1, WHM.Medica2, WHM.Medica3)]
+		[CustomComboInfo("AoE Heals", "", WHM.JobID)]
+		WHM_AoE_Heals = 19050,
+
+		[ParentCombo(WHM_AoE_Heals)]
+		[CustomComboInfo("Plenary Indulgence", "", WHM.JobID)]
+		WHM_AoE_Heals_Plenary = 19056,
+
+		[ParentCombo(WHM_AoE_Heals)]
+		[CustomComboInfo("Afflatus Rapture", "", WHM.JobID)]
+		WHM_AoE_Heals_Rapture = 19051,
+
+		[ParentCombo(WHM_AoE_Heals)]
+		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
+		WHM_AoE_Heals_Misery = 19052,
+
+		[ParentCombo(WHM_AoE_Heals)]
+		[CustomComboInfo("Thin Air", "", WHM.JobID)]
+		WHM_AoE_Heals_ThinAir = 19053,
+
+		[ParentCombo(WHM_AoE_Heals)]
+		[CustomComboInfo("Medica II/III", "", WHM.JobID)]
+		WHM_AoEHeals_Medica2 = 19058,
+
+		[ParentCombo(WHM_AoE_Heals)]
+		[CustomComboInfo("Cure III", "", WHM.JobID)]
+		WHM_AoE_Heals_Cure3 = 19054,
+
+		#endregion
+
+		#region Utility
+
+		[ReplaceSkill(WHM.Cure2)]
+		[CustomComboInfo("Cure II Sync", "", WHM.JobID)]
+		WHM_CureSync = 19072,
+
+		[ReplaceSkill(WHM.Raise)]
+		[CustomComboInfo("Swiftcast > Raise", "", WHM.JobID)]
+		WHM_Raise = 19073,
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "", WHM.JobID)]
+		WHM_DPS_Variant_SpiritDart = 19080,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "", WHM.JobID)]
+		WHM_DPS_Variant_Rampart = 19081,
+
+		#endregion
+
+		#endregion
+
+		#region SCHOLAR - 16000
+
+		#region Single Target DPS
+
+		[ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
+		[CustomComboInfo("Single Target DPS", "", SCH.JobID)]
+		SCH_DPS = 16001,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Bio", "", SCH.JobID)]
+		SCH_DPS_Bio = 16008,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
+		SCH_DPS_Aetherflow = 16004,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
+		SCH_ST_DPS_EnergyDrain = 16005,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Dissipation", "", SCH.JobID)]
+		SCH_DPS_Dissipation = 16009,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Aetherpact", "", SCH.JobID)]
+		SCH_DPS_Aetherpact = 16011,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Seraph", "", SCH.JobID)]
+		SCH_DPS_Seraph = 16012,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Chain Stratagem / Baneful Impact", "", SCH.JobID)]
+		SCH_DPS_ChainStrat = 16003,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Ruin II Movement", "", SCH.JobID)]
+		SCH_DPS_Ruin2Movement = 16007,
+
+		[ParentCombo(SCH_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
+		SCH_DPS_Lucid = 16002,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(SCH.ArtOfWar, SCH.ArtOfWarII)]
+		[CustomComboInfo("AoE DPS", "", SCH.JobID)]
+		SCH_AoE = 16020,
+
+		[ParentCombo(SCH_AoE)]
+		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
+		SCH_AoE_Aetherflow = 16022,
+
+		[ParentCombo(SCH_AoE)]
+		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
+		SCH_AoE_DPS_EnergyDrain = 16023,
+
+		[ParentCombo(SCH_AoE)]
+		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
+		SCH_AoE_Lucid = 16021,
+
+		#endregion
+
+		#region Utility
+
+		[ReplaceSkill(SCH.Resurrection)]
+		[CustomComboInfo("Swiftcast > Raise", "", SCH.JobID)]
+		SCH_Raise = 16059,
+
+		[ReplaceSkill(SCH.Lustrate)]
+		[CustomComboInfo("Lustrate > Excogitation", "", SCH.JobID)]
+		SCH_Lustrate = 16051,
+
+		[ReplaceSkill(SCH.WhisperingDawn, SCH.FeyBlessing, SCH.Aetherpact, SCH.Dissipation)]
+		[CustomComboInfo("Ensure Fairy", "", SCH.JobID)]
+		SCH_FairyReminder = 16060,
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "", SCH.JobID)]
+		SCH_DPS_Variant_SpiritDart = 16070,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "", SCH.JobID)]
+		SCH_DPS_Variant_Rampart = 16071,
+
+		#endregion
+
+		#endregion
+
+		#region ASTROLOGIAN - 1000
+
+		#region Single Target DPS
+
+		[ReplaceSkill(AST.Malefic, AST.Malefic2, AST.Malefic3, AST.Malefic4, AST.FallMalefic, AST.Combust, AST.Combust2, AST.Combust3, AST.Gravity, AST.Gravity2)]
+		[CustomComboInfo("Single Target DPS", "", AST.JobID)]
+		AST_ST_DPS = 1000,
+
+		[ParentCombo(AST_ST_DPS)]
+		[CustomComboInfo("Combust", "", AST.JobID)]
+		AST_ST_DPS_CombustUptime = 1001,
+
+		[ParentCombo(AST_ST_DPS)]
+		[CustomComboInfo("Card Draw", "", AST.JobID)]
+		AST_ST_DPS_AutoDraw = 1006,
+
+		[ParentCombo(AST_ST_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
+		AST_ST_DPS_Lucid = 1004,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(AST.Gravity, AST.Gravity2)]
+		[CustomComboInfo("AoE DPS", "", AST.JobID)]
+		AST_AoE_DPS = 1010,
+
+		[ParentCombo(AST_AoE_DPS)]
+		[CustomComboInfo("Card Draw", "", AST.JobID)]
+		AST_AoE_DPS_AutoDraw = 1011,
+
+		[ParentCombo(AST_AoE_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
+		AST_AoE_DPS_Lucid = 1012,
+
+		#endregion
+
+		#region Single Target Heals
+
+		[ReplaceSkill(AST.Benefic2)]
+		[CustomComboInfo("Single Target Heals", "", AST.JobID)]
+		AST_ST_SimpleHeals = 1020,
+
+		[ParentCombo(AST_ST_SimpleHeals)]
+		[CustomComboInfo("Aspected Benefic", "", AST.JobID)]
+		AST_ST_SimpleHeals_AspectedBenefic = 1023,
+
+		#endregion
+
+		#region Utility
+
+		[ReplaceSkill(AST.Benefic2)]
+		[CustomComboInfo("Benefic II Sync", "", AST.JobID)]
+		AST_Benefic = 1050,
+
+		[ReplaceSkill(All.Swiftcast)]
+		[CustomComboInfo("Swiftcast > Raise", "", AST.JobID)]
+		AST_Raise_Alternative = 1060,
+
+		[ReplaceSkill(AST.Lightspeed)]
+		[CustomComboInfo("Lightspeed Overwrite Protection", "", AST.JobID)]
+		AST_Lightspeed_Protection = 1061,
+
+		[ReplaceSkill(AST.Play1, AST.Play2, AST.Play3)]
+		[CustomComboInfo("Astral/Umbral Draw Cooldown on Play I/II/III", "", AST.JobID)]
+		AST_DrawCooldown = 1062,
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "", AST.JobID)]
+		AST_Variant_SpiritDart = 1080,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "", AST.JobID)]
+		AST_Variant_Rampart = 1081,
+
+		#endregion
+
+		#endregion
+
+		#region SAGE - 14000
+
+		#region Single Target DPS
+
+		[ReplaceSkill(SGE.Dosis, SGE.Dosis2, SGE.Dosis3)]
+		[CustomComboInfo("Single Target DPS", "", SGE.JobID)]
+		SGE_ST_DPS = 14001,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Eukrasian Dosis", "", SGE.JobID)]
+		SGE_ST_DPS_EDosis = 14003,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Phlegma", "", SGE.JobID)]
+		SGE_ST_DPS_Phlegma = 14005,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Soteria", "", SGE.JobID)]
+		SGE_ST_DPS_Soteria = 14010,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
+		SGE_ST_DPS_Rhizo = 14007,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Psych", "", SGE.JobID)]
+		SGE_ST_DPS_Psyche = 14008,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Kardia Reminder", "", SGE.JobID)]
+		SGE_ST_DPS_Kardia = 14006,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
+		SGE_ST_DPS_AddersgallProtect = 14009,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Movement Options", "", SGE.JobID)]
+		SGE_ST_DPS_Movement = 14004,
+
+		[ParentCombo(SGE_ST_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
+		SGE_ST_DPS_Lucid = 14002,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(SGE.Dyskrasia, SGE.Dyskrasia2)]
+		[CustomComboInfo("AoE DPS", "", SGE.JobID)]
+		SGE_AoE_DPS = 14020,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Eukrasian Dyskrasia", "", SGE.JobID)]
+		SGE_AoE_DPS_EDyskrasia = 14024,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Phlegma", "", SGE.JobID)]
+		SGE_AoE_DPS_Phlegma = 14021,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Soteria", "", SGE.JobID)]
+		SGE_AoE_DPS_Soteria = 14028,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
+		SGE_AoE_DPS_Rhizo = 14026,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Psyche", "", SGE.JobID)]
+		SGE_AoE_DPS_Psyche = 14023,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
+		SGE_AoE_DPS_AddersgallProtect = 14027,
+
+		[ParentCombo(SGE_AoE_DPS)]
+		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
+		SGE_AoE_DPS_Lucid = 14025,
+
+		#endregion
+
+		#region Utility
+
+		[ReplaceSkill(SGE.Egeiro)]
+		[CustomComboInfo("Swiftcast > Raise", "", SGE.JobID)]
+		SGE_Raise = 14080,
+
+		[ReplaceSkill(SGE.Kerachole, SGE.Panhaima, SGE.Philosophia)]
+		[CustomComboInfo("Spell Overlap Protection", "", SGE.JobID)]
+		SGE_OverProtect = 14083,
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Spirit Dart", "", SGE.JobID)]
+		SGE_DPS_Variant_SpiritDart = 14100,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "", SGE.JobID)]
+		SGE_DPS_Variant_Rampart = 14101,
+
+		#endregion
+
+		#endregion
+
+		#endregion
+
+		#region Melee DPS
 
 		#region MONK - 9000
 
@@ -173,6 +939,42 @@ namespace StackCombo.Combos
 		[Variant]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", MNK.JobID)]
 		MNK_Variant_Rampart = 9031,
+
+		#endregion
+
+		#region DRAGOON - 6000
+
+		#region Single Target
+
+		[ReplaceSkill(DRG.TrueThrust)]
+		[CustomComboInfo("Single Target", "", DRG.JobID)]
+		DRG_ST_AdvancedMode = 6100,
+
+		#endregion
+
+		#region AoE DPS
+
+		[ReplaceSkill(DRG.DoomSpike)]
+		[CustomComboInfo("AoE", "", DRG.JobID)]
+		DRG_AOE_AdvancedMode = 6201,
+
+		#endregion
+
+		#region Utility
+
+		#endregion
+
+		#region Variant
+
+		[Variant]
+		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRG.JobID)]
+		DRG_Variant_Cure = 6302,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", DRG.JobID)]
+		DRG_Variant_Rampart = 6303,
+
+		#endregion
 
 		#endregion
 
@@ -457,6 +1259,211 @@ namespace StackCombo.Combos
 
 		#endregion
 
+		#region SAMURAI - 15000
+
+		[ReplaceSkill(SAM.Kasha, SAM.Gekko, SAM.Yukikaze)]
+		[CustomComboInfo("Samurai Overcap", "Adds Shinten onto main combo when Kenki is at the selected amount or more", SAM.JobID)]
+		SAM_ST_Overcap = 15001,
+
+		[ReplaceSkill(SAM.Mangetsu, SAM.Oka)]
+		[CustomComboInfo("Samurai AoE Overcap", "Adds Kyuten onto main AoE combos when Kenki is at the selected amount or more", SAM.JobID)]
+		SAM_AoE_Overcap = 15002,
+
+		[ReplaceSkill(SAM.Gekko)]
+		[CustomComboInfo("Gekko Combo", "Replace Gekko with its combo chain.\nIf all subs are selected will turn into a full one button rotation (Advanced Samurai)", SAM.JobID)]
+		SAM_ST_GekkoCombo = 15003,
+
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("Enpi Uptime", "Replace main combo with Enpi when you are out of range", SAM.JobID)]
+		SAM_ST_GekkoCombo_RangedUptime = 15004,
+
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("Yukikaze Combo on Main Combo", "Adds Yukikaze combo to main combo. Will add Yukikaze during Meikyo Shisui as well", SAM.JobID)]
+		SAM_ST_GekkoCombo_Yukikaze = 15005,
+
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("Kasha Combo on Main Combo", "Adds Kasha combo to main combo. Will add Kasha during Meikyo Shisui as well", SAM.JobID)]
+		SAM_ST_GekkoCombo_Kasha = 15006,
+
+		[ConflictingCombos(SAM_GyotenYaten)]
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("Level 90 Samurai Opener", "Adds the Level 90 Opener to the main combo.\nOpener triggered by using Meikyo Shisui before combat. If you have any Sen, Hagakure will be used to clear them.\nWill work at any levels of Kenki, requires 2 charges of Meikyo Shisui and all CDs ready. If conditions aren't met it will skip into the regular rotation. \nIf the Opener is interrupted, it will exit the opener via a Goken and a Kaeshi: Goken at the end or via the last Yukikaze. If the latter, CDs will be used on cooldown regardless of bursts", SAM.JobID)]
+		SAM_ST_GekkoCombo_Opener = 15007,
+
+		[ConflictingCombos(SAM_GyotenYaten)]
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("Filler Combo", "Adds selected Filler combos to main combo at the appropriate time.\nChoose Skill Speed tier with Fuka buff below.\nWill disable if you die or if you don't activate the opener", SAM.JobID)]
+		SAM_ST_GekkoCombo_FillerCombos = 15008,
+
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("CDs on Main Combo", "Collection of CDs on main combo", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs = 15099,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
+		[CustomComboInfo("Ikishoten on Main Combo", "Adds Ikishoten when at or below 50 Kenki.\nWill dump Kenki at 10 seconds left to allow Ikishoten to be used", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_Ikishoten = 15009,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
+		[CustomComboInfo("Iaijutsu on Main Combo", "Adds Midare: Setsugekka, Higanbana, and Kaeshi: Setsugekka when ready and when you're not moving to main combo", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_Iaijutsu = 15010,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
+		[CustomComboInfo("Ogi Namikiri on Main Combo", "Ogi Namikiri and Kaeshi: Namikiri when ready and when you're not moving to main combo", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_OgiNamikiri = 15011,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs_OgiNamikiri)]
+		[CustomComboInfo("Ogi Namikiri Burst", "Saves Ogi Namikiri for even minute burst windows.\nIf you don't activate the opener or die, Ogi Namikiri will instead be used on CD", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_OgiNamikiri_Burst = 15012,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
+		[CustomComboInfo("Meikyo Shisui on Main Combo", "Adds Meikyo Shisui to main combo when off cooldown", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_MeikyoShisui = 15013,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs_MeikyoShisui)]
+		[CustomComboInfo("Meikyo Shisui Burst", "Saves Meikyo Shisui for burst windows.\nIf you don't activate the opener or die, Meikyo Shisui will instead be used on CD", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_MeikyoShisui_Burst = 15014,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
+		[CustomComboInfo("Shoha on Main Combo", "Adds Shoha to main combo when there are three meditation stacks", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_Shoha = 15015,
+
+		[ConflictingCombos(SAM_Shinten_Shoha_Senei)]
+		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
+		[CustomComboInfo("Senei on Main Combo", "Adds Senei to main combo when off cooldown and above 25 Kenki", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_Senei = 15016,
+
+		[ParentCombo(SAM_ST_GekkoCombo_CDs_Senei)]
+		[CustomComboInfo("Senei Burst", "Saves Senei for even minute burst windows.\nIf you don't activate the opener or die, Senei will instead be used on CD", SAM.JobID)]
+		SAM_ST_GekkoCombo_CDs_Senei_Burst = 15017,
+
+		[ParentCombo(SAM_ST_Overcap)]
+		[CustomComboInfo("Execute", "Adds Shinten to the main combo when Kenki > 25 and your current target is below the HP percentage threshold", SAM.JobID)]
+		SAM_ST_Execute = 15046,
+
+		[ReplaceSkill(SAM.Yukikaze)]
+		[CustomComboInfo("Yukikaze Combo", "Replace Yukikaze with its combo chain", SAM.JobID)]
+		SAM_ST_YukikazeCombo = 15018,
+
+		[ReplaceSkill(SAM.Kasha)]
+		[CustomComboInfo("Kasha Combo", "Replace Kasha with its combo chain", SAM.JobID)]
+		SAM_ST_KashaCombo = 15019,
+
+		[ReplaceSkill(SAM.Mangetsu)]
+		[CustomComboInfo("Mangetsu Combo", "Replace Mangetsu with its combo chain.\nIf all subs are toggled will turn into a full one button AoE rotation", SAM.JobID)]
+		SAM_AoE_MangetsuCombo = 15020,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[ConflictingCombos(SAM_AoE_OkaCombo_TwoTarget)]
+		[CustomComboInfo("Oka to Mangetsu Combo", "Adds Oka combo after Mangetsu combo loop.\nWill add Oka if needed during Meikyo Shisui", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_Oka = 15021,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Iaijutsu on Mangetsu Combo", "Adds Tenka Goken, Midare: Setsugekka, and Kaeshi: Goken when ready and when you're not moving to Mangetsu combo", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_TenkaGoken = 15022,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Ogi Namikiri on Mangetsu Combo", "Adds Ogi Namikiri and Kaeshi: Namikiri when ready and when you're not moving to Mangetsu combo", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_OgiNamikiri = 15023,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Shoha 2 on Mangetsu Combo", "Adds Shoha 2 when you have 3 meditation stacks to Mangetsu combo", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_Shoha2 = 15024,
+
+		[ConflictingCombos(SAM_Kyuten_Shoha2_Guren)]
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Guren on Mangetsu Combo", "Adds Guren when it's off cooldown and you have 25 Kenki to Mangetsu combo", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_Guren = 15025,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Meikyo Shisui on Mangetsu Combo", "Adds Meikyo Shisui to Mangetsu combo", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_MeikyoShisui = 15039,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Ikishoten on Mangetsu Combo", "Adds Ikishoten when at or below 50 Kenki.\nWill dump Kenki at 10 seconds left to allow Ikishoten to be used", SAM.JobID)]
+		SAM_AOE_GekkoCombo_CDs_Ikishoten = 15040,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Hagakure on Mangetsu Combo", "Adds Hagakure to Mangetsu combo when there are three Sen", SAM.JobID)]
+		SAM_AoE_MangetsuCombo_Hagakure = 15041,
+
+		[ReplaceSkill(SAM.Oka)]
+		[CustomComboInfo("Oka Combo", "Replace Oka with its combo chain", SAM.JobID)]
+		SAM_AoE_OkaCombo = 15026,
+
+		[ParentCombo(SAM_AoE_OkaCombo)]
+		[ConflictingCombos(SAM_AoE_MangetsuCombo_Oka)]
+		[CustomComboInfo("Oka Two Target Rotation", "Adds the Yukikaze combo, Mangetsu combo, Senei, Shinten, and Shoha to Oka combo.\nUsed for two targets only and when Lv86 and above", SAM.JobID)]
+		SAM_AoE_OkaCombo_TwoTarget = 150261,
+
+		[ReplaceSkill(SAM.MeikyoShisui)]
+		[CustomComboInfo("Jinpu/Shifu", "Replace Meikyo Shisui with Jinpu, Shifu, and Yukikaze depending on what is needed", SAM.JobID)]
+		SAM_JinpuShifu = 15027,
+
+		[ReplaceSkill(SAM.Iaijutsu)]
+		[CustomComboInfo("Iaijutsus", "Collection of Iaijutsus", SAM.JobID)]
+		SAM_Iaijutsu = 15028,
+
+		[ParentCombo(SAM_Iaijutsu)]
+		[CustomComboInfo("Iaijutsu to Tsubame-Gaeshi", "Replace Iaijutsu with  Tsubame-gaeshi when Sen is empty", SAM.JobID)]
+		SAM_Iaijutsu_TsubameGaeshi = 15029,
+
+		[ParentCombo(SAM_Iaijutsu)]
+		[CustomComboInfo("Iaijutsu to Shoha", "Replace Iaijutsu with Shoha when meditation is 3", SAM.JobID)]
+		SAM_Iaijutsu_Shoha = 15030,
+
+		[ParentCombo(SAM_Iaijutsu)]
+		[CustomComboInfo("Iaijutsu to Ogi Namikiri", "Replace Iaijutsu with Ogi Namikiri and Kaeshi: Namikiri when buffed with Ogi Namikiri Ready", SAM.JobID)]
+		SAM_Iaijutsu_OgiNamikiri = 15031,
+
+		[ReplaceSkill(SAM.Shinten)]
+		[CustomComboInfo("Shinten to Shoha", "Replace Hissatsu: Shinten with Shoha when Meditation is full", SAM.JobID)]
+		SAM_Shinten_Shoha = 15032,
+
+		[ConflictingCombos(SAM_ST_GekkoCombo_CDs_Senei)]
+		[ParentCombo(SAM_Shinten_Shoha)]
+		[CustomComboInfo("Shinten to Senei", "Replace Hissatsu: Shinten with Senei when its cooldown is up", SAM.JobID)]
+		SAM_Shinten_Shoha_Senei = 15033,
+
+		[ReplaceSkill(SAM.Kyuten)]
+		[CustomComboInfo("Kyuten to Shoha II", "Replace Hissatsu: Kyuten with Shoha II when Meditation is full", SAM.JobID)]
+		SAM_Kyuten_Shoha2 = 15034,
+
+		[ConflictingCombos(SAM_AoE_MangetsuCombo_Guren)]
+		[ParentCombo(SAM_Kyuten_Shoha2)]
+		[CustomComboInfo("Kyuten to Guren", "Replace Hissatsu: Kyuten with Guren when its cooldown is up", SAM.JobID)]
+		SAM_Kyuten_Shoha2_Guren = 15035,
+
+		[ConflictingCombos(SAM_ST_GekkoCombo_Opener, SAM_ST_GekkoCombo_FillerCombos)]
+		[ReplaceSkill(SAM.Gyoten)]
+		[CustomComboInfo("Gyoten", "Hissatsu: Gyoten becomes Yaten/Gyoten depending on the distance from your target", SAM.JobID)]
+		SAM_GyotenYaten = 15036,
+
+		[ReplaceSkill(SAM.Ikishoten)]
+		[CustomComboInfo("Ikishoten Namikiri", "Replace Ikishoten with Ogi Namikiri and then Kaeshi Namikiri when available.\nIf you have full Meditation stacks, Ikishoten becomes Shoha while you have Ogi Namikiri ready", SAM.JobID)]
+		SAM_Ikishoten_OgiNamikiri = 15037,
+
+		[ReplaceSkill(SAM.Gekko, SAM.Yukikaze, SAM.Kasha)]
+		[CustomComboInfo("True North", "Adds True North on all single target combos if Meikyo Shisui's buff is on you", SAM.JobID)]
+		SAM_TrueNorth = 15038,
+
+		[ParentCombo(SAM_ST_GekkoCombo)]
+		[CustomComboInfo("Combo Heals", "Adds Bloodbath and Second Wind to the combo, using them when below the HP Percentage threshold", SAM.JobID)]
+		SAM_ST_ComboHeals = 15043,
+
+		[ParentCombo(SAM_AoE_MangetsuCombo)]
+		[CustomComboInfo("Combo Heals", "Adds Bloodbath and Second Wind to the combo, using them when below the HP Percentage threshold", SAM.JobID)]
+		SAM_AoE_ComboHeals = 15045,
+
+		[Variant]
+		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", SAM.JobID)]
+		SAM_Variant_Cure = 15047,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SAM.JobID)]
+		SAM_Variant_Rampart = 15048,
+
+		#endregion
+
 		#region REAPER - 12000
 
 		[ReplaceSkill(RPR.Slice)]
@@ -687,211 +1694,6 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region SAMURAI - 15000
-
-		[ReplaceSkill(SAM.Kasha, SAM.Gekko, SAM.Yukikaze)]
-		[CustomComboInfo("Samurai Overcap", "Adds Shinten onto main combo when Kenki is at the selected amount or more", SAM.JobID)]
-		SAM_ST_Overcap = 15001,
-
-		[ReplaceSkill(SAM.Mangetsu, SAM.Oka)]
-		[CustomComboInfo("Samurai AoE Overcap", "Adds Kyuten onto main AoE combos when Kenki is at the selected amount or more", SAM.JobID)]
-		SAM_AoE_Overcap = 15002,
-
-		[ReplaceSkill(SAM.Gekko)]
-		[CustomComboInfo("Gekko Combo", "Replace Gekko with its combo chain.\nIf all subs are selected will turn into a full one button rotation (Advanced Samurai)", SAM.JobID)]
-		SAM_ST_GekkoCombo = 15003,
-
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("Enpi Uptime", "Replace main combo with Enpi when you are out of range", SAM.JobID)]
-		SAM_ST_GekkoCombo_RangedUptime = 15004,
-
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("Yukikaze Combo on Main Combo", "Adds Yukikaze combo to main combo. Will add Yukikaze during Meikyo Shisui as well", SAM.JobID)]
-		SAM_ST_GekkoCombo_Yukikaze = 15005,
-
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("Kasha Combo on Main Combo", "Adds Kasha combo to main combo. Will add Kasha during Meikyo Shisui as well", SAM.JobID)]
-		SAM_ST_GekkoCombo_Kasha = 15006,
-
-		[ConflictingCombos(SAM_GyotenYaten)]
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("Level 90 Samurai Opener", "Adds the Level 90 Opener to the main combo.\nOpener triggered by using Meikyo Shisui before combat. If you have any Sen, Hagakure will be used to clear them.\nWill work at any levels of Kenki, requires 2 charges of Meikyo Shisui and all CDs ready. If conditions aren't met it will skip into the regular rotation. \nIf the Opener is interrupted, it will exit the opener via a Goken and a Kaeshi: Goken at the end or via the last Yukikaze. If the latter, CDs will be used on cooldown regardless of bursts", SAM.JobID)]
-		SAM_ST_GekkoCombo_Opener = 15007,
-
-		[ConflictingCombos(SAM_GyotenYaten)]
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("Filler Combo", "Adds selected Filler combos to main combo at the appropriate time.\nChoose Skill Speed tier with Fuka buff below.\nWill disable if you die or if you don't activate the opener", SAM.JobID)]
-		SAM_ST_GekkoCombo_FillerCombos = 15008,
-
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("CDs on Main Combo", "Collection of CDs on main combo", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs = 15099,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
-		[CustomComboInfo("Ikishoten on Main Combo", "Adds Ikishoten when at or below 50 Kenki.\nWill dump Kenki at 10 seconds left to allow Ikishoten to be used", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_Ikishoten = 15009,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
-		[CustomComboInfo("Iaijutsu on Main Combo", "Adds Midare: Setsugekka, Higanbana, and Kaeshi: Setsugekka when ready and when you're not moving to main combo", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_Iaijutsu = 15010,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
-		[CustomComboInfo("Ogi Namikiri on Main Combo", "Ogi Namikiri and Kaeshi: Namikiri when ready and when you're not moving to main combo", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_OgiNamikiri = 15011,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs_OgiNamikiri)]
-		[CustomComboInfo("Ogi Namikiri Burst", "Saves Ogi Namikiri for even minute burst windows.\nIf you don't activate the opener or die, Ogi Namikiri will instead be used on CD", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_OgiNamikiri_Burst = 15012,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
-		[CustomComboInfo("Meikyo Shisui on Main Combo", "Adds Meikyo Shisui to main combo when off cooldown", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_MeikyoShisui = 15013,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs_MeikyoShisui)]
-		[CustomComboInfo("Meikyo Shisui Burst", "Saves Meikyo Shisui for burst windows.\nIf you don't activate the opener or die, Meikyo Shisui will instead be used on CD", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_MeikyoShisui_Burst = 15014,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
-		[CustomComboInfo("Shoha on Main Combo", "Adds Shoha to main combo when there are three meditation stacks", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_Shoha = 15015,
-
-		[ConflictingCombos(SAM_Shinten_Shoha_Senei)]
-		[ParentCombo(SAM_ST_GekkoCombo_CDs)]
-		[CustomComboInfo("Senei on Main Combo", "Adds Senei to main combo when off cooldown and above 25 Kenki", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_Senei = 15016,
-
-		[ParentCombo(SAM_ST_GekkoCombo_CDs_Senei)]
-		[CustomComboInfo("Senei Burst", "Saves Senei for even minute burst windows.\nIf you don't activate the opener or die, Senei will instead be used on CD", SAM.JobID)]
-		SAM_ST_GekkoCombo_CDs_Senei_Burst = 15017,
-
-		[ParentCombo(SAM_ST_Overcap)]
-		[CustomComboInfo("Execute", "Adds Shinten to the main combo when Kenki > 25 and your current target is below the HP percentage threshold", SAM.JobID)]
-		SAM_ST_Execute = 15046,
-
-		[ReplaceSkill(SAM.Yukikaze)]
-		[CustomComboInfo("Yukikaze Combo", "Replace Yukikaze with its combo chain", SAM.JobID)]
-		SAM_ST_YukikazeCombo = 15018,
-
-		[ReplaceSkill(SAM.Kasha)]
-		[CustomComboInfo("Kasha Combo", "Replace Kasha with its combo chain", SAM.JobID)]
-		SAM_ST_KashaCombo = 15019,
-
-		[ReplaceSkill(SAM.Mangetsu)]
-		[CustomComboInfo("Mangetsu Combo", "Replace Mangetsu with its combo chain.\nIf all subs are toggled will turn into a full one button AoE rotation", SAM.JobID)]
-		SAM_AoE_MangetsuCombo = 15020,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[ConflictingCombos(SAM_AoE_OkaCombo_TwoTarget)]
-		[CustomComboInfo("Oka to Mangetsu Combo", "Adds Oka combo after Mangetsu combo loop.\nWill add Oka if needed during Meikyo Shisui", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_Oka = 15021,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Iaijutsu on Mangetsu Combo", "Adds Tenka Goken, Midare: Setsugekka, and Kaeshi: Goken when ready and when you're not moving to Mangetsu combo", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_TenkaGoken = 15022,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Ogi Namikiri on Mangetsu Combo", "Adds Ogi Namikiri and Kaeshi: Namikiri when ready and when you're not moving to Mangetsu combo", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_OgiNamikiri = 15023,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Shoha 2 on Mangetsu Combo", "Adds Shoha 2 when you have 3 meditation stacks to Mangetsu combo", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_Shoha2 = 15024,
-
-		[ConflictingCombos(SAM_Kyuten_Shoha2_Guren)]
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Guren on Mangetsu Combo", "Adds Guren when it's off cooldown and you have 25 Kenki to Mangetsu combo", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_Guren = 15025,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Meikyo Shisui on Mangetsu Combo", "Adds Meikyo Shisui to Mangetsu combo", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_MeikyoShisui = 15039,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Ikishoten on Mangetsu Combo", "Adds Ikishoten when at or below 50 Kenki.\nWill dump Kenki at 10 seconds left to allow Ikishoten to be used", SAM.JobID)]
-		SAM_AOE_GekkoCombo_CDs_Ikishoten = 15040,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Hagakure on Mangetsu Combo", "Adds Hagakure to Mangetsu combo when there are three Sen", SAM.JobID)]
-		SAM_AoE_MangetsuCombo_Hagakure = 15041,
-
-		[ReplaceSkill(SAM.Oka)]
-		[CustomComboInfo("Oka Combo", "Replace Oka with its combo chain", SAM.JobID)]
-		SAM_AoE_OkaCombo = 15026,
-
-		[ParentCombo(SAM_AoE_OkaCombo)]
-		[ConflictingCombos(SAM_AoE_MangetsuCombo_Oka)]
-		[CustomComboInfo("Oka Two Target Rotation", "Adds the Yukikaze combo, Mangetsu combo, Senei, Shinten, and Shoha to Oka combo.\nUsed for two targets only and when Lv86 and above", SAM.JobID)]
-		SAM_AoE_OkaCombo_TwoTarget = 150261,
-
-		[ReplaceSkill(SAM.MeikyoShisui)]
-		[CustomComboInfo("Jinpu/Shifu", "Replace Meikyo Shisui with Jinpu, Shifu, and Yukikaze depending on what is needed", SAM.JobID)]
-		SAM_JinpuShifu = 15027,
-
-		[ReplaceSkill(SAM.Iaijutsu)]
-		[CustomComboInfo("Iaijutsus", "Collection of Iaijutsus", SAM.JobID)]
-		SAM_Iaijutsu = 15028,
-
-		[ParentCombo(SAM_Iaijutsu)]
-		[CustomComboInfo("Iaijutsu to Tsubame-Gaeshi", "Replace Iaijutsu with  Tsubame-gaeshi when Sen is empty", SAM.JobID)]
-		SAM_Iaijutsu_TsubameGaeshi = 15029,
-
-		[ParentCombo(SAM_Iaijutsu)]
-		[CustomComboInfo("Iaijutsu to Shoha", "Replace Iaijutsu with Shoha when meditation is 3", SAM.JobID)]
-		SAM_Iaijutsu_Shoha = 15030,
-
-		[ParentCombo(SAM_Iaijutsu)]
-		[CustomComboInfo("Iaijutsu to Ogi Namikiri", "Replace Iaijutsu with Ogi Namikiri and Kaeshi: Namikiri when buffed with Ogi Namikiri Ready", SAM.JobID)]
-		SAM_Iaijutsu_OgiNamikiri = 15031,
-
-		[ReplaceSkill(SAM.Shinten)]
-		[CustomComboInfo("Shinten to Shoha", "Replace Hissatsu: Shinten with Shoha when Meditation is full", SAM.JobID)]
-		SAM_Shinten_Shoha = 15032,
-
-		[ConflictingCombos(SAM_ST_GekkoCombo_CDs_Senei)]
-		[ParentCombo(SAM_Shinten_Shoha)]
-		[CustomComboInfo("Shinten to Senei", "Replace Hissatsu: Shinten with Senei when its cooldown is up", SAM.JobID)]
-		SAM_Shinten_Shoha_Senei = 15033,
-
-		[ReplaceSkill(SAM.Kyuten)]
-		[CustomComboInfo("Kyuten to Shoha II", "Replace Hissatsu: Kyuten with Shoha II when Meditation is full", SAM.JobID)]
-		SAM_Kyuten_Shoha2 = 15034,
-
-		[ConflictingCombos(SAM_AoE_MangetsuCombo_Guren)]
-		[ParentCombo(SAM_Kyuten_Shoha2)]
-		[CustomComboInfo("Kyuten to Guren", "Replace Hissatsu: Kyuten with Guren when its cooldown is up", SAM.JobID)]
-		SAM_Kyuten_Shoha2_Guren = 15035,
-
-		[ConflictingCombos(SAM_ST_GekkoCombo_Opener, SAM_ST_GekkoCombo_FillerCombos)]
-		[ReplaceSkill(SAM.Gyoten)]
-		[CustomComboInfo("Gyoten", "Hissatsu: Gyoten becomes Yaten/Gyoten depending on the distance from your target", SAM.JobID)]
-		SAM_GyotenYaten = 15036,
-
-		[ReplaceSkill(SAM.Ikishoten)]
-		[CustomComboInfo("Ikishoten Namikiri", "Replace Ikishoten with Ogi Namikiri and then Kaeshi Namikiri when available.\nIf you have full Meditation stacks, Ikishoten becomes Shoha while you have Ogi Namikiri ready", SAM.JobID)]
-		SAM_Ikishoten_OgiNamikiri = 15037,
-
-		[ReplaceSkill(SAM.Gekko, SAM.Yukikaze, SAM.Kasha)]
-		[CustomComboInfo("True North", "Adds True North on all single target combos if Meikyo Shisui's buff is on you", SAM.JobID)]
-		SAM_TrueNorth = 15038,
-
-		[ParentCombo(SAM_ST_GekkoCombo)]
-		[CustomComboInfo("Combo Heals", "Adds Bloodbath and Second Wind to the combo, using them when below the HP Percentage threshold", SAM.JobID)]
-		SAM_ST_ComboHeals = 15043,
-
-		[ParentCombo(SAM_AoE_MangetsuCombo)]
-		[CustomComboInfo("Combo Heals", "Adds Bloodbath and Second Wind to the combo, using them when below the HP Percentage threshold", SAM.JobID)]
-		SAM_AoE_ComboHeals = 15045,
-
-		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", SAM.JobID)]
-		SAM_Variant_Cure = 15047,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SAM.JobID)]
-		SAM_Variant_Rampart = 15048,
-
-		#endregion
-
 		#region VIPER - 30000
 
 		[ReplaceSkill(VPR.SteelFangs)]
@@ -1081,6 +1883,199 @@ namespace StackCombo.Combos
 		[ParentCombo(BRD_AoE_SimpleMode)]
 		[CustomComboInfo("Simple AoE No Waste", "Adds enemy health checking on targetted mob for songs.\nThey will not be reapplied if less than specified", BRD.JobID)]
 		BRD_AoE_Simple_NoWaste = 3033,
+		#endregion
+
+		#region MACHINIST - 8000
+
+		[ReplaceSkill(MCH.SplitShot, MCH.HeatedSplitShot)]
+		[ConflictingCombos(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Simple Mode - Single Target", "Replaces Split Shot with a one-button full single target rotation.\nThis is ideal for newcomers to the job", MCH.JobID)]
+		MCH_ST_SimpleMode = 8001,
+
+		[ReplaceSkill(MCH.SplitShot, MCH.HeatedSplitShot)]
+		[ConflictingCombos(MCH_ST_SimpleMode)]
+		[CustomComboInfo("Advanced Mode - Single Target", "Replaces Split Shot with a one-button full single target rotation.\nTheses are ideal if you want to customize the rotation", MCH.JobID)]
+		MCH_ST_AdvancedMode = 8100,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[ConflictingCombos(MCH_GaussRoundRicochet, MCH_Heatblast_GaussRound)]
+		[CustomComboInfo("Level 100 Opener", "Uses the Balance opener", MCH.JobID)]
+		MCH_ST_Adv_Opener = 8101,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Hot Shot / Air Anchor", "Adds Hot Shot/Air Anchor to the rotation", MCH.JobID)]
+		MCH_ST_Adv_AirAnchor = 8102,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Reassemble", "Adds Reassemble to the rotation.\nWill be used priority based.\nOrder from highest to lowest priority :\nExcavator - Chainsaw - Air Anchor - Drill - Clean Shot", MCH.JobID)]
+		MCH_ST_Adv_Reassemble = 8103,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[ConflictingCombos(MCH_GaussRoundRicochet, MCH_Heatblast_GaussRound)]
+		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Adds Gauss Round and Ricochet or Double Check and Checkmate to the rotation. Will prevent overcapping", MCH.JobID)]
+		MCH_ST_Adv_GaussRicochet = 8104,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Hypercharge", "Adds Hypercharge to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Hypercharge = 8105,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Heat Blast / Blazing Shot", "Adds Heat Blast or Blazing Shot to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Heatblast = 8106,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Rook Autoturret/Automaton Queen", "Adds Rook Autoturret or Automaton Queen to the rotation", MCH.JobID)]
+		MCH_Adv_TurretQueen = 8107,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Wildfire", "Adds Wildfire to the rotation", MCH.JobID)]
+		MCH_ST_Adv_WildFire = 8108,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Drill", "Adds Drill to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Drill = 8109,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Barrel Stabilizer", "Adds Barrel Stabilizer to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Stabilizer = 8110,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Full Metal Field", "Adds Full Metal Field to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Stabilizer_FullMetalField = 8111,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Chain Saw", "Adds Chain Saw to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Chainsaw = 8112,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Excavator", "Adds Excavator to the rotation", MCH.JobID)]
+		MCH_ST_Adv_Excavator = 8116,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Rook / Queen Overdrive", "Adds Rook or Queen Overdrive to the rotation", MCH.JobID)]
+		MCH_ST_Adv_QueenOverdrive = 8115,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Head Graze", "Uses Head Graze to interrupt during the rotation, where applicable", MCH.JobID)]
+		MCH_ST_Adv_Interrupt = 8113,
+
+		[ParentCombo(MCH_ST_AdvancedMode)]
+		[CustomComboInfo("Second Wind", "Use Second Wind when below the set HP percentage", MCH.JobID)]
+		MCH_ST_Adv_SecondWind = 8114,
+
+		[ReplaceSkill(MCH.SpreadShot)]
+		[ConflictingCombos(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Simple Mode - AoE", "Replaces Spread Shot with a one-button full single target rotation.\nThis is ideal for newcomers to the job", MCH.JobID)]
+		MCH_AoE_SimpleMode = 8200,
+
+		[ReplaceSkill(MCH.SpreadShot, MCH.Scattergun)]
+		[ConflictingCombos(MCH_AoE_SimpleMode)]
+		[CustomComboInfo("Advanced Mode - AoE", "Replaces Spread Shot with a one-button full single target rotation.\nTheses are ideal if you want to customize the rotation", MCH.JobID)]
+		MCH_AoE_AdvancedMode = 8300,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Reassemble", "Adds Reassemble to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Reassemble = 8301,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[ConflictingCombos(MCH_GaussRoundRicochet, MCH_Heatblast_GaussRound)]
+		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Adds Gauss Round and Ricochet or Double Check and Checkmate to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_GaussRicochet = 8302,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Hypercharge", "Adds Hypercharge to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Hypercharge = 8303,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Rook Autoturret/Automaton Queen", "Adds Rook Autoturret or Automaton Queen to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Queen = 8304,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Flamethrower", "Adds Flamethrower to the rotation.\n Changes to Savage blade when in use to prevent cancelling", MCH.JobID)]
+		MCH_AoE_Adv_FlameThrower = 8305,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Bioblaster", "Adds Bioblaster to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Bioblaster = 8306,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Barrel Stabilizer", "Adds Barrel Stabilizer to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Stabilizer = 8307,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Full Metal Field", "Adds Full Metal Field to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Stabilizer_FullMetalField = 8308,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Chain Saw", "Adds Chain Saw to the the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Chainsaw = 8309,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Excavator", "Adds Excavator to the rotation", MCH.JobID)]
+		MCH_AoE_Adv_Excavator = 8310,
+
+		[ParentCombo(MCH_AoE_AdvancedMode)]
+		[CustomComboInfo("Second Wind", "Use Second Wind when below the set HP percentage", MCH.JobID)]
+		MCH_AoE_Adv_SecondWind = 8399,
+
+		[ReplaceSkill(MCH.RookAutoturret, MCH.AutomatonQueen)]
+		[CustomComboInfo("Overdrive", "Replace Rook Autoturret and Automaton Queen with Overdrive while active", MCH.JobID)]
+		MCH_Overdrive = 8002,
+
+		[ReplaceSkill(MCH.GaussRound, MCH.Ricochet, MCH.CheckMate, MCH.DoubleCheck)]
+		[ConflictingCombos(MCH_ST_Adv_Opener, MCH_ST_Adv_GaussRicochet, MCH_AoE_Adv_GaussRicochet, MCH_Heatblast_GaussRound)]
+		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Replace Gauss Round and Ricochet or Double Check and Checkmate with one or the other depending on which has more charges", MCH.JobID)]
+		MCH_GaussRoundRicochet = 8003,
+
+		[ReplaceSkill(MCH.Drill, MCH.AirAnchor, MCH.HotShot, MCH.Chainsaw)]
+		[CustomComboInfo("Big Hitter", "Replace Hot Shot, Drill, Air Anchor, Chainsaw and Excavator depending on which is on cooldown", MCH.JobID)]
+		MCH_HotShotDrillChainsawExcavator = 8004,
+
+		[ReplaceSkill(MCH.Heatblast, MCH.BlazingShot)]
+		[CustomComboInfo("Single Button Heat Blast", "Turns Heat Blast or Blazing Shot into Hypercharge \nwhen u have 50 or more heat or when u got Hypercharged buff", MCH.JobID)]
+		MCH_Heatblast = 8006,
+
+		[ParentCombo(MCH_Heatblast)]
+		[CustomComboInfo("Barrel", "Adds Barrel Stabilizer to the when off cooldown", MCH.JobID)]
+		MCH_Heatblast_AutoBarrel = 8052,
+
+		[ParentCombo(MCH_Heatblast)]
+		[CustomComboInfo("Wildfire", "Adds Wildfire to the when off cooldown and overheated", MCH.JobID)]
+		MCH_Heatblast_Wildfire = 8015,
+
+		[ParentCombo(MCH_Heatblast)]
+		[ConflictingCombos(MCH_ST_Adv_Opener, MCH_ST_Adv_GaussRicochet, MCH_AoE_Adv_GaussRicochet, MCH_GaussRoundRicochet)]
+		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Switches between Heat Blast and either Gauss Round and Ricochet or Double Check and Checkmate, depending on cooldown timers", MCH.JobID)]
+		MCH_Heatblast_GaussRound = 8016,
+
+		[ReplaceSkill(MCH.AutoCrossbow)]
+		[CustomComboInfo("Single Button Auto Crossbow", "Turns Auto Crossbow into Hypercharge when at or above 50 heat", MCH.JobID)]
+		MCH_AutoCrossbow = 8018,
+
+		[ParentCombo(MCH_AutoCrossbow)]
+		[CustomComboInfo("Barrel", "Adds Barrel Stabilizer to the when below 50 Heat Gauge", MCH.JobID)]
+		MCH_AutoCrossbow_AutoBarrel = 8019,
+
+		[ParentCombo(MCH_AutoCrossbow)]
+		[CustomComboInfo("Gauss Round / Ricochet\n Double Check / Checkmate", "Switches between Auto Crossbow and either Gauss Round and Ricochet or Double Check and Checkmate, depending on cooldown timers", MCH.JobID)]
+		MCH_AutoCrossbow_GaussRound = 8020,
+
+		[ReplaceSkill(MCH.Dismantle)]
+		[CustomComboInfo("Physical Ranged DPS: Double Dismantle Protection", "Prevents the use of Dismantle when target already has the effect", MCH.JobID)]
+		All_PRanged_Dismantle = 8042,
+
+		[ReplaceSkill(MCH.Dismantle)]
+		[CustomComboInfo("Dismantle - Tactician", "Swap dismantle with tactician when dismantle is on cooldown", MCH.JobID)]
+		MCH_DismantleTactician = 8058,
+
+		[Variant]
+		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", MCH.JobID)]
+		MCH_Variant_Rampart = 8039,
+
+		[Variant]
+		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", MCH.JobID)]
+		MCH_Variant_Cure = 8040,
+
 		#endregion
 
 		#region DANCER - 4000
@@ -1347,199 +2342,6 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region MACHINIST - 8000
-
-		[ReplaceSkill(MCH.SplitShot, MCH.HeatedSplitShot)]
-		[ConflictingCombos(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Simple Mode - Single Target", "Replaces Split Shot with a one-button full single target rotation.\nThis is ideal for newcomers to the job", MCH.JobID)]
-		MCH_ST_SimpleMode = 8001,
-
-		[ReplaceSkill(MCH.SplitShot, MCH.HeatedSplitShot)]
-		[ConflictingCombos(MCH_ST_SimpleMode)]
-		[CustomComboInfo("Advanced Mode - Single Target", "Replaces Split Shot with a one-button full single target rotation.\nTheses are ideal if you want to customize the rotation", MCH.JobID)]
-		MCH_ST_AdvancedMode = 8100,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[ConflictingCombos(MCH_GaussRoundRicochet, MCH_Heatblast_GaussRound)]
-		[CustomComboInfo("Level 100 Opener", "Uses the Balance opener", MCH.JobID)]
-		MCH_ST_Adv_Opener = 8101,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Hot Shot / Air Anchor", "Adds Hot Shot/Air Anchor to the rotation", MCH.JobID)]
-		MCH_ST_Adv_AirAnchor = 8102,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Reassemble", "Adds Reassemble to the rotation.\nWill be used priority based.\nOrder from highest to lowest priority :\nExcavator - Chainsaw - Air Anchor - Drill - Clean Shot", MCH.JobID)]
-		MCH_ST_Adv_Reassemble = 8103,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[ConflictingCombos(MCH_GaussRoundRicochet, MCH_Heatblast_GaussRound)]
-		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Adds Gauss Round and Ricochet or Double Check and Checkmate to the rotation. Will prevent overcapping", MCH.JobID)]
-		MCH_ST_Adv_GaussRicochet = 8104,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Hypercharge", "Adds Hypercharge to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Hypercharge = 8105,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Heat Blast / Blazing Shot", "Adds Heat Blast or Blazing Shot to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Heatblast = 8106,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Rook Autoturret/Automaton Queen", "Adds Rook Autoturret or Automaton Queen to the rotation", MCH.JobID)]
-		MCH_Adv_TurretQueen = 8107,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Wildfire", "Adds Wildfire to the rotation", MCH.JobID)]
-		MCH_ST_Adv_WildFire = 8108,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Drill", "Adds Drill to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Drill = 8109,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Barrel Stabilizer", "Adds Barrel Stabilizer to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Stabilizer = 8110,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Full Metal Field", "Adds Full Metal Field to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Stabilizer_FullMetalField = 8111,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Chain Saw", "Adds Chain Saw to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Chainsaw = 8112,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Excavator", "Adds Excavator to the rotation", MCH.JobID)]
-		MCH_ST_Adv_Excavator = 8116,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Rook / Queen Overdrive", "Adds Rook or Queen Overdrive to the rotation", MCH.JobID)]
-		MCH_ST_Adv_QueenOverdrive = 8115,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Head Graze", "Uses Head Graze to interrupt during the rotation, where applicable", MCH.JobID)]
-		MCH_ST_Adv_Interrupt = 8113,
-
-		[ParentCombo(MCH_ST_AdvancedMode)]
-		[CustomComboInfo("Second Wind", "Use Second Wind when below the set HP percentage", MCH.JobID)]
-		MCH_ST_Adv_SecondWind = 8114,
-
-		[ReplaceSkill(MCH.SpreadShot)]
-		[ConflictingCombos(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Simple Mode - AoE", "Replaces Spread Shot with a one-button full single target rotation.\nThis is ideal for newcomers to the job", MCH.JobID)]
-		MCH_AoE_SimpleMode = 8200,
-
-		[ReplaceSkill(MCH.SpreadShot, MCH.Scattergun)]
-		[ConflictingCombos(MCH_AoE_SimpleMode)]
-		[CustomComboInfo("Advanced Mode - AoE", "Replaces Spread Shot with a one-button full single target rotation.\nTheses are ideal if you want to customize the rotation", MCH.JobID)]
-		MCH_AoE_AdvancedMode = 8300,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Reassemble", "Adds Reassemble to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Reassemble = 8301,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[ConflictingCombos(MCH_GaussRoundRicochet, MCH_Heatblast_GaussRound)]
-		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Adds Gauss Round and Ricochet or Double Check and Checkmate to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_GaussRicochet = 8302,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Hypercharge", "Adds Hypercharge to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Hypercharge = 8303,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Rook Autoturret/Automaton Queen", "Adds Rook Autoturret or Automaton Queen to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Queen = 8304,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Flamethrower", "Adds Flamethrower to the rotation.\n Changes to Savage blade when in use to prevent cancelling", MCH.JobID)]
-		MCH_AoE_Adv_FlameThrower = 8305,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Bioblaster", "Adds Bioblaster to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Bioblaster = 8306,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Barrel Stabilizer", "Adds Barrel Stabilizer to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Stabilizer = 8307,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Full Metal Field", "Adds Full Metal Field to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Stabilizer_FullMetalField = 8308,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Chain Saw", "Adds Chain Saw to the the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Chainsaw = 8309,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Excavator", "Adds Excavator to the rotation", MCH.JobID)]
-		MCH_AoE_Adv_Excavator = 8310,
-
-		[ParentCombo(MCH_AoE_AdvancedMode)]
-		[CustomComboInfo("Second Wind", "Use Second Wind when below the set HP percentage", MCH.JobID)]
-		MCH_AoE_Adv_SecondWind = 8399,
-
-		[ReplaceSkill(MCH.RookAutoturret, MCH.AutomatonQueen)]
-		[CustomComboInfo("Overdrive", "Replace Rook Autoturret and Automaton Queen with Overdrive while active", MCH.JobID)]
-		MCH_Overdrive = 8002,
-
-		[ReplaceSkill(MCH.GaussRound, MCH.Ricochet, MCH.CheckMate, MCH.DoubleCheck)]
-		[ConflictingCombos(MCH_ST_Adv_Opener, MCH_ST_Adv_GaussRicochet, MCH_AoE_Adv_GaussRicochet, MCH_Heatblast_GaussRound)]
-		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Replace Gauss Round and Ricochet or Double Check and Checkmate with one or the other depending on which has more charges", MCH.JobID)]
-		MCH_GaussRoundRicochet = 8003,
-
-		[ReplaceSkill(MCH.Drill, MCH.AirAnchor, MCH.HotShot, MCH.Chainsaw)]
-		[CustomComboInfo("Big Hitter", "Replace Hot Shot, Drill, Air Anchor, Chainsaw and Excavator depending on which is on cooldown", MCH.JobID)]
-		MCH_HotShotDrillChainsawExcavator = 8004,
-
-		[ReplaceSkill(MCH.Heatblast, MCH.BlazingShot)]
-		[CustomComboInfo("Single Button Heat Blast", "Turns Heat Blast or Blazing Shot into Hypercharge \nwhen u have 50 or more heat or when u got Hypercharged buff", MCH.JobID)]
-		MCH_Heatblast = 8006,
-
-		[ParentCombo(MCH_Heatblast)]
-		[CustomComboInfo("Barrel", "Adds Barrel Stabilizer to the when off cooldown", MCH.JobID)]
-		MCH_Heatblast_AutoBarrel = 8052,
-
-		[ParentCombo(MCH_Heatblast)]
-		[CustomComboInfo("Wildfire", "Adds Wildfire to the when off cooldown and overheated", MCH.JobID)]
-		MCH_Heatblast_Wildfire = 8015,
-
-		[ParentCombo(MCH_Heatblast)]
-		[ConflictingCombos(MCH_ST_Adv_Opener, MCH_ST_Adv_GaussRicochet, MCH_AoE_Adv_GaussRicochet, MCH_GaussRoundRicochet)]
-		[CustomComboInfo("Gauss Round / Ricochet \nDouble Check / Checkmate", "Switches between Heat Blast and either Gauss Round and Ricochet or Double Check and Checkmate, depending on cooldown timers", MCH.JobID)]
-		MCH_Heatblast_GaussRound = 8016,
-
-		[ReplaceSkill(MCH.AutoCrossbow)]
-		[CustomComboInfo("Single Button Auto Crossbow", "Turns Auto Crossbow into Hypercharge when at or above 50 heat", MCH.JobID)]
-		MCH_AutoCrossbow = 8018,
-
-		[ParentCombo(MCH_AutoCrossbow)]
-		[CustomComboInfo("Barrel", "Adds Barrel Stabilizer to the when below 50 Heat Gauge", MCH.JobID)]
-		MCH_AutoCrossbow_AutoBarrel = 8019,
-
-		[ParentCombo(MCH_AutoCrossbow)]
-		[CustomComboInfo("Gauss Round / Ricochet\n Double Check / Checkmate", "Switches between Auto Crossbow and either Gauss Round and Ricochet or Double Check and Checkmate, depending on cooldown timers", MCH.JobID)]
-		MCH_AutoCrossbow_GaussRound = 8020,
-
-		[ReplaceSkill(MCH.Dismantle)]
-		[CustomComboInfo("Physical Ranged DPS: Double Dismantle Protection", "Prevents the use of Dismantle when target already has the effect", MCH.JobID)]
-		All_PRanged_Dismantle = 8042,
-
-		[ReplaceSkill(MCH.Dismantle)]
-		[CustomComboInfo("Dismantle - Tactician", "Swap dismantle with tactician when dismantle is on cooldown", MCH.JobID)]
-		MCH_DismantleTactician = 8058,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", MCH.JobID)]
-		MCH_Variant_Rampart = 8039,
-
-		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", MCH.JobID)]
-		MCH_Variant_Cure = 8040,
-
-		#endregion
-
 		#endregion
 
 		#region Magical Ranged DPS
@@ -1664,156 +2466,141 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region BLUE MAGE - 70000
+		#region SUMMONER - 17000
 
-		[ReplaceSkill(BLU.MoonFlute)]
-		[BlueInactive(BLU.Whistle, BLU.Tingle, BLU.RoseOfDestruction, BLU.MoonFlute, BLU.JKick, BLU.TripleTrident, BLU.Nightbloom, BLU.WingedReprobation, BLU.SeaShanty, BLU.BeingMortal, BLU.ShockStrike, BLU.Surpanakha, BLU.MatraMagic, BLU.PhantomFlurry, BLU.Bristle, BLU.FeatherRain)]
-		[ConflictingCombos(BLU_Explode, BLU_TripleTrident, BLU_DoTs)]
-		[CustomComboInfo("Moon Flute Combo", "Turns Moon Flute into a full opener\nUse the remaining 2 charges of Winged Reprobation before starting the opener again!\nCan be done with 2.50 spell speed", BLU.JobID, 1)]
-		BLU_MoonFluteOpener = 70001,
+		[ReplaceSkill(SMN.Ruin, SMN.Ruin2, SMN.Outburst, SMN.Tridisaster)]
+		[ConflictingCombos(SMN_Simple_Combo)]
+		[CustomComboInfo("Advanced Summoner", "Advanced combos for a greater degree of customisation.\nAccommodates SpS builds.\nRuin III is left unchanged for mobility purposes", SMN.JobID)]
+		SMN_Advanced_Combo = 17000,
 
-		[BlueInactive(BLU.BreathOfMagic, BLU.MortalFlame)]
-		[ParentCombo(BLU_MoonFluteOpener)]
-		[CustomComboInfo("DoT Alternative", "Only have 1 DoT active (Breath of Magic OR Mortal Flame)\nRequires 2.20 spell speed or faster", BLU.JobID)]
-		BLU_MoonFluteOpener_DoTOpener = 70002,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Demi Attacks Combo", "Adds Demi Summon oGCDs to the single target and AoE combos", SMN.JobID, 11, "", "")]
+		SMN_Advanced_Combo_DemiSummons_Attacks = 17002,
 
-		#region Combos
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Egi Attacks Combo", "Adds Gemshine and Precious Brilliance to the single target and AoE combos, respectively", SMN.JobID, 4, "", "")]
+		SMN_Advanced_Combo_EgiSummons_Attacks = 17004,
 
-		[BlueInactive(BLU.Whistle, BLU.Offguard, BLU.Tingle, BLU.BasicInstinct, BLU.MoonFlute, BLU.FinalSting)]
-		[ReplaceSkill(BLU.FinalSting)]
-		[ConflictingCombos(BLU_TripleTrident, BLU_DoTs)]
-		[CustomComboInfo("Final Sting Combo", "Whistle > Off-guard > Tingle > [Basic Instinct] > Moon Flute > Swiftcast > Final Sting", BLU.JobID)]
-		BLU_Sting = 70011,
+		[ReplaceSkill(SMN.Fester)]
+		[CustomComboInfo("Energy Drain to Fester", "Change Fester into Energy Drain when out of Aetherflow stacks", SMN.JobID, 6, "", "")]
+		SMN_EDFester = 17008,
 
-		[BlueInactive(BLU.ToadOil, BLU.Bristle, BLU.MoonFlute, BLU.SelfDestruct)]
-		[ReplaceSkill(BLU.SelfDestruct)]
-		[ConflictingCombos(BLU_MoonFluteOpener, BLU_TripleTrident, BLU_DoTs)]
-		[CustomComboInfo("Self-destruct Combo", "Toad Oil > Bristle > Moon Flute > Self-destruct", BLU.JobID)]
-		BLU_Explode = 70012,
+		[ReplaceSkill(SMN.Painflare)]
+		[CustomComboInfo("Energy Siphon to Painflare", "Change Painflare into Energy Siphon when out of Aetherflow stacks", SMN.JobID, 7, "", "")]
+		SMN_ESPainflare = 17009,
 
-		[BlueInactive(BLU.Whistle, BLU.Tingle, BLU.TripleTrident)]
-		[ReplaceSkill(BLU.TripleTrident)]
-		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
-		[CustomComboInfo("Triple Trident Combo", "Whistle > Tingle > Triple Trident", BLU.JobID)]
-		BLU_TripleTrident = 70013,
+		[CustomComboInfo("Carbuncle Reminder", "Replaces most offensive actions with Summon Carbuncle when it is not summoned", SMN.JobID, 8, "", "")]
+		SMN_CarbuncleReminder = 17010,
 
-		[BlueInactive(BLU.Bristle, BLU.BreathOfMagic, BLU.MortalFlame)]
-		[ReplaceSkill(BLU.BreathOfMagic, BLU.MortalFlame)]
-		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
-		[CustomComboInfo("Buffed Breath of Magic & Mortal Flame", "Bristle > Breath of Magic > Bristle > Mortal Flame", BLU.JobID)]
-		BLU_DoTs = 70014,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Ruin IV Combo", "Adds Ruin IV to the single target and AoE combos.\nUses when moving during Garuda Phase and you have no attunement, when moving during Ifrit phase, or when you have no active Egi or Demi summon", SMN.JobID)]
+		SMN_Advanced_Combo_Ruin4 = 17011,
 
-		[BlueInactive(BLU.RamsVoice, BLU.Ultravibration)]
-		[ReplaceSkill(BLU.Ultravibration)]
-		[CustomComboInfo("Vibe Check", "Ram's Voice > Ultravibration", BLU.JobID)]
-		BLU_Ultravibration = 70010,
+		[ParentCombo(SMN_EDFester)]
+		[CustomComboInfo("Ruin IV Fester", "Changes Fester to Ruin IV when out of Aetherflow stacks, Energy Drain is on cooldown, and Ruin IV is available", SMN.JobID)]
+		SMN_EDFester_Ruin4 = 17013,
 
-		[BlueInactive(BLU.PeripheralSynthesis, BLU.MustardBomb)]
-		[ReplaceSkill(BLU.MustardBomb)]
-		[CustomComboInfo("Bomb Combo", "Peripheral Synthesis > Mustard Bomb", BLU.JobID)]
-		BLU_Periph = 70015,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Energy Attacks Combo", "Adds Energy Drain and Fester to the single target combo.\nAdds Energy Siphon and Painflare to the AoE combo.\nWill be used on cooldown", SMN.JobID, 1, "", "")]
+		SMN_Advanced_Combo_EDFester = 17014,
 
-		#endregion
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Egi Summons Combo", "Adds Egi summons to the single target and AoE combos.\nWill prioritise the Egi selected below.\nIf no is selected, the will default to summoning Titan first", SMN.JobID, 3, "", "")]
+		SMN_DemiEgiMenu_EgiOrder = 17016,
 
-		#region Utility
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Searing Light Combo", "Adds Searing Light to the single target and AoE combos.\nWill be used on cooldown", SMN.JobID, 9, "", "")]
+		SMN_SearingLight = 17017,
 
-		[BlueInactive(BLU.GoblinPunch, BLU.MightyGuard, BLU.ToadOil, BLU.Devour, BLU.PeatPelt, BLU.DeepClean)]
-		[ReplaceSkill(BLU.GoblinPunch)]
-		[CustomComboInfo("Tank Combo", "Mighty Guard, Toad Oil, and Devour Checks, then Peat Pelt and Deep Clean combo", BLU.JobID)]
-		BLU_Tanking = 70030,
+		[ParentCombo(SMN_SearingLight)]
+		[CustomComboInfo("Searing Light Burst", "Casts Searing Light only during Demi phases.\nReflects Demi choice selected under 'Pooled oGCDs'.\nNot recommended for SpS Builds", SMN.JobID, 0, "")]
+		SMN_SearingLight_Burst = 17018,
 
-		[BlueInactive(BLU.GoblinPunch, BLU.BloodDrain)]
-		[ReplaceSkill(BLU.GoblinPunch)]
-		[CustomComboInfo("Blood Drain over Goblin Punch when below specified MP", "", BLU.JobID)]
-		BLU_ManaGain = 70031,
+		[ParentCombo(SMN_SearingLight)]
+		[CustomComboInfo("Searing Flash Combo", "Adds Searing Flash to the single target and AoE combos", SMN.JobID, 1, "", "")]
+		SMN_SearingFlash = 17019,
 
-		[BlueInactive(BLU.SonicBoom, BLU.GoblinPunch, BLU.ChocoMeteor)]
-		[ReplaceSkill(BLU.SonicBoom, BLU.GoblinPunch, BLU.ChocoMeteor)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", BLU.JobID)]
-		BLU_Lucid = 70032,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Demi Summons Combo", "Adds Demi summons to the single target and AoE combos", SMN.JobID, 10, "", "")]
+		SMN_Advanced_Combo_DemiSummons = 17020,
 
-		[BlueInactive(BLU.AngelWhisper)]
-		[ReplaceSkill(BLU.AngelWhisper)]
-		[CustomComboInfo("Swiftcast > Angel Whisper", "", BLU.JobID)]
-		BLU_Raise = 70033,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Swiftcast Egi Ability", "Uses Swiftcast during the selected Egi summon", SMN.JobID, 8, "", "")]
+		SMN_DemiEgiMenu_SwiftcastEgi = 17023,
 
-		#endregion
+		[CustomComboInfo("Astral Flow/Enkindle on Demis", "Adds Enkindle Bahamut, Enkindle Phoenix and Astral Flow to their relevant summons", SMN.JobID, 11, "", "")]
+		SMN_DemiAbilities = 17024,
 
-		#endregion
+		[ParentCombo(SMN_Advanced_Combo_EDFester)]
+		[CustomComboInfo("Pooled oGCDs", "Pools damage oGCDs for use inside the selected Demi phase while under the Searing Light buff.\nBahamut Burst becomes Solar Bahamut Burst at Lv100", SMN.JobID, 1, "", "")]
+		SMN_DemiEgiMenu_oGCDPooling = 17025,
 
-		#region PICTOMANCER - 20000
+		[CustomComboInfo("Alternative Raise", "Changes Swiftcast to Raise when on cooldown", SMN.JobID, 8, "", "")]
+		SMN_Raise = 17027,
 
-		#region Single Target DPS
+		[ParentCombo(SMN_Advanced_Combo_DemiSummons_Attacks)]
+		[CustomComboInfo("Rekindle Combo", "Adds Rekindle to the single target and AoE combos", SMN.JobID, 13, "", "")]
+		SMN_Advanced_Combo_DemiSummons_Rekindle = 17028,
 
-		[ReplaceSkill(PCT.FireInRed)]
-		[CustomComboInfo("Single Target DPS", "", PCT.JobID)]
-		PCT_ST_Adv = 20010,
+		[ParentCombo(SMN_Advanced_Combo_DemiSummons_Attacks)]
+		[CustomComboInfo("Lux Solaris Combo", "Adds Lux Solaris to the single target and AoE combos", SMN.JobID, 14, "", "")]
+		SMN_Advanced_Combo_DemiSummons_LuxSolaris = 17029,
 
-		[ParentCombo(PCT_ST_Adv)]
-		[CustomComboInfo("Rainbow Drip", "", PCT.JobID)]
-		PCT_ST_RainbowDrip = 20014,
+		[ReplaceSkill(SMN.Ruin4)]
+		[CustomComboInfo("Ruin III Mobility", "Puts Ruin III on Ruin IV when you don't have Further Ruin", SMN.JobID, 9, "", "")]
+		SMN_RuinMobility = 17030,
 
-		[ParentCombo(PCT_ST_Adv)]
-		[CustomComboInfo("Paint Overcap Protection", "", PCT.JobID)]
-		PCT_ST_Comet_OP = 20013,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SMN.JobID, 2, "", "")]
+		SMN_Lucid = 17031,
 
-		[ParentCombo(PCT_ST_Adv)]
-		[CustomComboInfo("Subtractive Palette Overcap Protection", "", PCT.JobID)]
-		PCT_ST_Subtractive_OP = 20012,
+		[CustomComboInfo("Egi Abilities on Summons", "Adds Egi Abilities (Astral Flow) to Egi summons when ready.\nEgi abilities will appear on their respective Egi summon ability, as well as Titan", SMN.JobID, 12, "", "")]
+		SMN_Egi_AstralFlow = 17034,
 
-		[ParentCombo(PCT_ST_Adv)]
-		[CustomComboInfo("Lucid Dreaming", "", PCT.JobID)]
-		PCT_ST_Lucid = 20011,
+		[ParentCombo(SMN_SearingLight)]
+		[CustomComboInfo("Use only on Single Target combo", "Prevent this from applying to the AoE combo", SMN.JobID, 2, "", "")]
+		SMN_SearingLight_STOnly = 17036,
 
-		#endregion
+		[ParentCombo(SMN_DemiEgiMenu_oGCDPooling)]
+		[CustomComboInfo("Use only on Single Target combo", "Prevent this from applying to the AoE combo", SMN.JobID, 3, "", "")]
+		SMN_DemiEgiMenu_oGCDPooling_Only = 17037,
 
-		#region AoE DPS
+		[ParentCombo(SMN_DemiEgiMenu_SwiftcastEgi)]
+		[CustomComboInfo("Use only on Single Target combo", "Prevent this from applying to the AoE combo", SMN.JobID, 2, "", "")]
+		SMN_DemiEgiMenu_SwiftcastEgi_Only = 17038,
 
-		[ReplaceSkill(PCT.FireIIinRed)]
-		[CustomComboInfo("AoE DPS", "", PCT.JobID)]
-		PCT_AoE_Adv = 20030,
+		[ParentCombo(SMN_ESPainflare)]
+		[CustomComboInfo("Ruin IV Painflare", "Changes Painflare to Ruin IV when out of Aetherflow stacks, Energy Siphon is on cooldown, and Ruin IV is up", SMN.JobID)]
+		SMN_ESPainflare_Ruin4 = 17039,
 
-		[ParentCombo(PCT_AoE_Adv)]
-		[CustomComboInfo("Rainbow Drip", "", PCT.JobID)]
-		PCT_AoE_RainbowDrip = 20034,
+		[ParentCombo(SMN_Advanced_Combo)]
+		[CustomComboInfo("Add Egi Astralflow", "Choose which Egi Astralflows to add to the rotation", SMN.JobID, 0, "", "")]
+		SMN_ST_Egi_AstralFlow = 17048,
 
-		[ParentCombo(PCT_AoE_Adv)]
-		[CustomComboInfo("Paint Overcap Protection", "", PCT.JobID)]
-		PCT_AoE_Comet_OP = 20033,
+		[ConflictingCombos(SMN_Advanced_Combo)]
+		[ReplaceSkill(SMN.Ruin, SMN.Ruin2, SMN.Outburst, SMN.Tridisaster)]
+		[CustomComboInfo("Simple Summoner", "General purpose one-button combo.\nBursts on Bahamut phase.\nSummons Titan, Garuda, then Ifrit.\nSwiftcasts on Slipstream unless drifted", SMN.JobID, -1, "", "")]
+		SMN_Simple_Combo = 17041,
 
-		[ParentCombo(PCT_AoE_Adv)]
-		[CustomComboInfo("Subtractive Palette Overcap Protection", "", PCT.JobID)]
-		PCT_AoE_Subtractive_OP = 20032,
+		[ParentCombo(SMN_DemiEgiMenu_oGCDPooling)]
+		[CustomComboInfo("Burst Delay", "Only follows Burst Delay settings for the opener burst.\nThis is for high SPS builds", SMN.JobID, 2, "", "")]
+		SMN_Advanced_Burst_Delay_Option = 17043,
 
-		[ParentCombo(PCT_AoE_Adv)]
-		[CustomComboInfo("Lucid Dreaming", "", PCT.JobID)]
-		PCT_AoE_Lucid = 20031,
+		[ParentCombo(SMN_DemiEgiMenu_oGCDPooling)]
+		[CustomComboInfo("Any Searing Burst", "Checks for any Searing light for bursting rather than just your own.\nUse this if partied with multiple SMN and are worried about your Searing being overwritten", SMN.JobID, 1, "", "")]
+		SMN_Advanced_Burst_Any_Option = 17044,
 
-		#endregion
+		[Variant]
+		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SMN.JobID)]
+		SMN_Variant_Rampart = 17045,
 
-		#region Utility
+		[Variant]
+		[CustomComboInfo("Raise", "Turn Swiftcast into Variant Raise whenever you have the Swiftcast buff", SMN.JobID)]
+		SMN_Variant_Raise = 17046,
 
-		[ReplaceSkill(PCT.HolyInWhite)]
-		[CustomComboInfo("White & Black Paint", "", PCT.JobID)]
-		PCT_Paint = 20053,
-
-		[ReplaceSkill(PCT.SubtractivePalette)]
-		[CustomComboInfo("Subtractive to Comet In Black", "", PCT.JobID)]
-		PCT_SubPaint_OP = 20054,
-
-		[ReplaceSkill(PCT.CreatureMotif, PCT.WeaponMotif)]
-		[CustomComboInfo("Creature and Weapon One Button Motifs", "", PCT.JobID)]
-		PCT_CreatureWeapon = 20051,
-
-		[ReplaceSkill(PCT.LandscapeMotif)]
-		[CustomComboInfo("Landscape One Button Motif", "", PCT.JobID)]
-		PCT_Landscape = 20052,
-
-		#endregion
-
-		#region Variant
-
-		#endregion
+		[Variant]
+		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", SMN.JobID)]
+		SMN_Variant_Cure = 17047,
 
 		#endregion
 
@@ -1962,941 +2749,159 @@ namespace StackCombo.Combos
 
 		#endregion
 
-		#region SUMMONER - 17000
-
-		[ReplaceSkill(SMN.Ruin, SMN.Ruin2, SMN.Outburst, SMN.Tridisaster)]
-		[ConflictingCombos(SMN_Simple_Combo)]
-		[CustomComboInfo("Advanced Summoner", "Advanced combos for a greater degree of customisation.\nAccommodates SpS builds.\nRuin III is left unchanged for mobility purposes", SMN.JobID)]
-		SMN_Advanced_Combo = 17000,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Demi Attacks Combo", "Adds Demi Summon oGCDs to the single target and AoE combos", SMN.JobID, 11, "", "")]
-		SMN_Advanced_Combo_DemiSummons_Attacks = 17002,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Egi Attacks Combo", "Adds Gemshine and Precious Brilliance to the single target and AoE combos, respectively", SMN.JobID, 4, "", "")]
-		SMN_Advanced_Combo_EgiSummons_Attacks = 17004,
-
-		[ReplaceSkill(SMN.Fester)]
-		[CustomComboInfo("Energy Drain to Fester", "Change Fester into Energy Drain when out of Aetherflow stacks", SMN.JobID, 6, "", "")]
-		SMN_EDFester = 17008,
-
-		[ReplaceSkill(SMN.Painflare)]
-		[CustomComboInfo("Energy Siphon to Painflare", "Change Painflare into Energy Siphon when out of Aetherflow stacks", SMN.JobID, 7, "", "")]
-		SMN_ESPainflare = 17009,
-
-		[CustomComboInfo("Carbuncle Reminder", "Replaces most offensive actions with Summon Carbuncle when it is not summoned", SMN.JobID, 8, "", "")]
-		SMN_CarbuncleReminder = 17010,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Ruin IV Combo", "Adds Ruin IV to the single target and AoE combos.\nUses when moving during Garuda Phase and you have no attunement, when moving during Ifrit phase, or when you have no active Egi or Demi summon", SMN.JobID)]
-		SMN_Advanced_Combo_Ruin4 = 17011,
-
-		[ParentCombo(SMN_EDFester)]
-		[CustomComboInfo("Ruin IV Fester", "Changes Fester to Ruin IV when out of Aetherflow stacks, Energy Drain is on cooldown, and Ruin IV is available", SMN.JobID)]
-		SMN_EDFester_Ruin4 = 17013,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Energy Attacks Combo", "Adds Energy Drain and Fester to the single target combo.\nAdds Energy Siphon and Painflare to the AoE combo.\nWill be used on cooldown", SMN.JobID, 1, "", "")]
-		SMN_Advanced_Combo_EDFester = 17014,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Egi Summons Combo", "Adds Egi summons to the single target and AoE combos.\nWill prioritise the Egi selected below.\nIf no is selected, the will default to summoning Titan first", SMN.JobID, 3, "", "")]
-		SMN_DemiEgiMenu_EgiOrder = 17016,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Searing Light Combo", "Adds Searing Light to the single target and AoE combos.\nWill be used on cooldown", SMN.JobID, 9, "", "")]
-		SMN_SearingLight = 17017,
-
-		[ParentCombo(SMN_SearingLight)]
-		[CustomComboInfo("Searing Light Burst", "Casts Searing Light only during Demi phases.\nReflects Demi choice selected under 'Pooled oGCDs'.\nNot recommended for SpS Builds", SMN.JobID, 0, "")]
-		SMN_SearingLight_Burst = 17018,
-
-		[ParentCombo(SMN_SearingLight)]
-		[CustomComboInfo("Searing Flash Combo", "Adds Searing Flash to the single target and AoE combos", SMN.JobID, 1, "", "")]
-		SMN_SearingFlash = 17019,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Demi Summons Combo", "Adds Demi summons to the single target and AoE combos", SMN.JobID, 10, "", "")]
-		SMN_Advanced_Combo_DemiSummons = 17020,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Swiftcast Egi Ability", "Uses Swiftcast during the selected Egi summon", SMN.JobID, 8, "", "")]
-		SMN_DemiEgiMenu_SwiftcastEgi = 17023,
-
-		[CustomComboInfo("Astral Flow/Enkindle on Demis", "Adds Enkindle Bahamut, Enkindle Phoenix and Astral Flow to their relevant summons", SMN.JobID, 11, "", "")]
-		SMN_DemiAbilities = 17024,
-
-		[ParentCombo(SMN_Advanced_Combo_EDFester)]
-		[CustomComboInfo("Pooled oGCDs", "Pools damage oGCDs for use inside the selected Demi phase while under the Searing Light buff.\nBahamut Burst becomes Solar Bahamut Burst at Lv100", SMN.JobID, 1, "", "")]
-		SMN_DemiEgiMenu_oGCDPooling = 17025,
-
-		[CustomComboInfo("Alternative Raise", "Changes Swiftcast to Raise when on cooldown", SMN.JobID, 8, "", "")]
-		SMN_Raise = 17027,
-
-		[ParentCombo(SMN_Advanced_Combo_DemiSummons_Attacks)]
-		[CustomComboInfo("Rekindle Combo", "Adds Rekindle to the single target and AoE combos", SMN.JobID, 13, "", "")]
-		SMN_Advanced_Combo_DemiSummons_Rekindle = 17028,
-
-		[ParentCombo(SMN_Advanced_Combo_DemiSummons_Attacks)]
-		[CustomComboInfo("Lux Solaris Combo", "Adds Lux Solaris to the single target and AoE combos", SMN.JobID, 14, "", "")]
-		SMN_Advanced_Combo_DemiSummons_LuxSolaris = 17029,
-
-		[ReplaceSkill(SMN.Ruin4)]
-		[CustomComboInfo("Ruin III Mobility", "Puts Ruin III on Ruin IV when you don't have Further Ruin", SMN.JobID, 9, "", "")]
-		SMN_RuinMobility = 17030,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", SMN.JobID, 2, "", "")]
-		SMN_Lucid = 17031,
-
-		[CustomComboInfo("Egi Abilities on Summons", "Adds Egi Abilities (Astral Flow) to Egi summons when ready.\nEgi abilities will appear on their respective Egi summon ability, as well as Titan", SMN.JobID, 12, "", "")]
-		SMN_Egi_AstralFlow = 17034,
-
-		[ParentCombo(SMN_SearingLight)]
-		[CustomComboInfo("Use only on Single Target combo", "Prevent this from applying to the AoE combo", SMN.JobID, 2, "", "")]
-		SMN_SearingLight_STOnly = 17036,
-
-		[ParentCombo(SMN_DemiEgiMenu_oGCDPooling)]
-		[CustomComboInfo("Use only on Single Target combo", "Prevent this from applying to the AoE combo", SMN.JobID, 3, "", "")]
-		SMN_DemiEgiMenu_oGCDPooling_Only = 17037,
-
-		[ParentCombo(SMN_DemiEgiMenu_SwiftcastEgi)]
-		[CustomComboInfo("Use only on Single Target combo", "Prevent this from applying to the AoE combo", SMN.JobID, 2, "", "")]
-		SMN_DemiEgiMenu_SwiftcastEgi_Only = 17038,
-
-		[ParentCombo(SMN_ESPainflare)]
-		[CustomComboInfo("Ruin IV Painflare", "Changes Painflare to Ruin IV when out of Aetherflow stacks, Energy Siphon is on cooldown, and Ruin IV is up", SMN.JobID)]
-		SMN_ESPainflare_Ruin4 = 17039,
-
-		[ParentCombo(SMN_Advanced_Combo)]
-		[CustomComboInfo("Add Egi Astralflow", "Choose which Egi Astralflows to add to the rotation", SMN.JobID, 0, "", "")]
-		SMN_ST_Egi_AstralFlow = 17048,
-
-		[ConflictingCombos(SMN_Advanced_Combo)]
-		[ReplaceSkill(SMN.Ruin, SMN.Ruin2, SMN.Outburst, SMN.Tridisaster)]
-		[CustomComboInfo("Simple Summoner", "General purpose one-button combo.\nBursts on Bahamut phase.\nSummons Titan, Garuda, then Ifrit.\nSwiftcasts on Slipstream unless drifted", SMN.JobID, -1, "", "")]
-		SMN_Simple_Combo = 17041,
-
-		[ParentCombo(SMN_DemiEgiMenu_oGCDPooling)]
-		[CustomComboInfo("Burst Delay", "Only follows Burst Delay settings for the opener burst.\nThis is for high SPS builds", SMN.JobID, 2, "", "")]
-		SMN_Advanced_Burst_Delay_Option = 17043,
-
-		[ParentCombo(SMN_DemiEgiMenu_oGCDPooling)]
-		[CustomComboInfo("Any Searing Burst", "Checks for any Searing light for bursting rather than just your own.\nUse this if partied with multiple SMN and are worried about your Searing being overwritten", SMN.JobID, 1, "", "")]
-		SMN_Advanced_Burst_Any_Option = 17044,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", SMN.JobID)]
-		SMN_Variant_Rampart = 17045,
-
-		[Variant]
-		[CustomComboInfo("Raise", "Turn Swiftcast into Variant Raise whenever you have the Swiftcast buff", SMN.JobID)]
-		SMN_Variant_Raise = 17046,
-
-		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", SMN.JobID)]
-		SMN_Variant_Cure = 17047,
-
-		#endregion
-
-		#endregion
-
-		#region Healers
-
-		#region ASTROLOGIAN - 1000
+		#region PICTOMANCER - 20000
 
 		#region Single Target DPS
 
-		[ReplaceSkill(AST.Malefic, AST.Malefic2, AST.Malefic3, AST.Malefic4, AST.FallMalefic, AST.Combust, AST.Combust2, AST.Combust3, AST.Gravity, AST.Gravity2)]
-		[CustomComboInfo("Single Target DPS", "", AST.JobID)]
-		AST_ST_DPS = 1000,
+		[ReplaceSkill(PCT.FireInRed)]
+		[CustomComboInfo("Single Target DPS", "", PCT.JobID)]
+		PCT_ST_Adv = 20010,
 
-		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("Combust", "", AST.JobID)]
-		AST_ST_DPS_CombustUptime = 1001,
+		[ParentCombo(PCT_ST_Adv)]
+		[CustomComboInfo("Rainbow Drip", "", PCT.JobID)]
+		PCT_ST_RainbowDrip = 20014,
 
-		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("Card Draw", "", AST.JobID)]
-		AST_ST_DPS_AutoDraw = 1006,
+		[ParentCombo(PCT_ST_Adv)]
+		[CustomComboInfo("Paint Overcap Protection", "", PCT.JobID)]
+		PCT_ST_Comet_OP = 20013,
 
-		[ParentCombo(AST_ST_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
-		AST_ST_DPS_Lucid = 1004,
+		[ParentCombo(PCT_ST_Adv)]
+		[CustomComboInfo("Subtractive Palette Overcap Protection", "", PCT.JobID)]
+		PCT_ST_Subtractive_OP = 20012,
+
+		[ParentCombo(PCT_ST_Adv)]
+		[CustomComboInfo("Lucid Dreaming", "", PCT.JobID)]
+		PCT_ST_Lucid = 20011,
 
 		#endregion
 
 		#region AoE DPS
 
-		[ReplaceSkill(AST.Gravity, AST.Gravity2)]
-		[CustomComboInfo("AoE DPS", "", AST.JobID)]
-		AST_AoE_DPS = 1010,
+		[ReplaceSkill(PCT.FireIIinRed)]
+		[CustomComboInfo("AoE DPS", "", PCT.JobID)]
+		PCT_AoE_Adv = 20030,
 
-		[ParentCombo(AST_AoE_DPS)]
-		[CustomComboInfo("Card Draw", "", AST.JobID)]
-		AST_AoE_DPS_AutoDraw = 1011,
+		[ParentCombo(PCT_AoE_Adv)]
+		[CustomComboInfo("Rainbow Drip", "", PCT.JobID)]
+		PCT_AoE_RainbowDrip = 20034,
 
-		[ParentCombo(AST_AoE_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", AST.JobID)]
-		AST_AoE_DPS_Lucid = 1012,
+		[ParentCombo(PCT_AoE_Adv)]
+		[CustomComboInfo("Paint Overcap Protection", "", PCT.JobID)]
+		PCT_AoE_Comet_OP = 20033,
 
-		#endregion
+		[ParentCombo(PCT_AoE_Adv)]
+		[CustomComboInfo("Subtractive Palette Overcap Protection", "", PCT.JobID)]
+		PCT_AoE_Subtractive_OP = 20032,
 
-		#region Single Target Heals
-
-		[ReplaceSkill(AST.Benefic2)]
-		[CustomComboInfo("Single Target Heals", "", AST.JobID)]
-		AST_ST_SimpleHeals = 1020,
-
-		[ParentCombo(AST_ST_SimpleHeals)]
-		[CustomComboInfo("Aspected Benefic", "", AST.JobID)]
-		AST_ST_SimpleHeals_AspectedBenefic = 1023,
+		[ParentCombo(PCT_AoE_Adv)]
+		[CustomComboInfo("Lucid Dreaming", "", PCT.JobID)]
+		PCT_AoE_Lucid = 20031,
 
 		#endregion
 
 		#region Utility
 
-		[ReplaceSkill(AST.Benefic2)]
-		[CustomComboInfo("Benefic II Sync", "", AST.JobID)]
-		AST_Benefic = 1050,
+		[ReplaceSkill(PCT.HolyInWhite)]
+		[CustomComboInfo("White & Black Paint", "", PCT.JobID)]
+		PCT_Paint = 20053,
 
-		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Swiftcast > Raise", "", AST.JobID)]
-		AST_Raise_Alternative = 1060,
+		[ReplaceSkill(PCT.SubtractivePalette)]
+		[CustomComboInfo("Subtractive to Comet In Black", "", PCT.JobID)]
+		PCT_SubPaint_OP = 20054,
 
-		[ReplaceSkill(AST.Lightspeed)]
-		[CustomComboInfo("Lightspeed Overwrite Protection", "", AST.JobID)]
-		AST_Lightspeed_Protection = 1061,
+		[ReplaceSkill(PCT.CreatureMotif, PCT.WeaponMotif)]
+		[CustomComboInfo("Creature and Weapon One Button Motifs", "", PCT.JobID)]
+		PCT_CreatureWeapon = 20051,
 
-		[ReplaceSkill(AST.Play1, AST.Play2, AST.Play3)]
-		[CustomComboInfo("Astral/Umbral Draw Cooldown on Play I/II/III", "", AST.JobID)]
-		AST_DrawCooldown = 1062,
+		[ReplaceSkill(PCT.LandscapeMotif)]
+		[CustomComboInfo("Landscape One Button Motif", "", PCT.JobID)]
+		PCT_Landscape = 20052,
 
 		#endregion
 
 		#region Variant
 
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", AST.JobID)]
-		AST_Variant_SpiritDart = 1080,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "", AST.JobID)]
-		AST_Variant_Rampart = 1081,
-
 		#endregion
 
 		#endregion
 
-		#region SAGE - 14000
+		#region BLUE MAGE - 70000
 
-		#region Single Target DPS
+		[ReplaceSkill(BLU.MoonFlute)]
+		[BlueInactive(BLU.Whistle, BLU.Tingle, BLU.RoseOfDestruction, BLU.MoonFlute, BLU.JKick, BLU.TripleTrident, BLU.Nightbloom, BLU.WingedReprobation, BLU.SeaShanty, BLU.BeingMortal, BLU.ShockStrike, BLU.Surpanakha, BLU.MatraMagic, BLU.PhantomFlurry, BLU.Bristle, BLU.FeatherRain)]
+		[ConflictingCombos(BLU_Explode, BLU_TripleTrident, BLU_DoTs)]
+		[CustomComboInfo("Moon Flute Combo", "Turns Moon Flute into a full opener\nUse the remaining 2 charges of Winged Reprobation before starting the opener again!\nCan be done with 2.50 spell speed", BLU.JobID, 1)]
+		BLU_MoonFluteOpener = 70001,
 
-		[ReplaceSkill(SGE.Dosis, SGE.Dosis2, SGE.Dosis3)]
-		[CustomComboInfo("Single Target DPS", "", SGE.JobID)]
-		SGE_ST_DPS = 14001,
+		[BlueInactive(BLU.BreathOfMagic, BLU.MortalFlame)]
+		[ParentCombo(BLU_MoonFluteOpener)]
+		[CustomComboInfo("DoT Alternative", "Only have 1 DoT active (Breath of Magic OR Mortal Flame)\nRequires 2.20 spell speed or faster", BLU.JobID)]
+		BLU_MoonFluteOpener_DoTOpener = 70002,
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Eukrasian Dosis", "", SGE.JobID)]
-		SGE_ST_DPS_EDosis = 14003,
+		#region Combos
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Phlegma", "", SGE.JobID)]
-		SGE_ST_DPS_Phlegma = 14005,
+		[BlueInactive(BLU.Whistle, BLU.Offguard, BLU.Tingle, BLU.BasicInstinct, BLU.MoonFlute, BLU.FinalSting)]
+		[ReplaceSkill(BLU.FinalSting)]
+		[ConflictingCombos(BLU_TripleTrident, BLU_DoTs)]
+		[CustomComboInfo("Final Sting Combo", "Whistle > Off-guard > Tingle > [Basic Instinct] > Moon Flute > Swiftcast > Final Sting", BLU.JobID)]
+		BLU_Sting = 70011,
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Soteria", "", SGE.JobID)]
-		SGE_ST_DPS_Soteria = 14010,
+		[BlueInactive(BLU.ToadOil, BLU.Bristle, BLU.MoonFlute, BLU.SelfDestruct)]
+		[ReplaceSkill(BLU.SelfDestruct)]
+		[ConflictingCombos(BLU_MoonFluteOpener, BLU_TripleTrident, BLU_DoTs)]
+		[CustomComboInfo("Self-destruct Combo", "Toad Oil > Bristle > Moon Flute > Self-destruct", BLU.JobID)]
+		BLU_Explode = 70012,
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
-		SGE_ST_DPS_Rhizo = 14007,
+		[BlueInactive(BLU.Whistle, BLU.Tingle, BLU.TripleTrident)]
+		[ReplaceSkill(BLU.TripleTrident)]
+		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
+		[CustomComboInfo("Triple Trident Combo", "Whistle > Tingle > Triple Trident", BLU.JobID)]
+		BLU_TripleTrident = 70013,
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Psych", "", SGE.JobID)]
-		SGE_ST_DPS_Psyche = 14008,
+		[BlueInactive(BLU.Bristle, BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment)]
+		[ReplaceSkill(BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment)]
+		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
+		[CustomComboInfo("Buffed Breath of Magic, Mortal Flame, and Song of Torment", "Bristle > Breath of Magic > Bristle > Mortal Flame > Bristle > Song of Torment", BLU.JobID)]
+		BLU_DoTs = 70014,
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Kardia Reminder", "", SGE.JobID)]
-		SGE_ST_DPS_Kardia = 14006,
+		[BlueInactive(BLU.RamsVoice, BLU.Ultravibration)]
+		[ReplaceSkill(BLU.Ultravibration)]
+		[CustomComboInfo("Vibe Check", "Ram's Voice > Ultravibration", BLU.JobID)]
+		BLU_Ultravibration = 70010,
 
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
-		SGE_ST_DPS_AddersgallProtect = 14009,
-
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Movement Options", "", SGE.JobID)]
-		SGE_ST_DPS_Movement = 14004,
-
-		[ParentCombo(SGE_ST_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
-		SGE_ST_DPS_Lucid = 14002,
-
-		#endregion
-
-		#region AoE DPS
-
-		[ReplaceSkill(SGE.Dyskrasia, SGE.Dyskrasia2)]
-		[CustomComboInfo("AoE DPS", "", SGE.JobID)]
-		SGE_AoE_DPS = 14020,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Eukrasian Dyskrasia", "", SGE.JobID)]
-		SGE_AoE_DPS_EDyskrasia = 14024,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Phlegma", "", SGE.JobID)]
-		SGE_AoE_DPS_Phlegma = 14021,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Soteria", "", SGE.JobID)]
-		SGE_AoE_DPS_Soteria = 14028,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Rhizomata", "", SGE.JobID)]
-		SGE_AoE_DPS_Rhizo = 14026,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Psyche", "", SGE.JobID)]
-		SGE_AoE_DPS_Psyche = 14023,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Addersgall Overflow Protection", "", SGE.JobID)]
-		SGE_AoE_DPS_AddersgallProtect = 14027,
-
-		[ParentCombo(SGE_AoE_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", SGE.JobID)]
-		SGE_AoE_DPS_Lucid = 14025,
+		[BlueInactive(BLU.PeripheralSynthesis, BLU.MustardBomb)]
+		[ReplaceSkill(BLU.MustardBomb)]
+		[CustomComboInfo("Bomb Combo", "Peripheral Synthesis > Mustard Bomb", BLU.JobID)]
+		BLU_Periph = 70015,
 
 		#endregion
 
 		#region Utility
 
-		[ReplaceSkill(SGE.Egeiro)]
-		[CustomComboInfo("Swiftcast > Raise", "", SGE.JobID)]
-		SGE_Raise = 14080,
-
-		[ReplaceSkill(SGE.Kerachole, SGE.Panhaima, SGE.Philosophia)]
-		[CustomComboInfo("Spell Overlap Protection", "", SGE.JobID)]
-		SGE_OverProtect = 14083,
-
-		#endregion
-
-		#region Variant
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", SGE.JobID)]
-		SGE_DPS_Variant_SpiritDart = 14100,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "", SGE.JobID)]
-		SGE_DPS_Variant_Rampart = 14101,
-
-		#endregion
-
-		#endregion
-
-		#region SCHOLAR - 16000
-
-		#region Single Target DPS
-
-		[ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
-		[CustomComboInfo("Single Target DPS", "", SCH.JobID)]
-		SCH_DPS = 16001,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Bio", "", SCH.JobID)]
-		SCH_DPS_Bio = 16008,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
-		SCH_DPS_Aetherflow = 16004,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
-		SCH_ST_DPS_EnergyDrain = 16005,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Dissipation", "", SCH.JobID)]
-		SCH_DPS_Dissipation = 16009,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Aetherpact", "", SCH.JobID)]
-		SCH_DPS_Aetherpact = 16011,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Seraph", "", SCH.JobID)]
-		SCH_DPS_Seraph = 16012,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Chain Stratagem / Baneful Impact", "", SCH.JobID)]
-		SCH_DPS_ChainStrat = 16003,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Ruin II Movement", "", SCH.JobID)]
-		SCH_DPS_Ruin2Movement = 16007,
-
-		[ParentCombo(SCH_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
-		SCH_DPS_Lucid = 16002,
-
-		#endregion
-
-		#region AoE DPS
-
-		[ReplaceSkill(SCH.ArtOfWar, SCH.ArtOfWarII)]
-		[CustomComboInfo("AoE DPS", "", SCH.JobID)]
-		SCH_AoE = 16020,
-
-		[ParentCombo(SCH_AoE)]
-		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
-		SCH_AoE_Aetherflow = 16022,
-
-		[ParentCombo(SCH_AoE)]
-		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
-		SCH_AoE_DPS_EnergyDrain = 16023,
-
-		[ParentCombo(SCH_AoE)]
-		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
-		SCH_AoE_Lucid = 16021,
-
-		#endregion
-
-		#region Utility
-
-		[ReplaceSkill(SCH.Resurrection)]
-		[CustomComboInfo("Swiftcast > Raise", "", SCH.JobID)]
-		SCH_Raise = 16059,
-
-		[ReplaceSkill(SCH.Lustrate)]
-		[CustomComboInfo("Lustrate > Excogitation", "", SCH.JobID)]
-		SCH_Lustrate = 16051,
-
-		[ReplaceSkill(SCH.WhisperingDawn, SCH.FeyBlessing, SCH.Aetherpact, SCH.Dissipation)]
-		[CustomComboInfo("Ensure Fairy", "", SCH.JobID)]
-		SCH_FairyReminder = 16060,
-
-		#endregion
-
-		#region Variant
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", SCH.JobID)]
-		SCH_DPS_Variant_SpiritDart = 16070,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "", SCH.JobID)]
-		SCH_DPS_Variant_Rampart = 16071,
-
-		#endregion
-
-		#endregion
-
-		#region WHITE MAGE - 19000
-
-		#region Single Target DPS
-
-		[ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
-		[CustomComboInfo("Single Target DPS", "", WHM.JobID)]
-		WHM_ST_DPS = 19001,
-
-		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Dia", "", WHM.JobID)]
-		WHM_ST_DPS_DoT = 19003,
-
-		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
-		WHM_ST_DPS_PresenceOfMind = 19009,
-
-		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_ST_DPS_Misery = 19006,
-
-		[ParentCombo(WHM_ST_DPS_Misery)]
-		[CustomComboInfo("Save Misery", "", WHM.JobID)]
-		WHM_ST_DPS_Misery_Save = 19007,
-
-		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Glare IV", "", WHM.JobID)]
-		WHM_ST_DPS_GlareIV = 19005,
-
-		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
-		WHM_ST_DPS_LilyOvercap = 19008,
-
-		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
-		WHM_ST_DPS_Lucid = 19010,
-
-		#endregion
-
-		#region AoE DPS
-
-		[ReplaceSkill(WHM.Holy, WHM.Holy3)]
-		[CustomComboInfo("AoE DPS", "", WHM.JobID)]
-		WHM_AoE_DPS = 19020,
-
-		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Presence of Mind", "", WHM.JobID)]
-		WHM_AoE_DPS_PresenceOfMind = 19026,
-
-		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_AoE_DPS_Misery = 19023,
-
-		[ParentCombo(WHM_AoE_DPS_Misery)]
-		[CustomComboInfo("Save Misery", "", WHM.JobID)]
-		WHM_AoE_DPS_Misery_Save = 19024,
-
-		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Glare IV", "", WHM.JobID)]
-		WHM_AoE_DPS_GlareIV = 19022,
-
-		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Lily Overcap Protection", "", WHM.JobID)]
-		WHM_AoE_DPS_LilyOvercap = 19025,
-
-		[ParentCombo(WHM_AoE_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "", WHM.JobID)]
-		WHM_AoE_DPS_Lucid = 19027,
-
-		#endregion
-
-		#region Single Target Heals
-
-		[ReplaceSkill(WHM.Cure)]
-		[CustomComboInfo("Single Target Heals", "", WHM.JobID)]
-		WHM_ST_Heals = 19030,
-
-		[ParentCombo(WHM_ST_Heals)]
-		[CustomComboInfo("Tetragrammaton", "", WHM.JobID)]
-		WHM_ST_Heals_Tetragrammaton = 19036,
-
-		[ParentCombo(WHM_ST_Heals)]
-		[CustomComboInfo("Afflatus Solace", "", WHM.JobID)]
-		WHM_ST_Heals_Solace = 19033,
-
-		[ParentCombo(WHM_ST_Heals)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_ST_Heals_Misery = 19034,
-
-		[ParentCombo(WHM_ST_Heals)]
-		[CustomComboInfo("Regen", "", WHM.JobID)]
-		WHM_ST_Heals_Regen = 19031,
-
-		[ParentCombo(WHM_ST_Heals)]
-		[CustomComboInfo("Thin Air", "", WHM.JobID)]
-		WHM_ST_Heals_ThinAir = 19035,
-
-		#endregion
-
-		#region AoE Heals
-
-		[ReplaceSkill(WHM.Medica1, WHM.Medica2, WHM.Medica3)]
-		[CustomComboInfo("AoE Heals", "", WHM.JobID)]
-		WHM_AoE_Heals = 19050,
-
-		[ParentCombo(WHM_AoE_Heals)]
-		[CustomComboInfo("Plenary Indulgence", "", WHM.JobID)]
-		WHM_AoE_Heals_Plenary = 19056,
-
-		[ParentCombo(WHM_AoE_Heals)]
-		[CustomComboInfo("Afflatus Rapture", "", WHM.JobID)]
-		WHM_AoE_Heals_Rapture = 19051,
-
-		[ParentCombo(WHM_AoE_Heals)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
-		WHM_AoE_Heals_Misery = 19052,
-
-		[ParentCombo(WHM_AoE_Heals)]
-		[CustomComboInfo("Thin Air", "", WHM.JobID)]
-		WHM_AoE_Heals_ThinAir = 19053,
-
-		[ParentCombo(WHM_AoE_Heals)]
-		[CustomComboInfo("Medica II/III", "", WHM.JobID)]
-		WHM_AoEHeals_Medica2 = 19058,
-
-		[ParentCombo(WHM_AoE_Heals)]
-		[CustomComboInfo("Cure III", "", WHM.JobID)]
-		WHM_AoE_Heals_Cure3 = 19054,
-
-		#endregion
-
-		#region Utility
-
-		[ReplaceSkill(WHM.Cure2)]
-		[CustomComboInfo("Cure II Sync", "", WHM.JobID)]
-		WHM_CureSync = 19072,
-
-		[ReplaceSkill(WHM.Raise)]
-		[CustomComboInfo("Swiftcast > Raise", "", WHM.JobID)]
-		WHM_Raise = 19073,
-
-		#endregion
-
-		#region Variant
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", WHM.JobID)]
-		WHM_DPS_Variant_SpiritDart = 19080,
-
-		[Variant]
-		[CustomComboInfo("Rampart", "", WHM.JobID)]
-		WHM_DPS_Variant_Rampart = 19081,
-
-		#endregion
-
-		#endregion
-
-		#endregion
-
-		#region Tanks
-
-		#region DARK KNIGHT - 5000
-
-		[ReplaceSkill(DRK.Souleater)]
-		[CustomComboInfo("Souleater Combo", "Replace Souleater with its combo chain", DRK.JobID)]
-		DRK_ST_Combo = 5001,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Delirium/Blood Weapon", "Adds Delirium/Blood Weapon to main combo on cooldown and when Darkside is active", DRK.JobID)]
-		DRK_ST_Delirium = 5002,
-
-		[ParentCombo(DRK_ST_Delirium)]
-		[CustomComboInfo("Torcleaver", "Adds the Torcleaver chain when Delirium is activated", DRK.JobID)]
-		DRK_ST_Delirium_Chain = 5003,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("oGCDs", "Collection of abilities to add to the main combo. All of these require Darkside to be active", DRK.JobID)]
-		DRK_ST_CDs = 5004,
-
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Carve and Spit", "", DRK.JobID)]
-		DRK_ST_CDs_CarveAndSpit = 5005,
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Salted Earth", "Will also use Salt and Darkness", DRK.JobID)]
-		DRK_ST_CDs_SaltedEarth = 5006,
-
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Living Shadow", "", DRK.JobID)]
-		DRK_ST_CDs_LivingShadow = 5007,
-
-		[ParentCombo(DRK_ST_CDs_LivingShadow)]
-		[CustomComboInfo("Disesteem", "", DRK.JobID)]
-		DRK_ST_CDs_Disesteem = 5008,
-
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Shadowbringer", "Uses on cooldown", DRK.JobID)]
-		DRK_ST_CDs_Shadowbringer = 5009,
-
-		[ParentCombo(DRK_ST_CDs_Shadowbringer)]
-		[CustomComboInfo("Shadowbringer Burst", "Pools Shadowbringer to use during burst windows", DRK.JobID)]
-		DRK_ST_CDs_ShadowbringerBurst = 5010,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Blood Gauge Overcap Protection", "Adds Bloodspiller when at or above chosen amount", DRK.JobID)]
-		DRK_ST_BloodOvercap = 5011,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Edge of Shadow Overcap Protection", "Uses Edge of Shadow if you are above chosen amount of MP, Darkside has chosen amount of time remaining, or if you have Dark Arts", DRK.JobID)]
-		DRK_ST_ManaOvercap = 5012,
-
-		[ParentCombo(DRK_ST_ManaOvercap)]
-		[CustomComboInfo("Edge of Shadow Burst", "Pools Edge of Shadow for burst windows. Otherwise, uses it until chosen MP limit is reached", DRK.JobID)]
-		DRK_ST_ManaSpenderPooling = 5013,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Unmend Uptime", "Use Unmend when out of melee range", DRK.JobID)]
-		DRK_ST_RangedUptime = 5014,
-
-		[ReplaceSkill(DRK.StalwartSoul)]
-		[CustomComboInfo("Stalwart Soul Combo", "Replace Stalwart Soul with its combo chain", DRK.JobID)]
-		DRK_AoE_Combo = 5100,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Delirium/Blood Weapon", "Adds Delirium/Blood Weapon to AoE combo on cooldown and when Darkside is active", DRK.JobID)]
-		DRK_AoE_Delirium = 5101,
-
-		[ParentCombo(DRK_AoE_Delirium)]
-		[CustomComboInfo("Impalement", "Adds all Impalement uses when Delirium is activated", DRK.JobID)]
-		DRK_AoE_Delirium_Chain = 5102,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("oGCDs", "Collection of abilities to add to the AoE combo. All of these require Darkside to be active", DRK.JobID)]
-		DRK_AoE_CDs = 5103,
-
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Abyssal Drain", "Use Abyssal Drain when you fall below the chosen HP%", DRK.JobID)]
-		DRK_AoE_CDs_AbyssalDrain = 5104,
-
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Salted Earth", "Will also use Salt and Darkness", DRK.JobID)]
-		DRK_AoE_CDs_SaltedEarth = 5105,
-
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Living Shadow", "", DRK.JobID)]
-		DRK_AoE_CDs_LivingShadow = 5106,
-
-		[ParentCombo(DRK_AoE_CDs_LivingShadow)]
-		[CustomComboInfo("Disesteem", "", DRK.JobID)]
-		DRK_AoE_CDs_Disesteem = 5107,
-
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Shadowbringer", "", DRK.JobID)]
-		DRK_AoE_CDs_Shadowbringer = 5108,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Blood Gauge Overcap Protection", "Adds Quietus when at or above chosen amount", DRK.JobID)]
-		DRK_AoE_BloodOvercap = 5109,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Flood of Shadow Overcap Protection", "Uses Flood of Shadow if you are above chosen amount of MP, Darkside has chosen amount of time remaining, or if you have Dark Arts", DRK.JobID)]
-		DRK_AoE_ManaOvercap = 5110,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Flood of Shadow Uptime", "Use Flood of Shadow when out of melee range", DRK.JobID)]
-		DRK_AoE_FloodUptime = 5111,
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", DRK.JobID)]
-		DRK_Variant_SpiritDart = 5200,
-
-		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRK.JobID)]
-		DRK_Variant_Cure = 5201,
-
-		[Variant]
-		[CustomComboInfo("Ultimatum", "Use Variant Ultimatum on cooldown", DRK.JobID)]
-		DRK_Variant_Ultimatum = 5202,
-
-		#endregion
-
-		#region GUNBREAKER - 7000
-
-		#region Single Target
-
-		[ReplaceSkill(GNB.KeenEdge)]
-		[CustomComboInfo("Single Target", "", GNB.JobID)]
-		GNB_ST_MainCombo = 7001,
-
-		[ParentCombo(GNB_ST_MainCombo)]
-		[CustomComboInfo("Burst Strike", "", GNB.JobID)]
-		GNB_ST_Burst = 7002,
-
-		[ParentCombo(GNB_ST_MainCombo)]
-		[CustomComboInfo("Gnashing Fang", "", GNB.JobID)]
-		GNB_ST_Gnashing = 7003,
-
-		[ParentCombo(GNB_ST_MainCombo)]
-		[CustomComboInfo("Reign Combo", "", GNB.JobID)]
-		GNB_ST_Reign = 7004,
-
-		#endregion
-
-		#region AoE
-
-		[ReplaceSkill(GNB.DemonSlice)]
-		[CustomComboInfo("AoE", "", GNB.JobID)]
-		GNB_AoE_MainCombo = 7300,
-
-		[ParentCombo(GNB_AoE_MainCombo)]
-		[CustomComboInfo("Fated Circle", "", GNB.JobID)]
-		GNB_AOE_Overcap = 7307,
-
-		#endregion
-
-		#region Utility
-
-		[CustomComboInfo("Aurora Protection", "", GNB.JobID)]
-		GNB_AuroraProtection = 7700,
-
-		#endregion
-
-		#region Variant
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", GNB.JobID)]
-		GNB_Variant_SpiritDart = 7033,
-
-		[Variant]
-		[CustomComboInfo("Cure", "", GNB.JobID)]
-		GNB_Variant_Cure = 7034,
-
-		[Variant]
-		[CustomComboInfo("Ultimatum", "", GNB.JobID)]
-		GNB_Variant_Ultimatum = 7035,
-
-		#endregion
-
-		#endregion
-
-		#region PALADIN - 11000
-
-		#region Single Target
-
-		[ReplaceSkill(PLD.FastBlade)]
-		[CustomComboInfo("Single Target", "", PLD.JobID, 1)]
-		PLD_ST_AdvancedMode = 11002,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Fight or Flight", "", PLD.JobID, 0)]
-		PLD_ST_AdvancedMode_FoF = 11003,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Circle of Scorn", "", PLD.JobID, 1)]
-		PLD_ST_AdvancedMode_CircleOfScorn = 11005,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Spirits Within", "", PLD.JobID, 1)]
-		PLD_ST_AdvancedMode_SpiritsWithin = 11006,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Sheltron", "", PLD.JobID, 3)]
-		PLD_ST_AdvancedMode_Sheltron = 11007,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Holy Spirit", "", PLD.JobID, 8)]
-		PLD_ST_AdvancedMode_HolySpirit = 11009,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Intervene", "", PLD.JobID, 5)]
-		PLD_ST_AdvancedMode_Intervene = 11011,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Atonement", "", PLD.JobID, 9)]
-		PLD_ST_AdvancedMode_Atonement = 11012,
-
-		#endregion
-
-		#region AoE
-
-		[ReplaceSkill(PLD.TotalEclipse)]
-		[CustomComboInfo("AoE", "", PLD.JobID, 2)]
-		PLD_AoE_AdvancedMode = 11015,
-
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Fight or Flight", "", PLD.JobID, 0)]
-		PLD_AoE_AdvancedMode_FoF = 11016,
-
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Spirits Within", "", PLD.JobID, 1)]
-		PLD_AoE_AdvancedMode_SpiritsWithin = 11017,
-
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Circle of Scorn", "", PLD.JobID, 2)]
-		PLD_AoE_AdvancedMode_CircleOfScorn = 11018,
-
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Holy Circle", "", PLD.JobID, 5)]
-		PLD_AoE_AdvancedMode_HolyCircle = 11020,
-
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Sheltron", "", PLD.JobID, 3)]
-		PLD_AoE_AdvancedMode_Sheltron = 11023,
-
-		#endregion
-
-		#region Utility
-
-		[ReplaceSkill(PLD.SpiritsWithin, PLD.Expiacion)]
-		[CustomComboInfo("Spirits Within / Circle of Scorn", "", PLD.JobID, 3)]
-		PLD_SpiritsWithin = 11025,
-
-		[ReplaceSkill(PLD.Requiescat)]
-		[CustomComboInfo("Requiescat Spender", "", PLD.JobID, 4)]
-		PLD_Requiescat_Options = 11024,
-
-		#endregion
-
-		#region Variant
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", PLD.JobID)]
-		PLD_Variant_SpiritDart = 11030,
-
-		[Variant]
-		[CustomComboInfo("Cure", "", PLD.JobID)]
-		PLD_Variant_Cure = 11031,
-
-		[Variant]
-		[CustomComboInfo("Ultimatum", "", PLD.JobID)]
-		PLD_Variant_Ultimatum = 11032,
-
-		#endregion
-
-		#endregion
-
-		#region WARRIOR - 18000
-
-		#region Single Target
-
-		[ReplaceSkill(WAR.StormsPath)]
-		[CustomComboInfo("Single Target DPS", "asfasf", WAR.JobID)]
-		WAR_ST_StormsPath = 18000,
-
-		[ParentCombo(WAR_ST_StormsPath)]
-		[CustomComboInfo("Storm's Eye", "", WAR.JobID)]
-		WAR_ST_StormsPath_StormsEye = 18023,
-
-		[ParentCombo(WAR_ST_StormsPath)]
-		[CustomComboInfo("Upheaval", "", WAR.JobID)]
-		WAR_ST_StormsPath_Upheaval = 18007,
-
-		[ParentCombo(WAR_ST_StormsPath)]
-		[CustomComboInfo("Fell Cleave", "", WAR.JobID)]
-		WAR_ST_StormsPath_FellCleave = 18012,
-
-		[ParentCombo(WAR_ST_StormsPath)]
-		[CustomComboInfo("Inner Release", "", WAR.JobID)]
-		WAR_ST_StormsPath_InnerRelease = 18020,
-
-		#endregion
-
-		#region AoE
-
-		[ReplaceSkill(WAR.Overpower)]
-		[CustomComboInfo("AoE DPS", "", WAR.JobID)]
-		WAR_AoE_Overpower = 18002,
-
-		[ParentCombo(WAR_AoE_Overpower)]
-		[CustomComboInfo("Orogeny", "", WAR.JobID)]
-		WAR_AoE_Overpower_Orogeny = 18010,
-
-		[ParentCombo(WAR_AoE_Overpower)]
-		[CustomComboInfo("Decimate", "", WAR.JobID)]
-		WAR_AoE_Overpower_Decimate = 18029,
-
-		[ParentCombo(WAR_AoE_Overpower)]
-		[CustomComboInfo("Inner Release", "", WAR.JobID)]
-		WAR_AoE_Overpower_InnerRelease = 18015,
-
-		#endregion
-
-		#region Utility
-
-		[ReplaceSkill(WAR.FellCleave, WAR.Decimate)]
-		[CustomComboInfo("Infuriate on Fell Cleave / Decimate", "", WAR.JobID)]
-		WAR_InfuriateFellCleave = 18031,
-
-		[ParentCombo(WAR_InfuriateFellCleave)]
-		[CustomComboInfo("Inner Release Priority", "Prevents the use of Infuriate while you have Inner Release stacks available", WAR.JobID)]
-		WAR_InfuriateFellCleave_IRFirst = 18022,
-
-		#endregion
-
-		#region Variant
-
-		[Variant]
-		[CustomComboInfo("Spirit Dart", "", WAR.JobID)]
-		WAR_Variant_SpiritDart = 18026,
-
-		[Variant]
-		[CustomComboInfo("Cure", "", WAR.JobID)]
-		WAR_Variant_Cure = 18027,
-
-		[Variant]
-		[CustomComboInfo("Ultimatum", "", WAR.JobID)]
-		WAR_Variant_Ultimatum = 18028,
+		[BlueInactive(BLU.GoblinPunch, BLU.MightyGuard, BLU.ToadOil, BLU.Devour, BLU.PeatPelt, BLU.DeepClean)]
+		[ReplaceSkill(BLU.GoblinPunch)]
+		[CustomComboInfo("Tank Combo", "Mighty Guard, Toad Oil, and Devour Checks, then Peat Pelt and Deep Clean combo", BLU.JobID)]
+		BLU_Tanking = 70030,
+
+		[BlueInactive(BLU.GoblinPunch, BLU.BloodDrain)]
+		[ReplaceSkill(BLU.GoblinPunch)]
+		[CustomComboInfo("Blood Drain over Goblin Punch when below specified MP", "", BLU.JobID)]
+		BLU_ManaGain = 70031,
+
+		[BlueInactive(BLU.GoblinPunch, BLU.Gobskin, BLU.Pomcure)]
+		[ReplaceSkill(BLU.GoblinPunch)]
+		[CustomComboInfo("Auto Gobskin and Pomcure", "Great for soloing treasure maps", BLU.JobID)]
+		BLU_TreasureMappin = 70034,
+
+		[BlueInactive(BLU.SonicBoom, BLU.GoblinPunch, BLU.ChocoMeteor)]
+		[ReplaceSkill(BLU.SonicBoom, BLU.GoblinPunch, BLU.ChocoMeteor)]
+		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", BLU.JobID)]
+		BLU_Lucid = 70032,
+
+		[BlueInactive(BLU.AngelWhisper)]
+		[ReplaceSkill(BLU.AngelWhisper)]
+		[CustomComboInfo("Swiftcast > Angel Whisper", "", BLU.JobID)]
+		BLU_Raise = 70033,
 
 		#endregion
 
