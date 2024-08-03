@@ -411,11 +411,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is PeripheralSynthesis or MustardBomb)
 				{
-					if (TargetHasEffectAny(Debuffs.MustardBomb))
-					{
-						return OriginalHook(11);
-					}
-					if (WasLastSpell(PeripheralSynthesis) || HasEffect(Buffs.Bristle))
+					if (WasLastSpell(PeripheralSynthesis) || HasEffect(Buffs.Bristle) || TargetHasEffectAny(Debuffs.MustardBomb))
 					{
 						return MustardBomb;
 					}
@@ -559,6 +555,14 @@ namespace StackCombo.Combos.PvE
 						Svc.ClientState.TerritoryType != 712 && Svc.ClientState.TerritoryType != 794)
 					{
 						return MightyGuard;
+					}
+					if (HasEffect(Buffs.PhantomFlurry))
+					{
+						if (GetBuffRemainingTime(Buffs.PhantomFlurry) <= 0.75f)
+						{
+							return OriginalHook(PhantomFlurry);
+						}
+						return OriginalHook(11);
 					}
 					if (Svc.ClientState.TerritoryType is 712 or 794)
 					{
