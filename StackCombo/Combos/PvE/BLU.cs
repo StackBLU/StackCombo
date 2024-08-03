@@ -88,6 +88,7 @@ namespace StackCombo.Combos.PvE
 				Offguard = 1717,
 				Bleeding = 1714,
 				Malodorous = 1715,
+				MustardBomb = 2499,
 				Conked = 2115,
 				Lightheaded = 2501,
 				MortalFlame = 3643,
@@ -374,7 +375,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is BreathOfMagic or MortalFlame or SongOfTorment) && !IsSpellActive(MoonFlute))
+				if ((actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic) && !IsSpellActive(MoonFlute))
 				{
 					if (!HasEffect(Buffs.Bristle))
 					{
@@ -392,6 +393,10 @@ namespace StackCombo.Combos.PvE
 					{
 						return SongOfTorment;
 					}
+					if (IsSpellActive(MatraMagic) && ActionReady(MatraMagic))
+					{
+						return MatraMagic;
+					}
 					return Bristle;
 				}
 				return actionID;
@@ -404,7 +409,19 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is MustardBomb ? WasLastSpell(PeripheralSynthesis) ? MustardBomb : PeripheralSynthesis : actionID;
+				if (actionID is PeripheralSynthesis or MustardBomb)
+				{
+					if (TargetHasEffectAny(Debuffs.MustardBomb))
+					{
+						return OriginalHook(11);
+					}
+					if (WasLastSpell(PeripheralSynthesis) || HasEffect(Buffs.Bristle))
+					{
+						return MustardBomb;
+					}
+					return PeripheralSynthesis;
+				}
+				return actionID;
 			}
 		}
 
@@ -414,11 +431,23 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Ultravibration
-					? TargetHasEffectAny(Debuffs.DeepFreeze) && IsOffCooldown(All.Swiftcast)
-						? All.Swiftcast
-						: TargetHasEffectAny(Debuffs.DeepFreeze) ? Ultravibration : RamsVoice
-					: actionID;
+				if (actionID is Ultravibration)
+				{
+					if (WasLastSpell(HydroPull))
+					{
+						return RamsVoice;
+					}
+					if (WasLastSpell(RamsVoice) && IsOffCooldown(All.Swiftcast))
+					{
+						return All.Swiftcast;
+					}
+					if (WasLastSpell(RamsVoice))
+					{
+						return Ultravibration;
+					}
+					return HydroPull;
+				}
+				return actionID;
 			}
 		}
 
@@ -526,14 +555,31 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is GoblinPunch)
 				{
-					if (Svc.DutyState.IsDutyStarted)
+					if (HasEffect(Buffs.MightyGuard) && !HasEffect(Buffs.TankMimicry) &&
+						Svc.ClientState.TerritoryType != 712 && Svc.ClientState.TerritoryType != 794)
 					{
+						return MightyGuard;
+					}
+					if (Svc.ClientState.TerritoryType is 712 or 794)
+					{
+						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin) && !IsInParty())
+						{
+							if (!HasEffect(Buffs.BasicInstinct))
+							{
+								return BasicInstinct;
+							}
+							if (!HasEffect(Buffs.MightyGuard))
+							{
+								return MightyGuard;
+							}
+						}
 						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin)
 							&& LocalPlayer.CurrentHp / (float)LocalPlayer.MaxHp <= (float)Config.BLU_TreasureMappinHP * 0.01f)
 						{
 							return Pomcure;
 						}
-						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin) && (!HasEffect(Buffs.Gobskin) || GetBuffRemainingTime(Buffs.Gobskin) < 3))
+						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin)
+							&& (!HasEffect(Buffs.Gobskin) || LocalPlayer.ShieldPercentage < 10))
 						{
 							return Gobskin;
 						}

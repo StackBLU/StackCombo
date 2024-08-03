@@ -2858,10 +2858,10 @@ namespace StackCombo.Combos
 		[CustomComboInfo("Triple Trident Combo", "Whistle > Tingle > Triple Trident", BLU.JobID)]
 		BLU_TripleTrident = 70013,
 
-		[BlueInactive(BLU.Bristle, BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment)]
-		[ReplaceSkill(BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment)]
+		[BlueInactive(BLU.Bristle, BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment, BLU.MatraMagic)]
+		[ReplaceSkill(BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment, BLU.MatraMagic)]
 		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
-		[CustomComboInfo("Buffed Breath of Magic, Mortal Flame, and Song of Torment", "Bristle > Breath of Magic > Bristle > Mortal Flame > Bristle > Song of Torment", BLU.JobID)]
+		[CustomComboInfo("Buffed Breath of Magic, Mortal Flame, Song of Torment, and Matra Magic", "Bristle > Breath of Magic > Bristle > Mortal Flame > Bristle > Song of Torment > Bristle > Matra Magic", BLU.JobID)]
 		BLU_DoTs = 70014,
 
 		[BlueInactive(BLU.RamsVoice, BLU.Ultravibration)]
@@ -2870,7 +2870,7 @@ namespace StackCombo.Combos
 		BLU_Ultravibration = 70010,
 
 		[BlueInactive(BLU.PeripheralSynthesis, BLU.MustardBomb)]
-		[ReplaceSkill(BLU.MustardBomb)]
+		[ReplaceSkill(BLU.PeripheralSynthesis, BLU.MustardBomb)]
 		[CustomComboInfo("Bomb Combo", "Peripheral Synthesis > Mustard Bomb", BLU.JobID)]
 		BLU_Periph = 70015,
 
