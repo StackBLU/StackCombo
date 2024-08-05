@@ -2791,7 +2791,7 @@ namespace StackCombo.Combos
 
 		[BlueInactive(BLU.RamsVoice, BLU.Ultravibration)]
 		[ReplaceSkill(BLU.Ultravibration)]
-		[CustomComboInfo("Vibe Check", "Ram's Voice > Ultravibration", BLU.JobID)]
+		[CustomComboInfo("Vibe Check", "Hydro Pull > Ram's Voice > Swiftcast > Ultravibration", BLU.JobID)]
 		BLU_Ultravibration = 70010,
 
 		[BlueInactive(BLU.PeripheralSynthesis, BLU.MustardBomb)]

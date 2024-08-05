@@ -341,7 +341,7 @@ namespace StackCombo.Combos.PvE
 					{
 						return Tingle;
 					}
-					if (!IsInParty() && !HasEffect(Buffs.BasicInstinct) && IsSpellActive(BasicInstinct) && actionID is FinalSting)
+					if (!HasEffect(Buffs.BasicInstinct) && IsSpellActive(BasicInstinct) && actionID is FinalSting)
 					{
 						return BasicInstinct;
 					}
