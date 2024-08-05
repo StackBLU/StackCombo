@@ -41,7 +41,6 @@ namespace StackCombo.Combos.PvE
 			public const ushort
 				BloodWeapon = 742,
 				Delirium = 3836,
-				Darkside = 741,
 				BlackestNight = 1178,
 				SaltedEarth = 749,
 				Scorn = 3837;
@@ -93,14 +92,18 @@ namespace StackCombo.Combos.PvE
 					if (CanWeave(actionID))
 					{
 						if (IsEnabled(CustomComboPreset.DRK_ST_Edge) && ActionReady(OriginalHook(EdgeOfShadow))
-							&& LocalPlayer.CurrentMp >= Config.DRK_ST_ManaSaver)
+							&& (LocalPlayer.CurrentMp >= GetOptionValue(Config.DRK_ST_ManaSaver) || Gauge.HasDarkArts))
 						{
 							return OriginalHook(EdgeOfShadow);
 						}
+						if (IsEnabled(CustomComboPreset.DRK_ST_Delirium) && ActionReady(OriginalHook(Delirium)))
+						{
+							return OriginalHook(Delirium);
+						}
 					}
 
-					if (IsEnabled(CustomComboPreset.DRK_ST_Bloodspiller) && ActionReady(OriginalHook(Bloodspiller)) && HasEffect(Buffs.Darkside)
-						&& (HasEffect(Buffs.Delirium) || HasEffect(Buffs.BloodWeapon) || Gauge.Blood >= Config.DRK_BloodspillerGauge))
+					if (IsEnabled(CustomComboPreset.DRK_ST_Bloodspiller) && ActionReady(OriginalHook(Bloodspiller)) && Gauge.DarksideTimeRemaining > 0
+						&& (HasEffect(Buffs.Delirium) || HasEffect(Buffs.BloodWeapon) || Gauge.Blood >= GetOptionValue(Config.DRK_BloodspillerGauge)))
 					{
 						return OriginalHook(Bloodspiller);
 					}
@@ -151,14 +154,18 @@ namespace StackCombo.Combos.PvE
 					if (CanWeave(actionID))
 					{
 						if (IsEnabled(CustomComboPreset.DRK_AoE_Flood) && ActionReady(OriginalHook(FloodOfShadow))
-							&& LocalPlayer.CurrentMp >= Config.DRK_AoE_ManaSaver)
+							&& LocalPlayer.CurrentMp >= GetOptionValue(Config.DRK_AoE_ManaSaver))
 						{
 							return OriginalHook(FloodOfShadow);
 						}
+						if (IsEnabled(CustomComboPreset.DRK_ST_Delirium) && ActionReady(OriginalHook(Delirium)))
+						{
+							return OriginalHook(Delirium);
+						}
 					}
 
-					if (IsEnabled(CustomComboPreset.DRK_AoE_Quietus) && ActionReady(OriginalHook(Quietus)) && HasEffect(Buffs.Darkside)
-						&& (HasEffect(Buffs.Delirium) || HasEffect(Buffs.BloodWeapon) || Gauge.Blood >= Config.DRK_QuietusGauge))
+					if (IsEnabled(CustomComboPreset.DRK_AoE_Quietus) && ActionReady(OriginalHook(Quietus)) && Gauge.DarksideTimeRemaining > 0
+						&& (HasEffect(Buffs.Delirium) || HasEffect(Buffs.BloodWeapon) || Gauge.Blood >= GetOptionValue(Config.DRK_QuietusGauge)))
 					{
 						return OriginalHook(Quietus);
 					}

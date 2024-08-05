@@ -173,16 +173,16 @@ namespace StackCombo.Combos
 		DRK_ST_DPS = 5001,
 
 		[ParentCombo(DRK_ST_DPS)]
-		[CustomComboInfo("Delirium", "", DRK.JobID)]
-		DRK_ST_Delirium = 5002,
+		[CustomComboInfo("Edge of Shadow", "", DRK.JobID)]
+		DRK_ST_Edge = 5012,
 
 		[ParentCombo(DRK_ST_DPS)]
-		[CustomComboInfo("Blood Gauge", "", DRK.JobID)]
+		[CustomComboInfo("Bloodspiller / Scarlet Delirium > Comeuppance > Torcleaver", "", DRK.JobID)]
 		DRK_ST_Bloodspiller = 5011,
 
 		[ParentCombo(DRK_ST_DPS)]
-		[CustomComboInfo("Edge of Shadow", "", DRK.JobID)]
-		DRK_ST_Edge = 5012,
+		[CustomComboInfo("Delirium", "", DRK.JobID)]
+		DRK_ST_Delirium = 5002,
 
 		#endregion
 
@@ -193,16 +193,16 @@ namespace StackCombo.Combos
 		DRK_AoE_DPS = 5100,
 
 		[ParentCombo(DRK_AoE_DPS)]
-		[CustomComboInfo("Delirium", "", DRK.JobID)]
-		DRK_AoE_Delirium = 5101,
+		[CustomComboInfo("Flood of Shadow", "", DRK.JobID)]
+		DRK_AoE_Flood = 5110,
 
 		[ParentCombo(DRK_AoE_DPS)]
-		[CustomComboInfo("Blood Gauge", "", DRK.JobID)]
+		[CustomComboInfo("Quietus / Impalement", "", DRK.JobID)]
 		DRK_AoE_Quietus = 5109,
 
 		[ParentCombo(DRK_AoE_DPS)]
-		[CustomComboInfo("Flood of Shadow", "", DRK.JobID)]
-		DRK_AoE_Flood = 5110,
+		[CustomComboInfo("Delirium", "", DRK.JobID)]
+		DRK_AoE_Delirium = 5101,
 
 		#endregion
 
