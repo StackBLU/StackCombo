@@ -454,11 +454,11 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is HydroPull or RamsVoice or Ultravibration && IsEnabled(CustomComboPreset.BLU_Ultravibration))
 				{
-					if (IsSpellActive(HydroPull) && !WasLastSpell(HydroPull) && !WasLastSpell(RamsVoice))
+					if (IsSpellActive(HydroPull) && !WasLastSpell(HydroPull) && !WasLastSpell(RamsVoice) && !TargetHasEffectAny(Debuffs.DeepFreeze))
 					{
 						return HydroPull;
 					}
-					if (IsSpellActive(RamsVoice) && (WasLastSpell(HydroPull) || !IsSpellActive(HydroPull)))
+					if (IsSpellActive(RamsVoice) && !TargetHasEffectAny(Debuffs.DeepFreeze) && (WasLastSpell(HydroPull) || !IsSpellActive(HydroPull)))
 					{
 						return RamsVoice;
 					}
