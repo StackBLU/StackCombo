@@ -1289,19 +1289,19 @@ namespace StackCombo.Window.Functions
 
 			#region BLUE MAGE
 
-			if (preset is CustomComboPreset.BLU_Lucid)
+			if (preset is CustomComboPreset.BLU_ManaGain)
 			{
-				UserConfig.DrawSliderInt(1000, 10000, BLU.Config.BLU_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawSliderInt(1000, 10000, BLU.Config.BLU_Lucid, "Lucid Dreaming MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
 			if (preset is CustomComboPreset.BLU_ManaGain)
 			{
-				UserConfig.DrawSliderInt(1000, 10000, BLU.Config.BLU_ManaGain, "MP Threshold", 150, SliderIncrements.Hundreds);
+				UserConfig.DrawSliderInt(1000, 10000, BLU.Config.BLU_ManaGain, "Blood Drain MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
 			if (preset is CustomComboPreset.BLU_TreasureMappin)
 			{
-				UserConfig.DrawSliderInt(1, 100, BLU.Config.BLU_TreasureMappinHP, "HP Threshold", 150, SliderIncrements.Ones);
+				UserConfig.DrawSliderInt(1, 100, BLU.Config.BLU_TreasureMappinHP, "Pomcure HP Threshold", 150, SliderIncrements.Ones);
 			}
 
 			#endregion
@@ -1454,29 +1454,34 @@ namespace StackCombo.Window.Functions
 
 			#region DARK KNIGHT
 
-			if (preset == CustomComboPreset.DRK_ST_ManaSpenderPooling && enabled)
+			if (preset == CustomComboPreset.DRK_ST_Edge && enabled)
 			{
-				UserConfig.DrawSliderInt(0, 3000, DRK.Config.DRK_ST_ManaSpenderPooling, "How much MP to save (0 = Use All)", 150, SliderIncrements.Thousands);
+				UserConfig.DrawSliderInt(0, 10000, DRK.Config.DRK_ST_ManaSaver, "", 150, SliderIncrements.Thousands);
 			}
 
-			if (preset == CustomComboPreset.DRK_ST_CDs_LivingShadow && enabled)
+			if (preset == CustomComboPreset.DRK_AoE_Flood && enabled)
 			{
-				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_ST_LivingDeadThreshold, "Stop Using When Target HP% is at or Below (Set to 0 to Disable This Check)");
+				UserConfig.DrawSliderInt(0, 10000, DRK.Config.DRK_AoE_ManaSaver, "", 150, SliderIncrements.Thousands);
 			}
 
-			if (preset == CustomComboPreset.DRK_AoE_CDs_LivingShadow && enabled)
+			if (preset == CustomComboPreset.DRK_ST_Bloodspiller && enabled)
 			{
-				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_AoE_LivingDeadThreshold, "Stop Using When Target HP% is at or Below (Set to 0 to Disable This Check)");
+				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_BloodspillerGauge, "", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.DRK_AoE_Quietus && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_QuietusGauge, "", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.DRKPvP_Burst)
 			{
-				UserConfig.DrawSliderInt(1, 100, DRKPvP.Config.ShadowbringerThreshold, "HP% to be at or above to use Shadowbringer");
+				UserConfig.DrawSliderInt(1, 100, DRKPvP.Config.ShadowbringerThreshold, "HP% to be at or above to use Shadowbringer", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.DRK_Variant_Cure)
 			{
-				UserConfig.DrawSliderInt(1, 100, DRK.Config.DRK_VariantCure, "HP% to be at or under", 200);
+				UserConfig.DrawSliderInt(1, 100, DRK.Config.DRK_VariantCure, "HP% to be at or under", 150, SliderIncrements.Ones);
 			}
 
 			#endregion
@@ -1518,7 +1523,7 @@ namespace StackCombo.Window.Functions
 
 			if (preset == CustomComboPreset.GNB_Variant_Cure)
 			{
-				UserConfig.DrawSliderInt(1, 100, GNB.Config.GNB_VariantCure, "HP% to be at or under", 200);
+				UserConfig.DrawSliderInt(1, 100, GNB.Config.GNB_VariantCure, "HP% to be at or under", 150, SliderIncrements.Ones);
 			}
 
 			#endregion
@@ -1760,24 +1765,19 @@ namespace StackCombo.Window.Functions
 
 			#region PALADIN
 
-			if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Sheltron)
+			if (preset == CustomComboPreset.PLD_ST_Sheltron)
 			{
-				UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_ST_SheltronOption, "Oath Gauge", 200, 5);
+				UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_ST_SheltronOption, "Oath Gauge", 150, SliderIncrements.Ones);
 			}
 
-			if (preset == CustomComboPreset.PLD_AoE_AdvancedMode_Sheltron)
+			if (preset == CustomComboPreset.PLD_AoE_Sheltron)
 			{
-				UserConfig.DrawSliderInt(50, 100, PLD.Config.PLD_AoE_SheltronOption, "Oath Gauge", 200, 5);
-			}
-
-			if (preset == CustomComboPreset.PLD_ST_AdvancedMode_Intervene)
-			{
-				UserConfig.DrawSliderInt(0, 1, PLD.Config.PLD_Intervene_HoldCharges, "Charges", 200);
+				UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_SheltronOption, "Oath Gauge", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.PLD_Variant_Cure)
 			{
-				UserConfig.DrawSliderInt(1, 100, PLD.Config.PLD_VariantCure, "Player HP%", 200);
+				UserConfig.DrawSliderInt(1, 100, PLD.Config.PLD_VariantCure, "Player HP%", 150, SliderIncrements.Ones);
 			}
 
 			#endregion
@@ -2184,29 +2184,24 @@ namespace StackCombo.Window.Functions
 
 			#region WARRIOR
 
-			if (preset == CustomComboPreset.WAR_ST_StormsPath_StormsEye && enabled)
+			if (preset == CustomComboPreset.WAR_ST_StormsEye && enabled)
 			{
-				UserConfig.DrawSliderInt(0, 30, WAR.Config.WAR_SurgingRefreshRange, "Seconds remaining before refreshing Surging Tempest.");
-			}
-
-			if (preset == CustomComboPreset.WAR_InfuriateFellCleave && enabled)
-			{
-				UserConfig.DrawSliderInt(0, 50, WAR.Config.WAR_InfuriateRange, "Set how much rage to be at or under to use this feature.");
+				UserConfig.DrawSliderInt(0, 30, WAR.Config.WAR_SurgingRefreshRange, "Seconds remaining before refreshing Surging Tempest.", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.WAR_Variant_Cure)
 			{
-				UserConfig.DrawSliderInt(1, 100, WAR.Config.WAR_VariantCure, "HP% to be at or under", 200);
+				UserConfig.DrawSliderInt(1, 100, WAR.Config.WAR_VariantCure, "HP% to be at or under", 150, SliderIncrements.Ones);
 			}
 
-			if (preset == CustomComboPreset.WAR_ST_StormsPath_FellCleave)
+			if (preset == CustomComboPreset.WAR_ST_FellCleave)
 			{
-				UserConfig.DrawSliderInt(50, 100, WAR.Config.WAR_FellCleaveGauge, "Minimum gauge to spend");
+				UserConfig.DrawSliderInt(0, 100, WAR.Config.WAR_FellCleaveGauge, "Minimum gauge to spend", 150, SliderIncrements.Ones);
 			}
 
-			if (preset == CustomComboPreset.WAR_AoE_Overpower_Decimate)
+			if (preset == CustomComboPreset.WAR_AoE_Decimate)
 			{
-				UserConfig.DrawSliderInt(50, 100, WAR.Config.WAR_DecimateGauge, "Minimum gauge to spend");
+				UserConfig.DrawSliderInt(0, 100, WAR.Config.WAR_DecimateGauge, "Minimum gauge to spend", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.WARPvP_BurstMode_Blota)

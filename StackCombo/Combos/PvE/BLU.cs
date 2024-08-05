@@ -13,6 +13,7 @@ namespace StackCombo.Combos.PvE
 			ShockStrike = 11429,
 			FeatherRain = 11426,
 			JKick = 18325,
+			PeculiarLight = 11421,
 			Eruption = 11427,
 			SharpenedKnife = 11400,
 			GlassDance = 11430,
@@ -110,156 +111,181 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				if (actionID is MoonFlute && HasEffect(Buffs.DPSMimicry) && !HasEffect(Buffs.ToadOil))
+				if (actionID is MoonFlute && IsEnabled(CustomComboPreset.BLU_MoonFluteOpener))
 				{
-					if (!HasEffect(Buffs.MoonFlute))
+					if (!HasEffect(Buffs.MoonFlute) && actionID is MoonFlute)
 					{
-						if (!HasEffect(Buffs.Whistle))
+						if (!HasEffect(Buffs.Whistle) && actionID is MoonFlute && IsSpellActive(Whistle))
 						{
 							return Whistle;
 						}
 
-						if (IsSpellActive(Tingle) && !HasEffect(Buffs.Tingle))
+						if (!HasEffect(Buffs.Tingle) && actionID is MoonFlute && IsSpellActive(Tingle))
 						{
 							return Tingle;
 						}
 
-						if (IsSpellActive(RoseOfDestruction) && GetCooldown(RoseOfDestruction).CooldownRemaining < 1f)
+						if (IsOffCooldown(RoseOfDestruction) && actionID is MoonFlute && IsSpellActive(RoseOfDestruction))
 						{
 							return RoseOfDestruction;
 						}
-
 						if (IsSpellActive(MoonFlute))
 						{
 							return MoonFlute;
 						}
 					}
 
-					if (IsSpellActive(JKick) && IsOffCooldown(JKick))
+					if (IsOffCooldown(JKick) && actionID is MoonFlute && IsSpellActive(JKick))
 					{
 						return JKick;
 					}
 
-					if (IsSpellActive(TripleTrident) && IsOffCooldown(TripleTrident))
+					if (IsOffCooldown(TripleTrident) && actionID is MoonFlute && IsSpellActive(TripleTrident))
 					{
 						return TripleTrident;
 					}
 
-					if (IsSpellActive(Nightbloom) && IsOffCooldown(Nightbloom))
+					if (IsOffCooldown(Nightbloom) && actionID is MoonFlute && IsSpellActive(Nightbloom))
 					{
 						return Nightbloom;
 					}
 
-					if (IsEnabled(CustomComboPreset.BLU_MoonFluteOpener_DoTOpener))
+					if (IsEnabled(CustomComboPreset.BLU_MoonFluteOpener_DoTOpener) && actionID is MoonFlute)
 					{
-						if (!TargetHasEffectAny(Debuffs.BreathOfMagic) && (!TargetHasEffectAny(Debuffs.MortalFlame)))
+						if (!TargetHasEffectAny(Debuffs.BreathOfMagic) && !TargetHasEffectAny(Debuffs.MortalFlame))
 						{
-							if (WasLastAbility(Nightbloom) && !WasLastSpell(Bristle))
+							if (WasLastAbility(Nightbloom) && !WasLastSpell(Bristle) && actionID is MoonFlute && IsSpellActive(Bristle))
 							{
 								return Bristle;
 							}
-							if (IsSpellActive(FeatherRain) && IsOffCooldown(FeatherRain))
+							if (IsOffCooldown(FeatherRain) && actionID is MoonFlute && IsSpellActive(FeatherRain))
 							{
 								return FeatherRain;
 							}
 
-							if (IsSpellActive(SeaShanty) && IsOffCooldown(SeaShanty))
+							if (IsOffCooldown(SeaShanty) && actionID is MoonFlute && IsSpellActive(SeaShanty))
 							{
 								return SeaShanty;
 							}
 
-							if (!WasLastSpell(BreathOfMagic) && !WasLastSpell(MortalFlame))
+							if (!WasLastSpell(BreathOfMagic) && !WasLastSpell(MortalFlame) && actionID is MoonFlute)
 							{
-								if (IsSpellActive(BreathOfMagic))
+								if (IsSpellActive(BreathOfMagic) && actionID is MoonFlute && IsSpellActive(BreathOfMagic))
 								{
 									return BreathOfMagic;
 								}
 
-								if (IsSpellActive(MortalFlame))
+								if (IsSpellActive(MortalFlame) && actionID is MoonFlute && IsSpellActive(MortalFlame))
 								{
 									return MortalFlame;
 								}
 							}
 						}
-						if (WasLastAbility(ShockStrike) && !WasLastSpell(Bristle))
+						if (IsOffCooldown(ShockStrike) && actionID is MoonFlute && IsSpellActive(ShockStrike))
+						{
+							return ShockStrike;
+						}
+
+						if (!HasEffect(Buffs.Bristle) && actionID is MoonFlute && IsSpellActive(Bristle))
 						{
 							return Bristle;
 						}
+
+						if (IsOffCooldown(All.Swiftcast) && WasLastSpell(Bristle) && actionID is MoonFlute)
+						{
+							return All.Swiftcast;
+						}
+
+						if (GetRemainingCharges(Surpanakha) > 0 && actionID is MoonFlute && IsSpellActive(Surpanakha))
+						{
+							return Surpanakha;
+						}
+
+						if (IsOffCooldown(MatraMagic) && actionID is MoonFlute && IsSpellActive(MatraMagic))
+						{
+							return MatraMagic;
+						}
+
+						if (IsOffCooldown(BeingMortal) && actionID is MoonFlute && IsSpellActive(BeingMortal))
+						{
+							return BeingMortal;
+						}
+
+						if (IsOffCooldown(PhantomFlurry) && actionID is MoonFlute && IsSpellActive(PhantomFlurry))
+						{
+							return PhantomFlurry;
+						}
+
+						if (HasEffect(Buffs.PhantomFlurry) && actionID is MoonFlute)
+						{
+							return OriginalHook(11);
+						}
 					}
-					else
+
+					if (IsNotEnabled(CustomComboPreset.BLU_MoonFluteOpener_DoTOpener) && actionID is MoonFlute)
 					{
-						if (IsSpellActive(WingedReprobation) && IsOffCooldown(WingedReprobation)
+						if (IsOffCooldown(WingedReprobation) && actionID is MoonFlute && IsSpellActive(WingedReprobation)
 							&& !WasLastSpell(WingedReprobation) && !WasLastAbility(FeatherRain)
-							&& (!HasEffect(Buffs.WingedReprobation) || FindEffect(Buffs.WingedReprobation)?.StackCount < 2))
+							&& (!HasEffect(Buffs.WingedReprobation) || FindEffect(Buffs.WingedReprobation).StackCount < 2))
 						{
 							return WingedReprobation;
 						}
 
-						if (IsSpellActive(FeatherRain) && IsOffCooldown(FeatherRain))
+						if (IsOffCooldown(FeatherRain) && actionID is MoonFlute && IsSpellActive(FeatherRain))
 						{
 							return FeatherRain;
 						}
 
-						if (IsSpellActive(SeaShanty) && IsOffCooldown(SeaShanty))
+						if (IsOffCooldown(SeaShanty) && actionID is MoonFlute && IsSpellActive(SeaShanty))
 						{
 							return SeaShanty;
 						}
-					}
 
+						if (IsOffCooldown(WingedReprobation) && actionID is MoonFlute && IsSpellActive(WingedReprobation)
+							&& !WasLastAbility(ShockStrike) && FindEffect(Buffs.WingedReprobation).StackCount < 2)
+						{
+							return WingedReprobation;
+						}
 
+						if (IsOffCooldown(ShockStrike) && actionID is MoonFlute && IsSpellActive(ShockStrike))
+						{
+							return ShockStrike;
+						}
 
-					if (IsSpellActive(WingedReprobation) && IsOffCooldown(WingedReprobation)
-						&& !WasLastAbility(ShockStrike) && FindEffect(Buffs.WingedReprobation)?.StackCount < 2)
-					{
-						return WingedReprobation;
-					}
+						if (IsOffCooldown(BeingMortal) && actionID is MoonFlute && IsSpellActive(BeingMortal))
+						{
+							return BeingMortal;
+						}
 
-					if (IsSpellActive(ShockStrike) && IsOffCooldown(ShockStrike))
-					{
-						return ShockStrike;
-					}
+						if (!HasEffect(Buffs.Bristle) && actionID is MoonFlute && IsSpellActive(Bristle))
+						{
+							return Bristle;
+						}
 
-					if (IsSpellActive(BeingMortal) && IsOffCooldown(BeingMortal) && IsNotEnabled(CustomComboPreset.BLU_MoonFluteOpener_DoTOpener))
-					{
-						return BeingMortal;
-					}
+						if (IsOffCooldown(All.Swiftcast) && WasLastSpell(Bristle) && actionID is MoonFlute)
+						{
+							return All.Swiftcast;
+						}
 
-					if (IsSpellActive(Bristle) && !HasEffect(Buffs.Bristle) && IsOffCooldown(MatraMagic) && IsSpellActive(MatraMagic) && WasLastAbility(BeingMortal))
-					{
-						return Bristle;
-					}
-
-					if (IsOffCooldown(All.Swiftcast) && WasLastSpell(Bristle))
-					{
-						return All.Swiftcast;
-					}
-
-					if (IsSpellActive(Surpanakha))
-					{
-						if (GetRemainingCharges(Surpanakha) > 0)
+						if (GetRemainingCharges(Surpanakha) > 0 && actionID is MoonFlute && IsSpellActive(Surpanakha))
 						{
 							return Surpanakha;
 						}
-					}
 
-					if (IsSpellActive(MatraMagic) && HasEffect(All.Buffs.Swiftcast))
-					{
-						return MatraMagic;
-					}
+						if (IsOffCooldown(MatraMagic) && actionID is MoonFlute && IsSpellActive(MatraMagic))
+						{
+							return MatraMagic;
+						}
 
-					if (IsSpellActive(BeingMortal) && IsOffCooldown(BeingMortal) && IsEnabled(CustomComboPreset.BLU_MoonFluteOpener_DoTOpener))
-					{
-						return BeingMortal;
-					}
+						if (IsOffCooldown(PhantomFlurry) && actionID is MoonFlute && IsSpellActive(PhantomFlurry))
+						{
+							return PhantomFlurry;
+						}
 
-					if (IsSpellActive(PhantomFlurry) && IsOffCooldown(PhantomFlurry))
-					{
-						return PhantomFlurry;
-					}
-
-					if (HasEffect(Buffs.MoonFlute))
-					{
-						return OriginalHook(11);
+						if (HasEffect(Buffs.MoonFlute) && actionID is MoonFlute)
+						{
+							return OriginalHook(11);
+						}
 					}
 				}
 				return actionID;
@@ -272,21 +298,21 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is TripleTrident && IsSpellActive(TripleTrident) && !IsSpellActive(MoonFlute))
+				if (actionID is TripleTrident && IsEnabled(CustomComboPreset.BLU_TripleTrident) && IsSpellActive(TripleTrident))
 				{
-					if (GetCooldownRemainingTime(TripleTrident) > 3)
+					if (GetCooldownRemainingTime(TripleTrident) > 3 && actionID is TripleTrident)
 					{
 						return TripleTrident;
 					}
-					if (!HasEffect(Buffs.Whistle))
+					if (!HasEffect(Buffs.Whistle) && actionID is TripleTrident && IsSpellActive(Whistle))
 					{
 						return Whistle;
 					}
-					if (!HasEffect(Buffs.Tingle))
+					if (!HasEffect(Buffs.Tingle) && actionID is TripleTrident && IsSpellActive(Tingle))
 					{
 						return Tingle;
 					}
-					if (HasEffect(Buffs.Whistle) && HasEffect(Buffs.Tingle))
+					if (HasEffect(Buffs.Whistle) && HasEffect(Buffs.Tingle) && actionID is TripleTrident)
 					{
 						return TripleTrident;
 					}
@@ -301,33 +327,33 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is FinalSting && IsSpellActive(FinalSting))
+				if (actionID is FinalSting && IsEnabled(CustomComboPreset.BLU_Sting) && IsSpellActive(FinalSting))
 				{
-					if (!HasEffect(Buffs.Whistle))
+					if (!HasEffect(Buffs.Whistle) && actionID is FinalSting && IsSpellActive(Whistle))
 					{
 						return Whistle;
 					}
-					if (!TargetHasEffectAny(Debuffs.Offguard) && IsOffCooldown(Offguard))
+					if (!TargetHasEffectAny(Debuffs.Offguard) && IsOffCooldown(Offguard) && actionID is FinalSting && IsSpellActive(Offguard))
 					{
 						return Offguard;
 					}
-					if (!HasEffect(Buffs.Tingle))
+					if (!HasEffect(Buffs.Tingle) && actionID is FinalSting && IsSpellActive(Tingle))
 					{
 						return Tingle;
 					}
-					if (!IsInParty() && !HasEffect(Buffs.BasicInstinct) && IsSpellActive(BasicInstinct))
+					if (!IsInParty() && !HasEffect(Buffs.BasicInstinct) && IsSpellActive(BasicInstinct) && actionID is FinalSting)
 					{
 						return BasicInstinct;
 					}
-					if (!HasEffect(Buffs.MoonFlute))
+					if (!HasEffect(Buffs.MoonFlute) && actionID is FinalSting && IsSpellActive(ToadOil))
 					{
-						return MoonFlute;
+						return ToadOil;
 					}
-					if (IsOffCooldown(All.Swiftcast))
+					if (IsOffCooldown(All.Swiftcast) && actionID is FinalSting)
 					{
 						return All.Swiftcast;
 					}
-					if (HasEffect(Buffs.Whistle) && HasEffect(Buffs.Tingle) && HasEffect(Buffs.MoonFlute))
+					if (HasEffect(Buffs.Whistle) && HasEffect(Buffs.Tingle) && HasEffect(Buffs.MoonFlute) && actionID is FinalSting)
 					{
 						return FinalSting;
 					}
@@ -342,25 +368,25 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is SelfDestruct && IsSpellActive(SelfDestruct))
+				if (actionID is SelfDestruct && IsEnabled(CustomComboPreset.BLU_Explode) && IsSpellActive(SelfDestruct))
 				{
-					if (!HasEffect(Buffs.ToadOil))
+					if (!HasEffect(Buffs.ToadOil) && actionID is SelfDestruct && IsSpellActive(ToadOil))
 					{
 						return ToadOil;
 					}
-					if (!HasEffect(Buffs.Bristle))
+					if (!HasEffect(Buffs.Bristle) && actionID is SelfDestruct && IsSpellActive(Bristle))
 					{
 						return Bristle;
 					}
-					if (!HasEffect(Buffs.MoonFlute))
+					if (!HasEffect(Buffs.MoonFlute) && actionID is SelfDestruct && IsSpellActive(BasicInstinct))
 					{
-						return MoonFlute;
+						return BasicInstinct;
 					}
-					if (IsOffCooldown(All.Swiftcast))
+					if (IsOffCooldown(All.Swiftcast) && actionID is SelfDestruct)
 					{
 						return All.Swiftcast;
 					}
-					if (HasEffect(Buffs.ToadOil) && HasEffect(Buffs.Bristle) && HasEffect(Buffs.MoonFlute))
+					if (HasEffect(Buffs.ToadOil) && HasEffect(Buffs.Bristle) && HasEffect(Buffs.MoonFlute) && actionID is SelfDestruct)
 					{
 						return SelfDestruct;
 					}
@@ -375,29 +401,28 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic) && !IsSpellActive(MoonFlute))
+				if ((actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic) && IsEnabled(CustomComboPreset.BLU_DoTs))
 				{
-					if (!HasEffect(Buffs.Bristle))
+					if (!HasEffect(Buffs.Bristle) && IsSpellActive(Bristle) && (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic))
 					{
 						return Bristle;
 					}
-					if (IsSpellActive(BreathOfMagic) && (!TargetHasEffectAny(Debuffs.BreathOfMagic) || GetDebuffRemainingTime(Debuffs.BreathOfMagic) < 3))
+					if (IsSpellActive(BreathOfMagic) && IsSpellActive(BreathOfMagic) && (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic) && (!TargetHasEffectAny(Debuffs.BreathOfMagic) || GetDebuffRemainingTime(Debuffs.BreathOfMagic) < 3))
 					{
 						return BreathOfMagic;
 					}
-					if (IsSpellActive(MortalFlame) && !TargetHasEffectAny(Debuffs.MortalFlame))
+					if (IsSpellActive(MortalFlame) && IsSpellActive(MortalFlame) && !TargetHasEffectAny(Debuffs.MortalFlame) && (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic))
 					{
 						return MortalFlame;
 					}
-					if (IsSpellActive(SongOfTorment) && (!TargetHasEffectAny(Debuffs.Bleeding) || GetDebuffRemainingTime(Debuffs.Bleeding) < 3))
+					if (IsSpellActive(SongOfTorment) && IsSpellActive(SongOfTorment) && (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic) && (!TargetHasEffectAny(Debuffs.Bleeding) || GetDebuffRemainingTime(Debuffs.Bleeding) < 3))
 					{
 						return SongOfTorment;
 					}
-					if (IsSpellActive(MatraMagic) && ActionReady(MatraMagic))
+					if (IsSpellActive(MatraMagic) && IsSpellActive(MatraMagic) && ActionReady(MatraMagic) && (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic))
 					{
 						return MatraMagic;
 					}
-					return Bristle;
 				}
 				return actionID;
 			}
@@ -409,9 +434,9 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is PeripheralSynthesis or MustardBomb)
+				if ((actionID is PeripheralSynthesis or MustardBomb) && IsEnabled(CustomComboPreset.BLU_Periph))
 				{
-					if (WasLastSpell(PeripheralSynthesis) || HasEffect(Buffs.Bristle) || TargetHasEffectAny(Debuffs.MustardBomb))
+					if (IsSpellActive(MustardBomb) && (WasLastSpell(PeripheralSynthesis) || HasEffect(Buffs.Bristle) || TargetHasEffectAny(Debuffs.MustardBomb)))
 					{
 						return MustardBomb;
 					}
@@ -427,9 +452,13 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Ultravibration)
+				if ((actionID is HydroPull or RamsVoice or Ultravibration) && IsEnabled(CustomComboPreset.BLU_Ultravibration))
 				{
-					if (WasLastSpell(HydroPull))
+					if (IsSpellActive(HydroPull) && !WasLastSpell(HydroPull))
+					{
+						return HydroPull;
+					}
+					if (IsSpellActive(RamsVoice) && (WasLastSpell(HydroPull) || !WasLastSpell(RamsVoice)))
 					{
 						return RamsVoice;
 					}
@@ -437,11 +466,10 @@ namespace StackCombo.Combos.PvE
 					{
 						return All.Swiftcast;
 					}
-					if (WasLastSpell(RamsVoice))
+					if (IsSpellActive(Ultravibration) && WasLastSpell(RamsVoice))
 					{
 						return Ultravibration;
 					}
-					return HydroPull;
 				}
 				return actionID;
 			}
@@ -453,13 +481,17 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is GoblinPunch || actionID is SonicBoom)
+				if ((actionID is GoblinPunch or SonicBoom or ChocoMeteor) && IsEnabled(CustomComboPreset.BLU_ManaGain))
 				{
-					if (IsEnabled(CustomComboPreset.BLU_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= Config.BLU_Lucid)
+					if (ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
 						return All.LucidDreaming;
 					}
-					if (LocalPlayer.CurrentMp <= Config.BLU_ManaGain)
+					if (ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.BLU_Lucid)
+					{
+						return All.LucidDreaming;
+					}
+					if (LocalPlayer.CurrentMp <= Config.BLU_ManaGain && IsSpellActive(BloodDrain))
 					{
 						return BloodDrain;
 					}
@@ -474,33 +506,33 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is GoblinPunch)
+				if (actionID is GoblinPunch && IsEnabled(CustomComboPreset.BLU_Tanking))
 				{
-					if (!HasEffect(Buffs.MightyGuard))
+					if (!HasEffect(Buffs.MightyGuard) && IsSpellActive(MightyGuard))
 					{
 						return MightyGuard;
 					}
-					if (!HasEffect(Buffs.ToadOil))
+					if (!HasEffect(Buffs.ToadOil) && IsSpellActive(ToadOil))
 					{
 						return ToadOil;
 					}
-					if (IsOffCooldown(Devour))
+					if (IsOffCooldown(Devour) & InMeleeRange() && IsSpellActive(Devour))
 					{
 						return Devour;
 					}
-					if (IsEnabled(CustomComboPreset.BLU_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= Config.BLU_Lucid)
+					if (IsOffCooldown(PeculiarLight) & InMeleeRange() && IsSpellActive(PeculiarLight))
 					{
-						return All.LucidDreaming;
+						return PeculiarLight;
 					}
-					if (!TargetHasEffect(Debuffs.PeatPelt) && !HasEffect(Buffs.DeepClean) && !WasLastSpell(PeatPelt))
+					if (!TargetHasEffect(Debuffs.PeatPelt) && !HasEffect(Buffs.DeepClean) && !WasLastSpell(PeatPelt) && IsSpellActive(PeatPelt))
 					{
 						return PeatPelt;
 					}
-					if (WasLastSpell(PeatPelt) || TargetHasEffect(Debuffs.PeatPelt))
+					if ((WasLastSpell(PeatPelt) || TargetHasEffect(Debuffs.PeatPelt)) && IsSpellActive(DeepClean))
 					{
 						return DeepClean;
 					}
-					if (HasEffect(Buffs.DeepClean))
+					if (HasEffect(Buffs.DeepClean) && IsSpellActive(GoblinPunch))
 					{
 						return GoblinPunch;
 					}
@@ -515,28 +547,15 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is AngelWhisper
-					? IsOffCooldown(All.Swiftcast) ? All.Swiftcast : IsOffCooldown(AngelWhisper) ? AngelWhisper : All.Swiftcast
-					: actionID;
-			}
-		}
-
-		internal class BLU_Lucid : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.BLU_Lucid;
-
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				if (actionID is SonicBoom || actionID is GoblinPunch || actionID is ChocoMeteor)
+				if (actionID is AngelWhisper && IsEnabled(CustomComboPreset.BLU_Raise))
 				{
-					if (IsEnabled(CustomComboPreset.BLU_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					if (IsOffCooldown(All.Swiftcast))
 					{
-						return All.LucidDreaming;
+						return All.Swiftcast;
 					}
-
-					if (IsEnabled(CustomComboPreset.BLU_Lucid) && ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.BLU_Lucid)
+					if (IsSpellActive(AngelWhisper))
 					{
-						return All.LucidDreaming;
+						return AngelWhisper;
 					}
 				}
 				return actionID;
@@ -549,14 +568,14 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is GoblinPunch)
+				if (actionID is GoblinPunch && IsEnabled(CustomComboPreset.BLU_TreasureMappin))
 				{
 					if (HasEffect(Buffs.MightyGuard) && !HasEffect(Buffs.TankMimicry) &&
-						Svc.ClientState.TerritoryType != 712 && Svc.ClientState.TerritoryType != 794)
+						Svc.ClientState.TerritoryType != 712 && Svc.ClientState.TerritoryType != 794 && IsSpellActive(MightyGuard))
 					{
 						return MightyGuard;
 					}
-					if (HasEffect(Buffs.PhantomFlurry))
+					if (HasEffect(Buffs.PhantomFlurry) && IsSpellActive(PhantomFlurry))
 					{
 						if (GetBuffRemainingTime(Buffs.PhantomFlurry) <= 0.75f)
 						{
@@ -566,24 +585,22 @@ namespace StackCombo.Combos.PvE
 					}
 					if (Svc.ClientState.TerritoryType is 712 or 794)
 					{
-						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin) && !IsInParty())
+						if (!IsInParty())
 						{
-							if (!HasEffect(Buffs.BasicInstinct))
+							if (!HasEffect(Buffs.BasicInstinct) && IsSpellActive(BasicInstinct))
 							{
 								return BasicInstinct;
 							}
-							if (!HasEffect(Buffs.MightyGuard))
+							if (!HasEffect(Buffs.MightyGuard) && IsSpellActive(MightyGuard))
 							{
 								return MightyGuard;
 							}
 						}
-						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin)
-							&& LocalPlayer.CurrentHp / (float)LocalPlayer.MaxHp <= (float)Config.BLU_TreasureMappinHP * 0.01f)
+						if (PlayerHealthPercentageHp() <= (float)Config.BLU_TreasureMappinHP * 0.01f && IsSpellActive(Pomcure))
 						{
 							return Pomcure;
 						}
-						if (IsEnabled(CustomComboPreset.BLU_TreasureMappin)
-							&& (!HasEffect(Buffs.Gobskin) || LocalPlayer.ShieldPercentage < 10))
+						if ((!HasEffect(Buffs.Gobskin) || LocalPlayer.ShieldPercentage < 10) && IsSpellActive(Gobskin))
 						{
 							return Gobskin;
 						}

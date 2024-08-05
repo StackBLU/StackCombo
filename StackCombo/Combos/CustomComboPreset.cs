@@ -14,77 +14,65 @@ namespace StackCombo.Combos
 
 		#region Single Target
 
-		[ReplaceSkill(PLD.FastBlade)]
-		[CustomComboInfo("Single Target", "", PLD.JobID, 1)]
-		PLD_ST_AdvancedMode = 11002,
+		[ReplaceSkill(PLD.FastBlade, PLD.RiotBlade, PLD.RageOfHalone, PLD.RoyalAuthority)]
+		[CustomComboInfo("Single Target", "", PLD.JobID)]
+		PLD_ST_DPS = 11002,
 
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Fight or Flight", "", PLD.JobID, 0)]
-		PLD_ST_AdvancedMode_FoF = 11003,
+		[ParentCombo(PLD_ST_DPS)]
+		[CustomComboInfo("Expiacion", "", PLD.JobID)]
+		PLD_ST_SpiritsWithin = 11006,
 
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Circle of Scorn", "", PLD.JobID, 1)]
-		PLD_ST_AdvancedMode_CircleOfScorn = 11005,
+		[ParentCombo(PLD_ST_DPS)]
+		[CustomComboInfo("Circle of Scorn", "", PLD.JobID)]
+		PLD_ST_CircleOfScorn = 11005,
 
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Spirits Within", "", PLD.JobID, 1)]
-		PLD_ST_AdvancedMode_SpiritsWithin = 11006,
+		[ParentCombo(PLD_ST_DPS)]
+		[CustomComboInfo("Atonement > Supplication > Sepulchre", "", PLD.JobID)]
+		PLD_ST_Atonement = 11012,
 
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Sheltron", "", PLD.JobID, 3)]
-		PLD_ST_AdvancedMode_Sheltron = 11007,
+		[ParentCombo(PLD_ST_DPS)]
+		[CustomComboInfo("Holy Spirit", "", PLD.JobID)]
+		PLD_ST_HolySpirit = 11009,
 
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Holy Spirit", "", PLD.JobID, 8)]
-		PLD_ST_AdvancedMode_HolySpirit = 11009,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Intervene", "", PLD.JobID, 5)]
-		PLD_ST_AdvancedMode_Intervene = 11011,
-
-		[ParentCombo(PLD_ST_AdvancedMode)]
-		[CustomComboInfo("Atonement", "", PLD.JobID, 9)]
-		PLD_ST_AdvancedMode_Atonement = 11012,
+		[ParentCombo(PLD_ST_DPS)]
+		[CustomComboInfo("Sheltron", "", PLD.JobID)]
+		PLD_ST_Sheltron = 11007,
 
 		#endregion
 
 		#region AoE
 
-		[ReplaceSkill(PLD.TotalEclipse)]
-		[CustomComboInfo("AoE", "", PLD.JobID, 2)]
-		PLD_AoE_AdvancedMode = 11015,
+		[ReplaceSkill(PLD.TotalEclipse, PLD.Prominence)]
+		[CustomComboInfo("AoE", "", PLD.JobID)]
+		PLD_AoE_DPS = 11015,
 
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Fight or Flight", "", PLD.JobID, 0)]
-		PLD_AoE_AdvancedMode_FoF = 11016,
+		[ParentCombo(PLD_AoE_DPS)]
+		[CustomComboInfo("Expiacion", "", PLD.JobID)]
+		PLD_AoE_SpiritsWithin = 11017,
 
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Spirits Within", "", PLD.JobID, 1)]
-		PLD_AoE_AdvancedMode_SpiritsWithin = 11017,
+		[ParentCombo(PLD_AoE_DPS)]
+		[CustomComboInfo("Circle of Scorn", "", PLD.JobID)]
+		PLD_AoE_CircleOfScorn = 11018,
 
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Circle of Scorn", "", PLD.JobID, 2)]
-		PLD_AoE_AdvancedMode_CircleOfScorn = 11018,
+		[ParentCombo(PLD_AoE_DPS)]
+		[CustomComboInfo("Holy Circle", "", PLD.JobID)]
+		PLD_AoE_HolyCircle = 11020,
 
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Holy Circle", "", PLD.JobID, 5)]
-		PLD_AoE_AdvancedMode_HolyCircle = 11020,
-
-		[ParentCombo(PLD_AoE_AdvancedMode)]
-		[CustomComboInfo("Sheltron", "", PLD.JobID, 3)]
-		PLD_AoE_AdvancedMode_Sheltron = 11023,
+		[ParentCombo(PLD_AoE_DPS)]
+		[CustomComboInfo("Sheltron", "", PLD.JobID)]
+		PLD_AoE_Sheltron = 11023,
 
 		#endregion
 
 		#region Utility
 
-		[ReplaceSkill(PLD.SpiritsWithin, PLD.Expiacion)]
-		[CustomComboInfo("Spirits Within / Circle of Scorn", "", PLD.JobID, 3)]
-		PLD_SpiritsWithin = 11025,
+		[ReplaceSkill(PLD.Requiescat, PLD.Imperator)]
+		[CustomComboInfo("Requiescat > Confiteor > Faith > Truth > Valor > Honor", "", PLD.JobID)]
+		PLD_Blades = 11024,
 
-		[ReplaceSkill(PLD.Requiescat)]
-		[CustomComboInfo("Requiescat Spender", "", PLD.JobID, 4)]
-		PLD_Requiescat_Options = 11024,
+		[ReplaceSkill(PLD.SpiritsWithin, PLD.Expiacion, PLD.CircleOfScorn)]
+		[CustomComboInfo("Spirits Within > Circle of Scorn", "", PLD.JobID)]
+		PLD_ExpiScorn = 11025,
 
 		#endregion
 
@@ -110,57 +98,51 @@ namespace StackCombo.Combos
 
 		#region Single Target
 
-		[ReplaceSkill(WAR.StormsPath)]
-		[CustomComboInfo("Single Target DPS", "asfasf", WAR.JobID)]
-		WAR_ST_StormsPath = 18000,
+		[ReplaceSkill(WAR.HeavySwing, WAR.Maim, WAR.StormsPath, WAR.StormsEye)]
+		[CustomComboInfo("Single Target DPS", "", WAR.JobID)]
+		WAR_ST_DPS = 18000,
 
-		[ParentCombo(WAR_ST_StormsPath)]
+		[ParentCombo(WAR_ST_DPS)]
 		[CustomComboInfo("Storm's Eye", "", WAR.JobID)]
-		WAR_ST_StormsPath_StormsEye = 18023,
+		WAR_ST_StormsEye = 18023,
 
-		[ParentCombo(WAR_ST_StormsPath)]
+		[ParentCombo(WAR_ST_DPS)]
 		[CustomComboInfo("Upheaval", "", WAR.JobID)]
-		WAR_ST_StormsPath_Upheaval = 18007,
+		WAR_ST_Upheaval = 18007,
 
-		[ParentCombo(WAR_ST_StormsPath)]
+		[ParentCombo(WAR_ST_DPS)]
 		[CustomComboInfo("Fell Cleave", "", WAR.JobID)]
-		WAR_ST_StormsPath_FellCleave = 18012,
+		WAR_ST_FellCleave = 18012,
 
-		[ParentCombo(WAR_ST_StormsPath)]
+		[ParentCombo(WAR_ST_DPS)]
 		[CustomComboInfo("Inner Release", "", WAR.JobID)]
-		WAR_ST_StormsPath_InnerRelease = 18020,
+		WAR_ST_InnerRelease = 18020,
 
 		#endregion
 
 		#region AoE
 
-		[ReplaceSkill(WAR.Overpower)]
+		[ReplaceSkill(WAR.Overpower, WAR.MythrilTempest)]
 		[CustomComboInfo("AoE DPS", "", WAR.JobID)]
-		WAR_AoE_Overpower = 18002,
+		WAR_AoE_DPS = 18002,
 
-		[ParentCombo(WAR_AoE_Overpower)]
+		[ParentCombo(WAR_AoE_DPS)]
 		[CustomComboInfo("Orogeny", "", WAR.JobID)]
-		WAR_AoE_Overpower_Orogeny = 18010,
+		WAR_AoE_Orogeny = 18010,
 
-		[ParentCombo(WAR_AoE_Overpower)]
+		[ParentCombo(WAR_AoE_DPS)]
 		[CustomComboInfo("Decimate", "", WAR.JobID)]
-		WAR_AoE_Overpower_Decimate = 18029,
+		WAR_AoE_Decimate = 18029,
 
-		[ParentCombo(WAR_AoE_Overpower)]
+		[ParentCombo(WAR_AoE_DPS)]
 		[CustomComboInfo("Inner Release", "", WAR.JobID)]
-		WAR_AoE_Overpower_InnerRelease = 18015,
+		WAR_AoE_InnerRelease = 18015,
 
 		#endregion
 
 		#region Utility
 
-		[ReplaceSkill(WAR.FellCleave, WAR.Decimate)]
-		[CustomComboInfo("Infuriate on Fell Cleave / Decimate", "", WAR.JobID)]
-		WAR_InfuriateFellCleave = 18031,
 
-		[ParentCombo(WAR_InfuriateFellCleave)]
-		[CustomComboInfo("Inner Release Priority", "Prevents the use of Infuriate while you have Inner Release stacks available", WAR.JobID)]
-		WAR_InfuriateFellCleave_IRFirst = 18022,
 
 		#endregion
 
@@ -184,108 +166,53 @@ namespace StackCombo.Combos
 
 		#region DARK KNIGHT - 5000
 
-		[ReplaceSkill(DRK.Souleater)]
-		[CustomComboInfo("Souleater Combo", "Replace Souleater with its combo chain", DRK.JobID)]
-		DRK_ST_Combo = 5001,
+		#region Single Target DPS
 
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Delirium/Blood Weapon", "Adds Delirium/Blood Weapon to main combo on cooldown and when Darkside is active", DRK.JobID)]
+		[ReplaceSkill(DRK.HardSlash, DRK.SyphonStrike, DRK.Souleater)]
+		[CustomComboInfo("Single Target DPS", "", DRK.JobID)]
+		DRK_ST_DPS = 5001,
+
+		[ParentCombo(DRK_ST_DPS)]
+		[CustomComboInfo("Delirium", "", DRK.JobID)]
 		DRK_ST_Delirium = 5002,
 
-		[ParentCombo(DRK_ST_Delirium)]
-		[CustomComboInfo("Torcleaver", "Adds the Torcleaver chain when Delirium is activated", DRK.JobID)]
-		DRK_ST_Delirium_Chain = 5003,
+		[ParentCombo(DRK_ST_DPS)]
+		[CustomComboInfo("Blood Gauge", "", DRK.JobID)]
+		DRK_ST_Bloodspiller = 5011,
 
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("oGCDs", "Collection of abilities to add to the main combo. All of these require Darkside to be active", DRK.JobID)]
-		DRK_ST_CDs = 5004,
+		[ParentCombo(DRK_ST_DPS)]
+		[CustomComboInfo("Edge of Shadow", "", DRK.JobID)]
+		DRK_ST_Edge = 5012,
 
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Carve and Spit", "", DRK.JobID)]
-		DRK_ST_CDs_CarveAndSpit = 5005,
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Salted Earth", "Will also use Salt and Darkness", DRK.JobID)]
-		DRK_ST_CDs_SaltedEarth = 5006,
+		#endregion
 
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Living Shadow", "", DRK.JobID)]
-		DRK_ST_CDs_LivingShadow = 5007,
+		#region AoE DPS
 
-		[ParentCombo(DRK_ST_CDs_LivingShadow)]
-		[CustomComboInfo("Disesteem", "", DRK.JobID)]
-		DRK_ST_CDs_Disesteem = 5008,
+		[ReplaceSkill(DRK.Unleash, DRK.StalwartSoul)]
+		[CustomComboInfo("AoE DPS", "", DRK.JobID)]
+		DRK_AoE_DPS = 5100,
 
-		[ParentCombo(DRK_ST_CDs)]
-		[CustomComboInfo("Shadowbringer", "Uses on cooldown", DRK.JobID)]
-		DRK_ST_CDs_Shadowbringer = 5009,
-
-		[ParentCombo(DRK_ST_CDs_Shadowbringer)]
-		[CustomComboInfo("Shadowbringer Burst", "Pools Shadowbringer to use during burst windows", DRK.JobID)]
-		DRK_ST_CDs_ShadowbringerBurst = 5010,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Blood Gauge Overcap Protection", "Adds Bloodspiller when at or above chosen amount", DRK.JobID)]
-		DRK_ST_BloodOvercap = 5011,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Edge of Shadow Overcap Protection", "Uses Edge of Shadow if you are above chosen amount of MP, Darkside has chosen amount of time remaining, or if you have Dark Arts", DRK.JobID)]
-		DRK_ST_ManaOvercap = 5012,
-
-		[ParentCombo(DRK_ST_ManaOvercap)]
-		[CustomComboInfo("Edge of Shadow Burst", "Pools Edge of Shadow for burst windows. Otherwise, uses it until chosen MP limit is reached", DRK.JobID)]
-		DRK_ST_ManaSpenderPooling = 5013,
-
-		[ParentCombo(DRK_ST_Combo)]
-		[CustomComboInfo("Unmend Uptime", "Use Unmend when out of melee range", DRK.JobID)]
-		DRK_ST_RangedUptime = 5014,
-
-		[ReplaceSkill(DRK.StalwartSoul)]
-		[CustomComboInfo("Stalwart Soul Combo", "Replace Stalwart Soul with its combo chain", DRK.JobID)]
-		DRK_AoE_Combo = 5100,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Delirium/Blood Weapon", "Adds Delirium/Blood Weapon to AoE combo on cooldown and when Darkside is active", DRK.JobID)]
+		[ParentCombo(DRK_AoE_DPS)]
+		[CustomComboInfo("Delirium", "", DRK.JobID)]
 		DRK_AoE_Delirium = 5101,
 
-		[ParentCombo(DRK_AoE_Delirium)]
-		[CustomComboInfo("Impalement", "Adds all Impalement uses when Delirium is activated", DRK.JobID)]
-		DRK_AoE_Delirium_Chain = 5102,
+		[ParentCombo(DRK_AoE_DPS)]
+		[CustomComboInfo("Blood Gauge", "", DRK.JobID)]
+		DRK_AoE_Quietus = 5109,
 
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("oGCDs", "Collection of abilities to add to the AoE combo. All of these require Darkside to be active", DRK.JobID)]
-		DRK_AoE_CDs = 5103,
+		[ParentCombo(DRK_AoE_DPS)]
+		[CustomComboInfo("Flood of Shadow", "", DRK.JobID)]
+		DRK_AoE_Flood = 5110,
 
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Abyssal Drain", "Use Abyssal Drain when you fall below the chosen HP%", DRK.JobID)]
-		DRK_AoE_CDs_AbyssalDrain = 5104,
+		#endregion
 
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Salted Earth", "Will also use Salt and Darkness", DRK.JobID)]
-		DRK_AoE_CDs_SaltedEarth = 5105,
+		#region Utility
 
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Living Shadow", "", DRK.JobID)]
-		DRK_AoE_CDs_LivingShadow = 5106,
 
-		[ParentCombo(DRK_AoE_CDs_LivingShadow)]
-		[CustomComboInfo("Disesteem", "", DRK.JobID)]
-		DRK_AoE_CDs_Disesteem = 5107,
 
-		[ParentCombo(DRK_AoE_CDs)]
-		[CustomComboInfo("Shadowbringer", "", DRK.JobID)]
-		DRK_AoE_CDs_Shadowbringer = 5108,
+		#endregion
 
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Blood Gauge Overcap Protection", "Adds Quietus when at or above chosen amount", DRK.JobID)]
-		DRK_AoE_BloodOvercap = 5109,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Flood of Shadow Overcap Protection", "Uses Flood of Shadow if you are above chosen amount of MP, Darkside has chosen amount of time remaining, or if you have Dark Arts", DRK.JobID)]
-		DRK_AoE_ManaOvercap = 5110,
-
-		[ParentCombo(DRK_AoE_Combo)]
-		[CustomComboInfo("Flood of Shadow Uptime", "Use Flood of Shadow when out of melee range", DRK.JobID)]
-		DRK_AoE_FloodUptime = 5111,
+		#region Variant
 
 		[Variant]
 		[CustomComboInfo("Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", DRK.JobID)]
@@ -301,23 +228,25 @@ namespace StackCombo.Combos
 
 		#endregion
 
+		#endregion
+
 		#region GUNBREAKER - 7000
 
 		#region Single Target DPS
 
-		[ReplaceSkill(GNB.KeenEdge)]
-		[CustomComboInfo("Single Target DPS", "", GNB.JobID)]
-		GNB_ST_MainCombo = 7001,
+		[ReplaceSkill(GNB.KeenEdge, GNB.BrutalShell, GNB.SolidBarrel)]
+		[CustomComboInfo("Single Target DPS", "Includes all Continuations", GNB.JobID)]
+		GNB_ST_DPS = 7001,
 
-		[ParentCombo(GNB_ST_MainCombo)]
-		[CustomComboInfo("Burst Strike", "", GNB.JobID)]
+		[ParentCombo(GNB_ST_DPS)]
+		[CustomComboInfo("Burst Strike Overcap Protection", "", GNB.JobID)]
 		GNB_ST_Burst = 7002,
 
-		[ParentCombo(GNB_ST_MainCombo)]
-		[CustomComboInfo("Gnashing Fang", "", GNB.JobID)]
+		[ParentCombo(GNB_ST_DPS)]
+		[CustomComboInfo("Gnashing Fang > Savage Claw > Wicked Talon", "", GNB.JobID)]
 		GNB_ST_Gnashing = 7003,
 
-		[ParentCombo(GNB_ST_MainCombo)]
+		[ParentCombo(GNB_ST_DPS)]
 		[CustomComboInfo("Reign Combo", "", GNB.JobID)]
 		GNB_ST_Reign = 7004,
 
@@ -325,19 +254,20 @@ namespace StackCombo.Combos
 
 		#region AoE DPS
 
-		[ReplaceSkill(GNB.DemonSlice)]
+		[ReplaceSkill(GNB.DemonSlice, GNB.DemonSlaughter)]
 		[CustomComboInfo("AoE DPS", "", GNB.JobID)]
-		GNB_AoE_MainCombo = 7300,
+		GNB_AoE_DPS = 7300,
 
-		[ParentCombo(GNB_AoE_MainCombo)]
+		[ParentCombo(GNB_AoE_DPS)]
 		[CustomComboInfo("Fated Circle", "", GNB.JobID)]
-		GNB_AOE_Overcap = 7307,
+		GNB_AoE_Fated = 7307,
 
 		#endregion
 
 		#region Utility
 
-		[CustomComboInfo("Aurora Protection", "", GNB.JobID)]
+		[ReplaceSkill(GNB.Aurora)]
+		[CustomComboInfo("Aurora Overwrite Protection", "", GNB.JobID)]
 		GNB_AuroraProtection = 7700,
 
 		#endregion
@@ -2829,7 +2759,6 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(BLU.MoonFlute)]
 		[BlueInactive(BLU.Whistle, BLU.Tingle, BLU.RoseOfDestruction, BLU.MoonFlute, BLU.JKick, BLU.TripleTrident, BLU.Nightbloom, BLU.WingedReprobation, BLU.SeaShanty, BLU.BeingMortal, BLU.ShockStrike, BLU.Surpanakha, BLU.MatraMagic, BLU.PhantomFlurry, BLU.Bristle, BLU.FeatherRain)]
-		[ConflictingCombos(BLU_Explode, BLU_TripleTrident, BLU_DoTs)]
 		[CustomComboInfo("Moon Flute Combo", "Turns Moon Flute into a full opener\nUse the remaining 2 charges of Winged Reprobation before starting the opener again!\nCan be done with 2.50 spell speed", BLU.JobID, 1)]
 		BLU_MoonFluteOpener = 70001,
 
@@ -2842,25 +2771,21 @@ namespace StackCombo.Combos
 
 		[BlueInactive(BLU.Whistle, BLU.Offguard, BLU.Tingle, BLU.BasicInstinct, BLU.MoonFlute, BLU.FinalSting)]
 		[ReplaceSkill(BLU.FinalSting)]
-		[ConflictingCombos(BLU_TripleTrident, BLU_DoTs)]
 		[CustomComboInfo("Final Sting Combo", "Whistle > Off-guard > Tingle > [Basic Instinct] > Moon Flute > Swiftcast > Final Sting", BLU.JobID)]
 		BLU_Sting = 70011,
 
 		[BlueInactive(BLU.ToadOil, BLU.Bristle, BLU.MoonFlute, BLU.SelfDestruct)]
 		[ReplaceSkill(BLU.SelfDestruct)]
-		[ConflictingCombos(BLU_MoonFluteOpener, BLU_TripleTrident, BLU_DoTs)]
 		[CustomComboInfo("Self-destruct Combo", "Toad Oil > Bristle > Moon Flute > Self-destruct", BLU.JobID)]
 		BLU_Explode = 70012,
 
 		[BlueInactive(BLU.Whistle, BLU.Tingle, BLU.TripleTrident)]
 		[ReplaceSkill(BLU.TripleTrident)]
-		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
 		[CustomComboInfo("Triple Trident Combo", "Whistle > Tingle > Triple Trident", BLU.JobID)]
 		BLU_TripleTrident = 70013,
 
 		[BlueInactive(BLU.Bristle, BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment, BLU.MatraMagic)]
 		[ReplaceSkill(BLU.BreathOfMagic, BLU.MortalFlame, BLU.SongOfTorment, BLU.MatraMagic)]
-		[ConflictingCombos(BLU_MoonFluteOpener, BLU_Sting, BLU_Explode)]
 		[CustomComboInfo("Buffed Breath of Magic, Mortal Flame, Song of Torment, and Matra Magic", "Bristle > Breath of Magic > Bristle > Mortal Flame > Bristle > Song of Torment > Bristle > Matra Magic", BLU.JobID)]
 		BLU_DoTs = 70014,
 
@@ -2880,23 +2805,18 @@ namespace StackCombo.Combos
 
 		[BlueInactive(BLU.GoblinPunch, BLU.MightyGuard, BLU.ToadOil, BLU.Devour, BLU.PeatPelt, BLU.DeepClean)]
 		[ReplaceSkill(BLU.GoblinPunch)]
-		[CustomComboInfo("Tank Combo", "Mighty Guard, Toad Oil, and Devour Checks, then Peat Pelt and Deep Clean combo", BLU.JobID)]
+		[CustomComboInfo("Tank Combo", "Mighty Guard, Toad Oil, and Devour Checks, then Peculiar Light, Peat Pelt, and Deep Clean", BLU.JobID)]
 		BLU_Tanking = 70030,
 
-		[BlueInactive(BLU.GoblinPunch, BLU.BloodDrain)]
-		[ReplaceSkill(BLU.GoblinPunch)]
-		[CustomComboInfo("Blood Drain over Goblin Punch when below specified MP", "", BLU.JobID)]
+		[BlueInactive(BLU.GoblinPunch, BLU.BloodDrain, BLU.ChocoMeteor)]
+		[ReplaceSkill(BLU.GoblinPunch, BLU.SonicBoom, BLU.ChocoMeteor)]
+		[CustomComboInfo("Lucid Dreaming and Blood Drain", "", BLU.JobID)]
 		BLU_ManaGain = 70031,
 
 		[BlueInactive(BLU.GoblinPunch, BLU.Gobskin, BLU.Pomcure)]
 		[ReplaceSkill(BLU.GoblinPunch)]
-		[CustomComboInfo("Auto Gobskin and Pomcure", "Great for soloing treasure maps", BLU.JobID)]
+		[CustomComboInfo("Gazelle Mappin'", "Mighty Guard, Basic Instinct, Phantom Flurry, Pomcure, Gobskin", BLU.JobID)]
 		BLU_TreasureMappin = 70034,
-
-		[BlueInactive(BLU.SonicBoom, BLU.GoblinPunch, BLU.ChocoMeteor)]
-		[ReplaceSkill(BLU.SonicBoom, BLU.GoblinPunch, BLU.ChocoMeteor)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", BLU.JobID)]
-		BLU_Lucid = 70032,
 
 		[BlueInactive(BLU.AngelWhisper)]
 		[ReplaceSkill(BLU.AngelWhisper)]

@@ -261,7 +261,7 @@ namespace StackCombo.Combos.PvE
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_Raise;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Resurrection && IsOffCooldown(All.Swiftcast) ? All.Swiftcast : actionID;
+				return actionID is Resurrection && IsOffCooldown(All.Swiftcast) && ActionReady(Resurrection) ? All.Swiftcast : actionID;
 			}
 		}
 
@@ -270,7 +270,7 @@ namespace StackCombo.Combos.PvE
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_FairyReminder;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return FairyList.Contains(actionID) && !HasPetPresent() && !HasEffect(Buffs.Dissipation) ? SummonEos : actionID;
+				return FairyList.Contains(actionID) && !HasPetPresent() && !HasEffect(Buffs.Dissipation) && ActionReady(SummonEos) ? SummonEos : actionID;
 			}
 		}
 	}

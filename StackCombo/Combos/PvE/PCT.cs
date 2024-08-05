@@ -120,6 +120,11 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
+					if (IsMoving && IsOffCooldown(All.Swiftcast) && CanSpellWeave(actionID))
+					{
+						return All.Swiftcast;
+					}
+
 					if (HasEffect(Buffs.SubtractivePalette))
 					{
 						return OriginalHook(BlizzardinCyan);

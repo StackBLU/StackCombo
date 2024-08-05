@@ -161,9 +161,9 @@ namespace StackCombo.Combos.PvE
 						return AfflatusRapture;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_GlareIV) && GetBuffStacks(Buffs.SacredSight) > 0)
+					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_GlareIV) && GetBuffStacks(Buffs.SacredSight) > 0 && ActionReady(Glare4))
 					{
-						return OriginalHook(Glare4);
+						return Glare4;
 					}
 				}
 				return actionID;
@@ -227,9 +227,9 @@ namespace StackCombo.Combos.PvE
 						return AfflatusRapture;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_GlareIV) && GetBuffStacks(Buffs.SacredSight) > 0)
+					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_GlareIV) && GetBuffStacks(Buffs.SacredSight) > 0 && ActionReady(Glare4))
 					{
-						return OriginalHook(Glare4);
+						return Glare4;
 					}
 				}
 				return actionID;
@@ -259,7 +259,7 @@ namespace StackCombo.Combos.PvE
 						return AfflatusSolace;
 					}
 
-					if (!TargetHasEffect(Buffs.Regen))
+					if (!TargetHasEffect(Buffs.Regen) && ActionReady(Regen))
 					{
 						return Regen;
 					}
@@ -269,7 +269,7 @@ namespace StackCombo.Combos.PvE
 						return ThinAir;
 					}
 
-					if (ActionReady(Cure2))
+					if (ActionReady(Cure2) && ActionReady(Cure2))
 					{
 						return Cure2;
 					}
@@ -352,7 +352,10 @@ namespace StackCombo.Combos.PvE
 					{
 						return ThinAir;
 					}
-					return Raise;
+					if (ActionReady(Raise))
+					{
+						return Raise;
+					}
 				}
 				return actionID;
 			}

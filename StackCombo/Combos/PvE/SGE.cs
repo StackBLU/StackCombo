@@ -167,7 +167,7 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_EDosis) && ActionReady(OriginalHook(EukrasianDosis3)) && ActionWatching.NumberOfGcdsUsed >= 3
 						&& (!TargetHasEffect(DosisList[OriginalHook(Dosis3)]) || (GetDebuffRemainingTime(DosisList[OriginalHook(Dosis3)]) <= 3)))
 					{
-						if (!HasEffect(Buffs.Eukrasia))
+						if (!HasEffect(Buffs.Eukrasia) && ActionReady(Eukrasia))
 						{
 							return Eukrasia;
 						}
@@ -247,7 +247,7 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_EDyskrasia) && ActionReady(OriginalHook(EukrasianDyskrasia))
 						&& (!TargetHasEffect(Debuffs.EukrasianDyskrasia) || (GetDebuffRemainingTime(Debuffs.EukrasianDyskrasia) <= 3)))
 					{
-						if (!HasEffect(Buffs.Eukrasia))
+						if (!HasEffect(Buffs.Eukrasia) && ActionReady(Eukrasia))
 						{
 							return Eukrasia;
 						}
@@ -273,7 +273,7 @@ namespace StackCombo.Combos.PvE
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_Raise;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Egeiro && IsOffCooldown(All.Swiftcast) ? All.Swiftcast : actionID;
+				return actionID is Egeiro && IsOffCooldown(All.Swiftcast) && ActionReady(Egeiro) ? All.Swiftcast : actionID;
 			}
 		}
 
@@ -284,7 +284,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (IsEnabled(CustomComboPreset.SGE_OverProtect))
 				{
-					if (actionID is Kerachole)
+					if (actionID is Kerachole && ActionReady(Kerachole))
 					{
 						if (!HasEffectAny(Buffs.Kerachole) && !HasEffectAny(SCH.Buffs.SacredSoil))
 						{
@@ -292,7 +292,7 @@ namespace StackCombo.Combos.PvE
 						}
 						return OriginalHook(11);
 					}
-					if (actionID is Panhaima)
+					if (actionID is Panhaima && ActionReady(Panhaima))
 					{
 						if (!HasEffectAny(Buffs.Panhaima))
 						{
@@ -300,7 +300,7 @@ namespace StackCombo.Combos.PvE
 						}
 						return OriginalHook(11);
 					}
-					if (actionID is Philosophia)
+					if (actionID is Philosophia && ActionReady(Philosophia))
 					{
 						if (!HasEffectAny(Buffs.Eudaimonia))
 						{

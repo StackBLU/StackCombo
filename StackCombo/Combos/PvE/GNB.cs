@@ -1,5 +1,4 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
-using Dalamud.Game.ClientState.Statuses;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
@@ -77,37 +76,33 @@ namespace StackCombo.Combos.PvE
 
 		public static class Config
 		{
-			public const string
-				GNB_VariantCure = "GNB_VariantCure";
+			public static UserInt
+				GNB_VariantCure = new("GNB_VariantCure", 50);
 		}
 
-		internal class GNB_ST_MainCombo : CustomComboClass
+		internal class GNB_ST_DPS : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.GNB_ST_MainCombo;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.GNB_ST_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is KeenEdge)
+				if (actionID is KeenEdge or BrutalShell or SolidBarrel && IsEnabled(CustomComboPreset.GNB_ST_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_VariantCure))
+					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure)
+						&& PlayerHealthPercentageHp() <= Config.GNB_VariantCure)
 					{
 						return Variant.VariantCure;
 					}
 
-					if (CanWeave(actionID))
+					if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
+						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
 					{
-						Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
-						if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) &&
-							IsEnabled(Variant.VariantSpiritDart) &&
-							(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3))
-						{
-							return Variant.VariantSpiritDart;
-						}
+						return Variant.VariantSpiritDart;
+					}
 
-						if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-						{
-							return Variant.VariantUltimatum;
-						}
+					if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
+					{
+						return Variant.VariantUltimatum;
 					}
 
 					if (ActionReady(Continuation)
@@ -132,20 +127,21 @@ namespace StackCombo.Combos.PvE
 						}
 					}*/
 
-					if ((ActionReady(BurstStrike)
+					if ((Gauge.Ammo > 0 && ActionReady(OriginalHook(GnashingFang)) && IsEnabled(CustomComboPreset.GNB_ST_Gnashing)
+						&& GetCooldownRemainingTime(GnashingFang) < 1.5)
+						|| Gauge.AmmoComboStep == 1
+						|| Gauge.AmmoComboStep == 2)
+					{
+						return OriginalHook(GnashingFang);
+					}
+
+					if ((ActionReady(BurstStrike) && IsEnabled(CustomComboPreset.GNB_ST_Burst)
 						&& Gauge.Ammo == MaxCartridges(level) && lastComboMove == BrutalShell)
 						|| (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0
 						&& (GetCooldownRemainingTime(OriginalHook(GnashingFang)) > 5 || !ActionReady(GnashingFang))
 						&& (GetCooldownRemainingTime(DoubleDown) > 10 || !ActionReady(DoubleDown))))
 					{
 						return BurstStrike;
-					}
-
-					if ((Gauge.Ammo > 0 && ActionReady(OriginalHook(GnashingFang)) && GetCooldownRemainingTime(GnashingFang) < 1.5)
-						|| Gauge.AmmoComboStep == 1
-						|| Gauge.AmmoComboStep == 2)
-					{
-						return OriginalHook(GnashingFang);
 					}
 
 					if (comboTime > 0)
@@ -166,36 +162,33 @@ namespace StackCombo.Combos.PvE
 			}
 		}
 
-		internal class GNB_AoE_MainCombo : CustomComboClass
+		internal class GNB_AoE_DPS : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.GNB_AoE_MainCombo;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.GNB_AoE_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-
-				if (actionID is DemonSlice)
+				if (actionID is DemonSlice or DemonSlaughter && IsEnabled(CustomComboPreset.GNB_AoE_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_VariantCure))
+					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure)
+						&& PlayerHealthPercentageHp() <= Config.GNB_VariantCure)
 					{
 						return Variant.VariantCure;
 					}
-					if (CanWeave(actionID))
-					{
-						Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
-						if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) &&
-							IsEnabled(Variant.VariantSpiritDart) &&
-							(sustainedDamage is null || sustainedDamage?.RemainingTime <= 3))
-						{
-							return Variant.VariantSpiritDart;
-						}
 
-						if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-						{
-							return Variant.VariantUltimatum;
-						}
+					if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
+						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
+					{
+						return Variant.VariantSpiritDart;
 					}
 
-					if (IsEnabled(CustomComboPreset.GNB_AOE_Overcap) && ActionReady(FatedCircle)
+					if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
+					{
+						return Variant.VariantUltimatum;
+					}
+
+					if (IsEnabled(CustomComboPreset.GNB_AoE_Fated) && ActionReady(FatedCircle) && LevelChecked(DoubleDown)
+						&& GetCooldownRemainingTime(DoubleDown) > 10 && IsEnabled(CustomComboPreset.GNB_AoE_Fated)
 						&& ((Gauge.Ammo == MaxCartridges(level) && lastComboMove is DemonSlice) || (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0)))
 					{
 						return FatedCircle;

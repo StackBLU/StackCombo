@@ -128,7 +128,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Malefic || actionID is Malefic2 || actionID is Malefic3 || actionID is Malefic4 || actionID is FallMalefic)
+				if (actionID is Malefic or Malefic2 or Malefic3 or Malefic4 or FallMalefic)
 				{
 					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -224,7 +224,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Benefic2)
 				{
-					if (IsEnabled(CustomComboPreset.AST_ST_SimpleHeals_AspectedBenefic))
+					if (IsEnabled(CustomComboPreset.AST_ST_SimpleHeals_AspectedBenefic) && ActionReady(AspectedBenefic))
 					{
 						if (!TargetHasEffect(Buffs.AspectedBenefic))
 						{
@@ -252,7 +252,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Ascend && IsOffCooldown(All.Swiftcast) ? All.Swiftcast : actionID;
+				return actionID is Ascend && IsOffCooldown(All.Swiftcast) && ActionReady(Ascend) ? All.Swiftcast : actionID;
 			}
 		}
 
@@ -262,7 +262,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Lightspeed && HasEffect(Buffs.Lightspeed) ? OriginalHook(11) : actionID;
+				return actionID is Lightspeed && HasEffect(Buffs.Lightspeed) && ActionReady(Lightspeed) ? OriginalHook(11) : actionID;
 			}
 		}
 
