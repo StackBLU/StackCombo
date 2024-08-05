@@ -1540,9 +1540,9 @@ namespace StackCombo.Window.Functions
 				UserConfig.DrawSliderInt(0, 100, GNB.Config.GNB_ST_Invuln, "", 150, SliderIncrements.Ones);
 			}
 
-			if (preset == CustomComboPreset.GNB_ST_Invuln && enabled)
+			if (preset == CustomComboPreset.GNB_AoE_Invuln && enabled)
 			{
-				UserConfig.DrawSliderInt(0, 100, GNB.Config.GNB_ST_Invuln, "", 150, SliderIncrements.Ones);
+				UserConfig.DrawSliderInt(0, 100, GNB.Config.GNB_AoE_Invuln, "", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.GNB_Variant_Cure)
