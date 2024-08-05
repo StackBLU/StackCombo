@@ -62,7 +62,10 @@ namespace StackCombo.Combos.PvE
 				DRK_ST_ManaSaver = new("DRK_ST_ManaSaver", 6000),
 				DRK_AoE_ManaSaver = new("DRK_AoE_ManaSaver", 6000),
 				DRK_BloodspillerGauge = new("DRK_BloodspillerGauge", 50),
-				DRK_QuietusGauge = new("DRK_QuietusGauge", 50);
+				DRK_QuietusGauge = new("DRK_QuietusGauge", 50),
+				DRK_AoE_Abyssal = new("DRK_AoE_Abyssal", 25),
+				DRK_ST_Invuln = new("DRK_ST_Invuln", 10),
+				DRK_AoE_Invuln = new("DRK_AoE_Invuln", 10);
 		}
 
 		internal class DRK_ST_DPS : CustomComboClass
@@ -90,7 +93,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.DRK_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.DRK_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_ST_Invuln))
 					{
 						return LivingDead;
 					}
@@ -157,7 +160,12 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.DRK_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.DRK_AoE_Abyssal) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_AoE_Abyssal))
+					{
+						return AbyssalDrain;
+					}
+
+					if (IsEnabled(CustomComboPreset.DRK_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_AoE_Invuln))
 					{
 						return LivingDead;
 					}

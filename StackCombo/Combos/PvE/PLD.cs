@@ -73,7 +73,9 @@ namespace StackCombo.Combos.PvE
 			public static UserInt
 				PLD_VariantCure = new("PLD_VariantCure", 50),
 				PLD_ST_SheltronOption = new("PLD_ST_SheltronOption", 50),
-				PLD_AoE_SheltronOption = new("PLD_AoE_SheltronOption", 50);
+				PLD_AoE_SheltronOption = new("PLD_AoE_SheltronOption", 50),
+				PLD_ST_Invuln = new("PLD_ST_Invuln", 10),
+				PLD_AoE_Invuln = new("PLD_AoE_Invuln", 10);
 		}
 
 		internal class PLD_ST_DPS : CustomComboClass
@@ -101,7 +103,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.PLD_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.PLD_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_ST_Invuln))
 					{
 						return HallowedGround;
 					}
@@ -182,7 +184,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.PLD_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.PLD_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_AoE_Invuln))
 					{
 						return HallowedGround;
 					}

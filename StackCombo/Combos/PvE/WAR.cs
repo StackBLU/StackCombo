@@ -64,7 +64,9 @@ namespace StackCombo.Combos.PvE
 				WAR_VariantCure = new("WAR_VariantCure", 50),
 				WAR_SurgingRefreshRange = new("WAR_SurgingRefreshRange", 20),
 				WAR_FellCleaveGauge = new("WAR_FellCleaveGauge", 50),
-				WAR_DecimateGauge = new("WAR_DecimateGauge", 50);
+				WAR_DecimateGauge = new("WAR_DecimateGauge", 50),
+				WAR_ST_Invuln = new("WAR_ST_Invuln", 10),
+				WAR_AoE_Invuln = new("WAR_AoE_Invuln", 10);
 		}
 
 		internal class WAR_ST_DPS : CustomComboClass
@@ -92,7 +94,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.WAR_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.WAR_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_ST_Invuln))
 					{
 						return Holmgang;
 					}
@@ -167,7 +169,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.WAR_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.WAR_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_AoE_Invuln))
 					{
 						return Holmgang;
 					}

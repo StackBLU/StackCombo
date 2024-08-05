@@ -1473,6 +1473,21 @@ namespace StackCombo.Window.Functions
 				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_QuietusGauge, "", 150, SliderIncrements.Ones);
 			}
 
+			if (preset == CustomComboPreset.DRK_AoE_Abyssal && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_AoE_Abyssal, "", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.DRK_ST_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_ST_Invuln, "", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.DRK_AoE_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, DRK.Config.DRK_AoE_Invuln, "", 150, SliderIncrements.Ones);
+			}
+
 			if (preset == CustomComboPreset.DRKPvP_Burst)
 			{
 				UserConfig.DrawSliderInt(1, 100, DRKPvP.Config.ShadowbringerThreshold, "HP% to be at or above to use Shadowbringer", 150, SliderIncrements.Ones);
@@ -1519,6 +1534,16 @@ namespace StackCombo.Window.Functions
 			#endregion
 
 			#region GUNBREAKER
+
+			if (preset == CustomComboPreset.GNB_ST_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, GNB.Config.GNB_ST_Invuln, "", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.GNB_ST_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, GNB.Config.GNB_ST_Invuln, "", 150, SliderIncrements.Ones);
+			}
 
 			if (preset == CustomComboPreset.GNB_Variant_Cure)
 			{
@@ -1707,6 +1732,16 @@ namespace StackCombo.Window.Functions
 			if (preset == CustomComboPreset.PLD_AoE_Sheltron)
 			{
 				UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_SheltronOption, "Oath Gauge", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.PLD_ST_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_ST_Invuln, "", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.PLD_AoE_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, PLD.Config.PLD_AoE_Invuln, "", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.PLD_Variant_Cure)
@@ -2099,6 +2134,16 @@ namespace StackCombo.Window.Functions
 			if (preset == CustomComboPreset.WAR_AoE_Decimate)
 			{
 				UserConfig.DrawSliderInt(0, 100, WAR.Config.WAR_DecimateGauge, "Minimum gauge to spend", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.WAR_ST_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, WAR.Config.WAR_ST_Invuln, "", 150, SliderIncrements.Ones);
+			}
+
+			if (preset == CustomComboPreset.WAR_AoE_Invuln && enabled)
+			{
+				UserConfig.DrawSliderInt(0, 100, WAR.Config.WAR_AoE_Invuln, "", 150, SliderIncrements.Ones);
 			}
 
 			if (preset == CustomComboPreset.WARPvP_BurstMode_Blota)

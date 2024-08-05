@@ -225,6 +225,10 @@ namespace StackCombo.Combos
 		DRK_AoE_Delirium = 5023,
 
 		[ParentCombo(DRK_AoE_DPS)]
+		[CustomComboInfo("Abyssal Drain", "", DRK.JobID)]
+		DRK_AoE_Abyssal = 50025,
+
+		[ParentCombo(DRK_AoE_DPS)]
 		[CustomComboInfo("Living Dead", "", DRK.JobID)]
 		DRK_AoE_Invuln = 5024,
 

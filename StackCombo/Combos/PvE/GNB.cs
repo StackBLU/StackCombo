@@ -78,7 +78,9 @@ namespace StackCombo.Combos.PvE
 		public static class Config
 		{
 			public static UserInt
-				GNB_VariantCure = new("GNB_VariantCure", 50);
+				GNB_VariantCure = new("GNB_VariantCure", 50),
+				GNB_ST_Invuln = new("GNB_ST_Invuln", 10),
+				GNB_AoE_Invuln = new("GNB_AoE_Invuln", 10);
 		}
 
 		internal class GNB_ST_DPS : CustomComboClass
@@ -106,7 +108,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.GNB_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.GNB_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_ST_Invuln))
 					{
 						return Superbolide;
 					}
@@ -193,7 +195,7 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
-					if (IsEnabled(CustomComboPreset.GNB_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					if (IsEnabled(CustomComboPreset.GNB_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_AoE_Invuln))
 					{
 						return Superbolide;
 					}
