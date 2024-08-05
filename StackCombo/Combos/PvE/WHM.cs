@@ -88,13 +88,10 @@ namespace StackCombo.Combos.PvE
 		public static class Config
 		{
 			internal static UserInt
-				WHM_ST_DPS_DoT = new("WHM_ST_DPS_DoT"),
-				WHM_ST_DPS_Lucid = new("WHM_ST_DPS_Lucid"),
-				WHM_AoE_DPS_Lucid = new("WHM_AoE_DPS_Lucid");
+				WHM_ST_DPS_Lucid = new("WHM_ST_DPS_Lucid", 7500),
+				WHM_AoE_DPS_Lucid = new("WHM_AoE_DPS_Lucid", 7500);
 			internal static UserBool
 				WHM_ST_Heals_TetraWeave = new("WHM_ST_Heals_TetraWeave"),
-				WHM_AoE_Heals_Medica = new("WHM_AoE_Heals_Medica"),
-				WHM_AoE_Heals_Misery_Save = new("WHM_AoE_Heals_Misery_Save"),
 				WHM_Raise_ThinAir = new("WHM_Raise_ThinAir");
 		}
 

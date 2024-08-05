@@ -1817,6 +1817,8 @@ namespace StackCombo.Combos
 
 		#region MACHINIST - 8000
 
+		#region Single Target DPS
+
 		[ReplaceSkill(MCH.SplitShot, MCH.HeatedSplitShot)]
 		[ConflictingCombos(MCH_ST_AdvancedMode)]
 		[CustomComboInfo("Simple Mode - Single Target", "Replaces Split Shot with a one-button full single target rotation.\nThis is ideal for newcomers to the job", MCH.JobID)]
@@ -1893,6 +1895,10 @@ namespace StackCombo.Combos
 		[CustomComboInfo("Second Wind", "Use Second Wind when below the set HP percentage", MCH.JobID)]
 		MCH_ST_Adv_SecondWind = 8114,
 
+		#endregion
+
+		#region AoE DPS
+
 		[ReplaceSkill(MCH.SpreadShot)]
 		[ConflictingCombos(MCH_AoE_AdvancedMode)]
 		[CustomComboInfo("Simple Mode - AoE", "Replaces Spread Shot with a one-button full single target rotation.\nThis is ideal for newcomers to the job", MCH.JobID)]
@@ -1948,6 +1954,10 @@ namespace StackCombo.Combos
 		[CustomComboInfo("Second Wind", "Use Second Wind when below the set HP percentage", MCH.JobID)]
 		MCH_AoE_Adv_SecondWind = 8399,
 
+		#endregion
+
+		#region Utility
+
 		[ReplaceSkill(MCH.RookAutoturret, MCH.AutomatonQueen)]
 		[CustomComboInfo("Overdrive", "Replace Rook Autoturret and Automaton Queen with Overdrive while active", MCH.JobID)]
 		MCH_Overdrive = 8002,
@@ -1998,6 +2008,10 @@ namespace StackCombo.Combos
 		[CustomComboInfo("Dismantle - Tactician", "Swap dismantle with tactician when dismantle is on cooldown", MCH.JobID)]
 		MCH_DismantleTactician = 8058,
 
+		#endregion
+
+		#region Variant
+
 		[Variant]
 		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", MCH.JobID)]
 		MCH_Variant_Rampart = 8039,
@@ -2005,6 +2019,8 @@ namespace StackCombo.Combos
 		[Variant]
 		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", MCH.JobID)]
 		MCH_Variant_Cure = 8040,
+
+		#endregion
 
 		#endregion
 
@@ -3424,40 +3440,24 @@ namespace StackCombo.Combos
 		#endregion
 
 		#region ALL - 100000
-		[CustomComboInfo("Tanks", "", ADV.JobID)]
-		ALL_Tank_Menu = 100010,
 
 		[ReplaceSkill(All.Reprisal)]
-		[ParentCombo(ALL_Tank_Menu)]
 		[CustomComboInfo("Reprisal Protection", "", ADV.JobID)]
 		ALL_Tank_Reprisal = 100012,
 
-		[CustomComboInfo("Melee DPS", "", ADV.JobID)]
-		ALL_Melee_Menu = 100040,
-
 		[ReplaceSkill(All.Feint)]
-		[ParentCombo(ALL_Melee_Menu)]
 		[CustomComboInfo("Feint Protection", "", ADV.JobID)]
 		ALL_Melee_Feint = 100041,
 
 		[ReplaceSkill(All.TrueNorth)]
-		[ParentCombo(ALL_Melee_Menu)]
 		[CustomComboInfo("True North Protection", "", ADV.JobID)]
 		ALL_Melee_TrueNorth = 100042,
 
-		[CustomComboInfo("Physical Ranged DPS", "", ADV.JobID)]
-		ALL_Ranged_Menu = 100050,
-
 		[ReplaceSkill(MCH.Tactician, BRD.Troubadour, DNC.ShieldSamba)]
-		[ParentCombo(ALL_Ranged_Menu)]
-		[CustomComboInfo("Mitigation Protection", "", ADV.JobID)]
+		[CustomComboInfo("Ranged Mitigation Protection", "", ADV.JobID)]
 		ALL_Ranged_Mitigation = 100051,
 
-		[CustomComboInfo("Magical Ranged DPS", "", ADV.JobID)]
-		ALL_Caster_Menu = 100030,
-
 		[ReplaceSkill(All.Addle)]
-		[ParentCombo(ALL_Caster_Menu)]
 		[CustomComboInfo("Addle Protection", "", ADV.JobID)]
 		ALL_Caster_Addle = 100031,
 

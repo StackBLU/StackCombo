@@ -401,7 +401,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic) && IsEnabled(CustomComboPreset.BLU_DoTs))
+				if (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic && IsEnabled(CustomComboPreset.BLU_DoTs))
 				{
 					if (!HasEffect(Buffs.Bristle) && IsSpellActive(Bristle) && (actionID is BreathOfMagic or MortalFlame or SongOfTorment or MatraMagic))
 					{
@@ -434,7 +434,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is PeripheralSynthesis or MustardBomb) && IsEnabled(CustomComboPreset.BLU_Periph))
+				if (actionID is PeripheralSynthesis or MustardBomb && IsEnabled(CustomComboPreset.BLU_Periph))
 				{
 					if (IsSpellActive(MustardBomb) && (WasLastSpell(PeripheralSynthesis) || HasEffect(Buffs.Bristle) || TargetHasEffectAny(Debuffs.MustardBomb)))
 					{
@@ -452,13 +452,13 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is HydroPull or RamsVoice or Ultravibration) && IsEnabled(CustomComboPreset.BLU_Ultravibration))
+				if (actionID is HydroPull or RamsVoice or Ultravibration && IsEnabled(CustomComboPreset.BLU_Ultravibration))
 				{
-					if (IsSpellActive(HydroPull) && !WasLastSpell(HydroPull))
+					if (IsSpellActive(HydroPull) && !WasLastSpell(HydroPull) && !WasLastSpell(RamsVoice))
 					{
 						return HydroPull;
 					}
-					if (IsSpellActive(RamsVoice) && (WasLastSpell(HydroPull) || !WasLastSpell(RamsVoice)))
+					if (IsSpellActive(RamsVoice) && (WasLastSpell(HydroPull) || !IsSpellActive(HydroPull)))
 					{
 						return RamsVoice;
 					}
@@ -470,6 +470,7 @@ namespace StackCombo.Combos.PvE
 					{
 						return Ultravibration;
 					}
+
 				}
 				return actionID;
 			}
@@ -481,7 +482,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if ((actionID is GoblinPunch or SonicBoom or ChocoMeteor) && IsEnabled(CustomComboPreset.BLU_ManaGain))
+				if (actionID is GoblinPunch or SonicBoom or ChocoMeteor && IsEnabled(CustomComboPreset.BLU_ManaGain))
 				{
 					if (ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
