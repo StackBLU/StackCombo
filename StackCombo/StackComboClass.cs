@@ -58,7 +58,7 @@ namespace StackCombo
 			//MCH.JobID,
 			DNC.JobID,
 			BLM.JobID,
-			SMN.JobID,
+			//SMN.JobID,
 			RDM.JobID,
 			//PCT.JobID,
 

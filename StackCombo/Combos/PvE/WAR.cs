@@ -15,6 +15,7 @@ namespace StackCombo.Combos.PvE
 			Berserk = 38,
 			Overpower = 41,
 			StormsPath = 42,
+			Holmgang = 43,
 			StormsEye = 45,
 			Tomahawk = 46,
 			InnerBeast = 49,
@@ -91,6 +92,11 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
+					if (IsEnabled(CustomComboPreset.WAR_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return Holmgang;
+					}
+
 					if (CanWeave(actionID) && GetBuffRemainingTime(Buffs.SurgingTempest) > 3)
 					{
 						if (IsEnabled(CustomComboPreset.WAR_ST_InnerRelease) && ActionReady(OriginalHook(InnerRelease)))
@@ -159,6 +165,11 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.WAR_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
 					{
 						return Variant.VariantUltimatum;
+					}
+
+					if (IsEnabled(CustomComboPreset.WAR_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return Holmgang;
 					}
 
 					if (CanWeave(actionID) && GetBuffRemainingTime(Buffs.SurgingTempest) > 3)

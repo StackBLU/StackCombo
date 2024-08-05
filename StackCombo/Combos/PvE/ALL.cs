@@ -68,7 +68,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Reprisal)
+				if (actionID is Reprisal && IsEnabled(CustomComboPreset.ALL_Tank_Reprisal))
 				{
 					if (TargetHasEffectAny(Debuffs.Reprisal) && IsOffCooldown(Reprisal))
 					{
@@ -85,7 +85,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Addle)
+				if (actionID is Addle && IsEnabled(CustomComboPreset.ALL_Caster_Addle))
 				{
 					if (TargetHasEffectAny(Debuffs.Addle) && IsOffCooldown(Addle))
 					{
@@ -102,7 +102,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Feint)
+				if (actionID is Feint && IsEnabled(CustomComboPreset.ALL_Melee_Feint))
 				{
 					if (TargetHasEffectAny(Debuffs.Feint) && IsOffCooldown(Feint))
 					{
@@ -119,7 +119,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is TrueNorth)
+				if (actionID is TrueNorth && IsEnabled(CustomComboPreset.ALL_Melee_TrueNorth))
 				{
 					if (HasEffect(Buffs.TrueNorth))
 					{
@@ -136,7 +136,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is BRD.Troubadour or MCH.Tactician or DNC.ShieldSamba)
+				if (actionID is BRD.Troubadour or MCH.Tactician or DNC.ShieldSamba && IsEnabled(CustomComboPreset.ALL_Ranged_Mitigation))
 				{
 					if ((HasEffectAny(BRD.Buffs.Troubadour) || HasEffectAny(MCH.Buffs.Tactician) || HasEffectAny(DNC.Buffs.ShieldSamba)) && IsOffCooldown(actionID))
 					{

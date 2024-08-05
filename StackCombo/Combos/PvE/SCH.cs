@@ -267,7 +267,7 @@ namespace StackCombo.Combos.PvE
 
 		internal class SCH_FairyReminder : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_FairyReminder;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_Reminder;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				return FairyList.Contains(actionID) && !HasPetPresent() && !HasEffect(Buffs.Dissipation) && ActionReady(SummonEos) ? SummonEos : actionID;

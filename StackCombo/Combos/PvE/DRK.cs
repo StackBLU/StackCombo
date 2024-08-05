@@ -13,6 +13,7 @@ namespace StackCombo.Combos.PvE
 			HardSlash = 3617,
 			SyphonStrike = 3623,
 			Souleater = 3632,
+			LivingDead = 3638,
 			Unleash = 3621,
 			StalwartSoul = 16468,
 			CarveAndSpit = 3643,
@@ -89,6 +90,11 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
+					if (IsEnabled(CustomComboPreset.DRK_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return LivingDead;
+					}
+
 					if (CanWeave(actionID))
 					{
 						if (IsEnabled(CustomComboPreset.DRK_ST_Edge) && ActionReady(OriginalHook(EdgeOfShadow))
@@ -149,6 +155,11 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.DRK_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
 					{
 						return Variant.VariantUltimatum;
+					}
+
+					if (IsEnabled(CustomComboPreset.DRK_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return LivingDead;
 					}
 
 					if (CanWeave(actionID))

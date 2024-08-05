@@ -17,6 +17,7 @@ namespace StackCombo.Combos.PvE
 			CircleOfScorn = 23,
 			ShieldLob = 24,
 			SpiritsWithin = 29,
+			HallowedGround = 30,
 			GoringBlade = 3538,
 			RoyalAuthority = 3539,
 			TotalEclipse = 7381,
@@ -100,6 +101,11 @@ namespace StackCombo.Combos.PvE
 						return Variant.VariantUltimatum;
 					}
 
+					if (IsEnabled(CustomComboPreset.PLD_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return HallowedGround;
+					}
+
 					if (CanWeave(actionID))
 					{
 						if (IsEnabled(CustomComboPreset.PLD_ST_SpiritsWithin) && ActionReady(SpiritsWithin) && InMeleeRange())
@@ -174,6 +180,11 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.PLD_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
 					{
 						return Variant.VariantUltimatum;
+					}
+
+					if (IsEnabled(CustomComboPreset.PLD_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return HallowedGround;
 					}
 
 					if (ActionReady(SpiritsWithin) && IsEnabled(CustomComboPreset.PLD_AoE_SpiritsWithin) && CanWeave(actionID))

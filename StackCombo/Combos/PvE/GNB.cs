@@ -24,6 +24,7 @@ namespace StackCombo.Combos.PvE
 			SavageClaw = 16147,
 			DemonSlaughter = 16149,
 			WickedTalon = 16150,
+			Superbolide = 16152,
 			SonicBreak = 16153,
 			Continuation = 16155,
 			JugularRip = 16156,
@@ -103,6 +104,11 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
 					{
 						return Variant.VariantUltimatum;
+					}
+
+					if (IsEnabled(CustomComboPreset.GNB_ST_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return Superbolide;
 					}
 
 					if (ActionReady(Continuation)
@@ -185,6 +191,11 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
 					{
 						return Variant.VariantUltimatum;
+					}
+
+					if (IsEnabled(CustomComboPreset.GNB_AoE_Invuln) && PlayerHealthPercentageHp() <= 10)
+					{
+						return Superbolide;
 					}
 
 					if (IsEnabled(CustomComboPreset.GNB_AoE_Fated) && ActionReady(FatedCircle) && LevelChecked(DoubleDown)

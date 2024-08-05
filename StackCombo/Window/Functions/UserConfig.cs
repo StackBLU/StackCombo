@@ -8,7 +8,6 @@ using StackCombo.Combos;
 using StackCombo.Combos.PvE;
 using StackCombo.Combos.PvP;
 using StackCombo.Core;
-using StackCombo.Data;
 using StackCombo.Services;
 using System;
 using System.Linq;
@@ -1530,72 +1529,7 @@ namespace StackCombo.Window.Functions
 
 			#region MACHINIST
 
-			if (preset == CustomComboPreset.MCH_ST_Adv_Reassemble)
-			{
-				UserConfig.DrawSliderInt(0, 1, MCH.Config.MCH_ST_ReassemblePool, "Number of Charges to Save for Manual Use");
-			}
 
-			if (preset == CustomComboPreset.MCH_AoE_Adv_Reassemble)
-			{
-				UserConfig.DrawSliderInt(0, 1, MCH.Config.MCH_AoE_ReassemblePool, "Number of Charges to Save for Manual Use");
-			}
-
-			if (preset is CustomComboPreset.MCH_ST_Adv_Reassemble)
-			{
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_ST_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.Excavator)}", "", 5, 0);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_ST_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.Chainsaw)}", "", 5, 1);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_ST_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.AirAnchor)}", "", 5, 2);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_ST_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.Drill)}", "", 5, 3);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_ST_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.CleanShot)}", "", 5, 4);
-			}
-
-			if (preset is CustomComboPreset.MCH_AoE_Adv_Reassemble)
-			{
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_AoE_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.SpreadShot)}/{ActionWatching.GetActionName(MCH.Scattergun)}", "", 4, 0);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_AoE_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.AutoCrossbow)}", "", 4, 1);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_AoE_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.Chainsaw)}", "", 4, 2);
-				UserConfig.DrawHorizontalMultiChoice(MCH.Config.MCH_AoE_Reassembled, $"Use on {ActionWatching.GetActionName(MCH.Excavator)}", "", 4, 3);
-			}
-
-			if (preset == CustomComboPreset.MCH_ST_Adv_SecondWind)
-			{
-				UserConfig.DrawSliderInt(0, 100, MCH.Config.MCH_ST_SecondWindThreshold, $"{ActionWatching.GetActionName(All.SecondWind)} HP percentage threshold", 150, SliderIncrements.Ones);
-			}
-
-			if (preset == CustomComboPreset.MCH_AoE_Adv_SecondWind)
-			{
-				UserConfig.DrawSliderInt(0, 100, MCH.Config.MCH_AoE_SecondWindThreshold, $"{ActionWatching.GetActionName(All.SecondWind)} HP percentage threshold", 150, SliderIncrements.Ones);
-			}
-
-			if (preset == CustomComboPreset.MCH_AoE_Adv_Queen)
-			{
-				UserConfig.DrawSliderInt(50, 100, MCH.Config.MCH_AoE_TurretUsage, "Battery threshold", sliderIncrement: 5);
-			}
-
-			if (preset == CustomComboPreset.MCH_AoE_Adv_GaussRicochet)
-			{
-				UserConfig.DrawAdditionalBoolChoice(MCH.Config.MCH_AoE_Hypercharge, $"Use Outwith {ActionWatching.GetActionName(MCH.Hypercharge)}", "");
-			}
-
-			if (preset == CustomComboPreset.MCH_Variant_Cure)
-			{
-				UserConfig.DrawSliderInt(1, 100, MCH.Config.MCH_VariantCure, "HP% to be at or under", 200);
-			}
-
-			if (preset == CustomComboPreset.MCH_ST_Adv_QueenOverdrive)
-			{
-				UserConfig.DrawSliderInt(1, 10, MCH.Config.MCH_ST_QueenOverDrive, "HP% for the target to be at or under");
-			}
-
-			if (preset == CustomComboPreset.MCH_ST_Adv_WildFire)
-			{
-				UserConfig.DrawSliderInt(0, 15, MCH.Config.MCH_ST_WildfireHP, "Stop Using When Target HP% is at or Below (Set to 0 to Disable This Check)");
-			}
-
-			if (preset == CustomComboPreset.MCH_ST_Adv_Hypercharge)
-			{
-				UserConfig.DrawSliderInt(0, 15, MCH.Config.MCH_ST_HyperchargeHP, "Stop Using When Target HP% is at or Below (Set to 0 to Disable This Check)");
-			}
 
 			#endregion
 
@@ -2096,52 +2030,15 @@ namespace StackCombo.Window.Functions
 			#region SUMMONER
 
 			#region PvE
-			if (preset == CustomComboPreset.SMN_DemiEgiMenu_EgiOrder)
+
+			if (preset == CustomComboPreset.SMN_ST_Lucid)
 			{
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_PrimalChoice, "Titan first", "Summons Titan, Garuda then Ifrit.", 1);
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_PrimalChoice, "Garuda first", "Summons Garuda, Titan then Ifrit.", 2);
+				UserConfig.DrawSliderInt(1000, 10000, SMN.Config.SMN_ST_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
-			if (preset == CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling)
+			if (preset == CustomComboPreset.SMN_AoE_Lucid)
 			{
-				UserConfig.DrawSliderInt(0, 3, SMN.Config.SMN_Burst_Delay, "Sets the amount of GCDs under Demi summon to wait for oGCD use.", 150, SliderIncrements.Ones);
-			}
-
-			if (preset == CustomComboPreset.SMN_DemiEgiMenu_oGCDPooling)
-			{
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_BurstPhase, "Solar Bahamut/Bahamut", "Bursts during Bahamut phase.\nBahamut burst phase becomes Solar Bahamut at Lv100.", 1);
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_BurstPhase, "Phoenix", "Bursts during Phoenix phase.", 2);
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_BurstPhase, "Any Demi Phase", "Bursts during any Demi Summon phase.", 3);
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_BurstPhase, "Flexible (SpS) Option", "Bursts when Searing Light is ready, regardless of phase.", 4);
-			}
-
-			if (preset == CustomComboPreset.SMN_DemiEgiMenu_SwiftcastEgi)
-			{
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite", 2);
-				UserConfig.DrawHorizontalRadioButton(SMN.Config.SMN_SwiftcastPhase, "Flexible (SpS) Option", "Swiftcasts the first available Egi when Swiftcast is ready.", 3);
-			}
-
-			if (preset == CustomComboPreset.SMN_Lucid)
-			{
-				UserConfig.DrawSliderInt(4000, 9500, SMN.Config.SMN_Lucid, "Set value for your MP to be at or under for this feature to take effect.", 150, SliderIncrements.Hundreds);
-			}
-
-			if (preset == CustomComboPreset.SMN_Variant_Cure)
-			{
-				UserConfig.DrawSliderInt(1, 100, SMN.Config.SMN_VariantCure, "HP% to be at or under", 200);
-			}
-
-			if (preset == CustomComboPreset.SMN_ST_Egi_AstralFlow)
-			{
-				UserConfig.DrawHorizontalMultiChoice(SMN.Config.SMN_ST_Egi_AstralFlow, "Add Mountain Buster", "", 3, 0);
-				UserConfig.DrawHorizontalMultiChoice(SMN.Config.SMN_ST_Egi_AstralFlow, "Add Crimson Cyclone", "", 3, 1);
-				UserConfig.DrawHorizontalMultiChoice(SMN.Config.SMN_ST_Egi_AstralFlow, "Add Slipstream", "", 3, 2);
-
-				if (SMN.Config.SMN_ST_Egi_AstralFlow[1])
-				{
-					UserConfig.DrawAdditionalBoolChoice(SMN.Config.SMN_ST_CrimsonCycloneMelee, "Enforced Crimson Cyclone Melee Check", "Only uses Crimson Cyclone within melee range.");
-				}
+				UserConfig.DrawSliderInt(1000, 10000, SMN.Config.SMN_AoE_Lucid, "MP Threshold", 150, SliderIncrements.Hundreds);
 			}
 
 			#endregion
