@@ -59,7 +59,7 @@ namespace StackCombo.Combos.PvE
 		public static class Debuffs
 		{
 			public const ushort
-				Dismantled = 2887,
+				Dismantled = 860,
 				Bioblaster = 1866;
 		}
 
@@ -118,12 +118,12 @@ namespace StackCombo.Combos.PvE
 
 					if (comboTime > 0)
 					{
-						if (lastComboMove is SplitShot or HeatedSplitShot)
+						if (lastComboMove is SplitShot or HeatedSplitShot && ActionReady(OriginalHook(SlugShot)))
 						{
 							return OriginalHook(SlugShot);
 						}
 
-						if (lastComboMove is SlugShot or HeatedSlugShot)
+						if (lastComboMove is SlugShot or HeatedSlugShot && ActionReady(OriginalHook(CleanShot)))
 						{
 							return OriginalHook(CleanShot);
 						}
@@ -178,7 +178,11 @@ namespace StackCombo.Combos.PvE
 					{
 						return AutoCrossbow;
 					}
-					return OriginalHook(Scattergun);
+
+					if (ActionReady(OriginalHook(Scattergun)))
+					{
+						return OriginalHook(Scattergun);
+					}
 				}
 				return actionID;
 			}
@@ -214,7 +218,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Dismantle && IsEnabled(CustomComboPreset.MCH_DismantleProtect))
 				{
-					if (TargetHasEffectAny(Debuffs.Dismantled) && IsOffCooldown(Dismantle))
+					if (TargetHasEffectAny(Debuffs.Dismantled))
 					{
 						return OriginalHook(11);
 					}

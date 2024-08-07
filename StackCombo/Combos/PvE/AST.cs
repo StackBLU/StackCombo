@@ -1,7 +1,6 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Enums;
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using StackCombo.Data;
 using System.Collections.Generic;
@@ -135,21 +134,8 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.AST_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
-					{
-						return Variant.VariantRampart;
-					}
-
-					if (IsEnabled(CustomComboPreset.AST_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) &&
-						ActionReady(All.LucidDreaming) &&
-						LocalPlayer.CurrentMp <= Config.AST_ST_DPS_Lucid &&
-						CanSpellWeave(actionID))
+					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.AST_ST_DPS_Lucid && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -186,21 +172,8 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.AST_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
-					{
-						return Variant.VariantRampart;
-					}
-
-					if (IsEnabled(CustomComboPreset.AST_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_Lucid) &&
-						ActionReady(All.LucidDreaming) &&
-						LocalPlayer.CurrentMp <= Config.AST_AoE_DPS_Lucid &&
-						CanSpellWeave(actionID))
+					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.AST_AoE_DPS_Lucid && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}

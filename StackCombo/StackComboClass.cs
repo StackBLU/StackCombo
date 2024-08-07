@@ -48,18 +48,18 @@ namespace StackCombo
 			//SGE.JobID,
 
 			MNK.JobID,
-			DRG.JobID,
+			//DRG.JobID,
 			NIN.JobID,
 			SAM.JobID,
 			RPR.JobID,
-			VPR.JobID,
+			//VPR.JobID,
 
 			BRD.JobID,
 			//MCH.JobID,
 			DNC.JobID,
 			BLM.JobID,
 			//SMN.JobID,
-			RDM.JobID,
+			//RDM.JobID,
 			//PCT.JobID,
 
 			//BLU.JobID,

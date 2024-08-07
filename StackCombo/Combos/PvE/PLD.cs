@@ -1,6 +1,5 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -86,24 +85,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is FastBlade or RiotBlade or RageOfHalone or RoyalAuthority && IsEnabled(CustomComboPreset.PLD_ST_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.PLD_Variant_Cure) && IsEnabled(Variant.VariantCure) &&
-						PlayerHealthPercentageHp() <= Config.PLD_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-					if (IsEnabled(CustomComboPreset.PLD_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.PLD_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) &&
-						IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.PLD_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_ST_Invuln))
+					if (IsEnabled(CustomComboPreset.PLD_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_ST_Invuln) && ActionReady(HallowedGround))
 					{
 						return HallowedGround;
 					}
@@ -167,24 +149,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is TotalEclipse or Prominence && IsEnabled(CustomComboPreset.PLD_AoE_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.PLD_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.PLD_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.PLD_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.PLD_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.PLD_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_AoE_Invuln))
+					if (IsEnabled(CustomComboPreset.PLD_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_AoE_Invuln) && ActionReady(HallowedGround))
 					{
 						return HallowedGround;
 					}

@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using StackCombo.Data;
 using System.Collections.Generic;
@@ -125,26 +124,15 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.SGE_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.SGE_ST_DPS_Lucid && CanSpellWeave(actionID))
 					{
-						return Variant.VariantRampart;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
+						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Kardia) && ActionReady(Kardia) && !HasEffect(Buffs.Kardia))
 					{
 						return Kardia;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.SGE_ST_DPS_Lucid)
-					{
-						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Rhizo) && CanSpellWeave(actionID) &&
@@ -210,15 +198,10 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.SGE_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.SGE_AoE_DPS_Lucid && CanSpellWeave(actionID))
 					{
-						return Variant.VariantRampart;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
+						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Rhizo) && CanSpellWeave(actionID) &&
@@ -230,12 +213,6 @@ namespace StackCombo.Combos.PvE
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Soteria) && CanSpellWeave(actionID) && ActionReady(Soteria))
 					{
 						return Soteria;
-					}
-
-					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.SGE_AoE_DPS_Lucid)
-					{
-						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_AddersgallProtect) && CanSpellWeave(actionID) &&

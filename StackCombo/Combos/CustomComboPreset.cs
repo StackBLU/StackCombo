@@ -275,8 +275,12 @@ namespace StackCombo.Combos
 		GNB_ST_Gnashing = 7003,
 
 		[ParentCombo(GNB_ST_DPS)]
-		[CustomComboInfo("Reign Combo", "", GNB.JobID)]
+		[CustomComboInfo("Reign of Beasts > Noble Blood > Lion Heart", "", GNB.JobID)]
 		GNB_ST_Reign = 7004,
+
+		[ParentCombo(GNB_ST_DPS)]
+		[CustomComboInfo("Aurora", "", GNB.JobID)]
+		GNB_ST_AutoAurora = 7006,
 
 		[ParentCombo(GNB_ST_DPS)]
 		[CustomComboInfo("Superbolide", "", GNB.JobID)]
@@ -293,6 +297,14 @@ namespace StackCombo.Combos
 		[ParentCombo(GNB_AoE_DPS)]
 		[CustomComboInfo("Fated Circle", "", GNB.JobID)]
 		GNB_AoE_Fated = 7021,
+
+		[ParentCombo(GNB_AoE_DPS)]
+		[CustomComboInfo("Aurora", "", GNB.JobID)]
+		GNB_AoE_AutoAurora = 70024,
+
+		[ParentCombo(GNB_AoE_DPS)]
+		[CustomComboInfo("Double Down", "", GNB.JobID)]
+		GNB_AoE_DoubleDown = 7023,
 
 		[ParentCombo(GNB_AoE_DPS)]
 		[CustomComboInfo("Superbolide", "", GNB.JobID)]
@@ -335,11 +347,11 @@ namespace StackCombo.Combos
 		#region Single Target DPS
 
 		[ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
-		[CustomComboInfo("Single Target DPS", "", WHM.JobID)]
+		[CustomComboInfo("Single Target DPS", "test1", WHM.JobID)]
 		WHM_ST_DPS = 19001,
 
 		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Dia", "", WHM.JobID)]
+		[CustomComboInfo("Dia", "test2", WHM.JobID)]
 		WHM_ST_DPS_DoT = 19003,
 
 		[ParentCombo(WHM_ST_DPS)]
@@ -347,11 +359,11 @@ namespace StackCombo.Combos
 		WHM_ST_DPS_PresenceOfMind = 19009,
 
 		[ParentCombo(WHM_ST_DPS)]
-		[CustomComboInfo("Afflatus Misery", "", WHM.JobID)]
+		[CustomComboInfo("Afflatus Misery", "test3", WHM.JobID)]
 		WHM_ST_DPS_Misery = 19006,
 
 		[ParentCombo(WHM_ST_DPS_Misery)]
-		[CustomComboInfo("Save Misery", "", WHM.JobID)]
+		[CustomComboInfo("Save Misery", "test4", WHM.JobID)]
 		WHM_ST_DPS_Misery_Save = 19007,
 
 		[ParentCombo(WHM_ST_DPS)]
@@ -492,43 +504,43 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
 		[CustomComboInfo("Single Target DPS", "", SCH.JobID)]
-		SCH_DPS = 16001,
+		SCH_DPS = 16000,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Bio", "", SCH.JobID)]
-		SCH_DPS_Bio = 16008,
+		SCH_DPS_Bio = 16001,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
-		SCH_DPS_Aetherflow = 16004,
+		SCH_DPS_Aetherflow = 16002,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
-		SCH_ST_DPS_EnergyDrain = 16005,
+		SCH_ST_DPS_EnergyDrain = 16003,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Dissipation", "", SCH.JobID)]
-		SCH_DPS_Dissipation = 16009,
+		SCH_DPS_Dissipation = 16004,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Aetherpact", "", SCH.JobID)]
-		SCH_DPS_Aetherpact = 16011,
+		SCH_DPS_Aetherpact = 16005,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Seraph", "", SCH.JobID)]
-		SCH_DPS_Seraph = 16012,
+		SCH_DPS_Seraph = 16006,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Chain Stratagem / Baneful Impact", "", SCH.JobID)]
-		SCH_DPS_ChainStrat = 16003,
+		SCH_DPS_ChainStrat = 16007,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Ruin II Movement", "", SCH.JobID)]
-		SCH_DPS_Ruin2Movement = 16007,
+		SCH_DPS_Ruin2Movement = 16008,
 
 		[ParentCombo(SCH_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
-		SCH_DPS_Lucid = 16002,
+		SCH_ST_DPS_Lucid = 16009,
 
 		#endregion
 
@@ -540,15 +552,15 @@ namespace StackCombo.Combos
 
 		[ParentCombo(SCH_AoE)]
 		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
-		SCH_AoE_Aetherflow = 16022,
+		SCH_AoE_Aetherflow = 16021,
 
 		[ParentCombo(SCH_AoE)]
 		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
-		SCH_AoE_DPS_EnergyDrain = 16023,
+		SCH_AoE_DPS_EnergyDrain = 16022,
 
 		[ParentCombo(SCH_AoE)]
 		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
-		SCH_AoE_Lucid = 16021,
+		SCH_AoE_DPS_Lucid = 16023,
 
 		#endregion
 
@@ -556,15 +568,15 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(SCH.Resurrection)]
 		[CustomComboInfo("Swiftcast > Raise", "", SCH.JobID)]
-		SCH_Raise = 16059,
+		SCH_Raise = 16040,
 
 		[ReplaceSkill(SCH.Lustrate)]
 		[CustomComboInfo("Lustrate > Excogitation", "", SCH.JobID)]
-		SCH_Lustrate = 16051,
+		SCH_Lustrate = 16041,
 
-		[ReplaceSkill(SCH.WhisperingDawn, SCH.FeyBlessing, SCH.Aetherpact, SCH.Dissipation)]
+		[ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
 		[CustomComboInfo("Fairy Reminder", "", SCH.JobID)]
-		SCH_Reminder = 16060,
+		SCH_Reminder = 16042,
 
 		#endregion
 
@@ -912,33 +924,30 @@ namespace StackCombo.Combos
 
 		#region Single Target
 
-		[ReplaceSkill(DRG.TrueThrust)]
-		[CustomComboInfo("Single Target", "", DRG.JobID)]
-		DRG_ST_AdvancedMode = 6100,
+		[ReplaceSkill(DRG.TrueThrust, DRG.RaidenThrust, DRG.VorpalThrust, DRG.LanceBarrage, DRG.Disembowel, DRG.SpiralBlow, DRG.FullThrust,
+			DRG.HeavensThrust, DRG.ChaosThrust, DRG.ChaoticSpring, DRG.FangAndClaw, DRG.WheelingThrust)]
+		[CustomComboInfo("Single Target DPS", "", DRG.JobID)]
+		DRG_ST_DPS = 6000,
 
 		#endregion
 
 		#region AoE DPS
 
-		[ReplaceSkill(DRG.DoomSpike)]
-		[CustomComboInfo("AoE", "", DRG.JobID)]
-		DRG_AOE_AdvancedMode = 6201,
+		[ReplaceSkill(DRG.DoomSpike, DRG.DraconianFury, DRG.SonicThrust, DRG.CoerthanTorment)]
+		[CustomComboInfo("AoE DPS", "", DRG.JobID)]
+		DRG_AoE_DPS = 6020,
 
 		#endregion
 
 		#region Utility
 
+
+
 		#endregion
 
 		#region Variant
 
-		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold", DRG.JobID)]
-		DRG_Variant_Cure = 6302,
 
-		[Variant]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown", DRG.JobID)]
-		DRG_Variant_Rampart = 6303,
 
 		#endregion
 
@@ -1662,57 +1671,43 @@ namespace StackCombo.Combos
 
 		#region VIPER - 30000
 
-		[ReplaceSkill(VPR.SteelFangs)]
-		[CustomComboInfo("Advanced Mode - Single Target", "Replaces Steel Fangs with a full one-button single target rotation.\nTheses are ideal if you want to customize the rotation", VPR.JobID)]
-		VPR_ST_AdvancedMode = 30001,
+		#region Single Target DPS
 
-		[ParentCombo(VPR_ST_AdvancedMode)]
-		[CustomComboInfo("Noxious Gnash", "Adds Noxious Gnash if it is not present on current target, or is about to expire", VPR.JobID)]
-		VPR_ST_NoxiousGnash = 30003,
+		[ReplaceSkill(VPR.SteelFangs, VPR.ReavingFangs)]
+		[CustomComboInfo("Single Target DPS", "", VPR.JobID)]
+		VPR_ST_DPS = 30000,
 
-		[ParentCombo(VPR_ST_AdvancedMode)]
-		[CustomComboInfo("Serpents Tail", "Adds Serpents Tail to the rotation", VPR.JobID)]
-		VPR_ST_SerpentsTail = 30008,
+		#endregion
 
-		[ParentCombo(VPR_ST_AdvancedMode)]
-		[CustomComboInfo("Reawaken Combo", "Adds Generation and Legacy to the rotation", VPR.JobID)]
-		VPR_ST_ReawakenCombo = 30012,
+		#region AoE DPS
 
-		[ReplaceSkill(VPR.SteelMaw)]
-		[CustomComboInfo("Advanced Mode AoE", "Replaces Steel Maw with a full one-button AoE rotation.\nTheses are ideal if you want to customize the rotation", VPR.JobID)]
-		VPR_AoE_AdvancedMode = 30101,
+		[ReplaceSkill(VPR.SteelMaw, VPR.ReavingMaw)]
+		[CustomComboInfo("AoE DPS", "", VPR.JobID)]
+		VPR_AoE_DPS = 30020,
 
-		[ParentCombo(VPR_AoE_AdvancedMode)]
-		[CustomComboInfo("Noxious Gnash", "Adds Noxious Gnash if it is not present on current target, or is about to expire", VPR.JobID)]
-		VPR_AoE_NoxiousGnash = 30102,
+		#endregion
 
-		[ParentCombo(VPR_AoE_AdvancedMode)]
-		[CustomComboInfo("Serpents Tail", "Adds Serpents Tail to the rotation", VPR.JobID)]
-		VPR_AoE_SerpentsTail = 30107,
+		#region Utility
 
-		[ParentCombo(VPR_AoE_AdvancedMode)]
-		[CustomComboInfo("Reawaken Combo", "Adds Generation and Legacy to the rotation", VPR.JobID)]
-		VPR_AoE_ReawakenCombo = 30112,
+		[ReplaceSkill(VPR.Vicewinder, VPR.HuntersCoil, VPR.SwiftskinsCoil)]
+		[CustomComboInfo("Vicewinder", "", VPR.JobID)]
+		VPR_Vicewinder = 30040,
 
-		[ReplaceSkill(VPR.Dreadwinder)]
-		[CustomComboInfo("Dreadwinder - Coils", "Replaces Dreadwinder with Hunter's/Swiftskin's Coils", VPR.JobID)]
-		VPR_DreadwinderCoils = 30200,
-
-		[ParentCombo(VPR_DreadwinderCoils)]
-		[CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button", VPR.JobID)]
-		VPR_DreadwinderCoils_oGCDs = 30206,
-
-		[ReplaceSkill(VPR.PitofDread)]
-		[CustomComboInfo("Pit Of Dread - Dens", "Replaces Pit Of Dread with Hunter's/Swiftskin's Dens", VPR.JobID)]
-		VPR_PitOfDreadDens = 30201,
-
-		[ParentCombo(VPR_PitOfDreadDens)]
-		[CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button", VPR.JobID)]
-		VPR_PitOfDreadDens_oGCDs = 30207,
+		[ReplaceSkill(VPR.Vicepit, VPR.HuntersDen, VPR.SwiftskinsDen)]
+		[CustomComboInfo("Vicepit", "", VPR.JobID)]
+		VPR_Vicepit = 30041,
 
 		[ReplaceSkill(VPR.UncoiledFury)]
-		[CustomComboInfo("Uncoiled - Twins", "Replaces Uncoiled Fury with Uncoiled Twinfang and Uncoiled Twinblood", VPR.JobID)]
-		VPR_UncoiledTwins = 30202,
+		[CustomComboInfo("Uncoiled Fury", "", VPR.JobID)]
+		VPR_Uncoiled = 30042,
+
+		#endregion
+
+		#region Variant
+
+
+
+		#endregion
 
 		#endregion
 
@@ -2383,17 +2378,21 @@ namespace StackCombo.Combos
 
 		#region Utility
 
+		[ReplaceSkill(SMN.EnergyDrain, SMN.Fester, SMN.Necrotize)]
+		[CustomComboInfo("Energy Drain over Necrotize", "", SMN.JobID)]
+		SMN_EnergyDrainNecro = 17040,
+
 		[ReplaceSkill(SMN.SummonBahamut, SMN.EnkindleBahamut, SMN.SummonPhoenix, SMN.EnkindlePhoenix, SMN.SummonSolarBahamut, SMN.EnkindleSolarBahamut)]
 		[CustomComboInfo("Summon > Enkindle", "", SMN.JobID)]
-		SMN_Enkindle = 17040,
+		SMN_Enkindle = 17041,
 
 		[ReplaceSkill(SMN.Resurrection)]
 		[CustomComboInfo("Swiftcast > Raise", "", SMN.JobID)]
-		SMN_Raise = 17041,
+		SMN_Raise = 17042,
 
 		[ReplaceSkill(SMN.Ruin, SMN.Ruin2, SMN.Ruin3)]
-		[CustomComboInfo("Carbuncle Reminder", "", SCH.JobID)]
-		SMN_Reminder = 17042,
+		[CustomComboInfo("Carbuncle Reminder", "", SMN.JobID)]
+		SMN_Reminder = 17043,
 
 		#endregion
 
@@ -2417,146 +2416,59 @@ namespace StackCombo.Combos
 
 		#region RED MAGE - 13000
 
-		[ReplaceSkill(RDM.Jolt, RDM.Jolt2)]
-		[CustomComboInfo("Single Target DPSs", "Enables various Single Targets below", RDM.JobID, 1)]
+		#region Single Target DPS
+
+		[ReplaceSkill(RDM.Jolt, RDM.Jolt2, RDM.Jolt3, RDM.Verthunder, RDM.Verthunder3, RDM.Verfire, RDM.Veraero, RDM.Veraero3, RDM.Verstone)]
+		[CustomComboInfo("Single Target DPS", "", RDM.JobID)]
 		RDM_ST_DPS = 13000,
 
 		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Balance Opener [Lv.90]", "Replaces Jolt with the Balance opener ending with Resolution.\n**Must move into melee range before melee combo**", RDM.JobID, 110)]
-		RDM_Balance_Opener = 13110,
+		[CustomComboInfo("Lucid Dreaming", "", RDM.JobID)]
+		RDM_ST_Lucid = 13001,
 
-		[ParentCombo(RDM_Balance_Opener)]
-		[CustomComboInfo("Use Opener at any Mana", "Removes 0/0 Mana reqirement to reset opener\n**All other actions must be off cooldown**", RDM.JobID, 111)]
-		RDM_Balance_Opener_AnyMana = 13111,
+		#endregion
 
-		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Verthunder/Veraero", "Replace Jolt with Verthunder and Veraero", RDM.JobID, 210)]
-		RDM_ST_ThunderAero = 13210,
+		#region AoE DPS
 
-		[ParentCombo(RDM_ST_ThunderAero)]
-		[CustomComboInfo("Acceleration", "Add Acceleration when no Verfire/Verstone proc is available", RDM.JobID, 211)]
-		RDM_ST_ThunderAero_Accel = 13211,
-
-		[ParentCombo(RDM_ST_ThunderAero_Accel)]
-		[CustomComboInfo("Include Swiftcast", "Add Swiftcast when all Acceleration charges are used", RDM.JobID, 212)]
-		RDM_ST_ThunderAero_Accel_Swiftcast = 13212,
-
-		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Verfire/Verstone", "Replace Jolt with Verfire and Verstone", RDM.JobID, 220)]
-		RDM_ST_FireStone = 13220,
-
-		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Weave oGCD Damage", "Weave the following oGCD actions", RDM.JobID, 240)]
-		RDM_ST_oGCD = 13240,
-
-		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Single Target Melee Combo", "Add the Reposte combo.\n**Must be in melee range or have Gap close with Corps-a-corps enabled**", RDM.JobID, 410)]
-		RDM_ST_MeleeCombo = 13410,
-
-		[ParentCombo(RDM_ST_MeleeCombo)]
-		[CustomComboInfo("Use Manafication and Embolden", "Add Manafication and Embolden.\n**Must be in melee range or have Gap close with Corps-a-corps enabled**", RDM.JobID, 411)]
-		RDM_ST_MeleeCombo_ManaEmbolden = 13411,
-
-		[ParentCombo(RDM_ST_MeleeCombo_ManaEmbolden)]
-		[CustomComboInfo("Hold for Double Melee Combo [Lv.90]", "Hold both actions until you can perform a double melee combo", RDM.JobID, 412)]
-		RDM_ST_MeleeCombo_ManaEmbolden_DoubleCombo = 13412,
-
-		[ParentCombo(RDM_ST_MeleeCombo)]
-		[CustomComboInfo("Gap close with Corps-a-corps", "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo", RDM.JobID, 430)]
-		RDM_ST_MeleeCombo_CorpsGapCloser = 13430,
-
-		[ParentCombo(RDM_ST_MeleeCombo)]
-		[CustomComboInfo("Unbalance Mana", "Use Acceleration to unbalance mana prior to starting melee combo", RDM.JobID, 410)]
-		RDM_ST_MeleeCombo_UnbalanceMana = 13440,
-
-		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Melee Finisher", "Add Verflare/Verholy and other finishing moves", RDM.JobID, 510)]
-		RDM_ST_MeleeFinisher = 13510,
-
-		[ParentCombo(RDM_ST_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", RDM.JobID, 610)]
-		RDM_ST_Lucid = 13610,
-
-		[ReplaceSkill(RDM.Scatter, RDM.Impact)]
-		[CustomComboInfo("AoE DPS", "Enables various AoE Targets below", RDM.JobID, 310)]
-		RDM_AoE_DPS = 13310,
+		[ReplaceSkill(RDM.Scatter, RDM.Impact, RDM.Verthunder2, RDM.Veraero2)]
+		[CustomComboInfo("AoE DPS", "", RDM.JobID)]
+		RDM_AoE_DPS = 13020,
 
 		[ParentCombo(RDM_AoE_DPS)]
-		[ReplaceSkill(RDM.Scatter, RDM.Impact)]
-		[CustomComboInfo("AoE Acceleration", "Use Acceleration for increased damage", RDM.JobID, 320)]
-		RDM_AoE_Accel = 13320,
+		[CustomComboInfo("Lucid Dreaming", "", RDM.JobID)]
+		RDM_AoE_Lucid = 13021,
 
-		[ParentCombo(RDM_AoE_Accel)]
-		[CustomComboInfo("Include Swiftcast", "Add Swiftcast when all Acceleration charges are used or when below level 50", RDM.JobID, 321)]
-		RDM_AoE_Accel_Swiftcast = 13321,
+		#endregion
 
-		[ParentCombo(RDM_AoE_Accel)]
-		[CustomComboInfo("Weave Acceleration", "Only use acceleration during weave windows", RDM.JobID, 322)]
-		RDM_AoE_Accel_Weave = 13322,
+		#region Utility
 
-		[ParentCombo(RDM_AoE_DPS)]
-		[CustomComboInfo("Weave oGCD Damage", "Weave the following oGCD actions:", RDM.JobID, 240)]
-		RDM_AoE_oGCD = 13241,
+		[ReplaceSkill(RDM.Riposte, RDM.Zwerchhau, RDM.Redoublement)]
+		[CustomComboInfo("Melee Single Target Combo", "", RDM.JobID)]
+		RDM_ST_Melee = 13040,
 
-		[ParentCombo(RDM_AoE_DPS)]
-		[CustomComboInfo("Moulinet Melee Combo", "Use Moulinet when over 50/50 mana", RDM.JobID, 420)]
-		RDM_AoE_MeleeCombo = 13420,
+		[ReplaceSkill(RDM.Moulinet)]
+		[CustomComboInfo("Melee AoE Combo", "", RDM.JobID)]
+		RDM_AoE_Melee = 13041,
 
-		[ParentCombo(RDM_AoE_MeleeCombo)]
-		[CustomComboInfo("Use Manafication and Embolden", "Add Manafication and Embolden.\n**Must be in range of Moulinet**", RDM.JobID, 411)]
-		RDM_AoE_MeleeCombo_ManaEmbolden = 13421,
-
-		[ParentCombo(RDM_AoE_MeleeCombo)]
-		[CustomComboInfo("Gap close with Corps-a-corps", "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo", RDM.JobID, 430)]
-		RDM_AoE_MeleeCombo_CorpsGapCloser = 13422,
-
-		[ParentCombo(RDM_AoE_DPS)]
-		[CustomComboInfo("Melee Finisher", "Add Verflare/Verholy and other finishing moves", RDM.JobID, 510)]
-		RDM_AoE_MeleeFinisher = 13424,
-
-		[ParentCombo(RDM_AoE_DPS)]
-		[CustomComboInfo("Lucid Dreaming", "Adds Lucid Dreaming when MP drops below the slider value", RDM.JobID, 610)]
-		RDM_AoE_Lucid = 13425,
-
-		[ReplaceSkill(All.Swiftcast)]
-		[CustomComboInfo("Verraise", "Changes Swiftcast to Verraise when under the effect of Swiftcast or Dualcast", RDM.JobID, 620)]
-		RDM_Raise = 13620,
-
-		[ReplaceSkill(RDM.Displacement)]
-		[CustomComboInfo("Displacement <> Corps-a-corps", "Replace Displacement with Corps-a-corps when out of range", RDM.JobID, 810)]
-		RDM_CorpsDisplacement = 13810,
+		[ReplaceSkill(RDM.Verraise)]
+		[CustomComboInfo("Verraise", "", RDM.JobID)]
+		RDM_Raise = 13042,
 
 		[ReplaceSkill(RDM.Embolden)]
-		[CustomComboInfo("Embolden to Manafication", "Changes Embolden to Manafication when on cooldown", RDM.JobID, 820)]
-		RDM_EmboldenManafication = 13820,
+		[CustomComboInfo("Embolden Protection", "", RDM.JobID)]
+		RDM_EmboldenProtection = 13043,
 
 		[ReplaceSkill(RDM.MagickBarrier)]
-		[CustomComboInfo("Magick Barrier to Addle", "Changes Magick Barrier to Addle when on cooldown", RDM.JobID, 820)]
-		RDM_MagickBarrierAddle = 13821,
+		[CustomComboInfo("Magick Barrier Protection", "", RDM.JobID)]
+		RDM_MagickProtection = 13044,
 
-		[ReplaceSkill(RDM.Embolden)]
-		[CustomComboInfo("Embolden Overlap Protection", "Disables Embolden when buffed by another Red Mage's Embolden", RDM.JobID, 820)]
-		RDM_EmboldenProtection = 13835,
+		#endregion
 
-		[ReplaceSkill(RDM.MagickBarrier)]
-		[CustomComboInfo("Magick Barrier Overlap Protection", "Disables Magick Barrier when buffed by another Red Mage's Magick Barrier", RDM.JobID, 820)]
-		RDM_MagickProtection = 13836,
+		#region Variant
 
-		[Variant]
-		[CustomComboInfo("Rampart", "Use Variant Rampart on cooldown. Replaces Jolts", RDM.JobID)]
-		RDM_Variant_Rampart = 13830,
 
-		[Variant]
-		[CustomComboInfo("Raise", "Turn Swiftcast into Variant Raise whenever you have the Swiftcast or Dualcast buffs", RDM.JobID)]
-		RDM_Variant_Raise = 13831,
 
-		[Variant]
-		[CustomComboInfo("Cure", "Use Variant Cure when HP is below set threshold. Replaces Jolts", RDM.JobID)]
-		RDM_Variant_Cure = 13832,
-
-		[Variant]
-		[CustomComboInfo("Cure on Vercure", "Replaces Vercure with Variant Cure", RDM.JobID)]
-		RDM_Variant_Cure2 = 13833,
+		#endregion
 
 		#endregion
 

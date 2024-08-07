@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using StackCombo.Data;
 using System.Collections.Generic;
@@ -108,15 +107,10 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.WHM_ST_DPS_Lucid && CanSpellWeave(actionID))
 					{
-						return Variant.VariantRampart;
-					}
-
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
+						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.AST_ST_DPS_CombustUptime) && ActionReady(OriginalHook(Dia)) && ActionWatching.NumberOfGcdsUsed >= 3
@@ -130,12 +124,6 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.WHM_ST_DPS_PresenceOfMind) && ActionReady(PresenceOfMind) && ActionWatching.NumberOfGcdsUsed >= 3)
 						{
 							return PresenceOfMind;
-						}
-
-						if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) &&
-							LocalPlayer.CurrentMp <= Config.WHM_ST_DPS_Lucid)
-						{
-							return All.LucidDreaming;
 						}
 					}
 
@@ -180,15 +168,10 @@ namespace StackCombo.Combos.PvE
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.WHM_AoE_DPS_Lucid && CanSpellWeave(actionID))
 					{
-						return Variant.VariantRampart;
-					}
-
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
+						return All.LucidDreaming;
 					}
 
 					if (CanSpellWeave(actionID) || IsMoving)
@@ -196,12 +179,6 @@ namespace StackCombo.Combos.PvE
 						if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_PresenceOfMind) && ActionReady(PresenceOfMind))
 						{
 							return PresenceOfMind;
-						}
-
-						if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) &&
-							LocalPlayer.CurrentMp <= Config.WHM_AoE_DPS_Lucid)
-						{
-							return All.LucidDreaming;
 						}
 					}
 

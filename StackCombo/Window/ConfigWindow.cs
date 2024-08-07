@@ -90,7 +90,7 @@ namespace StackCombo.Window
 
 		public OpenWindow OpenWindow { get; set; } = OpenWindow.PvE;
 
-		public ConfigWindow() : base($"StackCombo")
+		public ConfigWindow() : base($"StackCombo v{P.GetType().Assembly.GetName().Version}")
 		{
 			RespectCloseHotkey = true;
 
@@ -112,7 +112,7 @@ namespace StackCombo.Window
 		public override void Draw()
 		{
 			Vector2 region = ImGui.GetContentRegionAvail();
-			Vector2 itemSpacing = ImGui.GetStyle().ItemSpacing;
+			_ = ImGui.GetStyle().ItemSpacing;
 
 			float topLeftSideHeight = region.Y;
 
@@ -125,7 +125,7 @@ namespace StackCombo.Window
 
 			ImGui.TableSetupColumn("##LeftColumn", ImGuiTableColumnFlags.WidthFixed, ImGui.GetWindowWidth() / 3);
 
-			ImGui.TableNextColumn();
+			_ = ImGui.TableNextColumn();
 
 			Vector2 regionSize = ImGui.GetContentRegionAvail();
 
@@ -137,29 +137,28 @@ namespace StackCombo.Window
 				{
 					OpenWindow = OpenWindow.PvE;
 				}
+				ImGui.Spacing();
+				ImGui.Spacing();
 				if (ImGui.Selectable("PvP Features", OpenWindow == OpenWindow.PvP))
 				{
 					OpenWindow = OpenWindow.PvP;
 				}
 				ImGui.Spacing();
-				if (ImGui.Selectable("Misc. Settings", OpenWindow == OpenWindow.Settings))
+				ImGui.Spacing();
+				if (ImGui.Selectable("Settings", OpenWindow == OpenWindow.Settings))
 				{
 					OpenWindow = OpenWindow.Settings;
 				}
-
-#if DEBUG
+				ImGui.Spacing();
 				ImGui.Spacing();
 				if (ImGui.Selectable("Debug", OpenWindow == OpenWindow.Debug))
 				{
 					OpenWindow = OpenWindow.Debug;
 				}
-				ImGui.Spacing();
-#endif
-
 			}
 
 			ImGui.PopStyleVar();
-			ImGui.TableNextColumn();
+			_ = ImGui.TableNextColumn();
 			using ImRaii.IEndObject rightChild = ImRaii.Child($"###RightSide", Vector2.Zero, false);
 			switch (OpenWindow)
 			{

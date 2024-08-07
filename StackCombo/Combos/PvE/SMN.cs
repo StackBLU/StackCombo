@@ -1,7 +1,6 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.CustomCombo;
-using StackCombo.Data;
 
 namespace StackCombo.Combos.PvE
 {
@@ -129,8 +128,7 @@ namespace StackCombo.Combos.PvE
 						return SummonCarbuncle;
 					}
 
-					if (ActionReady(EnergyDrain) && IsEnabled(CustomComboPreset.SMN_ST_EnergyDrain) && CanWeave(actionID)
-						&& ActionWatching.NumberOfGcdsUsed >= 5)
+					if (ActionReady(EnergyDrain) && IsEnabled(CustomComboPreset.SMN_ST_EnergyDrain) && CanWeave(actionID))
 					{
 						return EnergyDrain;
 					}
@@ -188,7 +186,7 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(AstralFlow);
 					}
 
-					if (IsEnabled(CustomComboPreset.SMN_ST_Ruin4) && ActionReady(Ruin4) && HasEffect(Buffs.FurtherRuin))
+					if (IsEnabled(CustomComboPreset.SMN_ST_Ruin4) && ActionReady(Ruin4) && HasEffect(Buffs.FurtherRuin) && Gauge.SummonTimerRemaining == 0)
 					{
 						return Ruin4;
 					}
@@ -220,8 +218,7 @@ namespace StackCombo.Combos.PvE
 						return SummonCarbuncle;
 					}
 
-					if (ActionReady(EnergyDrain) && IsEnabled(CustomComboPreset.SMN_AoE_EnergySiphon) && CanWeave(actionID)
-						&& ActionWatching.NumberOfGcdsUsed >= 5)
+					if (ActionReady(EnergyDrain) && IsEnabled(CustomComboPreset.SMN_AoE_EnergySiphon) && CanWeave(actionID))
 					{
 						return EnergySiphon;
 					}
@@ -284,7 +281,7 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(AstralFlow);
 					}
 
-					if (IsEnabled(CustomComboPreset.SMN_AoE_Ruin4) && ActionReady(Ruin4) && HasEffect(Buffs.FurtherRuin))
+					if (IsEnabled(CustomComboPreset.SMN_AoE_Ruin4) && ActionReady(Ruin4) && HasEffect(Buffs.FurtherRuin) && Gauge.SummonTimerRemaining == 0)
 					{
 						return Ruin4;
 					}
@@ -293,6 +290,24 @@ namespace StackCombo.Combos.PvE
 					{
 						return OriginalHook(Tridisaster);
 					}
+				}
+				return actionID;
+			}
+		}
+
+		internal class SMN_EnergyDrainNecro : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SMN_EnergyDrainNecro;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is EnergyDrain or Fester or Necrotize && IsEnabled(CustomComboPreset.SMN_EnergyDrainNecro))
+				{
+					if (Gauge.AetherflowStacks > 0)
+					{
+						return OriginalHook(Necrotize);
+					}
+					return EnergyDrain;
 				}
 				return actionID;
 			}
@@ -310,7 +325,7 @@ namespace StackCombo.Combos.PvE
 					{
 						return OriginalHook(EnkindleBahamut);
 					}
-					return OriginalHook(SummonBahamut);
+					return SummonBahamut;
 				}
 				return actionID;
 			}

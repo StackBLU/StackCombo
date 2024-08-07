@@ -1,6 +1,5 @@
-using Dalamud.Game.ClientState.Statuses;
+using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -72,43 +71,38 @@ namespace StackCombo.Combos.PvE
 				EnhancedLifeSurge = 438;
 		}
 
-		public static class Config
+		public static DRGGauge Gauge
 		{
-			public static UserInt
-				DRG_Variant_Cure = new("DRG_VariantCure");
+			get
+			{
+				return CustomComboFunctions.GetJobGauge<DRGGauge>();
+			}
 		}
 
-		internal class DRG_ST_AdvancedMode : CustomComboClass
+		public static class Config
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DRG_ST_AdvancedMode;
+
+		}
+
+		internal class DRG_ST_DPS : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DRG_ST_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				Status? ChaosDoTDebuff;
-
-				ChaosDoTDebuff = ActionReady(ChaoticSpring) ? FindTargetEffect(Debuffs.ChaoticSpring) : FindTargetEffect(Debuffs.ChaosThrust);
-
-				if (actionID is TrueThrust)
+				if (actionID is TrueThrust or RaidenThrust or VorpalThrust or LanceBarrage or Disembowel or SpiralBlow or FullThrust
+					or HeavensThrust or ChaosThrust or ChaoticSpring or FangAndClaw or WheelingThrust && IsEnabled(CustomComboPreset.DRG_ST_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.DRG_Variant_Cure) &&
-						IsEnabled(Variant.VariantCure) &&
-						PlayerHealthPercentageHp() <= Config.DRG_Variant_Cure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRG_Variant_Rampart) &&
-						IsEnabled(Variant.VariantRampart) &&
-						IsOffCooldown(Variant.VariantRampart))
-					{
-						return Variant.VariantRampart;
-					}
-
 					if (comboTime > 0)
 					{
 						if (lastComboMove is TrueThrust or RaidenThrust)
 						{
-							return ChaosDoTDebuff is null || ChaosDoTDebuff.RemainingTime < 5 ? OriginalHook(Disembowel) : OriginalHook(VorpalThrust);
+							if ((ActionReady(ChaoticSpring) && GetDebuffRemainingTime(Debuffs.ChaoticSpring) < 7)
+								|| (!ActionReady(ChaoticSpring) && GetDebuffRemainingTime(Debuffs.ChaosThrust) < 7))
+							{
+								return OriginalHook(Disembowel);
+							}
+							return OriginalHook(VorpalThrust);
 						}
 
 						if (lastComboMove is Disembowel or SpiralBlow && ActionReady(OriginalHook(ChaosThrust)))
@@ -141,28 +135,14 @@ namespace StackCombo.Combos.PvE
 			}
 		}
 
-		internal class DRG_AOE_AdvancedMode : CustomComboClass
+		internal class DRG_AoE_DPS : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DRG_AOE_AdvancedMode;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DRG_AoE_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is DoomSpike)
+				if (actionID is DoomSpike && IsEnabled(CustomComboPreset.DRG_AoE_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.DRG_Variant_Cure) &&
-						IsEnabled(Variant.VariantCure) &&
-						PlayerHealthPercentageHp() <= Config.DRG_Variant_Cure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRG_Variant_Rampart) &&
-						IsEnabled(Variant.VariantRampart) &&
-						IsOffCooldown(Variant.VariantRampart))
-					{
-						return Variant.VariantRampart;
-					}
-
 					if (comboTime > 0)
 					{
 						if (lastComboMove is DoomSpike or DraconianFury && ActionReady(SonicThrust))

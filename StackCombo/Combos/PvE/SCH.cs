@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 using StackCombo.Data;
 using System.Collections.Generic;
@@ -93,8 +92,8 @@ namespace StackCombo.Combos.PvE
 		public static class Config
 		{
 			public static UserInt
-				SCH_ST_DPS_LucidOption = new("SCH_ST_DPS_LucidOption", 7500),
-				SCH_AoE_LucidOption = new("SCH_ST_DPS_LucidOption", 7500);
+				SCH_ST_DPS_Lucid = new("SCH_ST_DPS_LucidOption", 7500),
+				SCH_AoE_DPS_Lucid = new("SCH_ST_DPS_LucidOption", 7500);
 		}
 
 		internal class SCH_ST_DPS : CustomComboClass
@@ -105,20 +104,20 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Ruin or Broil or Broil2 or Broil3 or Broil4)
 				{
-					if (IsEnabled(CustomComboPreset.SCH_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					if (IsEnabled(CustomComboPreset.SCH_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.SCH_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.SCH_ST_DPS_Lucid && CanSpellWeave(actionID))
 					{
-						return Variant.VariantRampart;
+						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.WHM_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
+					if (IsEnabled(CustomComboPreset.SCH_Reminder) && !HasPetPresent())
 					{
-						return Variant.VariantSpiritDart;
+						return SummonEos;
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_DPS_Seraph) && ActionReady(OriginalHook(SummonSeraph))
@@ -139,14 +138,6 @@ namespace StackCombo.Combos.PvE
 						&& CanSpellWeave(actionID) && ActionWatching.NumberOfGcdsUsed >= 7 && Gauge.SeraphTimer == 0)
 					{
 						return Dissipation;
-					}
-
-					if (IsEnabled(CustomComboPreset.SCH_DPS_Lucid) &&
-						ActionReady(All.LucidDreaming) &&
-						LocalPlayer.CurrentMp <= Config.SCH_ST_DPS_LucidOption &&
-						CanSpellWeave(actionID))
-					{
-						return All.LucidDreaming;
 					}
 
 					if (HasBattleTarget())
@@ -207,31 +198,25 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is ArtOfWar or ArtOfWarII)
 				{
-					if (IsEnabled(CustomComboPreset.SCH_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
 						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.SCH_DPS_Variant_Rampart) && IsEnabled(Variant.VariantRampart) && IsOffCooldown(Variant.VariantRampart))
+					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.SCH_AoE_DPS_Lucid && CanSpellWeave(actionID))
 					{
-						return Variant.VariantRampart;
+						return All.LucidDreaming;
 					}
 
-					if (IsEnabled(CustomComboPreset.SCH_DPS_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
+					if (IsEnabled(CustomComboPreset.SCH_Reminder) && !HasPetPresent())
 					{
-						return Variant.VariantSpiritDart;
+						return SummonEos;
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_AoE_Aetherflow) && ActionReady(Aetherflow) && Gauge.Aetherflow == 0 && CanSpellWeave(actionID))
 					{
 						return Aetherflow;
-					}
-
-					if (IsEnabled(CustomComboPreset.SCH_AoE_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.SCH_AoE_LucidOption && CanSpellWeave(actionID))
-					{
-						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_EnergyDrain) && ActionReady(EnergyDrain) && Gauge.Aetherflow > 0 && CanSpellWeave(actionID))
@@ -262,15 +247,6 @@ namespace StackCombo.Combos.PvE
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
 				return actionID is Resurrection && IsOffCooldown(All.Swiftcast) && ActionReady(Resurrection) ? All.Swiftcast : actionID;
-			}
-		}
-
-		internal class SCH_FairyReminder : CustomComboClass
-		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_Reminder;
-			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-			{
-				return FairyList.Contains(actionID) && !HasPetPresent() && !HasEffect(Buffs.Dissipation) && ActionReady(SummonEos) ? SummonEos : actionID;
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -76,24 +75,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is HardSlash or SyphonStrike or Souleater && IsEnabled(CustomComboPreset.DRK_ST_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.DRK_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.DRK_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRK_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRK_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRK_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_ST_Invuln))
+					if (IsEnabled(CustomComboPreset.DRK_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_ST_Invuln) && ActionReady(LivingDead))
 					{
 						return LivingDead;
 					}
@@ -143,29 +125,12 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Unleash or StalwartSoul && IsEnabled(CustomComboPreset.DRK_AoE_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.DRK_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.DRK_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRK_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.DRK_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
 					if (IsEnabled(CustomComboPreset.DRK_AoE_Abyssal) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_AoE_Abyssal))
 					{
 						return AbyssalDrain;
 					}
 
-					if (IsEnabled(CustomComboPreset.DRK_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_AoE_Invuln))
+					if (IsEnabled(CustomComboPreset.DRK_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_AoE_Invuln) && ActionReady(LivingDead))
 					{
 						return LivingDead;
 					}

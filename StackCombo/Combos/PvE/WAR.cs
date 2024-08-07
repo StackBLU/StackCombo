@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -77,24 +76,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is HeavySwing or Maim or StormsPath or StormsEye && IsEnabled(CustomComboPreset.WAR_ST_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.WAR_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.WAR_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.WAR_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.WAR_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.WAR_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_ST_Invuln))
+					if (IsEnabled(CustomComboPreset.WAR_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_ST_Invuln) && ActionReady(Holmgang))
 					{
 						return Holmgang;
 					}
@@ -152,24 +134,7 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is Overpower or MythrilTempest && IsEnabled(CustomComboPreset.WAR_AoE_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.WAR_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.WAR_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.WAR_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.WAR_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.WAR_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_AoE_Invuln))
+					if (IsEnabled(CustomComboPreset.WAR_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_AoE_Invuln) && ActionReady(Holmgang))
 					{
 						return Holmgang;
 					}

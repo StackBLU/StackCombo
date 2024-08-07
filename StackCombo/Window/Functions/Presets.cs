@@ -24,8 +24,6 @@ namespace StackCombo.Window.Functions
 			CustomComboPreset? parent = PresetStorage.GetParent(preset);
 			BlueInactiveAttribute? blueAttr = preset.GetAttribute<BlueInactiveAttribute>();
 
-			ImGui.Spacing();
-
 			if (ImGui.Checkbox($"{info.FancyName}###{info.FancyName}{i}", ref enabled))
 			{
 				if (enabled)
@@ -37,7 +35,6 @@ namespace StackCombo.Window.Functions
 						_ = Service.Configuration.EnabledActions.Remove(conflict);
 					}
 				}
-
 				else
 				{
 					_ = Service.Configuration.EnabledActions.Remove(preset);
@@ -50,10 +47,10 @@ namespace StackCombo.Window.Functions
 
 			DrawReplaceAttribute(preset);
 
-			ImGui.Text($"{info.Description}");
+			//ImGui.Text($"{info.Description}");
+			//ImGui.NewLine();
 
 			ImGui.PopStyleColor();
-			ImGui.Spacing();
 
 			if (conflicts.Length > 0)
 			{
@@ -103,78 +100,6 @@ namespace StackCombo.Window.Functions
 				}
 			}
 
-			VariantParentAttribute? varientparents = preset.GetAttribute<VariantParentAttribute>();
-			if (varientparents is not null)
-			{
-				ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-				ImGui.TextWrapped($"Part of normal combo{(varientparents.ParentPresets.Length > 1 ? "s" : "")}:");
-				StringBuilder builder = new();
-				foreach (CustomComboPreset par in varientparents.ParentPresets)
-				{
-					_ = builder.Insert(0, $"{par.GetAttribute<CustomComboInfoAttribute>().FancyName}");
-					CustomComboPreset par2 = par;
-					while (PresetStorage.GetParent(par2) != null)
-					{
-						CustomComboPreset? subpar = PresetStorage.GetParent(par2);
-						_ = builder.Insert(0, $"{subpar?.GetAttribute<CustomComboInfoAttribute>().FancyName} -> ");
-						par2 = subpar!.Value;
-
-					}
-
-					ImGui.TextWrapped($"- {builder}");
-					_ = builder.Clear();
-				}
-				ImGui.PopStyleColor();
-			}
-
-			BozjaParentAttribute? bozjaparents = preset.GetAttribute<BozjaParentAttribute>();
-			if (bozjaparents is not null)
-			{
-				ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-				ImGui.TextWrapped($"Part of normal combo{(varientparents.ParentPresets.Length > 1 ? "s" : "")}:");
-				StringBuilder builder = new();
-				foreach (CustomComboPreset par in bozjaparents.ParentPresets)
-				{
-					_ = builder.Insert(0, $"{par.GetAttribute<CustomComboInfoAttribute>().FancyName}");
-					CustomComboPreset par2 = par;
-					while (PresetStorage.GetParent(par2) != null)
-					{
-						CustomComboPreset? subpar = PresetStorage.GetParent(par2);
-						_ = builder.Insert(0, $"{subpar?.GetAttribute<CustomComboInfoAttribute>().FancyName} -> ");
-						par2 = subpar!.Value;
-
-					}
-
-					ImGui.TextWrapped($"- {builder}");
-					_ = builder.Clear();
-				}
-				ImGui.PopStyleColor();
-			}
-
-			EurekaParentAttribute? eurekaparents = preset.GetAttribute<EurekaParentAttribute>();
-			if (eurekaparents is not null)
-			{
-				ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-				ImGui.TextWrapped($"Part of normal combo{(varientparents.ParentPresets.Length > 1 ? "s" : "")}:");
-				StringBuilder builder = new();
-				foreach (CustomComboPreset par in eurekaparents.ParentPresets)
-				{
-					_ = builder.Insert(0, $"{par.GetAttribute<CustomComboInfoAttribute>().FancyName}");
-					CustomComboPreset par2 = par;
-					while (PresetStorage.GetParent(par2) != null)
-					{
-						CustomComboPreset? subpar = PresetStorage.GetParent(par2);
-						_ = builder.Insert(0, $"{subpar?.GetAttribute<CustomComboInfoAttribute>().FancyName} -> ");
-						par2 = subpar!.Value;
-
-					}
-
-					ImGui.TextWrapped($"- {builder}");
-					_ = builder.Clear();
-				}
-				ImGui.PopStyleColor();
-			}
-
 			UserConfigItems.Draw(preset, enabled);
 
 			i++;
@@ -186,6 +111,7 @@ namespace StackCombo.Window.Functions
 			{
 				if (enabled || !hideChildren)
 				{
+					ImGui.Indent();
 					ImGui.Indent();
 
 					foreach ((CustomComboPreset childPreset, CustomComboInfoAttribute childInfo) in children)
@@ -213,19 +139,17 @@ namespace StackCombo.Window.Functions
 								continue;
 							}
 						}
-
 						else
 						{
 							DrawPreset(childPreset, childInfo, ref i);
 						}
 					}
-
+					ImGui.Unindent();
 					ImGui.Unindent();
 				}
 				else
 				{
 					i += AllChildren(presetChildren[preset]);
-
 				}
 			}
 		}
@@ -235,16 +159,14 @@ namespace StackCombo.Window.Functions
 			ReplaceSkillAttribute? att = preset.GetReplaceAttribute();
 			if (att != null)
 			{
-				string skills = string.Join(", ", att.ActionNames);
-
-				ImGui.Text($"Replaces: {skills}");
-				ImGui.SameLine();
-				foreach (ushort icon in att.ActionIcons)
+				ImGui.Spacing();
+				for (int i = 0; i < att.ActionIcons.Count; i++)
 				{
-					Dalamud.Interface.Textures.TextureWraps.IDalamudTextureWrap img = Svc.Texture.GetFromGameIcon(new(icon)).GetWrapOrEmpty();
+					Dalamud.Interface.Textures.TextureWraps.IDalamudTextureWrap img = Svc.Texture.GetFromGameIcon(new(att.ActionIcons[i])).GetWrapOrEmpty();
 					ImGui.Image(img.ImGuiHandle, img.Size / 2f * ImGui.GetIO().FontGlobalScale);
 					ImGui.SameLine();
 				}
+				ImGui.NewLine();
 			}
 		}
 

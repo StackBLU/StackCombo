@@ -1,5 +1,5 @@
+using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -86,58 +86,288 @@ namespace StackCombo.Combos.PvE
 				EnhancedAccelerationII = 624;
 		}
 
-		public static class Config
+		public static RDMGauge Gauge
 		{
-			public static UserInt
-				RDM_VariantCure = new("RDM_VariantCure"),
-				RDM_ST_Lucid_Threshold = new("RDM_LucidDreaming_Threshold", 6500),
-				RDM_AoE_Lucid_Threshold = new("RDM_AoE_Lucid_Threshold", 6500),
-				RDM_AoE_MoulinetRange = new("RDM_MoulinetRange");
-			public static UserBool
-				RDM_ST_oGCD_OnAction_Adv = new("RDM_ST_oGCD_OnAction_Adv"),
-				RDM_ST_oGCD_Fleche = new("RDM_ST_oGCD_Fleche"),
-				RDM_ST_oGCD_ContraSixte = new("RDM_ST_oGCD_ContraSixte"),
-				RDM_ST_oGCD_Engagement = new("RDM_ST_oGCD_Engagement"),
-				RDM_ST_oGCD_Engagement_Pooling = new("RDM_ST_oGCD_Engagement_Pooling"),
-				RDM_ST_oGCD_CorpACorps = new("RDM_ST_oGCD_CorpACorps"),
-				RDM_ST_oGCD_CorpACorps_Melee = new("RDM_ST_oGCD_CorpACorps_Melee"),
-				RDM_ST_oGCD_CorpACorps_Pooling = new("RDM_ST_oGCD_CorpACorps_Pooling"),
-				RDM_ST_oGCD_ViceOfThorns = new("RDM_ST_oGCD_ViceOfThorns"),
-				RDM_ST_oGCD_Prefulgence = new("RDM_ST_oGCD_Prefulgence"),
-				RDM_ST_MeleeCombo_Adv = new("RDM_ST_MeleeCombo_Adv"),
-				RDM_ST_MeleeFinisher_Adv = new("RDM_ST_MeleeFinisher_Adv"),
-				RDM_ST_MeleeEnforced = new("RDM_ST_MeleeEnforced"),
-
-				RDM_AoE_oGCD_OnAction_Adv = new("RDM_AoE_oGCD_OnAction_Adv"),
-				RDM_AoE_oGCD_Fleche = new("RDM_AoE_oGCD_Fleche"),
-				RDM_AoE_oGCD_ContraSixte = new("RDM_AoE_oGCD_ContraSixte"),
-				RDM_AoE_oGCD_Engagement = new("RDM_AoE_oGCD_Engagement"),
-				RDM_AoE_oGCD_Engagement_Pooling = new("RDM_AoE_oGCD_Engagement_Pooling"),
-				RDM_AoE_oGCD_CorpACorps = new("RDM_AoE_oGCD_CorpACorps"),
-				RDM_AoE_oGCD_CorpACorps_Melee = new("RDM_AoE_oGCD_CorpACorps_Melee"),
-				RDM_AoE_oGCD_CorpACorps_Pooling = new("RDM_AoE_oGCD_CorpACorps_Pooling"),
-				RDM_AoE_oGCD_ViceOfThorns = new("RDM_AoE_oGCD_ViceOfThorns"),
-				RDM_AoE_oGCD_Prefulgence = new("RDM_AoE_oGCD_Prefulgence"),
-				RDM_AoE_MeleeCombo_Adv = new("RDM_AoE_MeleeCombo_Adv"),
-				RDM_AoE_MeleeFinisher_Adv = new("RDM_AoE_MeleeFinisher_Adv");
-			public static UserBoolArray
-				RDM_ST_oGCD_OnAction = new("RDM_ST_oGCD_OnAction"),
-				RDM_ST_MeleeCombo_OnAction = new("RDM_ST_MeleeCombo_OnAction"),
-				RDM_ST_MeleeFinisher_OnAction = new("RDM_ST_MeleeFinisher_OnAction"),
-
-				RDM_AoE_oGCD_OnAction = new("RDM_AoE_oGCD_OnAction"),
-				RDM_AoE_MeleeCombo_OnAction = new("RDM_AoE_MeleeCombo_OnAction"),
-				RDM_AoE_MeleeFinisher_OnAction = new("RDM_AoE_MeleeFinisher_OnAction");
+			get
+			{
+				return CustomComboFunctions.GetJobGauge<RDMGauge>();
+			}
 		}
 
-		internal class RDM_VariantVerCure : CustomComboClass
+		public static class Config
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_Variant_Cure;
+			internal static UserInt
+				RDM_ST_Lucid = new("RDM_ST_Lucid", 7500),
+				RDM_AoE_Lucid = new("RDM_AoE_Lucid", 7500);
+		}
+
+		internal class RDM_ST_DPS : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_ST_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				return actionID is Vercure && IsEnabled(CustomComboPreset.RDM_Variant_Cure2) && IsEnabled(Variant.VariantCure)
-					? Variant.VariantCure : actionID;
+				if (actionID is Jolt or Jolt2 or Jolt3 or Verthunder or Verthunder3 or Veraero or Veraero3 or Verfire or Verstone && IsEnabled(CustomComboPreset.RDM_ST_DPS))
+				{
+					if (IsEnabled(CustomComboPreset.RDM_ST_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					{
+						return All.LucidDreaming;
+					}
+
+					if (IsEnabled(CustomComboPreset.RDM_ST_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.RDM_ST_Lucid && CanSpellWeave(actionID))
+					{
+						return All.LucidDreaming;
+					}
+
+					if (WasLastSpell(Scorch))
+					{
+						return Resolution;
+					}
+
+					if (WasLastSpell(Verholy) || WasLastSpell(Verflare))
+					{
+						return Scorch;
+					}
+
+					if (Gauge.ManaStacks is 3)
+					{
+						if (Gauge.BlackMana >= Gauge.WhiteMana)
+						{
+							return Verholy;
+						}
+
+						if (Gauge.WhiteMana >= Gauge.BlackMana)
+						{
+							return Verflare;
+						}
+					}
+
+					if (HasEffect(Buffs.Dualcast))
+					{
+						if (Gauge.BlackMana >= Gauge.WhiteMana)
+						{
+							return OriginalHook(Veraero3);
+						}
+
+						if (Gauge.WhiteMana >= Gauge.BlackMana)
+						{
+							return OriginalHook(Verthunder3);
+						}
+					}
+
+					if (HasEffect(Buffs.VerstoneReady))
+					{
+						return Verstone;
+					}
+
+					if (HasEffect(Buffs.VerfireReady))
+					{
+						return Verfire;
+					}
+					return OriginalHook(Jolt3);
+				}
+				return actionID;
+			}
+		}
+
+		internal class RDM_AoE_DPS : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_AoE_DPS;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Scatter or Impact or Verthunder2 or Veraero2 && IsEnabled(CustomComboPreset.RDM_AoE_DPS))
+				{
+					if (IsEnabled(CustomComboPreset.RDM_AoE_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
+					{
+						return All.LucidDreaming;
+					}
+
+					if (IsEnabled(CustomComboPreset.RDM_AoE_Lucid) && ActionReady(All.LucidDreaming)
+						&& LocalPlayer.CurrentMp <= Config.RDM_AoE_Lucid && CanSpellWeave(actionID))
+					{
+						return All.LucidDreaming;
+					}
+
+					if (WasLastSpell(Scorch))
+					{
+						return Resolution;
+					}
+
+					if (WasLastSpell(Verholy) || WasLastSpell(Verflare))
+					{
+						return Scorch;
+					}
+
+					if (Gauge.ManaStacks is 3)
+					{
+						if (Gauge.BlackMana >= Gauge.WhiteMana)
+						{
+							return Verholy;
+						}
+
+						if (Gauge.WhiteMana >= Gauge.BlackMana)
+						{
+							return Verflare;
+						}
+					}
+
+					if (HasEffect(Buffs.Dualcast))
+					{
+						return OriginalHook(Impact);
+					}
+
+					if (Gauge.BlackMana >= Gauge.WhiteMana)
+					{
+						return Veraero2;
+					}
+
+					if (Gauge.WhiteMana >= Gauge.BlackMana)
+					{
+						return Verthunder2;
+					}
+
+					return OriginalHook(Jolt3);
+				}
+				return actionID;
+			}
+		}
+
+		internal class RDM_ST_Melee : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_ST_Melee;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Riposte or Zwerchhau or Redoublement && IsEnabled(CustomComboPreset.RDM_ST_Melee))
+				{
+					if (WasLastSpell(Scorch))
+					{
+						return Resolution;
+					}
+
+					if (WasLastSpell(Verholy) || WasLastSpell(Verflare))
+					{
+						return Scorch;
+					}
+
+					if (Gauge.ManaStacks is 3)
+					{
+						if (Gauge.BlackMana >= Gauge.WhiteMana)
+						{
+							return Verholy;
+						}
+
+						if (Gauge.WhiteMana >= Gauge.BlackMana)
+						{
+							return Verflare;
+						}
+					}
+
+					if (WasLastWeaponskill(OriginalHook(Zwerchhau)))
+					{
+						return OriginalHook(Redoublement);
+					}
+
+					if (WasLastWeaponskill(OriginalHook(Riposte)))
+					{
+						return OriginalHook(Zwerchhau);
+					}
+					return OriginalHook(Riposte);
+				}
+				return actionID;
+			}
+		}
+
+		internal class RDM_AoE_Melee : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_AoE_Melee;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Moulinet && IsEnabled(CustomComboPreset.RDM_AoE_Melee))
+				{
+					if (WasLastSpell(Scorch))
+					{
+						return Resolution;
+					}
+
+					if (WasLastSpell(Verholy) || WasLastSpell(Verflare))
+					{
+						return Scorch;
+					}
+
+					if (Gauge.ManaStacks is 3)
+					{
+						if (Gauge.BlackMana >= Gauge.WhiteMana)
+						{
+							return Verholy;
+						}
+
+						if (Gauge.WhiteMana >= Gauge.BlackMana)
+						{
+							return Verflare;
+						}
+					}
+
+					return OriginalHook(Moulinet);
+				}
+				return actionID;
+			}
+		}
+
+		internal class RDM_Raise : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_Raise;
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Verraise && IsEnabled(CustomComboPreset.RDM_Raise))
+				{
+					if (IsOffCooldown(All.Swiftcast))
+					{
+						return All.Swiftcast;
+					}
+					if (ActionReady(Verraise))
+					{
+						return Verraise;
+					}
+				}
+				return actionID;
+			}
+		}
+
+		internal class RDM_EmboldenProtection : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_EmboldenProtection;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is Embolden && IsEnabled(CustomComboPreset.RDM_EmboldenProtection))
+				{
+					if (HasEffectAny(Buffs.Embolden))
+					{
+						return OriginalHook(11);
+					}
+				}
+				return actionID;
+			}
+		}
+
+		internal class RDM_MagickProtection : CustomComboClass
+		{
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.RDM_MagickProtection;
+
+			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+			{
+				if (actionID is MagickBarrier && IsEnabled(CustomComboPreset.RDM_MagickProtection))
+				{
+					if (HasEffectAny(Buffs.MagickBarrier))
+					{
+						return OriginalHook(11);
+					}
+				}
+				return actionID;
 			}
 		}
 	}

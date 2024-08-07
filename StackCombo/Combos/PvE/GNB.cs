@@ -1,6 +1,5 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
-using StackCombo.Combos.PvE.Content;
 using StackCombo.CustomCombo;
 
 namespace StackCombo.Combos.PvE
@@ -91,26 +90,15 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is KeenEdge or BrutalShell or SolidBarrel && IsEnabled(CustomComboPreset.GNB_ST_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.GNB_VariantCure)
-					{
-						return Variant.VariantCure;
-					}
-
-					if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.GNB_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_ST_Invuln))
+					if (IsEnabled(CustomComboPreset.GNB_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_ST_Invuln) && ActionReady(Superbolide))
 					{
 						return Superbolide;
+					}
+
+					if (IsEnabled(CustomComboPreset.GNB_ST_AutoAurora) && PlayerHealthPercentageHp() < 100 && ActionReady(Aurora)
+						&& !HasEffect(Buffs.Aurora) && CanWeave(actionID))
+					{
+						return Aurora;
 					}
 
 					if (ActionReady(Continuation)
@@ -119,35 +107,21 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(Continuation);
 					}
 
-					/*if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && ActionReady(ReignOfBeasts))
+					if (IsEnabled(CustomComboPreset.GNB_ST_Reign) && ActionReady(ReignOfBeasts)
+						&& (HasEffect(Buffs.ReadyToReign) || WasLastWeaponskill(ReignOfBeasts) || WasLastWeaponskill(NobleBlood)))
 					{
-						if (GetBuffRemainingTime(Buffs.ReadyToReign) > 0 && IsOnCooldown(GnashingFang) && IsOnCooldown(DoubleDown) && gauge.AmmoComboStep == 0 && GetCooldownRemainingTime(Bloodfest) > GCD * 12)
-						{
-							if (WasLastWeaponskill(WickedTalon) || WasLastAbility(EyeGouge))
-							{
-								return OriginalHook(ReignOfBeasts);
-							}
-						}
+						return OriginalHook(ReignOfBeasts);
+					}
 
-						if (WasLastWeaponskill(ReignOfBeasts) || WasLastWeaponskill(NobleBlood))
-						{
-							return OriginalHook(ReignOfBeasts);
-						}
-					}*/
-
-					if ((Gauge.Ammo > 0 && ActionReady(OriginalHook(GnashingFang)) && IsEnabled(CustomComboPreset.GNB_ST_Gnashing)
-						&& GetCooldownRemainingTime(GnashingFang) < 1.5)
-						|| Gauge.AmmoComboStep == 1
-						|| Gauge.AmmoComboStep == 2)
+					if ((Gauge.Ammo > 0 && ActionReady(OriginalHook(GnashingFang)) && IsEnabled(CustomComboPreset.GNB_ST_Gnashing))
+						|| Gauge.AmmoComboStep == 1 || Gauge.AmmoComboStep == 2)
 					{
 						return OriginalHook(GnashingFang);
 					}
 
-					if ((ActionReady(BurstStrike) && IsEnabled(CustomComboPreset.GNB_ST_Burst)
-						&& Gauge.Ammo == MaxCartridges(level) && lastComboMove == BrutalShell)
-						|| (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0
-						&& (GetCooldownRemainingTime(OriginalHook(GnashingFang)) > 5 || !ActionReady(GnashingFang))
-						&& (GetCooldownRemainingTime(DoubleDown) > 10 || !ActionReady(DoubleDown))))
+					if (ActionReady(BurstStrike) && IsEnabled(CustomComboPreset.GNB_ST_Burst) && ((Gauge.Ammo == MaxCartridges(level) && lastComboMove == BrutalShell)
+						|| (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0 && GetCooldownRemainingTime(OriginalHook(GnashingFang)) > 5
+						&& GetCooldownRemainingTime(DoubleDown) > 10)))
 					{
 						return BurstStrike;
 					}
@@ -178,31 +152,29 @@ namespace StackCombo.Combos.PvE
 			{
 				if (actionID is DemonSlice or DemonSlaughter && IsEnabled(CustomComboPreset.GNB_AoE_DPS))
 				{
-					if (IsEnabled(CustomComboPreset.GNB_Variant_Cure) && IsEnabled(Variant.VariantCure)
-						&& PlayerHealthPercentageHp() <= Config.GNB_VariantCure)
+					if (ActionReady(Continuation) && HasEffect(Buffs.ReadyToRaze))
 					{
-						return Variant.VariantCure;
+						return OriginalHook(Continuation);
 					}
 
-					if (IsEnabled(CustomComboPreset.GNB_Variant_SpiritDart) && IsEnabled(Variant.VariantSpiritDart)
-						&& (!TargetHasEffectAny(Variant.Debuffs.SustainedDamage) || GetDebuffRemainingTime(Variant.Debuffs.SustainedDamage) <= 3))
-					{
-						return Variant.VariantSpiritDart;
-					}
-
-					if (IsEnabled(CustomComboPreset.GNB_Variant_Ultimatum) && IsEnabled(Variant.VariantUltimatum) && IsOffCooldown(Variant.VariantUltimatum))
-					{
-						return Variant.VariantUltimatum;
-					}
-
-					if (IsEnabled(CustomComboPreset.GNB_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_AoE_Invuln))
+					if (IsEnabled(CustomComboPreset.GNB_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_AoE_Invuln) && ActionReady(Superbolide))
 					{
 						return Superbolide;
 					}
 
-					if (IsEnabled(CustomComboPreset.GNB_AoE_Fated) && ActionReady(FatedCircle) && LevelChecked(DoubleDown)
-						&& GetCooldownRemainingTime(DoubleDown) > 10 && IsEnabled(CustomComboPreset.GNB_AoE_Fated)
-						&& ((Gauge.Ammo == MaxCartridges(level) && lastComboMove is DemonSlice) || (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0)))
+					if (IsEnabled(CustomComboPreset.GNB_AoE_AutoAurora) && PlayerHealthPercentageHp() < 100 && ActionReady(Aurora)
+						&& !HasEffect(Buffs.Aurora) && CanWeave(actionID))
+					{
+						return Aurora;
+					}
+
+					if (ActionReady(DoubleDown) && IsEnabled(CustomComboPreset.GNB_AoE_DoubleDown) && Gauge.Ammo >= 2)
+					{
+						return DoubleDown;
+					}
+
+					if (IsEnabled(CustomComboPreset.GNB_AoE_Fated) && ActionReady(FatedCircle) && ((Gauge.Ammo == MaxCartridges(level) && lastComboMove is DemonSlice)
+						|| (HasEffect(Buffs.NoMercy) && Gauge.Ammo > 0 && GetCooldownRemainingTime(DoubleDown) > 10)))
 					{
 						return FatedCircle;
 					}
