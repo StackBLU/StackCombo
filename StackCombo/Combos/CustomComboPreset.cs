@@ -1855,20 +1855,44 @@ namespace StackCombo.Combos
 		MCH_ST_DPS = 8000,
 
 		[ParentCombo(MCH_ST_DPS)]
+		[CustomComboInfo("Hypercharge", "", MCH.JobID)]
+		MCH_ST_Hypercharge = 8002,
+
+		[ParentCombo(MCH_ST_DPS)]
 		[CustomComboInfo("Heat Blast", "", MCH.JobID)]
 		MCH_ST_HeatBlast = 8001,
+
+		[ParentCombo(MCH_ST_DPS)]
+		[CustomComboInfo("Gauss Round & Ricochet", "", MCH.JobID)]
+		MCH_ST_GaussRico = 8010,
+
+		[ParentCombo(MCH_ST_DPS)]
+		[CustomComboInfo("Drill", "", MCH.JobID)]
+		MCH_ST_Drill = 8005,
+
+		[ParentCombo(MCH_ST_DPS)]
+		[CustomComboInfo("Air Anchor", "", MCH.JobID)]
+		MCH_ST_AirAnchor = 8006,
+
+		[ParentCombo(MCH_ST_DPS)]
+		[CustomComboInfo("Chainsaw", "", MCH.JobID)]
+		MCH_ST_Chainsaw = 8007,
+
+		[ParentCombo(MCH_ST_DPS)]
+		[CustomComboInfo("Reassemble", "", MCH.JobID)]
+		MCH_ST_Reassemble = 8008,
 
 		[ParentCombo(MCH_ST_DPS)]
 		[CustomComboInfo("Wildfire", "", MCH.JobID)]
 		MCH_ST_Wildfire = 8004,
 
 		[ParentCombo(MCH_ST_DPS)]
-		[CustomComboInfo("Hypercharge Overcap Protection", "", MCH.JobID)]
-		MCH_ST_HeatProtect = 8002,
+		[CustomComboInfo("Queen", "", MCH.JobID)]
+		MCH_ST_Queen = 8003,
 
 		[ParentCombo(MCH_ST_DPS)]
-		[CustomComboInfo("Queen Overcap Protection", "", MCH.JobID)]
-		MCH_ST_QueenProtect = 8003,
+		[CustomComboInfo("Barrel Stabilizer", "", MCH.JobID)]
+		MCH_ST_Barrel = 8009,
 
 		#endregion
 
@@ -1879,24 +1903,24 @@ namespace StackCombo.Combos
 		MCH_AoE_DPS = 8020,
 
 		[ParentCombo(MCH_AoE_DPS)]
-		[CustomComboInfo("Auto Crossbow", "", MCH.JobID)]
-		MCH_AoE_AutoCrossbow = 8021,
+		[CustomComboInfo("Hypercharge", "", MCH.JobID)]
+		MCH_AoE_Hypercharge = 8021,
 
 		[ParentCombo(MCH_AoE_DPS)]
-		[CustomComboInfo("Gauss / Ricochet", "", MCH.JobID)]
-		MCH_AoE_GaussRicochet = 8022,
+		[CustomComboInfo("Auto Crossbow", "", MCH.JobID)]
+		MCH_AoE_Crossbow = 8022,
+
+		[ParentCombo(MCH_AoE_DPS)]
+		[CustomComboInfo("Gauss Round & Ricochet", "", MCH.JobID)]
+		MCH_AoE_GaussRico = 8023,
 
 		[ParentCombo(MCH_AoE_DPS)]
 		[CustomComboInfo("Bioblaster", "", MCH.JobID)]
-		MCH_AoE_Bioblaster = 8025,
+		MCH_AoE_Bioblaster = 8024,
 
 		[ParentCombo(MCH_AoE_DPS)]
-		[CustomComboInfo("Hypercharge Overcap Protection", "", MCH.JobID)]
-		MCH_AoE_HeatProtect = 8023,
-
-		[ParentCombo(MCH_AoE_DPS)]
-		[CustomComboInfo("Queen Overcap Protection", "", MCH.JobID)]
-		MCH_AoE_QueenProtect = 8024,
+		[CustomComboInfo("Barrel Stabilizer", "", MCH.JobID)]
+		MCH_AoE_Barrel = 8025,
 
 		#endregion
 

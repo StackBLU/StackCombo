@@ -108,7 +108,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.WHM_ST_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.WHM_ST_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}

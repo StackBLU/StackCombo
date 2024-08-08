@@ -176,6 +176,19 @@ namespace StackCombo.Data
 			}
 		}
 
+		public static bool HasDoubleWeaved()
+		{
+			if (CombatActions.Count < 2)
+			{
+				return false;
+			}
+
+			uint lastAction = CombatActions.Last();
+			uint secondLastAction = CombatActions[^2];
+
+			return GetAttackType(lastAction) == GetAttackType(secondLastAction) && GetAttackType(lastAction) == ActionAttackType.Ability;
+		}
+
 		public static uint LastAction { get; set; } = 0;
 		public static int LastActionUseCount { get; set; } = 0;
 		public static uint ActionType { get; set; } = 0;

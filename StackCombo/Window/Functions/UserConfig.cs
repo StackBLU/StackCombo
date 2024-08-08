@@ -1551,7 +1551,20 @@ namespace StackCombo.Window.Functions
 
 			#region MACHINIST
 
+			if (preset is CustomComboPreset.MCH_ST_Hypercharge)
+			{
+				UserConfig.DrawSliderInt(0, 100, MCH.Config.MCH_ST_Hypercharge, "Heat Threshold", 150, SliderIncrements.Fives);
+			}
 
+			if (preset is CustomComboPreset.MCH_ST_Queen)
+			{
+				UserConfig.DrawSliderInt(0, 100, MCH.Config.MCH_ST_Queen, "Battery Threshold", 150, SliderIncrements.Fives);
+			}
+
+			if (preset is CustomComboPreset.MCH_AoE_Hypercharge)
+			{
+				UserConfig.DrawSliderInt(0, 100, MCH.Config.MCH_AoE_Hypercharge, "Heat Threshold", 150, SliderIncrements.Fives);
+			}
 
 			#endregion
 

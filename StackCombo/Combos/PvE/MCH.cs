@@ -1,6 +1,7 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using StackCombo.ComboHelper.Functions;
 using StackCombo.CustomCombo;
+using StackCombo.Data;
 
 namespace StackCombo.Combos.PvE
 {
@@ -80,7 +81,9 @@ namespace StackCombo.Combos.PvE
 		public static class Config
 		{
 			public static UserInt
-				MCH_ST_SecondWindThreshold = new("MCH_ST_SecondWindThreshold", 25);
+				MCH_ST_Hypercharge = new("MCH_ST_Hypercharge", 50),
+				MCH_ST_Queen = new("MCH_ST_Queen", 50),
+				MCH_AoE_Hypercharge = new("MCH_AoE_Hypercharge", 50);
 		}
 
 		internal class MCH_ST_DPS : CustomComboClass
@@ -93,22 +96,87 @@ namespace StackCombo.Combos.PvE
 				{
 					if (CanWeave(actionID))
 					{
-						if (IsEnabled(CustomComboPreset.MCH_ST_Wildfire) && ActionReady(Wildfire)
+						if (IsEnabled(CustomComboPreset.MCH_ST_Reassemble) && !HasEffect(Buffs.Reassembled)
+							&& ActionReady(Reassemble) && HasCharges(Reassemble) && ActionWatching.NumberOfGcdsUsed > 2
+							&& (ActionReady(Drill) || GetCooldownRemainingTime(Drill) < 1
+							|| ActionReady(OriginalHook(AirAnchor)) || GetCooldownRemainingTime(OriginalHook(AirAnchor)) < 1
+							|| ActionReady(Chainsaw) || GetCooldownRemainingTime(Chainsaw) < 1))
+						{
+							return Reassemble;
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_Barrel) && ActionReady(BarrelStabilizer) && ActionWatching.NumberOfGcdsUsed > 2)
+						{
+							return BarrelStabilizer;
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_GaussRico) && ActionReady(OriginalHook(GaussRound)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet))
+							&& !HasEffect(Buffs.Overheated) && GetRemainingCharges(OriginalHook(GaussRound)) >= 2)
+						{
+							return OriginalHook(GaussRound);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_GaussRico) && ActionReady(OriginalHook(Ricochet)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& GetRemainingCharges(OriginalHook(Ricochet)) >= GetRemainingCharges(OriginalHook(GaussRound))
+							&& !HasEffect(Buffs.Overheated) && GetRemainingCharges(OriginalHook(Ricochet)) >= 2)
+						{
+							return OriginalHook(Ricochet);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_GaussRico) && ActionReady(OriginalHook(GaussRound)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& ActionWatching.GetAttackType(ActionWatching.LastAction) != ActionWatching.ActionAttackType.Ability
+							&& GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet))
+							&& HasEffect(Buffs.Overheated))
+						{
+							return OriginalHook(GaussRound);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_GaussRico) && ActionReady(OriginalHook(Ricochet)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& ActionWatching.GetAttackType(ActionWatching.LastAction) != ActionWatching.ActionAttackType.Ability
+							&& GetRemainingCharges(OriginalHook(Ricochet)) >= GetRemainingCharges(OriginalHook(GaussRound))
+							&& HasEffect(Buffs.Overheated))
+						{
+							return OriginalHook(Ricochet);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_Wildfire) && IsEnabled(CustomComboPreset.MCH_ST_Wildfire)
+							&& ActionReady(Wildfire) && ActionWatching.NumberOfGcdsUsed > 2
 							&& (Gauge.Heat == 100 || HasEffect(Buffs.Hypercharged) || HasEffect(Buffs.Overheated)))
 						{
 							return Wildfire;
 						}
 
-						if (IsEnabled(CustomComboPreset.MCH_ST_HeatProtect) && !HasEffect(Buffs.Overheated) && ActionReady(Hypercharge)
-						&& (Gauge.Heat == 100 || HasEffect(Buffs.Hypercharged)))
-						{
-							return Hypercharge;
-						}
-
-						if (IsEnabled(CustomComboPreset.MCH_ST_QueenProtect) && ActionReady(OriginalHook(AutomatonQueen)) && Gauge.Battery == 100)
+						if (IsEnabled(CustomComboPreset.MCH_ST_Queen) && ActionReady(OriginalHook(AutomatonQueen)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& Gauge.Battery >= GetOptionValue(Config.MCH_ST_Queen))
 						{
 							return OriginalHook(AutomatonQueen);
 						}
+
+						if (IsEnabled(CustomComboPreset.MCH_ST_Hypercharge) && !HasEffect(Buffs.Overheated) && ActionReady(Hypercharge) && ActionWatching.NumberOfGcdsUsed > 2
+						&& GetCooldownRemainingTime(Drill) > 5 && GetCooldownRemainingTime(OriginalHook(AirAnchor)) > 5 && GetCooldownRemainingTime(Chainsaw) > 5
+						&& (Gauge.Heat >= GetOptionValue(Config.MCH_ST_Hypercharge) || HasEffect(Buffs.Hypercharged)))
+						{
+							return Hypercharge;
+						}
+					}
+
+					if (IsEnabled(CustomComboPreset.MCH_ST_Drill) && ActionReady(Drill) && ActionWatching.NumberOfGcdsUsed > 2
+						&& GetCooldownRemainingTime(Drill) < 1 && !HasEffect(Buffs.Overheated))
+					{
+						return Drill;
+					}
+
+					if (IsEnabled(CustomComboPreset.MCH_ST_AirAnchor) && ActionReady(OriginalHook(AirAnchor)) && ActionWatching.NumberOfGcdsUsed > 2
+						&& GetCooldownRemainingTime(OriginalHook(AirAnchor)) < 1 && !HasEffect(Buffs.Overheated))
+					{
+						return OriginalHook(AirAnchor);
+					}
+
+					if (IsEnabled(CustomComboPreset.MCH_ST_Chainsaw) && ActionReady(Chainsaw) && ActionWatching.NumberOfGcdsUsed > 2
+						&& GetCooldownRemainingTime(Chainsaw) < 1 && !HasEffect(Buffs.Overheated))
+					{
+						return Chainsaw;
 					}
 
 					if (IsEnabled(CustomComboPreset.MCH_ST_HeatBlast) && ActionReady(OriginalHook(Heatblast)) && HasEffect(Buffs.Overheated))
@@ -116,7 +184,10 @@ namespace StackCombo.Combos.PvE
 						return OriginalHook(Heatblast);
 					}
 
-					if (comboTime > 0)
+					if (comboTime > 0
+						&& GetCooldownRemainingTime(Drill) > 0.5
+						&& GetCooldownRemainingTime(OriginalHook(AirAnchor)) > 0.5
+						&& GetCooldownRemainingTime(Chainsaw) > 0.5)
 					{
 						if (lastComboMove is SplitShot or HeatedSplitShot && ActionReady(OriginalHook(SlugShot)))
 						{
@@ -144,37 +215,56 @@ namespace StackCombo.Combos.PvE
 				{
 					if (CanWeave(actionID))
 					{
-						if (IsEnabled(CustomComboPreset.MCH_AoE_HeatProtect) && !HasEffect(Buffs.Overheated) && ActionReady(Hypercharge)
-							&& (Gauge.Heat == 100 || HasEffect(Buffs.Hypercharged)))
+						if (IsEnabled(CustomComboPreset.MCH_AoE_Barrel) && ActionReady(BarrelStabilizer) && ActionWatching.NumberOfGcdsUsed > 2)
+						{
+							return BarrelStabilizer;
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_AoE_GaussRico) && ActionReady(OriginalHook(GaussRound)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet))
+							&& !HasEffect(Buffs.Overheated) && GetRemainingCharges(OriginalHook(GaussRound)) >= 2)
+						{
+							return OriginalHook(GaussRound);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_AoE_GaussRico) && ActionReady(OriginalHook(Ricochet)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& GetRemainingCharges(OriginalHook(Ricochet)) >= GetRemainingCharges(OriginalHook(GaussRound))
+							&& !HasEffect(Buffs.Overheated) && GetRemainingCharges(OriginalHook(Ricochet)) >= 2)
+						{
+							return OriginalHook(Ricochet);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_AoE_GaussRico) && ActionReady(OriginalHook(GaussRound)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& ActionWatching.GetAttackType(ActionWatching.LastAction) != ActionWatching.ActionAttackType.Ability
+							&& GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet))
+							&& HasEffect(Buffs.Overheated))
+						{
+							return OriginalHook(GaussRound);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_AoE_GaussRico) && ActionReady(OriginalHook(Ricochet)) && ActionWatching.NumberOfGcdsUsed > 2
+							&& ActionWatching.GetAttackType(ActionWatching.LastAction) != ActionWatching.ActionAttackType.Ability
+							&& GetRemainingCharges(OriginalHook(Ricochet)) >= GetRemainingCharges(OriginalHook(GaussRound))
+							&& HasEffect(Buffs.Overheated))
+						{
+							return OriginalHook(Ricochet);
+						}
+
+						if (IsEnabled(CustomComboPreset.MCH_AoE_Hypercharge) && !HasEffect(Buffs.Overheated) && ActionReady(Hypercharge) && ActionWatching.NumberOfGcdsUsed > 2
+						&& GetCooldownRemainingTime(Bioblaster) > 5
+						&& (Gauge.Heat >= GetOptionValue(Config.MCH_AoE_Hypercharge) || HasEffect(Buffs.Hypercharged)))
 						{
 							return Hypercharge;
 						}
-
-						if (IsEnabled(CustomComboPreset.MCH_AoE_QueenProtect) && ActionReady(OriginalHook(AutomatonQueen)) && Gauge.Battery == 100)
-						{
-							return OriginalHook(AutomatonQueen);
-						}
-
-						if (IsEnabled(CustomComboPreset.MCH_AoE_GaussRicochet) && HasEffect(Buffs.Overheated))
-						{
-							if (ActionReady(OriginalHook(GaussRound)) && GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet)))
-							{
-								return OriginalHook(GaussRound);
-							}
-
-							if (ActionReady(OriginalHook(Ricochet)) && GetRemainingCharges(OriginalHook(Ricochet)) > GetRemainingCharges(OriginalHook(GaussRound)))
-							{
-								return OriginalHook(Ricochet);
-							}
-						}
 					}
 
-					if (IsEnabled(CustomComboPreset.MCH_AoE_Bioblaster) && ActionReady(Bioblaster) && !HasEffect(Buffs.Overheated))
+					if (IsEnabled(CustomComboPreset.MCH_AoE_Bioblaster) && ActionReady(Bioblaster) && ActionWatching.NumberOfGcdsUsed > 2
+						&& GetCooldownRemainingTime(Bioblaster) < 1 && !HasEffect(Buffs.Overheated))
 					{
 						return Bioblaster;
 					}
 
-					if (IsEnabled(CustomComboPreset.MCH_AoE_AutoCrossbow) && ActionReady(AutoCrossbow) && HasEffect(Buffs.Overheated))
+					if (IsEnabled(CustomComboPreset.MCH_AoE_Crossbow) && ActionReady(AutoCrossbow) && HasEffect(Buffs.Overheated))
 					{
 						return AutoCrossbow;
 					}
