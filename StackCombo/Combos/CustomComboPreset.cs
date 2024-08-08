@@ -504,41 +504,41 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
 		[CustomComboInfo("Single Target DPS", "", SCH.JobID)]
-		SCH_DPS = 16000,
+		SCH_ST_DPS = 16000,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Bio", "", SCH.JobID)]
 		SCH_DPS_Bio = 16001,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
 		SCH_DPS_Aetherflow = 16002,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
 		SCH_ST_DPS_EnergyDrain = 16003,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Dissipation", "", SCH.JobID)]
 		SCH_DPS_Dissipation = 16004,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Aetherpact", "", SCH.JobID)]
 		SCH_DPS_Aetherpact = 16005,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Seraph", "", SCH.JobID)]
 		SCH_DPS_Seraph = 16006,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Chain Stratagem / Baneful Impact", "", SCH.JobID)]
 		SCH_DPS_ChainStrat = 16007,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Ruin II Movement", "", SCH.JobID)]
 		SCH_DPS_Ruin2Movement = 16008,
 
-		[ParentCombo(SCH_DPS)]
+		[ParentCombo(SCH_ST_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
 		SCH_ST_DPS_Lucid = 16009,
 
@@ -548,17 +548,17 @@ namespace StackCombo.Combos
 
 		[ReplaceSkill(SCH.ArtOfWar, SCH.ArtOfWarII)]
 		[CustomComboInfo("AoE DPS", "", SCH.JobID)]
-		SCH_AoE = 16020,
+		SCH_AoE_DPS = 16020,
 
-		[ParentCombo(SCH_AoE)]
+		[ParentCombo(SCH_AoE_DPS)]
 		[CustomComboInfo("Aetherflow", "", SCH.JobID)]
 		SCH_AoE_Aetherflow = 16021,
 
-		[ParentCombo(SCH_AoE)]
+		[ParentCombo(SCH_AoE_DPS)]
 		[CustomComboInfo("Energy Drain", "", SCH.JobID)]
 		SCH_AoE_DPS_EnergyDrain = 16022,
 
-		[ParentCombo(SCH_AoE)]
+		[ParentCombo(SCH_AoE_DPS)]
 		[CustomComboInfo("Lucid Dreaming", "", SCH.JobID)]
 		SCH_AoE_DPS_Lucid = 16023,
 
@@ -2630,15 +2630,15 @@ namespace StackCombo.Combos
 		[CustomComboInfo("Lucid Dreaming and Blood Drain", "", BLU.JobID)]
 		BLU_ManaGain = 70031,
 
-		[BlueInactive(BLU.GoblinPunch, BLU.Gobskin, BLU.Pomcure)]
-		[ReplaceSkill(BLU.GoblinPunch)]
-		[CustomComboInfo("Gazelle Mappin'", "Mighty Guard, Basic Instinct, Phantom Flurry, Pomcure, Gobskin", BLU.JobID)]
-		BLU_TreasureMappin = 70034,
-
 		[BlueInactive(BLU.AngelWhisper)]
 		[ReplaceSkill(BLU.AngelWhisper)]
 		[CustomComboInfo("Swiftcast > Angel Whisper", "", BLU.JobID)]
 		BLU_Raise = 70033,
+
+		[BlueInactive(BLU.GoblinPunch, BLU.Gobskin, BLU.Pomcure)]
+		[ReplaceSkill(BLU.GoblinPunch)]
+		[CustomComboInfo("Gazelle Mappin'", "Mighty Guard, Basic Instinct, Phantom Flurry, Pomcure, Gobskin - don't use unless ur solo mapping", BLU.JobID)]
+		BLU_TreasureMappin = 70034,
 
 		#endregion
 

@@ -136,7 +136,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is BRD.Troubadour or MCH.Tactician or DNC.ShieldSamba && IsEnabled(CustomComboPreset.ALL_Ranged_Mitigation))
+				if ((actionID is BRD.Troubadour or MCH.Tactician or DNC.ShieldSamba) && IsEnabled(CustomComboPreset.ALL_Ranged_Mitigation))
 				{
 					if ((HasEffectAny(BRD.Buffs.Troubadour) || HasEffectAny(MCH.Buffs.Tactician) || HasEffectAny(DNC.Buffs.ShieldSamba)) && IsOffCooldown(actionID))
 					{

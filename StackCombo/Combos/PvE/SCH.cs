@@ -98,11 +98,11 @@ namespace StackCombo.Combos.PvE
 
 		internal class SCH_ST_DPS : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_DPS;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_ST_DPS;
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Ruin or Broil or Broil2 or Broil3 or Broil4)
+				if ((actionID is Ruin or Broil or Broil2 or Broil3 or Broil4) && IsEnabled(CustomComboPreset.SCH_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.SCH_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -110,7 +110,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.SCH_ST_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.SCH_ST_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -193,10 +193,10 @@ namespace StackCombo.Combos.PvE
 
 		internal class SCH_AoE_DPS : CustomComboClass
 		{
-			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_AoE;
+			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_AoE_DPS;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is ArtOfWar or ArtOfWarII)
+				if ((actionID is ArtOfWar or ArtOfWarII) && IsEnabled(CustomComboPreset.SCH_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -204,7 +204,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SCH_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.SCH_AoE_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.SCH_AoE_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}

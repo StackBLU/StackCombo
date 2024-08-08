@@ -107,7 +107,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is SteelFangs or ReavingFangs && IsEnabled(CustomComboPreset.VPR_ST_DPS))
+				if ((actionID is SteelFangs or ReavingFangs) && IsEnabled(CustomComboPreset.VPR_ST_DPS))
 				{
 					if (CanWeave(actionID))
 					{
@@ -220,7 +220,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is SteelMaw or ReavingMaw && IsEnabled(CustomComboPreset.VPR_AoE_DPS))
+				if ((actionID is SteelMaw or ReavingMaw) && IsEnabled(CustomComboPreset.VPR_AoE_DPS))
 				{
 					if (CanWeave(actionID))
 					{
@@ -285,7 +285,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Vicewinder or HuntersCoil or SwiftskinsCoil && IsEnabled(CustomComboPreset.VPR_Vicewinder))
+				if ((actionID is Vicewinder or HuntersCoil or SwiftskinsCoil) && IsEnabled(CustomComboPreset.VPR_Vicewinder))
 				{
 					if (CanWeave(SwiftskinsCoil))
 					{
@@ -320,7 +320,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Vicepit or HuntersDen or SwiftskinsDen && IsEnabled(CustomComboPreset.VPR_Vicepit))
+				if ((actionID is Vicepit or HuntersDen or SwiftskinsDen) && IsEnabled(CustomComboPreset.VPR_Vicepit))
 				{
 					if (CanWeave(SwiftskinsDen))
 					{

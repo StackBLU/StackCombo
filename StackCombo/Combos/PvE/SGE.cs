@@ -117,7 +117,7 @@ namespace StackCombo.Combos.PvE
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_ST_DPS;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Dosis or Dosis2 or Dosis3)
+				if ((actionID is Dosis or Dosis2 or Dosis3) && IsEnabled(CustomComboPreset.SGE_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -125,7 +125,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.SGE_ST_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.SGE_ST_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -136,7 +136,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_Rhizo) && CanSpellWeave(actionID) &&
-						ActionReady(Rhizomata) && Gauge.Addersgall <= Config.SGE_ST_DPS_Rhizo)
+						ActionReady(Rhizomata) && Gauge.Addersgall <= GetOptionValue(Config.SGE_ST_DPS_Rhizo))
 					{
 						return Rhizomata;
 					}
@@ -147,7 +147,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_ST_DPS_AddersgallProtect) && CanSpellWeave(actionID) &&
-						ActionReady(Druochole) && Gauge.Addersgall >= Config.SGE_ST_DPS_AddersgallProtect)
+						ActionReady(Druochole) && Gauge.Addersgall >= GetOptionValue(Config.SGE_ST_DPS_AddersgallProtect))
 					{
 						return Druochole;
 					}
@@ -191,7 +191,7 @@ namespace StackCombo.Combos.PvE
 			protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SGE_AoE_DPS;
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Dyskrasia or Dyskrasia2)
+				if ((actionID is Dyskrasia or Dyskrasia2) && IsEnabled(CustomComboPreset.SGE_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -199,13 +199,13 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.SGE_AoE_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.SGE_AoE_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_Rhizo) && CanSpellWeave(actionID) &&
-						ActionReady(Rhizomata) && Gauge.Addersgall <= Config.SGE_AoE_DPS_Rhizo)
+						ActionReady(Rhizomata) && Gauge.Addersgall <= GetOptionValue(Config.SGE_AoE_DPS_Rhizo))
 					{
 						return Rhizomata;
 					}
@@ -216,7 +216,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.SGE_AoE_DPS_AddersgallProtect) && CanSpellWeave(actionID) &&
-						ActionReady(Druochole) && Gauge.Addersgall >= Config.SGE_AoE_DPS_AddersgallProtect)
+						ActionReady(Druochole) && Gauge.Addersgall >= GetOptionValue(Config.SGE_AoE_DPS_AddersgallProtect))
 					{
 						return Druochole;
 					}

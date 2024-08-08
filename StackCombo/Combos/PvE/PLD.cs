@@ -83,7 +83,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				if (actionID is FastBlade or RiotBlade or RageOfHalone or RoyalAuthority && IsEnabled(CustomComboPreset.PLD_ST_DPS))
+				if ((actionID is FastBlade or RiotBlade or RageOfHalone or RoyalAuthority) && IsEnabled(CustomComboPreset.PLD_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.PLD_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_ST_Invuln) && ActionReady(HallowedGround))
 					{
@@ -104,7 +104,7 @@ namespace StackCombo.Combos.PvE
 
 						if (IsEnabled(CustomComboPreset.PLD_ST_Sheltron) && CanWeave(actionID) &&
 							ActionReady(Sheltron) && !HasEffect(Buffs.Sheltron) && !HasEffect(Buffs.HolySheltron) &&
-							Gauge.OathGauge >= Config.PLD_ST_SheltronOption)
+							Gauge.OathGauge >= GetOptionValue(Config.PLD_ST_SheltronOption))
 						{
 							return OriginalHook(Sheltron);
 						}
@@ -147,7 +147,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				if (actionID is TotalEclipse or Prominence && IsEnabled(CustomComboPreset.PLD_AoE_DPS))
+				if ((actionID is TotalEclipse or Prominence) && IsEnabled(CustomComboPreset.PLD_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.PLD_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.PLD_AoE_Invuln) && ActionReady(HallowedGround))
 					{
@@ -166,7 +166,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.PLD_AoE_Sheltron) && CanWeave(actionID) &&
 						ActionReady(Sheltron) && !HasEffect(Buffs.Sheltron) && !HasEffect(Buffs.HolySheltron) &&
-						Gauge.OathGauge >= Config.PLD_AoE_SheltronOption)
+						Gauge.OathGauge >= GetOptionValue(Config.PLD_AoE_SheltronOption))
 					{
 						return OriginalHook(Sheltron);
 					}
@@ -193,7 +193,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				if (actionID is Requiescat or Imperator && IsEnabled(CustomComboPreset.PLD_Blades))
+				if ((actionID is Requiescat or Imperator) && IsEnabled(CustomComboPreset.PLD_Blades))
 				{
 					if (ActionReady(OriginalHook(Confiteor)) && HasEffect(Buffs.Requiescat))
 					{
@@ -214,7 +214,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
 			{
-				if (actionID is SpiritsWithin or Expiacion or CircleOfScorn && IsEnabled(CustomComboPreset.PLD_ExpiScorn))
+				if ((actionID is SpiritsWithin or Expiacion or CircleOfScorn) && IsEnabled(CustomComboPreset.PLD_ExpiScorn))
 				{
 					if (ActionReady(OriginalHook(Expiacion)))
 					{

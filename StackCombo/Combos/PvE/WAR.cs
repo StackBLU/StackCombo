@@ -74,7 +74,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is HeavySwing or Maim or StormsPath or StormsEye && IsEnabled(CustomComboPreset.WAR_ST_DPS))
+				if ((actionID is HeavySwing or Maim or StormsPath or StormsEye) && IsEnabled(CustomComboPreset.WAR_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.WAR_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_ST_Invuln) && ActionReady(Holmgang))
 					{
@@ -96,7 +96,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.WAR_ST_FellCleave) && ActionReady(OriginalHook(FellCleave))
 						&& GetBuffRemainingTime(Buffs.SurgingTempest) > 3
-						&& (HasEffect(Buffs.InnerReleaseStacks) || HasEffect(Buffs.NascentChaos) || Gauge.BeastGauge >= Config.WAR_FellCleaveGauge))
+						&& (HasEffect(Buffs.InnerReleaseStacks) || HasEffect(Buffs.NascentChaos) || Gauge.BeastGauge >= GetOptionValue(Config.WAR_FellCleaveGauge)))
 					{
 						return OriginalHook(FellCleave);
 					}
@@ -110,7 +110,7 @@ namespace StackCombo.Combos.PvE
 
 						if (lastComboMove is Maim && ActionReady(StormsPath) && IsEnabled(CustomComboPreset.WAR_ST_StormsEye) & ActionReady(StormsEye))
 						{
-							if (GetBuffRemainingTime(Buffs.SurgingTempest) <= Config.WAR_SurgingRefreshRange)
+							if (GetBuffRemainingTime(Buffs.SurgingTempest) <= GetOptionValue(Config.WAR_SurgingRefreshRange))
 							{
 								return StormsEye;
 							}
@@ -132,7 +132,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Overpower or MythrilTempest && IsEnabled(CustomComboPreset.WAR_AoE_DPS))
+				if ((actionID is Overpower or MythrilTempest) && IsEnabled(CustomComboPreset.WAR_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.WAR_AoE_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.WAR_AoE_Invuln) && ActionReady(Holmgang))
 					{
@@ -154,7 +154,7 @@ namespace StackCombo.Combos.PvE
 
 					if (IsEnabled(CustomComboPreset.WAR_AoE_Decimate) && ActionReady(OriginalHook(Decimate))
 						&& GetBuffRemainingTime(Buffs.SurgingTempest) > 3
-						&& (HasEffect(Buffs.InnerReleaseStacks) || HasEffect(Buffs.NascentChaos) || Gauge.BeastGauge >= Config.WAR_DecimateGauge))
+						&& (HasEffect(Buffs.InnerReleaseStacks) || HasEffect(Buffs.NascentChaos) || Gauge.BeastGauge >= GetOptionValue(Config.WAR_DecimateGauge)))
 					{
 						return OriginalHook(Decimate);
 					}

@@ -90,8 +90,8 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is TrueThrust or RaidenThrust or VorpalThrust or LanceBarrage or Disembowel or SpiralBlow or FullThrust
-					or HeavensThrust or ChaosThrust or ChaoticSpring or FangAndClaw or WheelingThrust && IsEnabled(CustomComboPreset.DRG_ST_DPS))
+				if ((actionID is TrueThrust or RaidenThrust or VorpalThrust or LanceBarrage or Disembowel or SpiralBlow or FullThrust
+					or HeavensThrust or ChaosThrust or ChaoticSpring or FangAndClaw or WheelingThrust) && IsEnabled(CustomComboPreset.DRG_ST_DPS))
 				{
 					if (comboTime > 0)
 					{
@@ -105,26 +105,26 @@ namespace StackCombo.Combos.PvE
 							return OriginalHook(VorpalThrust);
 						}
 
-						if (lastComboMove is Disembowel or SpiralBlow && ActionReady(OriginalHook(ChaosThrust)))
+						if ((lastComboMove is Disembowel or SpiralBlow) && ActionReady(OriginalHook(ChaosThrust)))
 						{
 							return OriginalHook(ChaosThrust);
 						}
-						if (lastComboMove is ChaosThrust or ChaoticSpring && ActionReady(WheelingThrust))
+						if ((lastComboMove is ChaosThrust or ChaoticSpring) && ActionReady(WheelingThrust))
 						{
 							return WheelingThrust;
 						}
 
-						if (lastComboMove is VorpalThrust or LanceBarrage && ActionReady(OriginalHook(FullThrust)))
+						if ((lastComboMove is VorpalThrust or LanceBarrage) && ActionReady(OriginalHook(FullThrust)))
 						{
 							return OriginalHook(FullThrust);
 						}
 
-						if (lastComboMove is FullThrust or HeavensThrust && ActionReady(FangAndClaw))
+						if ((lastComboMove is FullThrust or HeavensThrust) && ActionReady(FangAndClaw))
 						{
 							return FangAndClaw;
 						}
 
-						if (lastComboMove is WheelingThrust or FangAndClaw && ActionReady(Drakesbane))
+						if ((lastComboMove is WheelingThrust or FangAndClaw) && ActionReady(Drakesbane))
 						{
 							return Drakesbane;
 						}
@@ -145,7 +145,7 @@ namespace StackCombo.Combos.PvE
 				{
 					if (comboTime > 0)
 					{
-						if (lastComboMove is DoomSpike or DraconianFury && ActionReady(SonicThrust))
+						if ((lastComboMove is DoomSpike or DraconianFury) && ActionReady(SonicThrust))
 						{
 							return SonicThrust;
 						}

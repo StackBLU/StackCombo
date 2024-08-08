@@ -127,7 +127,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Malefic or Malefic2 or Malefic3 or Malefic4 or FallMalefic)
+				if ((actionID is Malefic or Malefic2 or Malefic3 or Malefic4 or FallMalefic) && IsEnabled(CustomComboPreset.AST_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -135,7 +135,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.AST_ST_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.AST_ST_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.AST_ST_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -165,7 +165,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Gravity or Gravity2)
+				if ((actionID is Gravity or Gravity2) && IsEnabled(CustomComboPreset.AST_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -173,7 +173,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.AST_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.AST_AoE_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.AST_AoE_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}

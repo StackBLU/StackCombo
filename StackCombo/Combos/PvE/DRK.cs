@@ -73,7 +73,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is HardSlash or SyphonStrike or Souleater && IsEnabled(CustomComboPreset.DRK_ST_DPS))
+				if ((actionID is HardSlash or SyphonStrike or Souleater) && IsEnabled(CustomComboPreset.DRK_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.DRK_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_ST_Invuln) && ActionReady(LivingDead))
 					{
@@ -123,7 +123,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Unleash or StalwartSoul && IsEnabled(CustomComboPreset.DRK_AoE_DPS))
+				if ((actionID is Unleash or StalwartSoul) && IsEnabled(CustomComboPreset.DRK_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.DRK_AoE_Abyssal) && PlayerHealthPercentageHp() <= GetOptionValue(Config.DRK_AoE_Abyssal))
 					{

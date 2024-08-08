@@ -115,7 +115,8 @@ namespace StackCombo.Combos.PvE
 						return RainbowDrip;
 					}
 
-					if (IsEnabled(CustomComboPreset.PCT_ST_Lucid) && ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.PCT_ST_Lucid)
+					if (IsEnabled(CustomComboPreset.PCT_ST_Lucid) && ActionReady(All.LucidDreaming)
+						&& CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= GetOptionValue(Config.PCT_ST_Lucid))
 					{
 						return All.LucidDreaming;
 					}
@@ -163,7 +164,8 @@ namespace StackCombo.Combos.PvE
 						return RainbowDrip;
 					}
 
-					if (IsEnabled(CustomComboPreset.PCT_AoE_Lucid) && ActionReady(All.LucidDreaming) && CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= Config.PCT_AoE_Lucid)
+					if (IsEnabled(CustomComboPreset.PCT_AoE_Lucid) && ActionReady(All.LucidDreaming)
+						&& CanSpellWeave(actionID) && LocalPlayer.CurrentMp <= GetOptionValue(Config.PCT_AoE_Lucid))
 					{
 						return All.LucidDreaming;
 					}

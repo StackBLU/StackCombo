@@ -107,7 +107,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Jolt or Jolt2 or Jolt3 or Verthunder or Verthunder3 or Veraero or Veraero3 or Verfire or Verstone && IsEnabled(CustomComboPreset.RDM_ST_DPS))
+				if ((actionID is Jolt or Jolt2 or Jolt3 or Verthunder or Verthunder3 or Veraero or Veraero3 or Verfire or Verstone) && IsEnabled(CustomComboPreset.RDM_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.RDM_ST_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -115,7 +115,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.RDM_ST_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.RDM_ST_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.RDM_ST_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -177,7 +177,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Scatter or Impact or Verthunder2 or Veraero2 && IsEnabled(CustomComboPreset.RDM_AoE_DPS))
+				if ((actionID is Scatter or Impact or Verthunder2 or Veraero2) && IsEnabled(CustomComboPreset.RDM_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.RDM_AoE_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -185,7 +185,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.RDM_AoE_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.RDM_AoE_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.RDM_AoE_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -240,7 +240,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Riposte or Zwerchhau or Redoublement && IsEnabled(CustomComboPreset.RDM_ST_Melee))
+				if ((actionID is Riposte or Zwerchhau or Redoublement) && IsEnabled(CustomComboPreset.RDM_ST_Melee))
 				{
 					if (WasLastSpell(Scorch))
 					{

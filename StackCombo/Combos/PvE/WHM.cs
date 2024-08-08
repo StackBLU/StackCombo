@@ -100,7 +100,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Stone1 or Stone2 or Stone3 or Stone4 or Glare1 or Glare3)
+				if ((actionID is Stone1 or Stone2 or Stone3 or Stone4 or Glare1 or Glare3) && IsEnabled(CustomComboPreset.WHM_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.WHM_ST_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -161,7 +161,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Holy or Holy3)
+				if ((actionID is Holy or Holy3) && IsEnabled(CustomComboPreset.WHM_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -169,7 +169,7 @@ namespace StackCombo.Combos.PvE
 					}
 
 					if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Lucid) && ActionReady(All.LucidDreaming)
-						&& LocalPlayer.CurrentMp <= Config.WHM_AoE_DPS_Lucid && CanSpellWeave(actionID))
+						&& LocalPlayer.CurrentMp <= GetOptionValue(Config.WHM_AoE_DPS_Lucid) && CanSpellWeave(actionID))
 					{
 						return All.LucidDreaming;
 					}
@@ -259,7 +259,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Medica1 or Medica2 or Medica3)
+				if ((actionID is Medica1 or Medica2 or Medica3) && IsEnabled(CustomComboPreset.WHM_AoE_Heals))
 				{
 					if (IsEnabled(CustomComboPreset.WHM_AoE_Heals_Plenary) & ActionReady(PlenaryIndulgence))
 					{

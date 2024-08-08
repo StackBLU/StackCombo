@@ -88,7 +88,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is KeenEdge or BrutalShell or SolidBarrel && IsEnabled(CustomComboPreset.GNB_ST_DPS))
+				if ((actionID is KeenEdge or BrutalShell or SolidBarrel) && IsEnabled(CustomComboPreset.GNB_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.GNB_ST_Invuln) && PlayerHealthPercentageHp() <= GetOptionValue(Config.GNB_ST_Invuln) && ActionReady(Superbolide))
 					{
@@ -150,7 +150,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is DemonSlice or DemonSlaughter && IsEnabled(CustomComboPreset.GNB_AoE_DPS))
+				if ((actionID is DemonSlice or DemonSlaughter) && IsEnabled(CustomComboPreset.GNB_AoE_DPS))
 				{
 					if (ActionReady(Continuation) && HasEffect(Buffs.ReadyToRaze))
 					{

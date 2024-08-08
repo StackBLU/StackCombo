@@ -116,7 +116,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Ruin or Ruin2 or Ruin3 && IsEnabled(CustomComboPreset.SMN_ST_DPS))
+				if ((actionID is Ruin or Ruin2 or Ruin3) && IsEnabled(CustomComboPreset.SMN_ST_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.SMN_ST_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -206,7 +206,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is Outburst or Tridisaster && IsEnabled(CustomComboPreset.SMN_AoE_DPS))
+				if ((actionID is Outburst or Tridisaster) && IsEnabled(CustomComboPreset.SMN_AoE_DPS))
 				{
 					if (IsEnabled(CustomComboPreset.SMN_AoE_Lucid) && ActionReady(All.LucidDreaming) && LocalPlayer.CurrentMp <= 1000)
 					{
@@ -301,7 +301,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is EnergyDrain or Fester or Necrotize && IsEnabled(CustomComboPreset.SMN_EnergyDrainNecro))
+				if ((actionID is EnergyDrain or Fester or Necrotize) && IsEnabled(CustomComboPreset.SMN_EnergyDrainNecro))
 				{
 					if (Gauge.AetherflowStacks > 0)
 					{
@@ -319,7 +319,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is SummonBahamut or SummonPhoenix or SummonSolarBahamut && IsEnabled(CustomComboPreset.SMN_Enkindle))
+				if ((actionID is SummonBahamut or SummonPhoenix or SummonSolarBahamut) && IsEnabled(CustomComboPreset.SMN_Enkindle))
 				{
 					if (CanWeave(actionID) && ActionReady(OriginalHook(EnkindleBahamut)))
 					{

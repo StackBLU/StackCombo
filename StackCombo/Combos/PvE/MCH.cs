@@ -92,7 +92,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is SplitShot or SlugShot or CleanShot or HeatedSplitShot or HeatedSlugShot or HeatedCleanShot && IsEnabled(CustomComboPreset.MCH_ST_DPS))
+				if ((actionID is SplitShot or SlugShot or CleanShot or HeatedSplitShot or HeatedSlugShot or HeatedCleanShot) && IsEnabled(CustomComboPreset.MCH_ST_DPS))
 				{
 					if (CanWeave(actionID))
 					{
@@ -189,12 +189,12 @@ namespace StackCombo.Combos.PvE
 						&& GetCooldownRemainingTime(OriginalHook(AirAnchor)) > 0.5
 						&& GetCooldownRemainingTime(Chainsaw) > 0.5)
 					{
-						if (lastComboMove is SplitShot or HeatedSplitShot && ActionReady(OriginalHook(SlugShot)))
+						if ((lastComboMove is SplitShot or HeatedSplitShot) && ActionReady(OriginalHook(SlugShot)))
 						{
 							return OriginalHook(SlugShot);
 						}
 
-						if (lastComboMove is SlugShot or HeatedSlugShot && ActionReady(OriginalHook(CleanShot)))
+						if ((lastComboMove is SlugShot or HeatedSlugShot) && ActionReady(OriginalHook(CleanShot)))
 						{
 							return OriginalHook(CleanShot);
 						}
@@ -211,7 +211,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is SpreadShot or Scattergun or AutoCrossbow && IsEnabled(CustomComboPreset.MCH_AoE_DPS))
+				if ((actionID is SpreadShot or Scattergun or AutoCrossbow) && IsEnabled(CustomComboPreset.MCH_AoE_DPS))
 				{
 					if (CanWeave(actionID))
 					{
@@ -284,7 +284,7 @@ namespace StackCombo.Combos.PvE
 
 			protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
 			{
-				if (actionID is GaussRound or Ricochet or CheckMate or DoubleCheck && IsEnabled(CustomComboPreset.MCH_GaussRicochet))
+				if ((actionID is GaussRound or Ricochet or CheckMate or DoubleCheck) && IsEnabled(CustomComboPreset.MCH_GaussRicochet))
 				{
 					if (ActionReady(OriginalHook(GaussRound)) && GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet)))
 					{
